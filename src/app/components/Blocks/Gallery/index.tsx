@@ -17,7 +17,7 @@ const Gallery: FC = () => (
   >
     {galleryData.map((photo, index) => (
       <div key={index} className="w-1/2">
-        <Image src={photo} alt={`Cabin Photo ${index + 1}`} width={1350} height={860} />
+        <Image src={photo} alt={`Cabin Photo ${index + 1}`} width={1000} height={700} />
       </div>
     ))}
   </div>

@@ -25,7 +25,7 @@ const Hero: FC<Props> = ({ t }) => {
 
   return (
     <div
-      className="relative py-72 px-8 text-center bg-cover bg-center bg-no-repeat"
+      className="max-w-xLarge m-auto relative py-72 px-8 text-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${randomImage})` }}
     >
       <div className="relative z-10 text-white">

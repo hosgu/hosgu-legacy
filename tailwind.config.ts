@@ -12,6 +12,10 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    maxWidth: {
+      large: '1600px',
+      xLarge: '1600px' // 1920px
+    },
     extend: {
       colors: {
         transparent: 'transparent',
@@ -28,7 +32,10 @@ const config: Config = {
         thunderbird: '#C5261B',
         wild: '#00CF68',
         spring: '#38FF9C',
-        salem: '#038C48'
+        salem: '#038C48',
+        mineShaft: '#333333',
+        wildSand: '#CCC',
+        codGray: '#111'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

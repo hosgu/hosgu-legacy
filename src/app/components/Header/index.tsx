@@ -82,7 +82,7 @@ const Header: FC<Props> = ({
   return (
     <header
       data-component="Header"
-      className="bg-white flex items-center justify-between p-4 text-white sticky border-b border-slate-300 dark:bg-black dark:border-slate-600"
+      className="max-w-xLarge m-auto bg-white flex items-center justify-between p-4 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl"
     >
       <Logo slogan={t.slogan} key={darkMode.toString()} position={logoPosition} />
 

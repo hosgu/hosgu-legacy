@@ -16,7 +16,7 @@ type Props = {
 const Footer: FC<Props> = ({ t, locale }) => (
   <footer
     data-component="Footer"
-    className="bg-black text-gray-300 py-8 flex flex-col items-center pr-6 md:justify-between md:flex-row"
+    className="max-w-xLarge m-auto bg-mineShaft dark:bg-black text-gray-300 py-8 flex flex-col items-center pr-6 md:justify-between md:flex-row"
   >
     <div className="ml-6">
       <Logo style="dark" slogan={t.slogan} />

@@ -1,26 +1,7 @@
-import React, { FC } from 'react'
-
-type Props = {
-  className?: string
-  label?: string
-  onClick?: any
-  isDark?: boolean
-}
-
-const SVG: FC<Props> = ({ className = undefined, onClick = undefined, isDark = false }) => {
-  const bg = isDark ? '#fff' : '#222'
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      viewBox="0.00 0.00 536.00 466.00"
-      className={className}
-      onClick={onClick}
-    >
-      <path
-        fill={bg}
-        d="
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.00 0.00 536.00 466.00">
+<path fill="#000" d="
   M 102.53 144.71
   C 95.08 151.56 88.26 159.21 81.15 166.50
   A 1.38 1.38 0.0 0 1 79.18 166.51
@@ -64,10 +45,8 @@ const SVG: FC<Props> = ({ className = undefined, onClick = undefined, isDark = f
   Q 104.54 149.77 104.01 145.27
   A 0.89 0.89 0.0 0 0 102.53 144.71
   Z"
-      />
-      <path
-        fill={bg}
-        d="
+/>
+<path fill="#000" d="
   M 360.91 68.68
   C 383.59 77.58 403.42 90.95 420.84 107.39
   Q 421.37 107.89 421.63 108.55
@@ -87,9 +66,5 @@ const SVG: FC<Props> = ({ className = undefined, onClick = undefined, isDark = f
   C 317.05 56.44 330.04 58.91 340.89 61.88
   Q 349.89 64.35 360.91 68.68
   Z"
-      />
-    </svg>
-  )
-}
-
-export default SVG
+/>
+</svg>

@@ -3,6 +3,7 @@ import { FC, ReactElement } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
 import { Inter } from 'next/font/google'
+import cx from '@architecturex/utils.cx'
 
 import { ThemeProvider } from '~contexts/ThemeContext'
 import NotFound from '~components/NotFound'
@@ -43,7 +44,7 @@ const RootLayout: FC<Props> = ({ children, params: { locale = 'en-us' } }) => {
       <head>
         <link rel="icon" href="/images/favicon.png" />
       </head>
-      <body className={inter.className}>
+      <body className={cx.join(inter.className, 'bg-wildSand dark:bg-codGray')}>
         <ThemeProvider defaultDarkMode={theme === 'dark'}>{children}</ThemeProvider>
       </body>
     </html>

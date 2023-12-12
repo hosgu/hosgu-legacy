@@ -51,9 +51,9 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
               className={SVNGilroyBold.className}
               style={{ color: isDark ? '#fff' : '#222', marginRight: '1px' }}
             >
-              1B
+              1ST
             </span>
-            <span className={SVNGilroyLight.className}>OOKINGS</span>
+            <span className={SVNGilroyLight.className}>GUEST</span>
           </span>
           <span
             className={cx.join(!isDark ? tw.dark : tw.light, tw.slogan, SVNGilroyLight.className)}

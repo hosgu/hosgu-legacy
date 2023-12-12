@@ -13,12 +13,11 @@ type Props = {
 }
 
 const Blocks: FC<Props> = ({ t }) => (
-  <div data-component="Blocks">
+  <div data-component="Blocks" className="max-w-xLarge m-auto">
     <TryNow t={t} />
     <Features t={t} />
     <Pricing t={t} />
     <Clients t={t} />
-    <Gallery />
   </div>
 )
 

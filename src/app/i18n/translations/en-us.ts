@@ -80,7 +80,7 @@ const translations = {
   showcaseYourProperty: 'Showcase your property to a wider audience and increase bookings.',
   signUp: 'Sign Up',
   simplify: 'Simplify, Streamline, Succeed with 1stGuest',
-  slogan: 'Booking Manager',
+  slogan: 'Smart Booking',
   state: 'State',
   streamlinedOperations: 'Streamlined Operations',
   transforming: 'Transforming',

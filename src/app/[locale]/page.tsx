@@ -22,7 +22,7 @@ const Page: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
 
   return (
     <>
-      <div className="sticky top-0 z-50 bg-white dark:bg-black dark:text-white">
+      <div className="sticky top-0 z-50 dark:text-white">
         <Header t={t} locale={locale} connectedUser={connectedUser} logoPosition="right" />
       </div>
       <Hero t={t} />

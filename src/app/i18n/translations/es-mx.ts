@@ -80,7 +80,7 @@ const translations = {
   showcaseYourProperty: 'Muestre su propiedad a un público más amplio y aumente las reservas.',
   signUp: 'Registro',
   simplify: 'Simplifique, optimice y tenga éxito con 1stGuest.com',
-  slogan: 'Gestor de Reservas',
+  slogan: 'Smart Booking',
   state: 'Estado',
   streamlinedOperations: 'Operaciones optimizadas',
   transforming: 'Transformando',
