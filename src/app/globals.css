@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: black;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+h1 {
+  @apply text-4xl font-semibold text-gray-900 py-4 m-0;
+}
+
+h2 {
+  @apply text-3xl font-semibold text-gray-900 py-4 m-0;
+}
+
+a {
+  @apply no-underline;
+}
+
+a:hover {
+  @apply underline;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+html.dark input:-webkit-autofill,
+html.dark input:-webkit-autofill:hover,
+html.dark input:-webkit-autofill:focus,
+html.dark input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 0 0px 1000px #000 inset !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 9999s; /* Prevent transition from kicking in immediately */
+  -webkit-transition:
+    color 9999s ease-out,
+    background-color 9999s ease-out;
+  -webkit-text-fill-color: currentColor;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+}

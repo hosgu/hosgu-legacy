@@ -1,0 +1,266 @@
+'use client'
+import React, { FC, useState } from 'react'
+import Image from 'next/image'
+import cx from '@architecturex/utils.cx'
+
+import Calendar from '~components/SVG/Calendar'
+import Guests from '~components/SVG/Guests'
+import Reports from '~components/SVG/Reports'
+import User from '~components/SVG/User'
+import Settings from '~components/SVG/Settings'
+import Logout from '~components/SVG/Logout'
+
+const sidebars: any = {
+  none: <div />,
+  calendar: (
+    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+      <div className="flex items-start">
+        <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reservations</h2>
+      </div>
+
+      <div className="mx-2 mt-8 space-y-4">
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Cabaña de Piedra
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Cabaña Victoria
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Hotel San Pancho
+          </h2>
+        </button>
+      </div>
+    </div>
+  ),
+  guests: (
+    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+      <div className="flex items-start">
+        <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Guests</h2>
+      </div>
+
+      <div className="mx-2 mt-8 space-y-4">
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Add new guest
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            All guests
+          </h2>
+        </button>
+      </div>
+    </div>
+  ),
+  reports: (
+    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+      <div className="flex items-start">
+        <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reports</h2>
+      </div>
+
+      <div className="mx-2 mt-8 space-y-4">
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            General Reports
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Sales
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Expenses
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Reservations
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Clients
+          </h2>
+        </button>
+      </div>
+    </div>
+  ),
+  users: (
+    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+      <div className="flex items-start">
+        <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Users</h2>
+      </div>
+
+      <div className="mx-2 mt-8 space-y-4">
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Add new user
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            All users
+          </h2>
+        </button>
+      </div>
+    </div>
+  ),
+  settings: (
+    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+      <div className="flex items-start">
+        <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Settings</h2>
+      </div>
+
+      <div className="mx-2 mt-8 space-y-4">
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            General settings
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Business settings
+          </h2>
+        </button>
+
+        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+            Dahsboard settings
+          </h2>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const Sidebar: FC = () => {
+  const [sidebar, setSidebar] = useState('none')
+
+  const handleSidebar = (name: string) => {
+    if (sidebar === name) {
+      setSidebar('none')
+      return
+    }
+
+    setSidebar(name)
+  }
+
+  return (
+    <aside className="flex">
+      {/* First Column */}
+      <div className="flex h-screen w-12 flex-col items-center space-y-8 border-r border-slate-300 bg-slate-50 py-8  dark:border-slate-700 dark:bg-slate-900 sm:w-16">
+        {/* Logo */}
+
+        <Image
+          src="/images/clients/san-pancho.png"
+          alt="San Pancho"
+          className="rounded-full w-10/12"
+          width={100}
+          height={100}
+        />
+
+        {/* Calendar */}
+        <a
+          href="#"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800':
+                sidebar === 'calendar'
+            }
+          )}
+          onClick={() => handleSidebar('calendar')}
+        >
+          <Calendar label="Reservations" />
+        </a>
+        {/* Guests */}
+        <a
+          href="#"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800': sidebar === 'guests'
+            }
+          )}
+          onClick={() => handleSidebar('guests')}
+        >
+          <Guests label="Guests" />
+        </a>
+        {/* Reports */}
+        <a
+          href="#"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800':
+                sidebar === 'reports'
+            }
+          )}
+          onClick={() => handleSidebar('reports')}
+        >
+          <Reports label="Reports" />
+        </a>
+        {/* Users */}
+        <a
+          href="#"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800': sidebar === 'users'
+            }
+          )}
+          onClick={() => handleSidebar('users')}
+        >
+          <User label="Users" />
+        </a>
+        {/* Settings */}
+        <a
+          href="#"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800':
+                sidebar === 'settings'
+            }
+          )}
+          onClick={() => handleSidebar('settings')}
+        >
+          <Settings label="Settings" />
+        </a>
+        {/* Logout */}
+        <a
+          href="/logout"
+          className={cx.join(
+            'rounded-lg p-1.5 transition-colors duration-200 focus:outline-none hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800',
+            {
+              'text-blue-600 bg-blue-100 hover:bg-slate-200 dark:bg-slate-800': sidebar === 'logout'
+            }
+          )}
+          onClick={() => handleSidebar('logout')}
+        >
+          <Logout label="Logout" />
+        </a>
+      </div>
+      {/* Second Column */}
+      {sidebars[sidebar]}
+    </aside>
+  )
+}
+
+export default Sidebar

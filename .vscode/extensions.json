@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml",
+    "GraphQL.vscode-graphql",
+    "aaron-bond.better-comments",
+    "zengxingxin.sort-js-object-keys",
+    "jaspernorth.vscode-pigments",
+    "dsznajder.es7-react-js-snippets",
+    "github.copilot",
+    "bradlc.vscode-tailwindcss",
+    "miguelsolorio.fluent-icons",
+    "miguelsolorio.symb",
+    "henriiik.vscode-sort",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
