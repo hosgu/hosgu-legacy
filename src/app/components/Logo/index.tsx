@@ -37,10 +37,6 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
           'flex-row': position === 'right'
         })}
       >
-        <div>
-          <SVGLogo className="w-16" isDark={isDark} />
-        </div>
-
         <div
           className={cx.join('flex flex-col', {
             'ml-2': position === 'right'
@@ -54,11 +50,6 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
               1ST
             </span>
             <span className={SVNGilroyLight.className}>GUEST</span>
-          </span>
-          <span
-            className={cx.join(!isDark ? tw.dark : tw.light, tw.slogan, SVNGilroyLight.className)}
-          >
-            {slogan}
           </span>
         </div>
       </div>

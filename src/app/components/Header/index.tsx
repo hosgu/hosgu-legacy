@@ -60,15 +60,9 @@ const Header: FC<Props> = ({
   ) : (
     ''
   )
-  const signupLink = showSignup ? (
-    <Link href="/signup" locale={locale}>
-      {t.signUp}
-    </Link>
-  ) : (
-    ''
-  )
+
   const tryForFreeButton = showTryForFree ? (
-    <Button color="secondary" bold shape="circle" href={`/${locale}/signup`} rightSpaces={3}>
+    <Button color="secondary" bold shape="rounded" href={`/${locale}/signup`} rightSpaces={3}>
       {t.tryForFree}
     </Button>
   ) : (
@@ -82,33 +76,14 @@ const Header: FC<Props> = ({
   return (
     <header
       data-component="Header"
-      className="max-w-xLarge m-auto bg-white flex items-center justify-between p-4 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl"
+      className="max-w-xLarge m-auto bg-white flex items-center justify-between p-6 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl"
     >
       <Logo slogan={t.slogan} key={darkMode.toString()} position={logoPosition} />
-
-      {showNav && (
-        <Nav
-          items={[
-            <Link key={t.reservations} href="#">
-              {t.reservations}
-            </Link>,
-            <Link key={t.features} href="#">
-              {t.features}
-            </Link>,
-            <Link key={t.pricing} href="#">
-              {t.pricing}
-            </Link>,
-            <Link key={t.trustedBy} href="#">
-              {t.trustedBy}
-            </Link>
-          ]}
-        />
-      )}
 
       <div className="flex justify-between">
         {showSecondaryNav && !isLogged && (
           <div>
-            <Nav isSecondaryNav items={[loginLink || loginButton, signupLink, tryForFreeButton]} />
+            <Nav isSecondaryNav items={[loginLink || loginButton, tryForFreeButton]} />
           </div>
         )}
 
