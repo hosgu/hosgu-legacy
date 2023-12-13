@@ -49,7 +49,7 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
             >
               1ST
             </span>
-            <span className={SVNGilroyLight.className}>GUEST</span>
+            <span className={SVNGilroyLight.className}>GUEST.com</span>
           </span>
         </div>
       </div>

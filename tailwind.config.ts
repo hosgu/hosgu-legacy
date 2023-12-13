@@ -14,7 +14,7 @@ const config: Config = {
   theme: {
     maxWidth: {
       large: '1600px',
-      xLarge: '1600px' // 1920px
+      xLarge: '1920px'
     },
     extend: {
       colors: {

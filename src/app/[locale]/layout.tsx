@@ -12,7 +12,7 @@ import { allowedLocales } from '~/app/i18n'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '1stGuest.com'
+  title: '1STGuest.com'
 }
 
 export const viewport: Viewport = {

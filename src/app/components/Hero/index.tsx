@@ -23,7 +23,6 @@ const Hero: FC<Props> = ({ t }) => {
             time—empowering you to focus on other areas of your business. Transform your booking
             experience and leverage cutting-edge tools for effortless expansion with 1STGUEST.
           </p>
-          d
         </div>
 
         <div className="max-w-md mx-auto bg-white p-8 border border-gray-200 mt-10 rounded">
@@ -147,7 +146,7 @@ const Hero: FC<Props> = ({ t }) => {
             </div>
           </form>
           <p className="text-xs text-gray-600 mt-4">
-            We're committed to your privacy. Mindbody uses the information you provide to us to
+            We're committed to your privacy. 1STGuest.com uses the information you provide to us to
             contact you about our relevant content, products, and services. You may unsubscribe at
             any time.{' '}
             <a href="#" className="text-indigo-600 hover:text-indigo-500">

@@ -62,7 +62,7 @@ const Header: FC<Props> = ({
   )
 
   const tryForFreeButton = showTryForFree ? (
-    <Button color="secondary" bold shape="rounded" href={`/${locale}/signup`} rightSpaces={3}>
+    <Button color="secondary" bold shape="circle" href={`/${locale}/signup`} rightSpaces={3}>
       {t.tryForFree}
     </Button>
   ) : (
