@@ -109,21 +109,6 @@ const Hero: FC<Props> = ({ t }) => {
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <fieldset>
-                <legend className="block text-gray-700 text-sm font-bold mb-2">
-                  Are you a current Mindbody Business customer?
-                </legend>
-                <label className="inline-flex items-center">
-                  <input type="radio" className="form-radio" name="mindbody-customer" value="yes" />
-                  <span className="ml-2">Yes</span>
-                </label>
-                <label className="inline-flex items-center ml-6">
-                  <input type="radio" className="form-radio" name="mindbody-customer" value="no" />
-                  <span className="ml-2">No</span>
-                </label>
-              </fieldset>
-            </div>
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="industry">
                 Industry
