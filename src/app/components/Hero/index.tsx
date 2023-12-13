@@ -17,7 +17,7 @@ const Hero: FC<Props> = ({ t }) => {
       <div className="flex justify-between items-center flex-col lg:flex-row">
         <div className="relative z-10 align-center">
           <h1>Boost Your Business Revenue by +30% in just 6 months</h1>
-          <p>
+          <p className="pr-6">
             Elevate your bookings by +30% in just six months. Our intelligent platform streamlines
             your workflow, slashing operational expenses and freeing up to 80% of your
             time—empowering you to focus on other areas of your business. Transform your booking
