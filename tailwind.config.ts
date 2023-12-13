@@ -35,7 +35,7 @@ const config: Config = {
         salem: '#038C48',
         mineShaft: '#333333',
         wildSand: '#CCC',
-        codGray: '#111'
+        codGray: '#222'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
