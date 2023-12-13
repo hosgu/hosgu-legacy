@@ -1,5 +1,6 @@
-import React, { FC, useId } from 'react'
+import React, { FC } from 'react'
 
+import { Button } from '@architecturex/components.button'
 import { Translations } from '~app/i18n'
 
 type Props = {
@@ -121,13 +122,10 @@ const Hero: FC<Props> = ({ t }) => {
                 {/* Populate with industries */}
               </select>
             </div>
-            <div className="flex items-center justify-between">
-              <button
-                className="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
+            <div className="flex items-center justify-center">
+              <Button color="dark" fullWidth shape="square">
                 Let's Talk
-              </button>
+              </Button>
             </div>
           </form>
           <p className="text-xs text-gray-600 mt-4">
