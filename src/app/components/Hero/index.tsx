@@ -107,7 +107,7 @@ const Hero: FC<Props> = ({ t }) => {
       className="max-w-xLarge m-auto relative h-[900px] lg:h-screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white"
       style={{ backgroundImage: `url(${image})` }}
     >
-      <div className="flex justify-between items-center flex-col lg:flex-row pt-5 lg:pt-60">
+      <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-60">
         <div className="relative z-10 align-center">
           <h1>Boost Your Business Revenue by +30% in just 6 months</h1>
           <p className="pr-6 pb-4">
@@ -118,7 +118,7 @@ const Hero: FC<Props> = ({ t }) => {
           </p>
         </div>
 
-        <div className="border-gray-300 shadow-xl rounded bg-white dark:bg-gray-800 w-[400px] md:w-[480px] lg:w-[800px] pt-6">
+        <div className="border-gray-300 shadow-xl rounded bg-white dark:bg-gray-800 w-[400px] md:w-[480px] xl:w-[800px] pt-6">
           {form}
 
           <div className="flex justify-center mb-6 mt-6">
