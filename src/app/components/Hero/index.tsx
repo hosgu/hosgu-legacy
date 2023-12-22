@@ -58,7 +58,19 @@ const Hero: FC<Props> = ({ t }) => {
           className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         />
       </div>
-      <PhoneNumberInput />
+      <div className="p-4 text-left">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
+          htmlFor="username"
+        >
+          Business phone
+        </label>
+        <input
+          type="text"
+          placeholder="Business phone"
+          className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
     </div>,
     <div key="row-3" className="flex">
       <div className="p-4 text-left">
@@ -85,35 +97,6 @@ const Hero: FC<Props> = ({ t }) => {
         <input
           type="text"
           placeholder="City"
-          className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-    </div>,
-    <div key="row-4" className="flex">
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="state"
-        >
-          State
-        </label>
-        <input
-          type="text"
-          placeholder="State"
-          className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="country"
-        >
-          Country
-        </label>
-        <input
-          type="text"
-          placeholder="Mexico"
           className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         />
       </div>
