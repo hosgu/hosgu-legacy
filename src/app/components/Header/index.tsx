@@ -30,12 +30,10 @@ type Props = {
 }
 
 const Header: FC<Props> = ({
-  showNav = true,
   showSecondaryNav = true,
   showHamburgerMenu = true,
   showLogin = true,
   showLoginButton = false,
-  showSignup = true,
   showTryForFree = true,
   connectedUser = {},
   locale,
@@ -46,6 +44,14 @@ const Header: FC<Props> = ({
 
   const { darkMode } = useTheme()
 
+  const handleTryFree = () => {
+    const inputElement = document.getElementById('firstName')
+
+    if (inputElement) {
+      inputElement.focus()
+    }
+  }
+
   const loginLink = showLogin ? (
     <Link href="/login" locale={locale}>
       {t.login}
@@ -53,16 +59,9 @@ const Header: FC<Props> = ({
   ) : (
     ''
   )
-  const loginButton = showLoginButton ? (
-    <Button bold shape="circle" href={`/${locale}/login`} rightSpaces={3}>
-      {t.login}
-    </Button>
-  ) : (
-    ''
-  )
 
   const tryForFreeButton = showTryForFree ? (
-    <Button color="secondary" bold shape="circle" href={`/${locale}/signup`} rightSpaces={3}>
+    <Button color="secondary" bold shape="circle" onClick={handleTryFree} rightSpaces={3}>
       {t.tryForFree}
     </Button>
   ) : (
@@ -83,7 +82,7 @@ const Header: FC<Props> = ({
       <div className="flex justify-between">
         {showSecondaryNav && !isLogged && (
           <div>
-            <Nav isSecondaryNav items={[loginLink || loginButton, tryForFreeButton]} />
+            <Nav isSecondaryNav items={[loginLink, tryForFreeButton]} />
           </div>
         )}
 

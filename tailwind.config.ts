@@ -20,6 +20,7 @@ const config: Config = {
       colors: {
         transparent: 'transparent',
         cinnabar: '#E23428',
+        caribbean: '#01C98F',
         eden: '#135846',
         elephant: '#104235',
         emerald: '#43D440',
@@ -35,7 +36,8 @@ const config: Config = {
         salem: '#038C48',
         mineShaft: '#333333',
         wildSand: '#CCC',
-        codGray: '#222'
+        codGray: '#111',
+        pacific: '#04B0B6'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
