@@ -67,7 +67,7 @@ const Hero: FC<Props> = ({ t }) => {
         </label>
         <input
           type="text"
-          placeholder="Business phone"
+          placeholder="+52 312 123 4567"
           className="border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         />
       </div>
