@@ -117,7 +117,7 @@ const Header: FC<Props> = ({
           </div>
         )}
 
-        <div className="ml-2">
+        <div className="ml-2 lg:mt-2">
           <ThemeSwitcher t={t} />
         </div>
 
