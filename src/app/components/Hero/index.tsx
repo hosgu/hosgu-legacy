@@ -1,37 +1,98 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useState, ChangeEvent } from 'react'
 
 import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
 import { Translations } from '~app/i18n'
-import Select from '~components/Select'
 
 type Props = {
   t: Translations
 }
 
 const Hero: FC<Props> = ({ t }) => {
-  const image = '/images/waves.png'
+  const [values, setValues] = useState({
+    fullName: '',
+    businessName: '',
+    businessEmail: '',
+    businessPhone: '',
+    businessWebsite: '',
+    country: ''
+  })
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+
+    setValues({ ...values, [name]: value })
+  }
 
   const form = [
     <div key="row-1" className="flex">
-      <Input id="fullName" label="Full name" name="fullName" placeholder="Full name" />
-      <Input label="Business name" name="businessName" placeholder="Business name" />
+      <Input
+        id="fullName"
+        label="Full name"
+        name="fullName"
+        placeholder="Full name"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.fullName}
+      />
+      <Input
+        label="Business name"
+        name="businessName"
+        placeholder="Business name"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.businessName}
+      />
     </div>,
     <div key="row-2" className="flex">
-      <Input label="Business email" name="businessEmail" placeholder="Business email" />
-      <Input label="Business phone" name="businessPhone" placeholder="Business phone" />
+      <Input
+        label="Business email"
+        name="businessEmail"
+        placeholder="Business email"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.businessEmail}
+      />
+      <Input
+        label="Business phone"
+        name="businessPhone"
+        placeholder="Business phone"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.businessPhone}
+      />
     </div>,
     <div key="row-3" className="flex">
-      <Input label="Business website" name="businessWebsite" placeholder="https://" />
-      <Input label="Country" name="country" placeholder="Country" />
+      <Input
+        label="Business website"
+        name="businessWebsite"
+        placeholder="https://"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.businessWebsite}
+      />
+      <Input
+        label="Country"
+        name="country"
+        placeholder="Country"
+        error
+        errorText="This is an error"
+        onChange={handleChange}
+        value={values.country}
+      />
     </div>
   ]
 
   return (
     <div
       className="max-w-xLarge m-auto relative h-[900px] lg:h-screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white dark:bg-gray-300"
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ backgroundImage: `url('/images/waves.png')` }}
     >
       <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-60">
         <div className="relative z-10 align-center">

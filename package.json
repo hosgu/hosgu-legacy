@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@architecturex/components.button": "^1.1.21",
-    "@architecturex/components.input": "^1.0.20",
+    "@architecturex/components.input": "^1.0.24",
     "@architecturex/components.switcher": "^1.0.18",
     "@architecturex/utils.api": "^1.0.20",
     "@architecturex/utils.cookies": "1.0.8",
