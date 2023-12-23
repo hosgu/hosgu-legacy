@@ -33,7 +33,6 @@ const Header: FC<Props> = ({
   showSecondaryNav = true,
   showHamburgerMenu = true,
   showLogin = true,
-  showLoginButton = false,
   showTryForFree = true,
   connectedUser = {},
   locale,
@@ -45,7 +44,7 @@ const Header: FC<Props> = ({
   const { darkMode } = useTheme()
 
   const handleTryFree = () => {
-    const inputElement = document.getElementById('firstName')
+    const inputElement = document.getElementById('fullName')
 
     if (inputElement) {
       inputElement.focus()

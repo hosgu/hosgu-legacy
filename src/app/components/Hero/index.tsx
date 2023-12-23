@@ -15,96 +15,22 @@ const Hero: FC<Props> = ({ t }) => {
 
   const form = [
     <div key="row-1" className="flex">
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          placeholder="Full name"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Business name
-        </label>
-        <input
-          type="text"
-          placeholder="Business name"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
+      <Input id="fullName" label="Full name" name="fullName" placeholder="Full name" />
+      <Input label="Business name" name="businessName" placeholder="Business name" />
     </div>,
     <div key="row-2" className="flex">
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Business email
-        </label>
-        <input
-          type="text"
-          placeholder="Business email"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Business phone
-        </label>
-        <input
-          type="text"
-          placeholder="+52 312 123 4567"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
+      <Input label="Business email" name="businessEmail" placeholder="Business email" />
+      <Input label="Business phone" name="businessPhone" placeholder="Business phone" />
     </div>,
     <div key="row-3" className="flex">
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Business website
-        </label>
-        <input
-          type="text"
-          placeholder="https://"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-
-      <div className="p-4 text-left">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          htmlFor="username"
-        >
-          Country
-        </label>
-        <input
-          type="text"
-          placeholder="Mexico"
-          className="w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
+      <Input label="Business website" name="businessWebsite" placeholder="https://" />
+      <Input label="Country" name="country" placeholder="Country" />
     </div>
   ]
 
   return (
     <div
-      className="max-w-xLarge m-auto relative h-[900px] lg:h-screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white"
+      className="max-w-xLarge m-auto relative h-[900px] lg:h-screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white dark:bg-gray-300"
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-60">

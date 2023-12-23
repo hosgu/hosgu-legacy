@@ -12,7 +12,7 @@ type Props = {
 
 const Features: FC<Props> = ({ t }) => {
   return (
-    <div data-component="Features" className="bg-white px-8 py-20">
+    <div data-component="Features" className="bg-white dark:bg-gray-300 px-8 py-20">
       <h2 className="font-bold mb-10 text-3xl text-center">
         Manage your business from start to end
       </h2>
