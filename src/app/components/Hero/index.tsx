@@ -3,6 +3,7 @@ import React, { FC, useState, ChangeEvent } from 'react'
 
 import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
+import is from '@architecturex/utils.is'
 import { Translations } from '~app/i18n'
 
 type Props = {
@@ -19,10 +20,61 @@ const Hero: FC<Props> = ({ t }) => {
     country: ''
   })
 
+  const [errors, setErrors] = useState({
+    fullName: '',
+    businessName: '',
+    businessEmail: '',
+    businessPhone: '',
+    businessWebsite: '',
+    country: ''
+  })
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
     setValues({ ...values, [name]: value })
+  }
+
+  const handleSubmit = () => {
+    let fullName = ''
+    let businessName = ''
+    let businessEmail = ''
+    let businessPhone = ''
+    let businessWebsite = ''
+    let country = ''
+
+    if (!values.fullName) {
+      fullName = 'Required'
+    }
+
+    if (!values.businessName) {
+      businessName = 'Required'
+    }
+
+    if (!values.businessEmail) {
+      businessEmail = 'Required'
+    }
+
+    if (!values.businessPhone) {
+      businessPhone = 'Required'
+    }
+
+    if (!values.businessWebsite) {
+      businessWebsite = 'Required'
+    }
+
+    if (!values.country) {
+      country = 'Required'
+    }
+
+    setErrors({
+      fullName,
+      businessName,
+      businessEmail,
+      businessPhone,
+      businessWebsite,
+      country
+    })
   }
 
   const form = [
@@ -32,8 +84,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Full name"
         name="fullName"
         placeholder="Full name"
-        error
-        errorText="This is an error"
+        errorText={errors.fullName}
         onChange={handleChange}
         value={values.fullName}
       />
@@ -41,8 +92,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Business name"
         name="businessName"
         placeholder="Business name"
-        error
-        errorText="This is an error"
+        errorText={errors.businessName}
         onChange={handleChange}
         value={values.businessName}
       />
@@ -52,8 +102,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Business email"
         name="businessEmail"
         placeholder="Business email"
-        error
-        errorText="This is an error"
+        errorText={errors.businessEmail}
         onChange={handleChange}
         value={values.businessEmail}
       />
@@ -61,8 +110,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Business phone"
         name="businessPhone"
         placeholder="Business phone"
-        error
-        errorText="This is an error"
+        errorText={errors.businessPhone}
         onChange={handleChange}
         value={values.businessPhone}
       />
@@ -72,8 +120,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Business website"
         name="businessWebsite"
         placeholder="https://"
-        error
-        errorText="This is an error"
+        errorText={errors.businessWebsite}
         onChange={handleChange}
         value={values.businessWebsite}
       />
@@ -81,8 +128,7 @@ const Hero: FC<Props> = ({ t }) => {
         label="Country"
         name="country"
         placeholder="Country"
-        error
-        errorText="This is an error"
+        errorText={errors.country}
         onChange={handleChange}
         value={values.country}
       />
@@ -109,7 +155,12 @@ const Hero: FC<Props> = ({ t }) => {
           {form}
 
           <div className="flex justify-center mb-6 mt-6">
-            <Button color="secondary" shape="rounded" style={{ width: '92%' }}>
+            <Button
+              color="secondary"
+              shape="rounded"
+              onClick={handleSubmit}
+              style={{ width: '92%' }}
+            >
               Get Started
             </Button>
           </div>
