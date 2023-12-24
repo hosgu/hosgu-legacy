@@ -48,7 +48,7 @@
     "@architecturex/utils.cx": "1.1.1",
     "@architecturex/utils.device": "1.0.3",
     "@architecturex/utils.i18n": "^1.0.1",
-    "@architecturex/utils.is": "1.0.3",
+    "@architecturex/utils.is": "1.0.6",
     "@architecturex/utils.security": "^1.0.11",
     "@architecturex/utils.slug": "^1.0.4",
     "autoprefixer": "10.4.16",

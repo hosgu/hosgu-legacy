@@ -31,8 +31,15 @@ const Hero: FC<Props> = ({ t }) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
+    let newValue = value
 
-    setValues({ ...values, [name]: value })
+    if (name === 'businessPhone') {
+      if (newValue.length > 16) {
+        return false
+      }
+    }
+
+    setValues({ ...values, [name]: newValue })
   }
 
   const handleSubmit = () => {
@@ -44,27 +51,27 @@ const Hero: FC<Props> = ({ t }) => {
     let country = ''
 
     if (!values.fullName) {
-      fullName = 'Required'
+      fullName = t.required
     }
 
     if (!values.businessName) {
-      businessName = 'Required'
+      businessName = t.required
     }
 
-    if (!values.businessEmail) {
-      businessEmail = 'Required'
+    if (!is(values.businessEmail).email()) {
+      businessEmail = t.invalidEmail
     }
 
-    if (!values.businessPhone) {
-      businessPhone = 'Required'
+    if (!is(values.businessPhone).phone()) {
+      businessPhone = t.invalidPhone
     }
 
-    if (!values.businessWebsite) {
-      businessWebsite = 'Required'
+    if (!is(values.businessWebsite).url()) {
+      businessWebsite = t.invalidUrl
     }
 
     if (!values.country) {
-      country = 'Required'
+      country = t.required
     }
 
     setErrors({
@@ -81,17 +88,17 @@ const Hero: FC<Props> = ({ t }) => {
     <div key="row-1" className="flex">
       <Input
         id="fullName"
-        label="Full name"
+        label={t.fullName}
         name="fullName"
-        placeholder="Full name"
+        placeholder={t.fullName}
         errorText={errors.fullName}
         onChange={handleChange}
         value={values.fullName}
       />
       <Input
-        label="Business name"
+        label={t.businessName}
         name="businessName"
-        placeholder="Business name"
+        placeholder={t.businessName}
         errorText={errors.businessName}
         onChange={handleChange}
         value={values.businessName}
@@ -99,17 +106,17 @@ const Hero: FC<Props> = ({ t }) => {
     </div>,
     <div key="row-2" className="flex">
       <Input
-        label="Business email"
+        label={t.businessEmail}
         name="businessEmail"
-        placeholder="Business email"
+        placeholder={t.businessEmail}
         errorText={errors.businessEmail}
         onChange={handleChange}
         value={values.businessEmail}
       />
       <Input
-        label="Business phone"
+        label={t.businessPhone}
         name="businessPhone"
-        placeholder="Business phone"
+        placeholder={t.businessPhonePlaceholder}
         errorText={errors.businessPhone}
         onChange={handleChange}
         value={values.businessPhone}
@@ -117,7 +124,7 @@ const Hero: FC<Props> = ({ t }) => {
     </div>,
     <div key="row-3" className="flex">
       <Input
-        label="Business website"
+        label={t.businessWebsite}
         name="businessWebsite"
         placeholder="https://"
         errorText={errors.businessWebsite}
@@ -125,9 +132,9 @@ const Hero: FC<Props> = ({ t }) => {
         value={values.businessWebsite}
       />
       <Input
-        label="Country"
+        label={t.country}
         name="country"
-        placeholder="Country"
+        placeholder={t.country}
         errorText={errors.country}
         onChange={handleChange}
         value={values.country}
@@ -142,13 +149,8 @@ const Hero: FC<Props> = ({ t }) => {
     >
       <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-60">
         <div className="relative z-10 align-center">
-          <h1>Boost Your Business Revenue by +30% in just 6 months</h1>
-          <p className="pr-6 pb-4">
-            Elevate your bookings by +30% in just six months. Our intelligent platform streamlines
-            your workflow, slashing operational expenses and freeing up to 80% of your
-            time—empowering you to focus on other areas of your business. Transform your booking
-            experience and leverage cutting-edge tools for effortless expansion with 1STGUEST.
-          </p>
+          <h1>{t.boostYourBusiness}</h1>
+          <p className="pr-6 pb-4">{t.elevateYourBookings}</p>
         </div>
 
         <div className="border-gray-300 shadow-xl rounded bg-white dark:bg-gray-800 w-[400px] md:w-[480px] xl:w-[800px] pt-6">
@@ -161,7 +163,7 @@ const Hero: FC<Props> = ({ t }) => {
               onClick={handleSubmit}
               style={{ width: '92%' }}
             >
-              Get Started
+              {t.getStarted}
             </Button>
           </div>
 
@@ -169,9 +171,7 @@ const Hero: FC<Props> = ({ t }) => {
             className="flex justify-center mb-6 text-center dark:text-white p-2"
             style={{ fontSize: '10px' }}
           >
-            We are committed to your privacy. 1STGuest.com uses the information you provide to us to
-            contact you about our relevant content, products, and services. You may unsubscribe at
-            any time.
+            {t.weAreCommitted}
           </div>
         </div>
       </div>
