@@ -1,3 +1,0 @@
-# Business Goals
-
-At 1st Guest, our primary objective is to carve out a significant presence in the property management software sector, specifically catering to small and medium-sized hospitality businesses within the next two years. We are dedicated to expanding our customer base, focusing on local and regional markets, and constantly enhancing our software with user-centric features and innovative technologies like AI. Financially, we aim to reach profitability by the end of the third year, setting the stage for further expansion and diversification. Central to our mission is ensuring high levels of customer satisfaction and retention, reflecting our commitment to providing quality, value-driven solutions.
