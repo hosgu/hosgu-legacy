@@ -1,5 +1,3 @@
-import path from 'path'
-
 import { Configuration } from './types/config'
 
 const domainName = '1stguest.com'

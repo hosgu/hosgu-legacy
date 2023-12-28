@@ -61,9 +61,9 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
   if (!customRoutes || !customRoutes['/:id'] || customRoutes['/:id'].method !== 'DELETE') {
     router.delete('/:id', async (req: Request, res: Response) => {
       try {
-        await handler.delete(req.params.id)
+        const deletedItem = await handler.delete(req.params.id)
 
-        res.status(204).send()
+        res.status(204).json(deletedItem)
       } catch (error) {
         handleErrorResponse(error, res)
       }

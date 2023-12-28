@@ -7,7 +7,7 @@ export const setting = pgTable('setting', {
     .references(() => user.id)
     .notNull(),
   currency: varchar('currency', { length: 10 }).notNull().default('USD'),
-  language: varchar('language', { length: 10 }).notNull().default('en'),
+  language: varchar('language', { length: 10 }).notNull().default('en-us'),
   timezone: varchar('timezone', { length: 50 }).notNull().default('UTC'),
   taxesPercentage: integer('taxesPercentage').notNull().default(0),
   minimumBooking: integer('minimumBooking').notNull().default(1),

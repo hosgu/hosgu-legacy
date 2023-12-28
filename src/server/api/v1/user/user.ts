@@ -108,16 +108,9 @@ class CRUD extends CRUDHandler<User> {
       password: encryptedPassword
     }
 
-    await super.create(toInsert)
+    const newUser = await super.create(toInsert)
 
-    const newUserData = await this.db
-      .select(this.selectedFields)
-      .from(this.table)
-      .where(this.sql`email = ${user.email}`)
-
-    return {
-      items: newUserData
-    }
+    return newUser
   }
 
   async by(by: any): Promise<any> {

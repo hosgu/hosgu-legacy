@@ -1,15 +1,13 @@
 'use server'
 import security from '@architecturex/utils.security'
+import core from '@architecturex/utils.core'
+
 import { APIResponse, CreatedItem } from '~/types'
-import * as services from '../services'
+import * as services from '../services/signup'
 
 export const initialSignupAction = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
-  const fullName = e.get('fullName') as string
-  const businessName = e.get('businessName') as string
-  const businessEmail = e.get('businessEmail') as string
-  const businessPhone = e.get('businessPhone') as string
-  const businessWebsite = e.get('businessWebsite') as string
-  const country = e.get('country') as string
+  const { fullName, businessName, businessEmail, businessPhone, businessWebsite, country } =
+    core.formData.get(e)
 
   if (
     !fullName ||
@@ -37,6 +35,9 @@ export const initialSignupAction = async (e: FormData): Promise<APIResponse<Crea
     businessWebsite,
     country
   })
+
+  if (response.ok) {
+  }
 }
 
 export const signupServerAction = async (e: FormData): Promise<APIResponse<CreatedItem>> => {

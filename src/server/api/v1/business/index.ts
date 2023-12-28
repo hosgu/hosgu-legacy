@@ -6,7 +6,7 @@ import { handleErrorResponse } from '../../error'
 
 const CRUDHandler = new CRUD(db)
 
-const customUserRoutes: Record<string, { method: string; handler: RequestHandler }> = {
+const customBusinessRoutes: Record<string, { method: string; handler: RequestHandler }> = {
   '/user/:userId': {
     method: 'GET',
     handler: async (req, res) => {
@@ -25,6 +25,6 @@ const customUserRoutes: Record<string, { method: string; handler: RequestHandler
   }
 }
 
-const router = createCRUDRoutes(CRUD, customUserRoutes)
+const router = createCRUDRoutes(CRUD, customBusinessRoutes)
 
 export default router

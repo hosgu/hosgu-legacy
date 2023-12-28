@@ -1,10 +1,12 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-
 import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
 import is from '@architecturex/utils.is'
+import core from '@architecturex/utils.core'
+
 import { Translations } from '~app/i18n'
+import { initialSignupAction } from '../../actions/signup'
 
 type Props = {
   t: Translations
@@ -42,7 +44,7 @@ const Hero: FC<Props> = ({ t }) => {
     setValues({ ...values, [name]: newValue })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let fullName = ''
     let businessName = ''
     let businessEmail = ''
@@ -82,6 +84,10 @@ const Hero: FC<Props> = ({ t }) => {
       businessWebsite,
       country
     })
+
+    const formData = core.formData.set(new FormData(), values)
+
+    const response = await initialSignupAction(formData)
   }
 
   const form = [

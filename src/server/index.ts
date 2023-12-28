@@ -79,13 +79,6 @@ nextApp.prepare().then(() => {
     next()
   })
 
-  // Custom middleware
-  app.use((req: any, res: Response, next: NextFunction) => {
-    req.cwd = process.cwd()
-
-    next()
-  })
-
   // Traffic handling
   app.all('*', (req: Request, res: Response) => handle(req, res))
 
