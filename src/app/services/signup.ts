@@ -38,6 +38,10 @@ export const initialSignup = async ({
         website: businessWebsite,
         code,
         active: false
+      },
+      error: {
+        code: 'EMAIL_ALREADY_EXISTS',
+        message: 'emailAlreadyExists'
       }
     },
     ({ items }: any) => ({
@@ -64,6 +68,10 @@ export const initialSignup = async ({
         country,
         zipCode: '',
         active: true
+      },
+      error: {
+        code: 'SERVER_ERROR_WHILE_CREATING_BUSINESS',
+        message: 'serverErrorWhileCreatingBusiness'
       }
     }),
     ({ items }: any) => ({
@@ -83,6 +91,10 @@ export const initialSignup = async ({
         checkIn: '3:00 PM',
         checkOut: '12:00 PM',
         active: true
+      },
+      error: {
+        code: 'SERVER_ERROR_WHILE_CREATING_PROPERTY',
+        message: 'serverErrorWhileCreatingProperty'
       }
     }),
     ({ items }: any) => ({
@@ -120,24 +132,29 @@ export const initialSignup = async ({
         hasCrib: true,
         isPetsAllowed: false,
         isSmokingAllowed: false
+      },
+      error: {
+        code: 'SERVER_ERROR_WHILE_CREATING_ESTATE',
+        message: 'serverErrorWhileCreatingEstate'
       }
     })
   ]
 
-  try {
-    const { responses, errors } = await api.fetchChain(
-      requests,
-      process.env.NODE_ENV === 'development'
-    )
+  const { responses, errors } = await api.fetchChain(
+    requests,
+    process.env.NODE_ENV === 'development'
+  )
 
-    if (errors.length) {
-      return errors
+  if (errors.length) {
+    return {
+      ok: false,
+      error: errors[0]
     }
-    console.log('Fetch chain responses:', responses)
-    return responses
-  } catch (error) {
-    console.error('Fetch chain failed:', error)
-    return error
+  }
+
+  return {
+    ok: true,
+    responses
   }
 }
 

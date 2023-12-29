@@ -2,6 +2,7 @@
 import React, { FC, useState, ChangeEvent } from 'react'
 import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
+import { RenderIf } from '@architecturex/components.renderif'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 
@@ -13,6 +14,8 @@ type Props = {
 }
 
 const Hero: FC<Props> = ({ t }) => {
+  const [isRegistered, setIsRegistered] = useState(true)
+
   const [values, setValues] = useState({
     fullName: '',
     businessName: '',
@@ -41,7 +44,7 @@ const Hero: FC<Props> = ({ t }) => {
       }
     }
 
-    setValues({ ...values, [name]: newValue })
+    return setValues({ ...values, [name]: newValue })
   }
 
   const handleSubmit = async () => {
@@ -76,6 +79,16 @@ const Hero: FC<Props> = ({ t }) => {
       country = t.required
     }
 
+    const formData = core.formData.set(new FormData(), values)
+
+    const response = await initialSignupAction(formData)
+
+    if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
+      businessEmail = t[response.error.message as keyof typeof t]
+    } else if (response.ok) {
+      setIsRegistered(true)
+    }
+
     setErrors({
       fullName,
       businessName,
@@ -84,11 +97,16 @@ const Hero: FC<Props> = ({ t }) => {
       businessWebsite,
       country
     })
-
-    const formData = core.formData.set(new FormData(), values)
-
-    const response = await initialSignupAction(formData)
   }
+
+  const SuccessMessage = () => (
+    <div className="flex min-h-[519px] flex-col text-black dark:text-white justify-center m-auto p-1">
+      <h2 className="text-black dark:text-white">{t.justOneMoreStep}</h2>
+      <p className="w-11/12" style={{ margin: '0 auto' }}>
+        {t.thankYouForRegistering}
+      </p>
+    </div>
+  )
 
   const form = [
     <div key="row-1" className="flex">
@@ -160,25 +178,31 @@ const Hero: FC<Props> = ({ t }) => {
         </div>
 
         <div className="border-gray-300 shadow-xl rounded bg-white dark:bg-gray-800 w-[400px] md:w-[480px] xl:w-[800px] pt-6">
-          {form}
+          <RenderIf isTrue={isRegistered}>
+            <SuccessMessage />
+          </RenderIf>
 
-          <div className="flex justify-center mb-6 mt-6">
-            <Button
-              color="secondary"
-              shape="rounded"
-              onClick={handleSubmit}
-              style={{ width: '92%' }}
+          <RenderIf isFalse={isRegistered}>
+            {form}
+
+            <div className="flex justify-center mb-6 mt-6">
+              <Button
+                color="secondary"
+                shape="rounded"
+                onClick={handleSubmit}
+                style={{ width: '92%' }}
+              >
+                {t.getStarted}
+              </Button>
+            </div>
+
+            <div
+              className="flex justify-center mb-6 text-center dark:text-white p-2"
+              style={{ fontSize: '10px' }}
             >
-              {t.getStarted}
-            </Button>
-          </div>
-
-          <div
-            className="flex justify-center mb-6 text-center dark:text-white p-2"
-            style={{ fontSize: '10px' }}
-          >
-            {t.weAreCommitted}
-          </div>
+              {t.weAreCommitted}
+            </div>
+          </RenderIf>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@
     "react-dom": ">=18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.6",
+    "@babel/core": "^7.23.7",
     "@babel/node": "^7.22.19",
     "@types/body-parser": "^1.19.5",
     "@types/cookie-parser": "^1.4.6",
@@ -42,9 +42,11 @@
   },
   "dependencies": {
     "@architecturex/components.button": "^1.1.22",
+    "@architecturex/components.for": "^1.0.1",
     "@architecturex/components.input": "^1.0.25",
+    "@architecturex/components.renderif": "^1.0.4",
     "@architecturex/components.switcher": "^1.0.18",
-    "@architecturex/utils.api": "^1.1.5",
+    "@architecturex/utils.api": "^1.1.6",
     "@architecturex/utils.cookies": "1.0.8",
     "@architecturex/utils.core": "^1.0.2",
     "@architecturex/utils.cx": "1.1.1",

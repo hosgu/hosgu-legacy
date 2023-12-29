@@ -36,8 +36,7 @@ export const initialSignupAction = async (e: FormData): Promise<APIResponse<Crea
     country
   })
 
-  if (response.ok) {
-  }
+  return response
 }
 
 export const signupServerAction = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
