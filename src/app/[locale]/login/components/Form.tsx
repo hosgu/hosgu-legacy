@@ -6,7 +6,7 @@ import { Input } from '@architecturex/components.input'
 import security from '@architecturex/utils.security'
 
 import { Translations, Locale } from '~app/i18n'
-import { loginServerAction } from '../actions'
+import { loginServerAction } from '../../../actions/login'
 
 type Props = {
   t: Translations

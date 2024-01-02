@@ -1,6 +1,8 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
 import { Button } from '@architecturex/components.button'
+import security from '@architecturex/utils.security'
+import core from '@architecturex/utils.core'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
@@ -9,7 +11,7 @@ import Step4 from './Step4'
 
 import StepIndicator from '~components/StepIndicator'
 import { Translations } from '~app/i18n'
-import { setupProfileServerAction } from '../actions'
+import { setupProfileServerAction } from '../../../../actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
 
 type Props = {
@@ -17,107 +19,92 @@ type Props = {
   user: UserFields
 }
 
-type Errors = {
-  fullName?: string
-  businessName?: string
-  phoneNumber?: string
-  propertyName?: string
-  propertyAddress1?: string
-  propertyAddress2?: string
-  propertyCity?: string
-  propertyState?: string
-  propertyZipCode?: string
-  propertyCountry?: string
-  propertyWebsite?: string
-}
-
 const Form: FC<Props> = ({ t, user }) => {
   const [isClicked, setIsClicked] = useState(false)
   const [step, setStep] = useState(1)
-  const [errors, setErrors] = useState<Errors>({
-    fullName: '',
-    phoneNumber: '',
-    businessName: '',
-    propertyName: '',
-    propertyAddress1: '',
-    propertyCity: '',
-    propertyState: '',
-    propertyZipCode: '',
-    propertyCountry: '',
-    propertyWebsite: ''
-  })
-  const [formData, setFormData] = useState({
+  const [values, setValues] = useState({
     userId: user.id || '',
-    fullName: '',
     email: user.email || '',
-    countryCode: '+1',
-    phoneNumber: '',
-    propertyType: '',
-    businessName: '',
+    password: '',
     propertyName: '',
-    propertyAddress1: '',
-    propertyAddress2: '',
-    propertyCity: '',
-    propertyState: '',
-    propertyZipCode: '',
-    propertyCountry: '',
-    propertyWebsite: ''
+    propertyType: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zipCode: ''
+  })
+
+  const [errors, setErrors] = useState({
+    password: '',
+    fullName: '',
+    businessName: '',
+    businessEmail: '',
+    businessPhone: '',
+    businessWebsite: '',
+    country: ''
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
 
-    if (name === 'countryCode') {
-      setFormData((prevState) => ({ ...prevState, countryCode: value }))
-    } else if (name === 'phoneNumber') {
-      const cleanedNumber = value.replace(/\D/g, '')
-      let newPhoneNumber = cleanedNumber
-
-      if (cleanedNumber.length === 10) {
-        const match = cleanedNumber.match(/^(\d{3})(\d{3})(\d{4})$/)
-
-        if (match) {
-          newPhoneNumber = `${match[1]}-${match[2]}-${match[3]}`
-        }
-      }
-
-      if (newPhoneNumber.length > 12) {
-        return
-      }
-
-      setFormData((prevState) => ({
-        ...prevState,
-        phoneNumber: newPhoneNumber
-      }))
-    } else {
-      setFormData((prevState) => {
-        return {
-          ...prevState,
-          [name]: value
-        }
-      })
-    }
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value
+    }))
   }
 
   const validations = {
-    fullName: (value: string) => {
-      if (!value) {
-        return t.pleaseEnterYourFullName
-      }
+    password: (value: string) => {
+      const passwordValidation = security.password.validation(value)
 
-      if (value.length < 3) {
-        return t.pleaseEnterAValidFullName
-      }
+      if (!passwordValidation.isValid) {
+        setIsClicked(false)
 
-      if (value.split(' ').length < 2) {
-        return t.pleaseEnterYourFullName
-      }
+        if (passwordValidation.reasons?.includes('length')) {
+          setErrors({
+            ...errors,
+            password: t.passwordLength
+          })
 
-      return ''
-    },
-    businessName: (value: string) => {
-      if (!value) {
-        return t.pleaseEnterYourBusinessName
+          return ''
+        }
+
+        if (passwordValidation.reasons?.includes('lowercase')) {
+          setErrors({
+            ...errors,
+            password: t.passwordLowercase
+          })
+
+          return ''
+        }
+
+        if (passwordValidation.reasons?.includes('uppercase')) {
+          setErrors({
+            ...errors,
+            password: t.passwordUppercase
+          })
+
+          return ''
+        }
+
+        if (passwordValidation.reasons?.includes('digit')) {
+          setErrors({
+            ...errors,
+            password: t.passwordDigit
+          })
+
+          return ''
+        }
+
+        if (passwordValidation.reasons?.includes('special')) {
+          setErrors({
+            ...errors,
+            password: t.passwordSpecial
+          })
+
+          return ''
+        }
       }
 
       return ''
@@ -176,63 +163,34 @@ const Form: FC<Props> = ({ t, user }) => {
       }
 
       return ''
-    },
-    propertyCountry: (value: string) => {
-      if (!value) {
-        return t.pleaseEnterYourPropertyCountry
-      }
-
-      return ''
-    },
-    phoneNumber: (value: string) => {
-      if (!value) {
-        return t.pleaseEnterYourPhoneNumber
-      }
-
-      if (value.length < 12) {
-        return t.pleaseEnterAValidPhoneNumber
-      }
-
-      return ''
     }
   }
 
   const validate = () => {
     if (step === 1) {
       const newErrors = {
-        fullName: validations.fullName(formData.fullName),
-        phoneNumber: validations.phoneNumber(formData.phoneNumber)
+        ...errors,
+        password: validations.password(values.password),
+        propertyName: validations.propertyName(values.propertyName)
       }
 
       setErrors(newErrors)
 
-      return !newErrors.fullName && !newErrors.phoneNumber
+      return !newErrors.password && !newErrors.propertyName
     }
 
     if (step === 3) {
       const newErrors = {
-        fullName: '',
-        phoneNumber: '',
-        businessName: validations.businessName(formData.businessName),
-        propertyName: validations.propertyName(formData.propertyName),
-        propertyAddress1: validations.propertyAddress1(formData.propertyAddress1),
-        propertyCity: validations.propertyCity(formData.propertyCity),
-        propertyState: validations.propertyState(formData.propertyState),
-        propertyZipCode: validations.propertyZipCode(formData.propertyZipCode),
-        propertyCountry: validations.propertyCountry(formData.propertyCountry)
+        ...errors,
+        address1: validations.propertyAddress1(values.address1),
+        city: validations.propertyCity(values.city),
+        state: validations.propertyState(values.state),
+        zipCode: validations.propertyZipCode(values.zipCode)
       }
 
       setErrors(newErrors)
 
-      return (
-        !newErrors.businessName &&
-        !newErrors.propertyName &&
-        !newErrors.propertyAddress1 &&
-        !newErrors.propertyCity &&
-        !newErrors.propertyState &&
-        !newErrors.propertyZipCode &&
-        !newErrors.propertyCountry
-      )
+      return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
     }
 
     return true
@@ -246,25 +204,9 @@ const Form: FC<Props> = ({ t, user }) => {
     }
 
     if (isValidStep && step === 3) {
-      const serverFormData = new FormData()
+      const formData = core.formData.set(new FormData(), values)
 
-      serverFormData.append('userId', formData.userId)
-      serverFormData.append('fullName', formData.fullName)
-      serverFormData.append('email', formData.email)
-      serverFormData.append('countryCode', formData.countryCode)
-      serverFormData.append('phoneNumber', formData.phoneNumber)
-      serverFormData.append('propertyType', formData.propertyType)
-      serverFormData.append('businessName', formData.businessName)
-      serverFormData.append('propertyName', formData.propertyName)
-      serverFormData.append('propertyAddress1', formData.propertyAddress1)
-      serverFormData.append('propertyAddress2', formData.propertyAddress2)
-      serverFormData.append('propertyCity', formData.propertyCity)
-      serverFormData.append('propertyState', formData.propertyState)
-      serverFormData.append('propertyZipCode', formData.propertyZipCode)
-      serverFormData.append('propertyCountry', formData.propertyCountry)
-      serverFormData.append('propertyWebsite', formData.propertyWebsite)
-
-      const response = await setupProfileServerAction(serverFormData)
+      const response = await setupProfileServerAction(formData)
 
       if (response.status === 200) {
         setStep((prevState) => prevState + 1)
@@ -278,33 +220,16 @@ const Form: FC<Props> = ({ t, user }) => {
       key="step1"
       t={t}
       email={user.email || ''}
-      fullName={formData.fullName}
-      countryCode={formData.countryCode}
-      phoneNumber={formData.phoneNumber}
+      values={values}
       errors={errors}
       handleChange={handleChange}
       validate={validate}
     />,
-    <Step2
-      key="step2"
-      t={t}
-      setFormData={setFormData}
-      setIsClicked={setIsClicked}
-      setStep={setStep}
-    />,
+    <Step2 key="step2" t={t} setValues={setValues} setIsClicked={setIsClicked} setStep={setStep} />,
     <Step3
       key="step3"
       t={t}
-      isCabin={formData.propertyType === 'cabin'}
-      businessName={formData.businessName}
-      propertyName={formData.propertyName}
-      propertyAddress1={formData.propertyAddress1}
-      propertyAddress2={formData.propertyAddress2}
-      propertyCity={formData.propertyCity}
-      propertyState={formData.propertyState}
-      propertyZipCode={formData.propertyZipCode}
-      propertyCountry={formData.propertyCountry}
-      propertyWebsite={formData.propertyWebsite}
+      values={values}
       errors={errors}
       handleChange={handleChange}
       validate={validate}
@@ -313,48 +238,46 @@ const Form: FC<Props> = ({ t, user }) => {
   ]
 
   return (
-    <div className="flex items-center justify-center">
-      <div>
-        <div className="p-6 rounded-lg">
-          {step > 1 && step < 4 && (
-            <a
-              href="#"
-              className="text-gray-600 text-sm"
-              onClick={() => {
-                setIsClicked(false)
-                setStep((prevState) => prevState - 1)
-              }}
+    <div className="flex items-center justify-center w-[500px]" style={{ border: '1px solid red' }}>
+      <div className="p-10 rounded-lg">
+        {step > 1 && step < 4 && (
+          <a
+            href="#"
+            className="text-gray-600 text-sm"
+            onClick={() => {
+              setIsClicked(false)
+              setStep((prevState) => prevState - 1)
+            }}
+          >
+            ← {t.back}
+          </a>
+        )}
+
+        <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+          {step === 1 && t.letsStart}
+          {step === 2 && t.whatPropertyTypeAreYouListing}
+          {step === 3 &&
+            `${t.informationAboutYour} ${formData.propertyType === 'cabin' ? t.cabin : t.hotel}`}
+          {step === 4 && 'Negocio Registrado Exitosamente!'}
+        </h2>
+
+        {step < 4 && <StepIndicator totalSteps={3} currentStep={step} />}
+
+        {steps[step]}
+
+        {step !== 2 && step !== 4 && (
+          <div className="flex items-center justify-center mt-8">
+            <Button
+              color="secondary"
+              onClick={handleSubmit}
+              disabled={isClicked}
+              shape="circle"
+              fullWidth
             >
-              ← {t.back}
-            </a>
-          )}
-
-          <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-            {step === 1 && t.letsStart}
-            {step === 2 && t.whatPropertyTypeAreYouListing}
-            {step === 3 &&
-              `${t.informationAboutYour} ${formData.propertyType === 'cabin' ? t.cabin : t.hotel}`}
-            {step === 4 && 'Negocio Registrado Exitosamente!'}
-          </h2>
-
-          {step < 4 && <StepIndicator totalSteps={3} currentStep={step} />}
-
-          {steps[step]}
-
-          {step !== 2 && step !== 4 && (
-            <div className="flex items-center justify-center mt-8">
-              <Button
-                color="secondary"
-                onClick={handleSubmit}
-                disabled={isClicked}
-                shape="circle"
-                fullWidth
-              >
-                {step === 3 ? t.save : t.continue}
-              </Button>
-            </div>
-          )}
-        </div>
+              {step === 3 ? t.save : t.continue}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )

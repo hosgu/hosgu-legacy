@@ -1,6 +1,6 @@
 'use server'
 import security from '@architecturex/utils.security'
-import * as services from '../services'
+import * as services from '../services/login'
 import { APIResponse, Token } from '~/types'
 
 export const loginServerAction = async (e: FormData): Promise<APIResponse<Token>> => {
