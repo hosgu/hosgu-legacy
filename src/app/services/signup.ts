@@ -20,7 +20,7 @@ export const initialSignup = async ({
   country: string
 }): Promise<any> => {
   const code = security.string.code(10)
-  const temporalPassword = security.password.encrypt(code)
+  const temporalPassword = security.password.encrypt('Abc123456$')
 
   const requests = [
     {

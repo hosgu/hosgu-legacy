@@ -14,7 +14,7 @@ type Props = {
 }
 
 const Hero: FC<Props> = ({ t }) => {
-  const [isRegistered, setIsRegistered] = useState(true)
+  const [isRegistered, setIsRegistered] = useState(false)
 
   const [values, setValues] = useState({
     fullName: '',
