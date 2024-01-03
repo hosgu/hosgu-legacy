@@ -16,30 +16,18 @@ import HamburgerMenu from './HamburgerMenu'
 import ThemeSwitcher from './ThemeSwitcher'
 
 type Props = {
-  showNav?: boolean
-  showSecondaryNav?: boolean
-  showHamburgerMenu?: boolean
-  showLogin?: boolean
-  showLoginButton?: boolean
-  showSignup?: boolean
-  showTryForFree?: boolean
   connectedUser?: any
   locale: Locale
-  logoPosition?: 'below' | 'right'
   t: Translations
+  page?: string
 }
 
-const Header: FC<Props> = ({
-  showSecondaryNav = true,
-  showHamburgerMenu = true,
-  showLogin = true,
-  showTryForFree = true,
-  connectedUser = {},
-  locale,
-  logoPosition = 'below',
-  t
-}) => {
+const Header: FC<Props> = ({ connectedUser = {}, locale, page, t }) => {
   const isLogged = connectedUser?.active
+  const showLogin = !isLogged && page !== 'dashboard'
+  const showTryForFree = !isLogged && page !== 'dashboard'
+  const showSecondaryNav = page !== 'dashboard'
+  const showHamburgerMenu = page !== 'dashboard'
 
   const { darkMode } = useTheme()
 
@@ -76,7 +64,7 @@ const Header: FC<Props> = ({
       data-component="Header"
       className="max-w-xLarge m-auto bg-white flex items-center justify-between p-6 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl"
     >
-      <Logo slogan={t.slogan} key={darkMode.toString()} position={logoPosition} />
+      <Logo slogan={t.slogan} key={darkMode.toString()} />
 
       <div className="flex justify-between">
         {showSecondaryNav && !isLogged && (

@@ -31,14 +31,8 @@ const Layout: FC<Props> = async ({ params, children }) => {
   return (
     <main>
       <div className="flex flex-col h-screen">
-        <Header
-          t={t}
-          locale={params.locale}
-          logoPosition="right"
-          showNav={false}
-          showSecondaryNav={false}
-          showHamburgerMenu={false}
-        />
+        <Header t={t} locale="en-us" page="dashboard" />
+
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
           <div className="flex-1 overflow-auto">{children}</div>
