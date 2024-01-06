@@ -16,13 +16,7 @@ const Layout: FC<Props> = async ({ params, children }) => {
   return (
     <main>
       <div className="sticky top-0 z-50 bg-white dark:bg-black dark:text-white">
-        <Header
-          t={t}
-          logoPosition="right"
-          showNav={false}
-          showSecondaryNav={false}
-          showHamburgerMenu={false}
-        />
+        <Header t={t} />
       </div>
 
       <div>{children}</div>
