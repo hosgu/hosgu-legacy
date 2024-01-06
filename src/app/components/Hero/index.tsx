@@ -3,6 +3,8 @@ import React, { FC, useState, ChangeEvent } from 'react'
 import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
 import { RenderIf } from '@architecturex/components.renderif'
+import { Select } from '@architecturex/components.select'
+import { Radio } from '@architecturex/components.radio'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 
@@ -155,16 +157,37 @@ const Hero: FC<Props> = ({ t }) => {
         onChange={handleChange}
         value={values.businessWebsite}
       />
-      <Input
-        label={t.country}
-        name="country"
-        placeholder={t.country}
-        errorText={errors.country}
-        onChange={handleChange}
-        value={values.country}
+
+      <Select
+        label="Country"
+        searchable
+        style={{
+          marginTop: '15px',
+          marginLeft: '20px',
+          marginRight: '20px',
+          width: '195px'
+        }}
+        options={[
+          {
+            label: 'México',
+            value: 'Mexico',
+            selected: false
+          },
+          {
+            label: 'United States',
+            value: 'United States',
+            selected: false
+          }
+        ]}
       />
     </div>
   ]
+
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked)
+  }
 
   return (
     <div
@@ -184,6 +207,13 @@ const Hero: FC<Props> = ({ t }) => {
 
           <RenderIf isFalse={isRegistered}>
             {form}
+
+            <Radio
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              label="Check me"
+              helpText="Check me"
+            />
 
             <div className="flex justify-center mb-6 mt-6">
               <Button

@@ -2,10 +2,11 @@ import { Config } from 'tailwindcss'
 import { tailwindClasses as buttonClasses } from '@architecturex/components.button'
 import { tailwindClasses as inputClasses } from '@architecturex/components.input'
 import { tailwindClasses as switcherClasses } from '@architecturex/components.switcher'
+import { tailwindClasses as selectClasses } from '@architecturex/components.select'
 
 const config: Config = {
   darkMode: 'class',
-  safelist: [...buttonClasses, ...inputClasses, ...switcherClasses],
+  safelist: [...buttonClasses, ...inputClasses, ...switcherClasses, ...selectClasses],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
