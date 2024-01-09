@@ -14,21 +14,20 @@ type Props = {
 
 const Step: FC<Props> = ({ t, values, handleChange, validate, errors }) => (
   <>
-    <Input fullWidth label={t.email} value={values.email} disabled required />
-
-    <select
-      name="propertyType"
-      value={values.propertyType}
+    <Input label={t.email} value={values.email} disabled required style={{ width: '300px' }} />
+    <Input
+      name="password"
+      type="password"
+      label={t.password}
+      value={values.password}
       onChange={handleChange}
       onBlur={validate}
       required
-      className={errors.propertyType ? 'border-red-500 dark:border-red-500' : ''}
-    >
-      <option value="cabin">Cabin</option>
-      <option value="hotel">Hotel</option>
-    </select>
+      className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
+      style={{ width: '300px' }}
+    />
 
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyType}</p>
+    <p className="text-red-500 mb-4 text-xs">{errors.password}</p>
   </>
 )
 

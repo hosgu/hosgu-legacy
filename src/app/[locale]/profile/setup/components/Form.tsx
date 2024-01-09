@@ -20,7 +20,7 @@ type Props = {
 }
 
 const Form: FC<Props> = ({ t, user }) => {
-  const [isClicked, setIsClicked] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [step, setStep] = useState(1)
   const [values, setValues] = useState({
     userId: user.id || '',
@@ -55,60 +55,6 @@ const Form: FC<Props> = ({ t, user }) => {
   }
 
   const validations = {
-    password: (value: string) => {
-      const passwordValidation = security.password.validation(value)
-
-      if (!passwordValidation.isValid) {
-        setIsClicked(false)
-
-        if (passwordValidation.reasons?.includes('length')) {
-          setErrors({
-            ...errors,
-            password: t.passwordLength
-          })
-
-          return ''
-        }
-
-        if (passwordValidation.reasons?.includes('lowercase')) {
-          setErrors({
-            ...errors,
-            password: t.passwordLowercase
-          })
-
-          return ''
-        }
-
-        if (passwordValidation.reasons?.includes('uppercase')) {
-          setErrors({
-            ...errors,
-            password: t.passwordUppercase
-          })
-
-          return ''
-        }
-
-        if (passwordValidation.reasons?.includes('digit')) {
-          setErrors({
-            ...errors,
-            password: t.passwordDigit
-          })
-
-          return ''
-        }
-
-        if (passwordValidation.reasons?.includes('special')) {
-          setErrors({
-            ...errors,
-            password: t.passwordSpecial
-          })
-
-          return ''
-        }
-      }
-
-      return ''
-    },
     propertyName: (value: string) => {
       if (!value) {
         return t.pleaseEnterYourPropertyName
@@ -168,15 +114,42 @@ const Form: FC<Props> = ({ t, user }) => {
 
   const validate = () => {
     if (step === 1) {
-      const newErrors = {
-        ...errors,
-        password: validations.password(values.password),
-        propertyName: validations.propertyName(values.propertyName)
+      const passwordValidation = security.password.validation(values.password)
+
+      if (passwordValidation.reasons?.includes('length')) {
+        setErrors({
+          ...errors,
+          password: t.passwordLength
+        })
+      } else if (passwordValidation.reasons?.includes('lowercase')) {
+        setErrors({
+          ...errors,
+          password: t.passwordLowercase
+        })
+      } else if (passwordValidation.reasons?.includes('uppercase')) {
+        setErrors({
+          ...errors,
+          password: t.passwordUppercase
+        })
+
+        return ''
+      } else if (passwordValidation.reasons?.includes('digit')) {
+        setErrors({
+          ...errors,
+          password: t.passwordDigit
+        })
+
+        return ''
+      } else if (passwordValidation.reasons?.includes('special')) {
+        setErrors({
+          ...errors,
+          password: t.passwordSpecial
+        })
+
+        return ''
       }
 
-      setErrors(newErrors)
-
-      return !newErrors.password && !newErrors.propertyName
+      return passwordValidation.isValid
     }
 
     if (step === 3) {
@@ -198,7 +171,7 @@ const Form: FC<Props> = ({ t, user }) => {
 
   const handleSubmit = async () => {
     const isValidStep = validate()
-
+    console.log('isValidStep', isValidStep)
     if (isValidStep && step < 3) {
       setStep((prevState) => prevState + 1)
     }
@@ -219,13 +192,18 @@ const Form: FC<Props> = ({ t, user }) => {
     <Step1
       key="step1"
       t={t}
-      email={user.email || ''}
       values={values}
       errors={errors}
       handleChange={handleChange}
       validate={validate}
     />,
-    <Step2 key="step2" t={t} setValues={setValues} setIsClicked={setIsClicked} setStep={setStep} />,
+    <Step2
+      key="step2"
+      t={t}
+      setValues={setValues}
+      setIsDisabled={setIsDisabled}
+      setStep={setStep}
+    />,
     <Step3
       key="step3"
       t={t}
@@ -236,16 +214,16 @@ const Form: FC<Props> = ({ t, user }) => {
     />,
     <Step4 key="step4" t={t} />
   ]
-
+  console.log('ERRPRS===>', errors)
   return (
-    <div className="flex items-center justify-center w-[500px]" style={{ border: '1px solid red' }}>
+    <div className="flex items-center justify-center w-[500px]">
       <div className="p-10 rounded-lg">
         {step > 1 && step < 4 && (
           <a
             href="#"
             className="text-gray-600 text-sm"
             onClick={() => {
-              setIsClicked(false)
+              setIsDisabled(false)
               setStep((prevState) => prevState - 1)
             }}
           >
@@ -270,7 +248,7 @@ const Form: FC<Props> = ({ t, user }) => {
             <Button
               color="secondary"
               onClick={handleSubmit}
-              disabled={isClicked}
+              disabled={isDisabled}
               shape="circle"
               fullWidth
             >
