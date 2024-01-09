@@ -4,7 +4,6 @@ import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
 import { RenderIf } from '@architecturex/components.renderif'
 import { Select } from '@architecturex/components.select'
-import { Radio } from '@architecturex/components.radio'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 
@@ -160,7 +159,9 @@ const Hero: FC<Props> = ({ t }) => {
 
       <Select
         label="Country"
-        searchable
+        onSelectionChange={(value) => {
+          setValues({ ...values, country: value })
+        }}
         style={{
           marginTop: '15px',
           marginLeft: '20px',
@@ -207,13 +208,6 @@ const Hero: FC<Props> = ({ t }) => {
 
           <RenderIf isFalse={isRegistered}>
             {form}
-
-            <Radio
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              label="Check me"
-              helpText="Check me"
-            />
 
             <div className="flex justify-center mb-6 mt-6">
               <Button
