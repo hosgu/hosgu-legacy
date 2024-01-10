@@ -1,6 +1,5 @@
 'use client'
 import React, { FC, createContext, ReactNode, useEffect, useContext, useState } from 'react'
-import { usePathname } from 'next/navigation'
 import cookies from '@architecturex/utils.cookies'
 
 type ThemeContextType = {
