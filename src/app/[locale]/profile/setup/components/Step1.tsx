@@ -9,7 +9,7 @@ type Props = {
   values: any
   errors: any
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  validate: () => boolean
+  validate: any
 }
 
 const Step: FC<Props> = ({ t, values, handleChange, validate, errors }) => (
