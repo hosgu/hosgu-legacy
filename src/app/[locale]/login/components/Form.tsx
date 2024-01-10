@@ -22,6 +22,7 @@ const Form: FC<Props> = ({ t, locale }) => {
   const [password, setPassword] = useState<string>('')
   const [errors, setErrors] = useState<Errors>({ invalidLogin: '' })
 
+  // TODO: Remove and implement the flexbox solution
   useEffect(() => {
     document.body.style.overflow = 'hidden'
 

@@ -4,6 +4,7 @@ import { Input } from '@architecturex/components.input'
 import { Button } from '@architecturex/components.button'
 import { RenderIf } from '@architecturex/components.renderif'
 import { Select } from '@architecturex/components.select'
+import { Checkbox } from '@architecturex/components.checkbox'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 
@@ -159,6 +160,7 @@ const Hero: FC<Props> = ({ t }) => {
 
       <Select
         label="Country"
+        searchable
         onSelectionChange={(value) => {
           setValues({ ...values, country: value })
         }}
@@ -170,12 +172,12 @@ const Hero: FC<Props> = ({ t }) => {
         }}
         options={[
           {
-            label: 'México',
+            label: 'México México México México',
             value: 'Mexico',
             selected: false
           },
           {
-            label: 'United States',
+            label: 'United States States States States',
             value: 'United States',
             selected: false
           }
@@ -185,10 +187,6 @@ const Hero: FC<Props> = ({ t }) => {
   ]
 
   const [isChecked, setIsChecked] = useState(false)
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked)
-  }
 
   return (
     <div

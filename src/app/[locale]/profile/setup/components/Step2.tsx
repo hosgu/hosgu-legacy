@@ -6,22 +6,22 @@ import { Translations } from '~app/i18n'
 
 type Props = {
   t: Translations
-  setFormData: any
+  setValues: any
   setStep: any
-  setIsClicked: any
+  setIsDisabled: any
 }
 
-const Step: FC<Props> = ({ t, setFormData, setStep, setIsClicked }) => (
+const Step: FC<Props> = ({ t, setValues, setStep, setIsDisabled }) => (
   <>
     <div className="flex w-full justify-between mt-20">
       <div
         className="cursor-pointer"
         onClick={() => {
-          setFormData((prevState: any) => ({
+          setValues((prevState: any) => ({
             ...prevState,
             propertyType: 'cabin'
           }))
-          setIsClicked(false)
+          setIsDisabled(false)
           setStep((prevState: any) => prevState + 1)
         }}
         title={t.cabin}
@@ -35,11 +35,11 @@ const Step: FC<Props> = ({ t, setFormData, setStep, setIsClicked }) => (
       <div
         className="cursor-pointer"
         onClick={() => {
-          setFormData((prevState: any) => ({
+          setValues((prevState: any) => ({
             ...prevState,
             propertyType: 'hotel'
           }))
-          setIsClicked(false)
+          setIsDisabled(false)
           setStep((prevState: any) => prevState + 1)
         }}
         title={t.hotel}

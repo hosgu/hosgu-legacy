@@ -235,7 +235,7 @@ const Form: FC<Props> = ({ t, user }) => {
           {step === 1 && t.letsStart}
           {step === 2 && t.whatPropertyTypeAreYouListing}
           {step === 3 &&
-            `${t.informationAboutYour} ${formData.propertyType === 'cabin' ? t.cabin : t.hotel}`}
+            `${t.informationAboutYour} ${values.propertyType === 'cabin' ? t.cabin : t.hotel}`}
           {step === 4 && 'Negocio Registrado Exitosamente!'}
         </h2>
 
