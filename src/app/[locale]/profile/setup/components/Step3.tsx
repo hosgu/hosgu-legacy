@@ -8,42 +8,33 @@ import { Translations } from '~app/i18n'
 
 type Props = {
   t: Translations
-  businessName: string
   propertyName: string
   propertyAddress1: string
   propertyAddress2: string
   propertyCity: string
   propertyState: string
   propertyZipCode: string
-  propertyCountry: string
-  propertyWebsite: string
   errors: {
-    fullName?: string
-    phoneNumber?: string
-    businessName?: string
     propertyName?: string
     propertyAddress1?: string
     propertyAddress2?: string
     propertyCity?: string
     propertyState?: string
     propertyZipCode?: string
-    propertyCountry?: string
-    propertyWebsite?: string
   }
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  validate: () => boolean
+  validate: any
+  values: any
   isCabin?: boolean
 }
 
 const Step: FC<Props> = ({
   t,
-  businessName,
   propertyAddress1,
   propertyAddress2,
   propertyCity,
   propertyName,
   propertyState,
-  propertyWebsite,
   propertyZipCode,
   errors,
   handleChange,
@@ -51,18 +42,6 @@ const Step: FC<Props> = ({
   isCabin
 }) => (
   <>
-    <Input
-      name="businessName"
-      label={t.businessName}
-      value={businessName}
-      onChange={handleChange}
-      onBlur={validate}
-      required
-      className={errors.businessName ? 'border-red-500 dark:border-red-500' : ''}
-    />
-
-    <p className="text-red-500 mb-4 text-xs">{errors.businessName}</p>
-
     <Input
       name="propertyName"
       label={isCabin ? t.cabinName : t.hotelName}
@@ -86,8 +65,6 @@ const Step: FC<Props> = ({
       className={errors.propertyAddress1 ? 'border-red-500 dark:border-red-500' : ''}
     />
 
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyAddress1}</p>
-
     <Input
       name="propertyAddress2"
       value={propertyAddress2}
@@ -107,8 +84,6 @@ const Step: FC<Props> = ({
       className={errors.propertyCity ? 'border-red-500 dark:border-red-500' : ''}
     />
 
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyCity}</p>
-
     <Input
       name="propertyState"
       value={propertyState}
@@ -119,8 +94,6 @@ const Step: FC<Props> = ({
       className={errors.propertyState ? 'border-red-500 dark:border-red-500' : ''}
     />
 
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyState}</p>
-
     <Input
       name="propertyZipCode"
       value={propertyZipCode}
@@ -129,32 +102,6 @@ const Step: FC<Props> = ({
       onChange={handleChange}
       required
       className={errors.propertyZipCode ? 'border-red-500 dark:border-red-500' : ''}
-    />
-
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyZipCode}</p>
-
-    <Select
-      name="propertyCountry"
-      onChange={handleChange}
-      onBlur={validate}
-      error={!!errors.propertyCountry}
-      options={[
-        { value: 'mx', label: 'Mexico' },
-        { value: 'us', label: 'United States' }
-      ]}
-      placeholder={t.selectYourCountry}
-    />
-
-    <p className="text-red-500 mb-4 text-xs">{errors.propertyCountry}</p>
-
-    <Input
-      label={t.website}
-      name="propertyWebsite"
-      value={propertyWebsite}
-      onBlur={validate}
-      placeholder="https://"
-      onChange={handleChange}
-      required
     />
   </>
 )
