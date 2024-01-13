@@ -1,7 +1,6 @@
 'use client'
 import React, { FC, useState, useEffect, ChangeEvent, useTransition } from 'react'
-import { Select } from '@architecturex/components.select'
-import { Checkbox } from '@architecturex/components.checkbox'
+import { Counter } from '@architecturex/components.counter'
 
 import { Translations } from '~app/i18n'
 
@@ -109,67 +108,6 @@ const Tag: React.FC<TagProps> = ({ options }) => {
   )
 }
 
-type Props = {
-  label: string
-  decrementClick?: () => void
-  incrementClick?: () => void
-}
-
-const Counter: FC<Props> = ({ label, decrementClick, incrementClick }) => {
-  const [count, setCount] = useState<number>(0)
-
-  const increment = () => {
-    if (count < 99) {
-      if (incrementClick) {
-        incrementClick()
-      }
-
-      setCount((prevCount) => prevCount + 1)
-    }
-  }
-
-  const decrement = () => {
-    if (count > 0) {
-      if (decrementClick) {
-        decrementClick()
-      }
-
-      setCount((prevCount) => prevCount - 1)
-    }
-  }
-
-  return (
-    <div className="custom-number-input h-10 w-[118px] flex items-center">
-      <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-        <button
-          data-action="decrement"
-          className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-          onClick={decrement}
-        >
-          <span className="m-auto text-2xl font-thin">−</span>
-        </button>
-        <input
-          type="number"
-          className="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-base cursor-default flex items-center text-gray-700 outline-none"
-          name="custom-input-number"
-          value={count}
-          readOnly
-          style={{ paddingLeft: '10px' }}
-        />
-        <button
-          data-action="increment"
-          className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-          onClick={increment}
-        >
-          <span className="m-auto text-2xl font-thin">+</span>
-        </button>
-      </div>
-
-      <span className="ml-2">{label}</span>
-    </div>
-  )
-}
-
 const roomOptions: any[] = [
   {
     singular: 'Cama Individual',
@@ -181,7 +119,7 @@ const roomOptions: any[] = [
   }
 ]
 
-const Step: FC<Props> = ({ t }) => {
+const Step: FC = ({ t }) => {
   const [personCount, setPersonCount] = useState(1)
   const [roomCount, setRoomCount] = useState(0)
   const [bathroomCount, setBathroomCount] = useState(1)
@@ -199,17 +137,37 @@ const Step: FC<Props> = ({ t }) => {
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex flex-col items-center space-x-2">
-        <Counter label="Cuartos" />
+        <Counter
+          label="Personas"
+          onChange={(count: number) => {
+            setPersonCount(count)
+          }}
+          max={50}
+          style={{ width: '160px' }}
+        />
       </div>
 
       <div className="flex flex-col items-center space-x-2">
-        <Counter label="Baños" />
+        <Counter
+          label="Baños"
+          onChange={(count: number) => {
+            setBathroomCount(count)
+          }}
+          max={10}
+          spaces={5}
+          style={{ width: '160px' }}
+        />
       </div>
+
       <div className="flex flex-col items-center space-x-2">
         <Counter
           label="Cuartos"
-          decrementClick={() => setRoomCount(Math.max(1, roomCount - 1))}
-          incrementClick={() => setRoomCount(roomCount + 1)}
+          onChange={(count: number) => {
+            setRoomCount(count)
+          }}
+          max={10}
+          spaces={2}
+          style={{ width: '160px' }}
         />
 
         <div>{[...Array(roomCount)].map((_, index) => renderRoomDropdown(index + 1))}</div>

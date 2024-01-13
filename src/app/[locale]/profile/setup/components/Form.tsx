@@ -246,13 +246,7 @@ const Form: FC<Props> = ({ t, user }) => {
 
         {step !== 2 && step !== 4 && (
           <div className="flex items-center justify-center mt-8">
-            <Button
-              color="secondary"
-              onClick={handleSubmit}
-              disabled={isDisabled}
-              shape="circle"
-              fullWidth
-            >
+            <Button color="secondary" onClick={handleSubmit} disabled={isDisabled} shape="circle">
               {step === 3 ? t.save : t.continue}
             </Button>
           </div>
