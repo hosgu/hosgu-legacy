@@ -215,7 +215,7 @@ const Form: FC<Props> = ({ t, user }) => {
     />,
     <Step4 key="step4" t={t} />
   ]
-  console.log('ERRPRS===>', errors)
+
   return (
     <div className="flex items-center justify-center w-[500px]">
       <div className="p-10 rounded-lg">
