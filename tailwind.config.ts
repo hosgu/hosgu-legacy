@@ -3,10 +3,17 @@ import { tailwindClasses as buttonClasses } from '@architecturex/components.butt
 import { tailwindClasses as inputClasses } from '@architecturex/components.input'
 import { tailwindClasses as switcherClasses } from '@architecturex/components.switcher'
 import { tailwindClasses as selectClasses } from '@architecturex/components.select'
+import { tailwindClasses as calendarClasses } from '@architecturex/components.calendar'
 
 const config: Config = {
   darkMode: 'class',
-  safelist: [...buttonClasses, ...inputClasses, ...switcherClasses, ...selectClasses],
+  safelist: [
+    ...buttonClasses,
+    ...inputClasses,
+    ...switcherClasses,
+    ...selectClasses,
+    ...calendarClasses
+  ],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -38,7 +45,8 @@ const config: Config = {
         mineShaft: '#333333',
         wildSand: '#CCC',
         codGray: '#111',
-        pacific: '#04B0B6'
+        pacific: '#04B0B6',
+        colonial: '#FFEBBD'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

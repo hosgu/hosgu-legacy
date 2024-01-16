@@ -27,7 +27,7 @@
     "@types/cookie-parser": "^1.4.6",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.5",
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.11.3",
     "@types/pg": "^8.10.9",
     "@types/react-vertical-timeline-component": "^3.3.6",
     "cross-env": "^7.0.3",
@@ -36,12 +36,13 @@
     "eslint-config-next": "14.0.4",
     "nodemon": "^3.0.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.2.1",
+    "prettier": "^3.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@architecturex/components.button": "^1.1.22",
+    "@architecturex/components.calendar": "^1.0.5",
     "@architecturex/components.checkbox": "^1.0.12",
     "@architecturex/components.counter": "^1.0.6",
     "@architecturex/components.for": "^1.0.1",

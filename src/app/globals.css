@@ -63,3 +63,143 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: currentColor;
   -webkit-box-shadow: 0 0 0 1000px transparent inset;
 }
+
+/* Calendar */
+.calendar.mobile {
+  width: 96%;
+
+  header {
+    @apply flex items-center justify-between bg-[#111] text-white p-2.5 w-[98%];
+  }
+
+  .currentDate h2 {
+    @apply text-lg;
+  }
+
+  .weekdays {
+    @apply hidden;
+  }
+
+  .dayGrid {
+    @apply flex flex-col m-0 p-0 list-none;
+  }
+
+  .weekdays li {
+    @apply py-1 px-2.5 text-center text-sm;
+  }
+
+  .dayGrid li {
+    @apply w-full flex items-center justify-between border-b border-l border-r border-[#333] bg-white p-2.5 relative;
+  }
+
+  .dayGrid li.today {
+    @apply bg-[rgba(66,133,244,0.2)];
+  }
+
+  .dayNumber {
+    @apply text-lg flex-shrink-0 w-8;
+  }
+
+  .event {
+    @apply bg-fire text-white py-1 rounded-lg text-xs mr-2.5 max-w-[calc(100%-40px)] overflow-hidden overflow-ellipsis whitespace-nowrap;
+  }
+
+  .notPaidDeposit {
+    @apply text-red-600;
+  }
+
+  .past {
+    @apply bg-caribbean;
+  }
+
+  .notPaid {
+    @apply bg-cinnabar;
+  }
+
+  .notPaidDeposit {
+    @apply bg-[#ff3d60] py-2.5 ml-1 text-center leading-5 text-lg text-black;
+  }
+
+  ol.dayGrid li.today {
+    @apply bg-blue-700;
+  }
+}
+
+/* Desktop Styles */
+.calendar.desktop {
+  header {
+    @apply flex items-center text-[calc(16px+(26-16)*((100vw-300px)/(1600-300)))] justify-between pl-5 pr-5 mb-8 text-white min-h-[10vh] text-center;
+  }
+
+  ol,
+  ul {
+    @apply grid grid-cols-7 m-auto p-0 w-full;
+  }
+
+  li {
+    @apply flex items-center justify-center list-none ml-0 text-[calc(16px+(21-16)*((100vw-300px)/(1600-300)))];
+  }
+
+  ul.weekdays {
+    @apply mb-4 border-0 font-extrabold no-underline;
+  }
+
+  ol.dayGrid li {
+    @apply bg-white border-b border-gray-800 w-full h-48 relative;
+  }
+
+  .dayNumber {
+    @apply absolute top-1 right-1 text-base;
+  }
+
+  .event,
+  .nextEvent {
+    @apply text-white w-full h-10 align-middle text-left text-base mt-[-25] p-1 overflow-hidden overflow-ellipsis flex;
+  }
+
+  .event {
+    @apply bg-fire;
+  }
+
+  .start {
+    @apply ml-1;
+  }
+
+  .start b {
+    @apply align-middle bg-blue-950 inline-block h-16 mt-1 mr-1 pl-2.5 pr-2.5 ml-1;
+  }
+
+  .past {
+    @apply bg-caribbean;
+  }
+
+  .notPaid {
+    @apply bg-cinnabar;
+  }
+
+  .notPaidDeposit {
+    @apply bg-[#ff3d60] py-2.5 ml-1 text-center leading-5 text-lg text-black;
+  }
+
+  .same:not(:first-child) {
+    @apply text-transparent;
+  }
+
+  .nextEvent {
+    @apply bg-blue-900;
+  }
+
+  ol.dayGrid li.today {
+    @apply bg-colonial;
+  }
+
+  ol.dayGrid li.previousMonth .dayNumber,
+  ol.dayGrid li.nextMonth .dayNumber {
+    @apply text-gray-500;
+  }
+
+  ol.dayGrid li.previousMonth .event,
+  ol.dayGrid li.nextMonth .event {
+    @apply opacity-50;
+  }
+}
