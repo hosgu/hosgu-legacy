@@ -86,7 +86,7 @@ const Calendar: FC<Props> = ({ events, dateClick, t, splitter = '-', view = 'des
         id={currentDate}
         key={currentDate}
       >
-        <span className="dayNumber">{day}</span>
+        <span className="dayNumber text-black">{day}</span>
 
         {existingEvents.map((event: Event, i: number) => {
           const today = new Date().getTime()
@@ -100,7 +100,7 @@ const Calendar: FC<Props> = ({ events, dateClick, t, splitter = '-', view = 'des
 
           return (
             <div
-              className={cx(
+              className={cx.join(
                 'event',
                 `event${i + 1}`,
                 isStartDate ? 'start' : '',
@@ -137,7 +137,7 @@ const Calendar: FC<Props> = ({ events, dateClick, t, splitter = '-', view = 'des
       id={currentDate}
       key={currentDate}
     >
-      <span className="dayNumber">{day}</span>
+      <span className="dayNumber text-black">{day}</span>
     </li>
   )
 

@@ -154,7 +154,7 @@ input:-webkit-autofill:active {
 
   .event,
   .nextEvent {
-    @apply text-white w-full h-10 align-middle text-left text-base mt-[-25] p-1 overflow-hidden overflow-ellipsis flex;
+    @apply text-white w-full h-10 align-middle text-left text-xs mt-[-25] p-1 overflow-hidden overflow-ellipsis flex;
   }
 
   .event {
@@ -166,7 +166,7 @@ input:-webkit-autofill:active {
   }
 
   .start b {
-    @apply align-middle bg-blue-950 inline-block h-16 mt-1 mr-1 pl-2.5 pr-2.5 ml-1;
+    @apply align-middle items-center bg-blue-950 inline-block h-40 mr-1 pl-3 pr-2.5 -ml-1 -mt-2 pt-4;
   }
 
   .past {

@@ -16,7 +16,7 @@ const Layout: FC<Props> = async ({ params, children }) => {
   return (
     <main>
       <div className="sticky top-0 z-50 bg-white dark:bg-black dark:text-white">
-        <Header t={t} />
+        <Header t={t} locale={params.locale} />
       </div>
 
       <div>{children}</div>

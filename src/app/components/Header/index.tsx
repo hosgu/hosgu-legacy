@@ -2,6 +2,7 @@
 import { FC } from 'react'
 import { Button } from '@architecturex/components.button'
 import { Locale } from '@architecturex/utils.i18n'
+import cx from '@architecturex/utils.cx'
 
 import { Translations } from '~app/i18n'
 
@@ -59,10 +60,15 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page, t }) => {
   const name = fullName.split(' ')[0]
   const lastName = fullName.split(' ')[1]
 
+  const width = page === 'dashboard' ? 'w-full' : 'max-w-xLarge'
+
   return (
     <header
       data-component="Header"
-      className="max-w-xLarge m-auto bg-white flex items-center justify-between p-6 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl"
+      className={cx.join(
+        width,
+        'm-auto bg-white flex items-center justify-between p-6 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl'
+      )}
     >
       <Logo slogan={t.slogan} key={darkMode.toString()} />
 
