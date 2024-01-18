@@ -51,6 +51,7 @@
     "@architecturex/components.renderif": "^1.0.4",
     "@architecturex/components.select": "^1.0.14",
     "@architecturex/components.switcher": "^1.0.18",
+    "@architecturex/components.table": "^1.0.2",
     "@architecturex/utils.api": "^1.1.6",
     "@architecturex/utils.cookies": "1.0.8",
     "@architecturex/utils.core": "^1.0.2",
