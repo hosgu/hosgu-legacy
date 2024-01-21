@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 
 import { getI18n, Locale } from '~/app/i18n'
-import Header from '~components/Header'
+import Header from '~appComponents/Header'
 
 type Props = {
   params: {

@@ -2,7 +2,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@architecturex/components.button'
-import { Input } from '@architecturex/components.input'
+import Input from '~components/Input'
 import security from '@architecturex/utils.security'
 
 import { Translations, Locale } from '~app/i18n'

@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import { Input } from '@architecturex/components.input'
+import Input from '~components/Input'
 import { Button } from '@architecturex/components.button'
 import { RenderIf } from '@architecturex/components.renderif'
 import { Select } from '@architecturex/components.select'

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
 import { Translations } from '~app/i18n'
-import SVGCalendar from '~components/SVG/Calendar'
-import SVGMoney from '~components/SVG/Money'
-import SVGChart from '~components/SVG/Chart'
-import SVGPhone from '~components/SVG/Phone'
+import SVGCalendar from '~appComponents/SVG/Calendar'
+import SVGMoney from '~appComponents/SVG/Money'
+import SVGChart from '~appComponents/SVG/Chart'
+import SVGPhone from '~appComponents/SVG/Phone'
 
 type Props = {
   t: Translations

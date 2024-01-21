@@ -3,12 +3,12 @@ import React, { FC, useState } from 'react'
 import Image from 'next/image'
 import cx from '@architecturex/utils.cx'
 
-import Calendar from '~components/SVG/Calendar'
-import Guests from '~components/SVG/Guests'
-import Reports from '~components/SVG/Reports'
-import User from '~components/SVG/User'
-import Settings from '~components/SVG/Settings'
-import Logout from '~components/SVG/Logout'
+import Calendar from '~appComponents/SVG/Calendar'
+import Guests from '~appComponents/SVG/Guests'
+import Reports from '~appComponents/SVG/Reports'
+import User from '~appComponents/SVG/User'
+import Settings from '~appComponents/SVG/Settings'
+import Logout from '~appComponents/SVG/Logout'
 
 const sidebars: any = {
   none: <div />,

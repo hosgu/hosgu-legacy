@@ -4,9 +4,9 @@ import { Locale } from '@architecturex/utils.i18n'
 
 import { Translations } from '~app/i18n'
 
-import Link from '~components/Link'
-import Hamburger from '~components/SVG/Hamburger'
-import X from '~components/SVG/X'
+import Link from '~appComponents/Link'
+import Hamburger from '~appComponents/SVG/Hamburger'
+import X from '~appComponents/SVG/X'
 import { useTheme } from '~contexts/ThemeContext'
 import { User } from '~/types'
 

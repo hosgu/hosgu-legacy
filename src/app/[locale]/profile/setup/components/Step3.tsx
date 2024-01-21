@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, useEffect, ChangeEvent, useTransition } from 'react'
-import { Counter } from '@architecturex/components.counter'
+import Counter from '~components/Counter'
 
 import { Translations } from '~app/i18n'
 

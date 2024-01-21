@@ -11,7 +11,8 @@ module.exports = {
     // Aliases
     config.resolve.alias['~'] = path.resolve(__dirname, './src')
     config.resolve.alias['~app'] = path.resolve(__dirname, './src/app')
-    config.resolve.alias['~components'] = path.resolve(__dirname, './src/app/components')
+    config.resolve.alias['~appComponents'] = path.resolve(__dirname, './src/app/components')
+    config.resolve.alias['~components'] = path.resolve(__dirname, './src/components')
     config.resolve.alias['~contexts'] = path.resolve(__dirname, './src/app/contexts')
     config.resolve.alias['~i18n'] = path.resolve(__dirname, './src/app/i18n')
     config.resolve.alias['~services'] = path.resolve(__dirname, './src/app/services')

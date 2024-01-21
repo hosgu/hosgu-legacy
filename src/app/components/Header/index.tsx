@@ -8,10 +8,11 @@ import { Translations } from '~app/i18n'
 
 import { useTheme } from '~contexts/ThemeContext'
 
-import Link from '~components/Link'
-import Logo from '~components/Logo'
-import Nav from '~components/Nav'
-import Dropdown from '~components/Dropdown'
+import Avatar from '~/components/Avatar'
+import Link from '~appComponents/Link'
+import Logo from '~appComponents/Logo'
+import Nav from '~appComponents/Nav'
+import Dropdown from '~appComponents/Dropdown'
 
 import HamburgerMenu from './HamburgerMenu'
 import ThemeSwitcher from './ThemeSwitcher'
@@ -124,6 +125,10 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page, t }) => {
             />
           </div>
         )}
+
+        <div className="-mt-1 ml-4">
+          <Avatar url="/images/clients/san-pancho.png" name="Cabañas San Pancho" size="medium" />
+        </div>
       </div>
     </header>
   )
