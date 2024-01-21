@@ -13,7 +13,7 @@ import Logout from '~components/SVG/Logout'
 const sidebars: any = {
   none: <div />,
   calendar: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reservations</h2>
       </div>
@@ -40,7 +40,7 @@ const sidebars: any = {
     </div>
   ),
   guests: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Guests</h2>
       </div>
@@ -64,7 +64,7 @@ const sidebars: any = {
     </div>
   ),
   reports: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reports</h2>
       </div>
@@ -103,7 +103,7 @@ const sidebars: any = {
     </div>
   ),
   users: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Users</h2>
       </div>
@@ -124,7 +124,7 @@ const sidebars: any = {
     </div>
   ),
   settings: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Settings</h2>
       </div>
@@ -167,17 +167,7 @@ const Sidebar: FC = () => {
   return (
     <aside className="flex">
       {/* First Column */}
-      <div className="flex h-screen w-12 flex-col items-center space-y-8 border-r border-slate-300 bg-slate-50 py-8  dark:border-slate-700 dark:bg-slate-900 sm:w-16">
-        {/* Logo */}
-
-        <Image
-          src="/images/clients/san-pancho.png"
-          alt="San Pancho"
-          className="rounded-full w-10/12"
-          width={100}
-          height={100}
-        />
-
+      <div className="flex h-screen w-12 flex-col items-center space-y-8 bg-white py-8 dark:border-slate-700 dark:bg-black sm:w-16">
         {/* Calendar */}
         <a
           href="#"
