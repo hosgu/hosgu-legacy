@@ -1,6 +1,6 @@
 'use client'
 import { FC } from 'react'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 import { Locale } from '@architecturex/utils.i18n'
 import cx from '@architecturex/utils.cx'
 

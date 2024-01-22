@@ -1,9 +1,9 @@
 'use client'
 import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Button } from '@architecturex/components.button'
 import Input from '~components/Input'
 import security from '@architecturex/utils.security'
+import Button from '~/components/Button'
 
 import { Translations, Locale } from '~app/i18n'
 import { loginServerAction } from '../../../actions/login'
@@ -32,6 +32,7 @@ const Form: FC<Props> = ({ t, locale }) => {
   }, [])
 
   const handleSubmit = async () => {
+    console.log('ENTRA===')
     const formData = new FormData()
     formData.append(security.base64.encode('email', true), security.base64.encode(email, true))
     formData.append(

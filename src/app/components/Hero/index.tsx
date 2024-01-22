@@ -1,10 +1,9 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
 import Input from '~components/Input'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 import { RenderIf } from '@architecturex/components.renderif'
 import { Select } from '@architecturex/components.select'
-import { Checkbox } from '@architecturex/components.checkbox'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 

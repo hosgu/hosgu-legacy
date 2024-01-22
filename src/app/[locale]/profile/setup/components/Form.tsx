@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 

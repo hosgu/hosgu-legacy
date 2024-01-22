@@ -1,3 +1,4 @@
+
 import React, { FC, useState, CSSProperties } from 'react'
 
 type Props = {
@@ -8,15 +9,9 @@ type Props = {
   max?: number
 }
 
-const nbsp = '\u00A0'
+const nbsp = ' '
 
-const Counter: FC<Props> = ({
-  label,
-  spaces = 0,
-  onChange,
-  max = 99,
-  style = { width: '135px' }
-}) => {
+const Counter: FC<Props> = ({ label, spaces = 0, onChange, max = 99, style = { width: '135px' } }) => {
   const [count, setCount] = useState<number>(0)
 
   const increment = () => {

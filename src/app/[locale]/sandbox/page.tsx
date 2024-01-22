@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 
 const Page: FC = async () => {
   return (

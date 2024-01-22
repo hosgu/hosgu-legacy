@@ -10,7 +10,7 @@ type Props = {
 
 const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
   const t = await getI18n(locale)
-  const headers = ['fullName', 'email', 'phone', 'links', 'gender', 'birthday']
+  const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday']
 
   const rows = [
     [
