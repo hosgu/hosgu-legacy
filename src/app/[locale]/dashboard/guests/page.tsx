@@ -41,10 +41,6 @@ const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-      <div className="p-2 dark:text-white w-full">
-        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">Guests</h1>
-      </div>
-
       <GuestTable headers={headers} rows={rows} />
     </div>
   )
