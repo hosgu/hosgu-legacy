@@ -1,4 +1,3 @@
-
 import React, { FC, useState, CSSProperties } from 'react'
 
 type Props = {

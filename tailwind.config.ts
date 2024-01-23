@@ -1,11 +1,10 @@
 import { Config } from 'tailwindcss'
-import { tailwindClasses as switcherClasses } from '@architecturex/components.switcher'
 import { tailwindClasses as selectClasses } from '@architecturex/components.select'
 import { tailwindClasses as calendarClasses } from '@architecturex/components.calendar'
 
 const config: Config = {
   darkMode: 'class',
-  safelist: [...switcherClasses, ...selectClasses, ...calendarClasses],
+  safelist: [...selectClasses, ...calendarClasses],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
