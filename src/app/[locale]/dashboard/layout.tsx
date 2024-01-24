@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { getI18n, Locale } from '~/app/i18n'
-import Header from '~components/Header'
+import Header from '~appComponents/Header'
 import Sidebar from './components/Sidebar'
 
 import services from '~/app/services'

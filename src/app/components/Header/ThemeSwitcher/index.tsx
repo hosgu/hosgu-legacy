@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 
 import { Translations } from '~app/i18n'
 
-import Moon from '~components/SVG/Moon'
-import Sun from '~components/SVG/Sun'
+import Moon from '~appComponents/SVG/Moon'
+import Sun from '~appComponents/SVG/Sun'
 import { useTheme } from '~contexts/ThemeContext'
 
 type Props = {

@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 
 import { Translations } from '~app/i18n'
 
-import Link from '~components/Link'
+import Link from '~appComponents/Link'
 
 const currentYear = new Date().getFullYear()
 

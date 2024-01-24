@@ -4,10 +4,10 @@ import { cookies } from 'next/headers'
 import services from '~/app/services'
 import { getI18n, Locale } from '~/app/i18n'
 
-import Header from '~components/Header'
-import Hero from '~components/Hero'
-import Blocks from '~components/Blocks'
-import Footer from '~components/Footer'
+import Header from '~appComponents/Header'
+import Hero from '~appComponents/Hero'
+import Blocks from '~appComponents/Blocks'
+import Footer from '~appComponents/Footer'
 
 type Props = {
   params: {

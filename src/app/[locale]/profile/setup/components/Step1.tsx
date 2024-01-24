@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, ChangeEvent } from 'react'
-import { Input } from '@architecturex/components.input'
+import Input from '~components/Input'
 
 import { Translations } from '~app/i18n'
 

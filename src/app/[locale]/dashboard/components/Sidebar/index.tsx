@@ -3,17 +3,17 @@ import React, { FC, useState } from 'react'
 import Image from 'next/image'
 import cx from '@architecturex/utils.cx'
 
-import Calendar from '~components/SVG/Calendar'
-import Guests from '~components/SVG/Guests'
-import Reports from '~components/SVG/Reports'
-import User from '~components/SVG/User'
-import Settings from '~components/SVG/Settings'
-import Logout from '~components/SVG/Logout'
+import Calendar from '~appComponents/SVG/Calendar'
+import Guests from '~appComponents/SVG/Guests'
+import Reports from '~appComponents/SVG/Reports'
+import User from '~appComponents/SVG/User'
+import Settings from '~appComponents/SVG/Settings'
+import Logout from '~appComponents/SVG/Logout'
 
 const sidebars: any = {
   none: <div />,
   calendar: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reservations</h2>
       </div>
@@ -40,7 +40,7 @@ const sidebars: any = {
     </div>
   ),
   guests: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Guests</h2>
       </div>
@@ -52,16 +52,19 @@ const sidebars: any = {
           </h2>
         </button>
 
-        <button className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800">
+        <a
+          href="/en-us/dashboard/guests"
+          className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
+        >
           <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
             All guests
           </h2>
-        </button>
+        </a>
       </div>
     </div>
   ),
   reports: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Reports</h2>
       </div>
@@ -100,7 +103,7 @@ const sidebars: any = {
     </div>
   ),
   users: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Users</h2>
       </div>
@@ -121,7 +124,7 @@ const sidebars: any = {
     </div>
   ),
   settings: (
-    <div className="h-screen w-52 overflow-y-auto bg-slate-50 py-8 border-r border-slate-300 dark:bg-slate-900 dark:border-slate-600 sm:w-60">
+    <div className="h-screen w-52 overflow-y-auto bg-white py-8 dark:bg-black sm:w-60">
       <div className="flex items-start">
         <h2 className="inline px-5 text-xl text-slate-800 dark:text-slate-200">Settings</h2>
       </div>
@@ -164,17 +167,7 @@ const Sidebar: FC = () => {
   return (
     <aside className="flex">
       {/* First Column */}
-      <div className="flex h-screen w-12 flex-col items-center space-y-8 border-r border-slate-300 bg-slate-50 py-8  dark:border-slate-700 dark:bg-slate-900 sm:w-16">
-        {/* Logo */}
-
-        <Image
-          src="/images/clients/san-pancho.png"
-          alt="San Pancho"
-          className="rounded-full w-10/12"
-          width={100}
-          height={100}
-        />
-
+      <div className="flex h-screen w-12 flex-col items-center space-y-8 bg-white py-8 dark:border-slate-700 dark:bg-black sm:w-16">
         {/* Calendar */}
         <a
           href="#"

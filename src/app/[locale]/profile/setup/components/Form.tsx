@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 
@@ -9,7 +9,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import Step4 from './Step5'
 
-import StepIndicator from '~components/StepIndicator'
+import StepIndicator from '~appComponents/StepIndicator'
 import { Translations } from '~app/i18n'
 import { setupProfileServerAction } from '../../../../actions/profile'
 import { UserFields } from '~/server/db/schemas/user'

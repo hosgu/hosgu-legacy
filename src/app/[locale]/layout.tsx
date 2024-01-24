@@ -6,7 +6,7 @@ import { Inter } from 'next/font/google'
 import cx from '@architecturex/utils.cx'
 
 import { ThemeProvider } from '~contexts/ThemeContext'
-import NotFound from '~components/NotFound'
+import NotFound from '~appComponents/NotFound'
 import { allowedLocales } from '~/app/i18n'
 
 const inter = Inter({ subsets: ['latin'] })

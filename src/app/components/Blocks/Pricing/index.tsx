@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState } from 'react'
-import { Button } from '@architecturex/components.button'
+import Button from '~/components/Button'
 import { Switcher } from '@architecturex/components.switcher'
 import cx from '@architecturex/utils.cx'
 

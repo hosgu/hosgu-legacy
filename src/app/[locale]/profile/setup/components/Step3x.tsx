@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, useEffect, ChangeEvent, useTransition } from 'react'
-import { Input } from '@architecturex/components.input'
+import Input from '~components/Input'
 
 import Select from '~/app/components/Select'
 
