@@ -190,10 +190,10 @@ const Hero: FC<Props> = ({ t }) => {
 
   return (
     <div
-      className="max-w-xLarge m-auto relative h-[900px] lg:h-screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white dark:bg-gray-300"
+      className="max-w-xLarge m-auto relative h-[900px] lg:h-max px-8 text-center bg-cover bg-center bg-no-repeat bg-white dark:bg-gray-300"
       style={{ backgroundImage: `url('/images/waves.png')` }}
     >
-      <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-60">
+      <div className="flex justify-between items-center flex-col xl:flex-row pt-5 lg:pt-30">
         <div className="relative z-10 align-center">
           <h1>{t.boostYourBusiness}</h1>
           <p className="pr-6 pb-4">{t.elevateYourBookings}</p>
