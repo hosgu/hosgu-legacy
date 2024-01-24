@@ -1,5 +1,5 @@
 {
-  "id": "1f79ad86-fe06-4c67-87b7-cde328dc1ab1",
+  "id": "9973928e-7d4b-44a1-b625-005597c72740",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -967,6 +967,12 @@
           "notNull": true,
           "default": "'[]'::jsonb"
         },
+        "photo": {
+          "name": "photo",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -1708,7 +1714,7 @@
           "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'en'"
+          "default": "'en-us'"
         },
         "timezone": {
           "name": "timezone",
@@ -2019,8 +2025,8 @@
   "enums": {},
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }

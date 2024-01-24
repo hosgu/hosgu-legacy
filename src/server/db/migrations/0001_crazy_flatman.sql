@@ -1,1 +1,0 @@
-ALTER TABLE "setting" ALTER COLUMN "language" SET DEFAULT 'en-us';

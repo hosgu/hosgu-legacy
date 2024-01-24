@@ -22,6 +22,7 @@ export const guest = pgTable('guest', {
   organization: varchar('organization', { length: 50 }).notNull(),
   taxIdentifier: varchar('taxIdentifier', { length: 50 }).notNull(),
   notes: customJsonbNotes.notNull().default([]),
+  photo: varchar('photo', { length: 250 }),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })
