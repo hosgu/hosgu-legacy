@@ -1,4 +1,4 @@
-import { pgTable, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
 import { business } from './business'
 import { customJsonb, Notes } from '../schema'
 
@@ -13,15 +13,13 @@ export const guest = pgTable('guest', {
   email: varchar('email', { length: 255 }).notNull(),
   phone: varchar('phone', { length: 40 }).notNull(),
   website: varchar('website', { length: 200 }),
-  facebook: varchar('facebook', { length: 20 }),
+  facebook: varchar('facebook', { length: 200 }),
   instagram: varchar('instagram', { length: 200 }),
-  youtube: varchar('youtube', { length: 200 }),
-  tiktok: varchar('tiktok', { length: 200 }),
   gender: varchar('gender', { length: 50 }).notNull(),
   birthday: varchar('birthday', { length: 20 }).notNull(),
   organization: varchar('organization', { length: 50 }).notNull(),
   taxIdentifier: varchar('taxIdentifier', { length: 50 }).notNull(),
-  notes: customJsonbNotes.notNull().default([]),
+  notes: text('notes'),
   photo: varchar('photo', { length: 250 }),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
