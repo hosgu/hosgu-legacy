@@ -1,5 +1,5 @@
 {
-  "id": "9973928e-7d4b-44a1-b625-005597c72740",
+  "id": "115d2d42-ac3b-4093-b668-712aa7ad596e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -914,24 +914,12 @@
         },
         "facebook": {
           "name": "facebook",
-          "type": "varchar(20)",
+          "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
         },
         "instagram": {
           "name": "instagram",
-          "type": "varchar(200)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "youtube": {
-          "name": "youtube",
-          "type": "varchar(200)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tiktok": {
-          "name": "tiktok",
           "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
@@ -962,10 +950,9 @@
         },
         "notes": {
           "name": "notes",
-          "type": "jsonb",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'[]'::jsonb"
+          "notNull": false
         },
         "photo": {
           "name": "photo",
