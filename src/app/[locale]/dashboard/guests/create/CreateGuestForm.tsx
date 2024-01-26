@@ -5,6 +5,7 @@ import core from '@architecturex/utils.core'
 import { createGuestServerAction } from '~/app/actions/dashboard/guest'
 import Button from '~/components/Button'
 import Input from '~components/Input'
+import TextArea from '~/components/TextArea'
 
 type Props = {
   headers: string[]
@@ -189,10 +190,9 @@ const CreateGuestForm: FC<any> = () => {
         onChange={handleChange}
         required
       />
-      <label>Notes:</label>
-      <p>
-        <textarea value={values.notes} name="notes" onChange={handleChange} required />
-      </p>
+
+      <TextArea label="Notes" value={values.notes} name="notes" onChange={handleChange} required />
+
       <Button color="secondary" onClick={handleSubmit} shape="circle">
         Save
       </Button>

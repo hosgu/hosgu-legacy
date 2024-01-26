@@ -33,6 +33,7 @@
     "@architecturex/components.select": "^1.0.14",
     "@architecturex/components.switcher": "^1.1.0",
     "@architecturex/components.table": "^1.1.1",
+    "@architecturex/components.textarea": "^1.0.1",
     "@babel/core": "^7.23.7",
     "@babel/node": "^7.22.19",
     "@types/body-parser": "^1.19.5",
