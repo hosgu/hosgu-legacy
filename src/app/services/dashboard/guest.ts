@@ -19,6 +19,17 @@ type CreateGuestPayload = {
   notes: string
   photo: string
 }
+export const getAll = async () => {
+  const response = await api.fetch<APIResponse<GuestFields>>('/api/v1/guest', {
+    method: 'GET',
+    addLocalHost: process.env.NODE_ENV === 'development'
+  })
+  return {
+    ok: true,
+    data: response,
+    status: 200
+  }
+}
 
 export const create = async ({
   businessId,

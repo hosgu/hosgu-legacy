@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { getI18n, Locale } from '~/app/i18n'
 import GuestTable from './GuestTable'
+import { getAllGuestsServerAction } from '~/app/actions/dashboard/guest'
 
 type Props = {
   params: {
@@ -10,34 +11,25 @@ type Props = {
 
 const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
   const t = await getI18n(locale)
+  const {
+    data,
+    data: {
+      items: guests,
+      pagination: { totalItems }
+    }
+  } = await getAllGuestsServerAction()
+  // console.log('DATA: ', data)
+  
   const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday']
 
-  const rows = [
-    [
-      'Jonh Doe',
-      'jonh@doe.com',
-      '+1 123 456 78 90',
-      'https://j https://y https://t',
-      'male',
-      '01/01/01'
-    ],
-    [
-      'Mary Doe',
-      'jonh@doe.com',
-      '+1 123 456 78 90',
-      'https://j https://y https://t',
-      'male',
-      '01/01/01'
-    ],
-    [
-      'Dave Doe',
-      'jonh@doe.com',
-      '+1 123 456 78 90',
-      'https://j https://y https://t',
-      'male',
-      '01/01/01'
-    ]
-  ]
+  const rows = guests.map(({ fullName, email, phone, website, gender, birthday }: any) => [
+    fullName,
+    email,
+    phone,
+    website,
+    gender,
+    birthday
+  ])
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">

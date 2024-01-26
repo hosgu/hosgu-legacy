@@ -13,14 +13,14 @@ const GuestTable: FC<Props> = ({ headers, rows }) => {
     <Table
       label="Guests"
       createButton={
-        <Button color="info" size="small">
+        <Button color="info" size="small" href='guests/create'>
           + Create
         </Button>
       }
       headers={headers}
       rows={rows}
       hoverHighlight
-      rowsPerPage={2}
+      rowsPerPage={10}
     />
   )
 }

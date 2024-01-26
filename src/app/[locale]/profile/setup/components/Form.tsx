@@ -171,7 +171,6 @@ const Form: FC<Props> = ({ t, user }) => {
 
   const handleSubmit = async () => {
     const isValidStep = validate()
-    console.log('isValidStep', isValidStep)
     if (isValidStep && step < 3) {
       setStep((prevState) => prevState + 1)
     }
