@@ -99,13 +99,10 @@ const CreateGuestForm: FC<any> = () => {
 
   const handleSubmit = async () => {
     const isValidForm = validate()
-    console.log('isValidForm', isValidForm)
     if (isValidForm) {
-      console.log('Call backend saving data')
       const formData = core.formData.set(new FormData(), values)
 
       const response = await createGuestServerAction(formData)
-      console.log(' Test data', response)
       if (response.status === 200) {
       }
     }

@@ -26,7 +26,7 @@ class CRUD extends CRUDHandler<User> {
 
   async getOne(at: string): Promise<DataResponse<ItemData>> {
     const connectedUser = await getUserData(at)
-    console.log('GET ONE CONNECTED USER=========>>>>>', connectedUser)
+
     if (connectedUser) {
       // Re-validating if the user is still valid
       const user = await getUserBy(

@@ -39,7 +39,7 @@ const Table: FC<TableProps> = ({
   onRowClick,
   striped = false,
   columnAlignments = [],
-  rowsPerPage = 2,
+  rowsPerPage = 10,
   label = '',
   createButton = null
 }) => {

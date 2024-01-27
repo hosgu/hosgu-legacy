@@ -51,7 +51,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     return selectionFields
   }
 
-  async getAll(page: number = 1, size: number = 10): Promise<DataResponse<any>> {
+  async getAll(page: number = 1, size: number = 10, limit = false): Promise<DataResponse<any>> {
     const [countData] = await this.db
       .select({ count: this.sql<number>`cast(count(*) as int)` })
       .from(this.table)
@@ -59,11 +59,16 @@ class CRUD<T extends PgTable<TableConfig>> {
     const totalItems = countData.count
     const totalPages = Math.ceil(totalItems / size)
 
-    const data = await this.db
-      .select(this.selectedFields)
-      .from(this.table)
-      .limit(size)
-      .offset((page - 1) * size)
+    let data = []
+    if (limit) {
+      data = await this.db
+        .select()
+        .from(this.table)
+        .limit(size)
+        .offset((page - 1) * size)
+    } else {
+      data = await this.db.select().from(this.table)
+    }
 
     if (data.length === 0) {
       throw {
