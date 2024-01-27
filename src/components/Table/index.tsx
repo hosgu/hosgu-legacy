@@ -5,7 +5,6 @@ import NoData from '~/app/components/SVG/NoData'
 interface TableProps {
   headers: string[]
   rows: string[][]
-  totalRows?: number
   hoverHighlight?: boolean
   headerBgColor?: string
   rowColor?: string
@@ -33,7 +32,6 @@ const alignmentClasses = {
 const Table: FC<TableProps> = ({
   headers,
   rows: initialRows,
-  totalRows = 0,
   hoverHighlight = false,
   headerBgColor = defaultColors.headerBgColor,
   rowColor = defaultColors.rowColor,

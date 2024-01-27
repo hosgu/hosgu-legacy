@@ -59,7 +59,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     const totalItems = countData.count
     const totalPages = Math.ceil(totalItems / size)
 
-    let data = null
+    let data = []
     if (limit) {
       data = await this.db
         .select()
@@ -67,7 +67,6 @@ class CRUD<T extends PgTable<TableConfig>> {
         .limit(size)
         .offset((page - 1) * size)
     } else {
-      console.log("Entering else")
       data = await this.db.select().from(this.table)
     }
 

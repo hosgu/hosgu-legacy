@@ -18,8 +18,7 @@ const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
       pagination: { totalItems }
     }
   } = await getAllGuestsServerAction()
-  // console.log('DATA: ', data)
-  
+
   const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday']
 
   const rows = guests.map(({ fullName, email, phone, website, gender, birthday }: any) => [
