@@ -12,11 +12,7 @@ type Props = {
 const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
   const t = await getI18n(locale)
   const {
-    data,
-    data: {
-      items: guests,
-      pagination: { totalItems }
-    }
+    data: { items: guests }
   } = await getAllGuestsServerAction()
 
   const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday']
