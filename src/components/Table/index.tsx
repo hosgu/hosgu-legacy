@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState } from 'react'
 import cx from '@architecturex/utils.cx'
 import NoData from '~/app/components/SVG/NoData'
+import SearchInput from '~/app/[locale]/dashboard/components/SearchInput'
 
 interface TableProps {
   headers: string[]
@@ -49,6 +50,7 @@ const Table: FC<TableProps> = ({
   )
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(sortedRows.length / rowsPerPage)
+  const [filteredRows, setFilteredRows] = useState<string[][] | null>(null)
 
   // Sorting function
   const onHeaderClick = (colIndex: number) => {
@@ -75,8 +77,9 @@ const Table: FC<TableProps> = ({
   return (
     <>
       {label && (
-        <div className="w-[95%] m-auto mt-4 mb-0 flex justify-between items-center">
-          <div className="text-xl font-semibold">{label}</div>
+        <div className="w-[95%] m-auto mt-4 mb-0 flex items-center gap-2">
+          <div className="text-xl font-semibold mr-auto">{label}</div>
+          <SearchInput rows={initialRows} setFilteredRows={setFilteredRows} />
           {createButton && <div className="text-sm text-gray-600">{createButton}</div>}
         </div>
       )}
@@ -101,7 +104,7 @@ const Table: FC<TableProps> = ({
               </tr>
             </thead>
             <tbody>
-              {currentRows.length === 0 && (
+              {(filteredRows ? filteredRows : currentRows).length === 0 && (
                 <td
                   colSpan={headers.length}
                   className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
@@ -114,7 +117,7 @@ const Table: FC<TableProps> = ({
                 </td>
               )}
 
-              {currentRows.map((row, rowIndex) => (
+              {(filteredRows ? filteredRows : currentRows).map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
                   className={cx.join(
