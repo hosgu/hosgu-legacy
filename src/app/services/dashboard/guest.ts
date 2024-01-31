@@ -84,3 +84,14 @@ export const create = async ({
     status: 500
   }
 }
+export const deleteRow = async (id: string) => {
+  const response = await api.fetch<APIResponse<GuestFields>>(`/api/v1/guest/${id}`, {
+    method: 'DELETE',
+    addLocalHost: process.env.NODE_ENV === 'development'
+  })
+  return {
+    ok: true,
+    data: response,
+    status: 200
+  }
+}

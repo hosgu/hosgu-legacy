@@ -4,7 +4,7 @@ import NoData from '~/app/components/SVG/NoData'
 
 interface TableProps {
   headers: string[]
-  rows: string[][]
+  rows: any[][]
   hoverHighlight?: boolean
   headerBgColor?: string
   rowColor?: string
