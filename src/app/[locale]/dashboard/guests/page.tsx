@@ -15,20 +15,9 @@ const GuestsPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
     data: { items: guests }
   } = await getAllGuestsServerAction()
 
-  const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday']
-
-  const rows = guests.map(({ fullName, email, phone, website, gender, birthday }: any) => [
-    fullName,
-    email,
-    phone,
-    website,
-    gender,
-    birthday
-  ])
-
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-      <GuestTable headers={headers} rows={rows} />
+      <GuestTable data={guests} />
     </div>
   )
 }
