@@ -1,18 +1,16 @@
 'use client'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Table from '~/components/Table'
 import Button from '~/components/Button'
+import core from '@architecturex/utils.core'
+import { deleteGuestServerAction } from '~/app/actions/dashboard/guest'
 
 type Props = {
   data: any[]
 }
 
 const GuestTable: FC<Props> = ({ data }) => {
-  const handleDelete = (id: string) => {}
-
-  const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday', 'Actions']
-
-  const rows = data.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
+  const initialRows = data.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
     fullName,
     email,
     phone,
@@ -23,6 +21,18 @@ const GuestTable: FC<Props> = ({ data }) => {
       X
     </a>
   ])
+
+  const [rows, setRows] = useState(initialRows)
+
+  const handleDelete = (id: string) => {
+    const formData = core.formData.set(new FormData(), {
+      id
+    })
+
+    deleteGuestServerAction(formData)
+  }
+
+  const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday', 'Actions']
 
   return (
     <Table
