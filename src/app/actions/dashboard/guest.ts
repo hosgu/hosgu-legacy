@@ -1,13 +1,12 @@
 'use server'
 import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
-import { create, getAll } from '../../services/dashboard/guest'
+import { create, getAll, deleteRow } from '../../services/dashboard/guest'
 
 export const getAllGuestsServerAction = async (): Promise<APIResponse<any>> => {
   const response = await getAll()
   return response
 }
-
 
 export const createGuestServerAction = async (e: FormData): Promise<APIResponse<any>> => {
   const {
@@ -41,6 +40,14 @@ export const createGuestServerAction = async (e: FormData): Promise<APIResponse<
     notes,
     photo
   })
+
+  return response
+}
+
+export const deleteGuestServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+  const { id } = core.formData.get(e)
+
+  const response = await deleteRow(id)
 
   return response
 }
