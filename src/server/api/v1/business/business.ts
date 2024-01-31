@@ -10,9 +10,8 @@ class CRUD extends CRUDHandler<Business> {
 
   async by(by: any): Promise<any> {
     try {
-      console.log('BY===>', by)
       const business = await getBusinessBy(by)
-      console.log('BUSINESS===>', business)
+
       if (business) {
         return {
           items: business

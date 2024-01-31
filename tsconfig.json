@@ -35,6 +35,7 @@
       "~contexts/*": ["./src/app/contexts/*"],
       "~i18n/*": ["./src/app/i18n/*"],
       "~services/*": ["./src/services/*"],
+      "~actions/*": ["./src/actions/*"],
       "~types/*": ["./src/types/*"]
     },
     "plugins": [

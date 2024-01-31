@@ -10,6 +10,7 @@ import agentApiV1 from './api/v1/agent'
 import businessApiV1 from './api/v1/business'
 import cancellationApiV1 from './api/v1/cancellation'
 import comissionApiV1 from './api/v1/comission'
+import guestApiV1 from './api/v1/guest'
 import employeeApiV1 from './api/v1/employee'
 import estateApiV1 from './api/v1/estate'
 import propertieApiV1 from './api/v1/property'
@@ -53,6 +54,7 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/comission', comissionApiV1)
   app.use('/api/v1/employee', employeeApiV1)
   app.use('/api/v1/estate', estateApiV1)
+  app.use('/api/v1/guest', guestApiV1)
   app.use('/api/v1/property', propertieApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)

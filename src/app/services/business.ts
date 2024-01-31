@@ -9,7 +9,6 @@ export const getBusiness = async (userId: string): Promise<BusinessFields[]> => 
     credentials: 'include',
     addLocalHost: process.env.NODE_ENV === 'development'
   })
-  console.log('RESPONSE===>', response)
   const business = response.items || []
 
   return business

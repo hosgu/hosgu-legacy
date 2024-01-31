@@ -13,8 +13,12 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
   if (!customRoutes || !customRoutes['/'] || customRoutes['/'].method !== 'GET') {
     router.get('/', async (req: Request, res: Response) => {
       try {
-        const { page = 1, size = 10 } = req.query as { page: string; size: string }
-        const response = await handler.getAll(page as number, size as number)
+        const {
+          page = 1,
+          size = 10,
+          limit = 0
+        } = req.query as { page: string; size: string; limit: string }
+        const response = await handler.getAll(page as number, size as number, !!limit)
 
         res.json({ ok: true, ...response })
       } catch (error) {

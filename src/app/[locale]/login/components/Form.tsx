@@ -32,7 +32,6 @@ const Form: FC<Props> = ({ t, locale }) => {
   }, [])
 
   const handleSubmit = async () => {
-    console.log('ENTRA===')
     const formData = new FormData()
     formData.append(security.base64.encode('email', true), security.base64.encode(email, true))
     formData.append(

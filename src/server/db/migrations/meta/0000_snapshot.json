@@ -1,5 +1,5 @@
 {
-  "id": "1f79ad86-fe06-4c67-87b7-cde328dc1ab1",
+  "id": "115d2d42-ac3b-4093-b668-712aa7ad596e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -914,24 +914,12 @@
         },
         "facebook": {
           "name": "facebook",
-          "type": "varchar(20)",
+          "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
         },
         "instagram": {
           "name": "instagram",
-          "type": "varchar(200)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "youtube": {
-          "name": "youtube",
-          "type": "varchar(200)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tiktok": {
-          "name": "tiktok",
           "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
@@ -962,10 +950,15 @@
         },
         "notes": {
           "name": "notes",
-          "type": "jsonb",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'[]'::jsonb"
+          "notNull": false
+        },
+        "photo": {
+          "name": "photo",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -1708,7 +1701,7 @@
           "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'en'"
+          "default": "'en-us'"
         },
         "timezone": {
           "name": "timezone",
@@ -2019,8 +2012,8 @@
   "enums": {},
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }
