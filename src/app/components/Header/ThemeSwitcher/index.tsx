@@ -3,8 +3,7 @@ import React, { FC } from 'react'
 
 import { Translations } from '~app/i18n'
 
-import Moon from '~appComponents/SVG/Moon'
-import Sun from '~appComponents/SVG/Sun'
+import SVG from '@architecturex/components.svg'
 import { useTheme } from '~contexts/ThemeContext'
 
 type Props = {
@@ -19,9 +18,9 @@ const ThemeSwitcher: FC<Props> = ({ t }) => {
   return (
     <div data-component="ThemeSwitcher" className="flex focus:outline-none items-center space-x-2">
       {darkMode ? (
-        <Moon stroke={stroke} label={t.changeToLightMode} onClick={toggleDarkMode} />
+        <SVG.Moon stroke={stroke} label={t.changeToLightMode} onClick={toggleDarkMode} />
       ) : (
-        <Sun stroke={stroke} label={t.changeToDarkMode} onClick={toggleDarkMode} />
+        <SVG.Sun stroke={stroke} label={t.changeToDarkMode} onClick={toggleDarkMode} />
       )}
     </div>
   )

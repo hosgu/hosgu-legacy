@@ -1,10 +1,7 @@
 import React, { FC } from 'react'
 
 import { Translations } from '~app/i18n'
-import SVGCalendar from '~appComponents/SVG/Calendar'
-import SVGMoney from '~appComponents/SVG/Money'
-import SVGChart from '~appComponents/SVG/Chart'
-import SVGPhone from '~appComponents/SVG/Phone'
+import SVG from '@architecturex/components.svg'
 
 type Props = {
   t: Translations
@@ -21,7 +18,7 @@ const Features: FC<Props> = ({ t }) => {
         <div className="text-center">
           <div className="mb-4">
             <span className="text-4xl flex justify-center">
-              <SVGCalendar className="w-20 h-20 text-center" />
+              <SVG.Calendar className="w-20 h-20 text-center" />
             </span>
           </div>
 
@@ -33,7 +30,7 @@ const Features: FC<Props> = ({ t }) => {
         <div className="text-center">
           <div className="mb-4">
             <span className="text-4xl flex justify-center">
-              <SVGMoney className="w-20 h-20 text-center" />
+              <SVG.Money className="w-20 h-20 text-center" />
             </span>
           </div>
 
@@ -45,7 +42,7 @@ const Features: FC<Props> = ({ t }) => {
         <div className="text-center">
           <div className="mb-4">
             <span className="text-4xl flex justify-center">
-              <SVGChart className="w-20 h-20 text-center" />
+              <SVG.Chart className="w-20 h-20 text-center" />
             </span>
           </div>
 
@@ -57,7 +54,7 @@ const Features: FC<Props> = ({ t }) => {
         <div className="text-center">
           <div className="mb-4">
             <span className="text-4xl flex justify-center">
-              <SVGPhone className="w-20 h-20 text-center" />
+              <SVG.Phone className="w-20 h-20 text-center" />
             </span>
           </div>
 

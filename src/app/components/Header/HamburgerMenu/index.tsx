@@ -4,9 +4,8 @@ import { Locale } from '@architecturex/utils.i18n'
 
 import { Translations } from '~app/i18n'
 
+import SVG from '@architecturex/components.svg'
 import Link from '~appComponents/Link'
-import Hamburger from '~appComponents/SVG/Hamburger'
-import X from '~appComponents/SVG/X'
 import { useTheme } from '~contexts/ThemeContext'
 import { User } from '~/types'
 
@@ -24,11 +23,11 @@ const HamburgerMenu: FC<Props> = ({ t, isLogged, locale, connectedUser }) => {
 
   return (
     <div data-component="HamburgerMenu">
-      <Hamburger label="Open Menu" stroke={stroke} onClick={() => setIsOpen(true)} />
+      <SVG.Hamburger label="Open Menu" stroke={stroke} onClick={() => setIsOpen(true)} />
 
       {isOpen && (
         <div className="bg-white fixed h-full left-0 top-0 w-full z-50 dark:bg-black">
-          <X
+          <SVG.X
             label="Close"
             className="absolute focus:outline-none right-4 top-4"
             onClick={() => setIsOpen(false)}

@@ -3,12 +3,7 @@ import React, { FC, useState } from 'react'
 import Image from 'next/image'
 import cx from '@architecturex/utils.cx'
 
-import Calendar from '~appComponents/SVG/Calendar'
-import Guests from '~appComponents/SVG/Guests'
-import Reports from '~appComponents/SVG/Reports'
-import User from '~appComponents/SVG/User'
-import Settings from '~appComponents/SVG/Settings'
-import Logout from '~appComponents/SVG/Logout'
+import SVG from '@architecturex/components.svg'
 
 const sidebars: any = {
   none: <div />,
@@ -180,7 +175,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('calendar')}
         >
-          <Calendar label="Reservations" />
+          <SVG.Calendar label="Reservations" />
         </a>
         {/* Guests */}
         <a
@@ -193,7 +188,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('guests')}
         >
-          <Guests label="Guests" />
+          <SVG.Guests label="Guests" />
         </a>
         {/* Reports */}
         <a
@@ -207,7 +202,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('reports')}
         >
-          <Reports label="Reports" />
+          <SVG.Reports label="Reports" />
         </a>
         {/* Users */}
         <a
@@ -220,7 +215,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('users')}
         >
-          <User label="Users" />
+          <SVG.User label="Users" />
         </a>
         {/* Settings */}
         <a
@@ -234,7 +229,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('settings')}
         >
-          <Settings label="Settings" />
+          <SVG.Settings label="Settings" />
         </a>
         {/* Logout */}
         <a
@@ -247,7 +242,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('logout')}
         >
-          <Logout label="Logout" />
+          <SVG.Logout label="Logout" />
         </a>
       </div>
       {/* Second Column */}
