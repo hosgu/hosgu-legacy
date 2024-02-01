@@ -40,9 +40,14 @@ const GuestTable: FC<Props> = ({ data: rawData = [] }) => {
         website,
         gender,
         birthday,
-        <a key={`delete-${fullName}`} href="#" onClick={() => handleDelete(id)}>
-          X
-        </a>
+        <>
+          <a key={`delete-${fullName}`} href="#" onClick={() => handleDelete(id)}>
+            X
+          </a>
+          <a key={`edit-${fullName}`} href={`guests/edit/${id}`} >
+            Edit
+          </a>
+        </>
       ]) || [],
     [data, handleDelete]
   )
