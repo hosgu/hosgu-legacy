@@ -1,7 +1,6 @@
-import React, { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useState, useRef } from 'react'
 import cx from '@architecturex/utils.cx'
 import NoData from '~/app/components/SVG/NoData'
-import SearchInput from '~/app/[locale]/dashboard/components/SearchInput'
 
 interface TableProps {
   headers: string[]
@@ -50,7 +49,7 @@ const Table: FC<TableProps> = ({
   )
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(sortedRows.length / rowsPerPage)
-  const [filteredRows, setFilteredRows] = useState<string[][] | null>(null)
+  const [foundRows, setFoundRows] = useState<string[][] | null>(null)
 
   // Sorting function
   const onHeaderClick = (colIndex: number) => {
@@ -60,26 +59,30 @@ const Table: FC<TableProps> = ({
       direction = 'desc'
     }
 
-    const sorted = [...sortedRows].sort((a, b) => {
+    const sorted = [...getDisplayedRows()].sort((a, b) => {
       if (a[colIndex] < b[colIndex]) return direction === 'asc' ? -1 : 1
       if (a[colIndex] > b[colIndex]) return direction === 'asc' ? 1 : -1
       return 0
     })
 
-    setSortedRows(sorted)
+    foundRows ? setFoundRows(sorted) : setSortedRows(sorted)
     setSortConfig({ key: colIndex, direction })
   }
 
   const startIndex = (currentPage - 1) * rowsPerPage
   const endIndex = startIndex + rowsPerPage
-  const currentRows = sortedRows.slice(startIndex, endIndex)
+  const currentRows = getDisplayedRows().slice(startIndex, endIndex)
+
+  function getDisplayedRows() {
+    return foundRows ? foundRows : sortedRows
+  }
 
   return (
     <>
       {label && (
         <div className="w-[95%] m-auto mt-4 mb-0 flex items-center gap-2">
           <div className="text-xl font-semibold mr-auto">{label}</div>
-          <SearchInput rows={initialRows} setFilteredRows={setFilteredRows} />
+          <TableSearch rows={initialRows} setFoundRows={setFoundRows} />
           {createButton && <div className="text-sm text-gray-600">{createButton}</div>}
         </div>
       )}
@@ -104,7 +107,7 @@ const Table: FC<TableProps> = ({
               </tr>
             </thead>
             <tbody>
-              {(filteredRows ? filteredRows : currentRows).length === 0 && (
+              {currentRows.length === 0 && (
                 <td
                   colSpan={headers.length}
                   className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
@@ -117,7 +120,7 @@ const Table: FC<TableProps> = ({
                 </td>
               )}
 
-              {(filteredRows ? filteredRows : currentRows).map((row, rowIndex) => (
+              {currentRows.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
                   className={cx.join(
@@ -144,11 +147,11 @@ const Table: FC<TableProps> = ({
           </table>
         </div>
 
-        {sortedRows.length > rowsPerPage && (
+        {getDisplayedRows().length > rowsPerPage && (
           <div className="mt-4 flex justify-between items-center">
             <span className="text-xs text-gray-600">
-              Showing {startIndex + 1} to {Math.min(endIndex, sortedRows.length)} of{' '}
-              {sortedRows.length} entries
+              Showing {startIndex + 1} to {Math.min(endIndex, getDisplayedRows().length)} of{' '}
+              {getDisplayedRows().length} entries
             </span>
             <div>
               <button
@@ -184,3 +187,70 @@ const Table: FC<TableProps> = ({
 }
 
 export default Table
+
+// ---- SearchInput Component ---- //
+interface TableSearchProps {
+  rows: string[][]
+  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | null>>
+}
+
+function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Element {
+  var inputRef = useRef<HTMLInputElement>(null)
+  var [isInputVisible, setIsInputVisible] = useState(false)
+
+  return (
+    <div className="flex gap-2">
+      <div
+        onClick={toggleInputVisibility}
+        className="hover:cursor-pointer flex justify-center items-center select-none"
+      >
+        🔍
+      </div>
+      <input
+        ref={inputRef}
+        onChange={(e) => handleSearch(e, rows)}
+        type="search"
+        placeholder="Type to search"
+        className={`${isInputVisible ? 'w-60 px-2 py-1.5 text-xs  border-slate-300 ' : 'w-0'}`}
+      />
+    </div>
+  )
+
+  function toggleInputVisibility() {
+    isInputVisible ? inputRef.current?.blur() : inputRef.current?.focus()
+    setIsInputVisible((prevIsOpen) => !prevIsOpen)
+  }
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>, rows: TableSearchProps['rows']) {
+    var query = formatQuery(e.target.value)
+
+    if (isValidQuery(query)) {
+      let querySearchResult = rows.filter((row) => byQuery(row, query))
+      setFoundRows(querySearchResult)
+      console.log(querySearchResult)
+    } else setFoundRows(null)
+  }
+
+  function formatQuery(query: string): string {
+    return query.trim().toLowerCase()
+  }
+
+  function isValidQuery(query: string): boolean {
+    return query.length > 0
+  }
+
+  function byQuery(row: string[], query: string): boolean {
+    return row.some((value) => {
+      return value.toLowerCase().includes(query)
+    })
+  }
+}
+
+/*
+TODO:
+- Styles
+  - Search input icon
+  - Search input transition
+  - General styling
+- Search optimization
+*/
