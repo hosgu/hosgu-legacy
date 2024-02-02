@@ -12,6 +12,8 @@
     "migrations:generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts",
     "db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
+    "db:seed": "node -r ts-node/register --env-file .env ./src/server/db/seed.ts",
+    "db:reset": "node -r ts-node/register --env-file .env ./src/server/db/reset.ts",
     "studio": "drizzle-kit studio",
     "import": "ts-node scripts/import.ts"
   },

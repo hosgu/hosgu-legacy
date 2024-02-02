@@ -22,9 +22,8 @@ CREATE TABLE IF NOT EXISTS "business" (
 	"phone" varchar(50) NOT NULL,
 	"priceRange" varchar(20),
 	"website" varchar(200),
-	"facebook" varchar(20),
+	"facebook" varchar(200),
 	"instagram" varchar(200),
-	"youtube" varchar(200),
 	"logo" varchar(255) NOT NULL,
 	"raiting" integer NOT NULL,
 	"addressLine1" varchar(255),
@@ -276,15 +275,6 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"updatedAt" timestamp DEFAULT now(),
 	CONSTRAINT "user_email_unique" UNIQUE("email"),
 	CONSTRAINT "user_code_unique" UNIQUE("code")
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "userRole" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"role" varchar(100) NOT NULL,
-	"description" varchar(255) NOT NULL,
-	"createdAt" timestamp DEFAULT now(),
-	"updatedAt" timestamp DEFAULT now(),
-	CONSTRAINT "userRole_role_unique" UNIQUE("role")
 );
 --> statement-breakpoint
 DO $$ BEGIN

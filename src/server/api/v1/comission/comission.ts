@@ -1,5 +1,5 @@
 import CRUDHandler from '../../CRUD'
-import { Comission, comission } from '../../../db/schemas/comissions'
+import { Comission, comission } from '../../../db/schemas/comission'
 import { DB } from '../../../db'
 
 class CRUD extends CRUDHandler<Comission> {
