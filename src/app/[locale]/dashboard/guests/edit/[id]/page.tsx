@@ -3,6 +3,8 @@ import { getI18n, Locale } from '~/app/i18n'
 import { getOneGuestServerAction } from '~/app/actions/dashboard/guest'
 import core from '@architecturex/utils.core'
 import { redirect } from 'next/navigation'
+import services from '~/app/services'
+import { cookies } from 'next/headers'
 
 import EditGuestForm from './EditGuestForm'
 
@@ -18,12 +20,15 @@ const GuestEditPage: FC<Props> = async ({ params: { locale = 'en-us', id = null 
 
   const response = await getOneGuestServerAction(formData)
   const t = await getI18n(locale)
+  const cookieStore = cookies()
+
+  const connectedUser: any = await services.users.connectedUser(cookieStore.get('at')?.value || '')
 
   if (response.ok && response.data.items) {
     const [guest] = response.data.items
     return (
       <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-        <EditGuestForm data={guest} />
+        <EditGuestForm data={{ ...guest, businessId: connectedUser.businessId }} />
       </div>
     )
   } else {

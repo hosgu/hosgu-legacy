@@ -20,11 +20,9 @@ type CreateGuestPayload = {
   photo: string
 }
 
-
-type EditGuestPayload =  CreateGuestPayload & {
-   id: string
+type EditGuestPayload = CreateGuestPayload & {
+  id: string
 }
-
 
 export const getAll = async () => {
   const response = await api.fetch<APIResponse<GuestFields>>('/api/v1/guest', {
@@ -68,6 +66,7 @@ export const create = async ({
     notes,
     photo
   }
+
   const createdGuest = await api.fetch<APIResponse<GuestFields>>('/api/v1/guest/create', {
     method: 'POST',
     body,
