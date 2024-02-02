@@ -195,14 +195,14 @@ interface TableSearchProps {
 }
 
 function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Element {
-  var inputRef = useRef<HTMLInputElement>(null)
+  var inputRef = useRef<HTMLInputElement>(null!)
   var [isInputVisible, setIsInputVisible] = useState(false)
 
   return (
     <div className="flex gap-2">
       <div
         onClick={toggleInputVisibility}
-        className="hover:cursor-pointer flex justify-center items-center select-none"
+        className="hover:cursor-pointer hover:bg-slate-200 hover:rounded-md p-1 flex justify-center items-center select-none"
       >
         🔍
       </div>
@@ -210,8 +210,9 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
         ref={inputRef}
         onChange={(e) => handleSearch(e, rows)}
         type="search"
-        placeholder="Type to search"
-        className={`${isInputVisible ? 'w-60 px-2 py-1.5 text-xs  border-slate-300 ' : 'w-0'}`}
+        placeholder="Type to search..."
+        className={`transition-{width} ease-in-out duration-300 bg-gray-50 text-sm placeholder-gray-400 rounded outline-gray-200
+          ${isInputVisible ? 'w-36 px-2 py-1.5 outline' : 'w-0'}`}
       />
     </div>
   )
@@ -227,7 +228,6 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
     if (isValidQuery(query)) {
       let querySearchResult = rows.filter((row) => byQuery(row, query))
       setFoundRows(querySearchResult)
-      console.log(querySearchResult)
     } else setFoundRows(null)
   }
 
@@ -250,7 +250,5 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
 TODO:
 - Styles
   - Search input icon
-  - Search input transition
-  - General styling
 - Search optimization
 */
