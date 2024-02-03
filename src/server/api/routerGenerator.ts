@@ -67,7 +67,7 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
       try {
         const deletedItem = await handler.delete(req.params.id)
 
-        res.status(204).json(deletedItem)
+        res.status(200).json(deletedItem)
       } catch (error) {
         handleErrorResponse(error, res)
       }

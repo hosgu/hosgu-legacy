@@ -1,5 +1,5 @@
 {
-  "id": "115d2d42-ac3b-4093-b668-712aa7ad596e",
+  "id": "2ea8cf5a-c65f-46dd-996e-d45ebcc8c6b7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -177,18 +177,12 @@
         },
         "facebook": {
           "name": "facebook",
-          "type": "varchar(20)",
+          "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
         },
         "instagram": {
           "name": "instagram",
-          "type": "varchar(200)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "youtube": {
-          "name": "youtube",
           "type": "varchar(200)",
           "primaryKey": false,
           "notNull": false
@@ -1953,57 +1947,6 @@
           "nullsNotDistinct": false,
           "columns": [
             "code"
-          ]
-        }
-      }
-    },
-    "userRole": {
-      "name": "userRole",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "role": {
-          "name": "role",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "userRole_role_unique": {
-          "name": "userRole_role_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "role"
           ]
         }
       }

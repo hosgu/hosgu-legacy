@@ -3,12 +3,7 @@ import React, { FC, useState } from 'react'
 import Image from 'next/image'
 import cx from '@architecturex/utils.cx'
 
-import Calendar from '~appComponents/SVG/Calendar'
-import Guests from '~appComponents/SVG/Guests'
-import Reports from '~appComponents/SVG/Reports'
-import User from '~appComponents/SVG/User'
-import Settings from '~appComponents/SVG/Settings'
-import Logout from '~appComponents/SVG/Logout'
+import SVG from '@architecturex/components.svg'
 
 const sidebars: any = {
   none: <div />,
@@ -47,14 +42,19 @@ const sidebars: any = {
 
       <div className="mx-2 mt-8 space-y-4">
         <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
-          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-            Add new guest
-          </h2>
+          <a
+            href="/en-us/dashboard/guests/create"
+            className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 hover:no-underline px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
+          >
+            <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200 ">
+              Add new guest
+            </h2>
+          </a>
         </button>
 
         <a
           href="/en-us/dashboard/guests"
-          className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
+          className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 hover:no-underline px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
         >
           <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
             All guests
@@ -180,7 +180,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('calendar')}
         >
-          <Calendar label="Reservations" />
+          <SVG.Calendar label="Reservations" />
         </a>
         {/* Guests */}
         <a
@@ -193,7 +193,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('guests')}
         >
-          <Guests label="Guests" />
+          <SVG.Guests label="Guests" />
         </a>
         {/* Reports */}
         <a
@@ -207,7 +207,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('reports')}
         >
-          <Reports label="Reports" />
+          <SVG.Reports label="Reports" />
         </a>
         {/* Users */}
         <a
@@ -220,7 +220,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('users')}
         >
-          <User label="Users" />
+          <SVG.User label="Users" />
         </a>
         {/* Settings */}
         <a
@@ -234,7 +234,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('settings')}
         >
-          <Settings label="Settings" />
+          <SVG.Settings label="Settings" />
         </a>
         {/* Logout */}
         <a
@@ -247,7 +247,7 @@ const Sidebar: FC = () => {
           )}
           onClick={() => handleSidebar('logout')}
         >
-          <Logout label="Logout" />
+          <SVG.Logout label="Logout" />
         </a>
       </div>
       {/* Second Column */}

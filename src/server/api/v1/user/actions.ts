@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm'
 import security from '@architecturex/utils.security'
 
 import { user as userTable } from '../../../db/schemas/user'
+import { business as businessTable } from '../../../db/schemas/business'
 import Config from '../../../config'
 import { secretKey, expiresIn, UsersFields, usersFields, tableName, db } from './props'
 
@@ -14,7 +15,19 @@ export type Login = {
 }
 
 export const createToken = async (user: any): Promise<string[] | string> => {
-  const { id, tier, information, username, password, email, active, role, theme, language } = user
+  const {
+    id,
+    tier,
+    information,
+    username,
+    password,
+    email,
+    active,
+    role,
+    theme,
+    language,
+    businessId
+  } = user
 
   const token = security.base64.encode(`${security.password.encrypt(secretKey)}${password}`, true)
   const userData = {
@@ -27,7 +40,8 @@ export const createToken = async (user: any): Promise<string[] | string> => {
     active,
     token,
     theme,
-    language
+    language,
+    businessId
   }
 
   const createTk = jwt.sign({ data: security.base64.encode(userData, true) }, secretKey, {
@@ -72,9 +86,16 @@ export const getUserBy = async (where: any, roles: string[], fields: string): Pr
     .select()
     .from(userTable)
     .where(eq(where.code ? userTable.code : userTable.email, where.code || where.email))
-
+  console.log('RESPONSE====>', response)
   if (response[0] && roles.includes(response[0].role)) {
-    return response[0]
+    const businessResponse = await db
+      .select()
+      .from(businessTable)
+      .where(eq(businessTable.userId, response[0].id))
+    console.log('businessResponse====>', businessResponse)
+    const user = { ...response[0], businessId: businessResponse[0].id }
+
+    return user
   } else {
     throw {
       type: 'FORBIDDEN_ERROR',
@@ -88,13 +109,14 @@ export const authenticate = async (emailOrUsername: string, password: string): P
   const where = is(emailOrUsername).email()
     ? { email: emailOrUsername }
     : { username: emailOrUsername }
+  console.log('WHERE===>', where)
 
   const user = await getUserBy(
     where,
     Config.user.roles,
     'id,tier,username,password,email,role,fullName,birthday,avatar,website,phone,active'
   )
-
+  console.log('user', user)
   if (!user) {
     throw {
       type: 'FORBIDDEN_ERROR',

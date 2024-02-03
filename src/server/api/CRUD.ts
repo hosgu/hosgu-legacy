@@ -91,7 +91,7 @@ class CRUD<T extends PgTable<TableConfig>> {
 
   async getOne(id: string): Promise<DataResponse<ItemData>> {
     const data = await this.db
-      .select(this.selectedFields)
+      .select()
       .from(this.table)
       .where(this.sql`id = ${id}`)
 

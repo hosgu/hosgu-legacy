@@ -1,10 +1,9 @@
 import React, { FC, ReactElement, useState, useRef } from 'react'
 import cx from '@architecturex/utils.cx'
-import NoData from '~/app/components/SVG/NoData'
-
+import SVG from '@architecturex/components.svg'
 interface TableProps {
   headers: string[]
-  rows: string[][]
+  rows: any[][]
   hoverHighlight?: boolean
   headerBgColor?: string
   rowColor?: string
@@ -113,7 +112,7 @@ const Table: FC<TableProps> = ({
                   className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
                 >
                   <div className="flex items-center justify-center">
-                    <NoData />
+                    <SVG.NoData />
                   </div>
 
                   <div className="text-gray-300 font-normal">No data</div>
