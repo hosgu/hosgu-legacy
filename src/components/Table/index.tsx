@@ -223,7 +223,7 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
   }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>, rows: TableSearchProps['rows']) {
-    var query = formatQuery(e.target.value)
+    var query = e.target.value.trim()
 
     if (isValidQuery(query)) {
       let querySearchResult = rows.filter((row) => byQuery(row, query))
@@ -231,24 +231,12 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
     } else setFoundRows(null)
   }
 
-  function formatQuery(query: string): string {
-    return query.trim().toLowerCase()
-  }
-
   function isValidQuery(query: string): boolean {
     return query.length > 0
   }
 
   function byQuery(row: string[], query: string): boolean {
-    return row.some((value) => {
-      return value.toLowerCase().includes(query)
-    })
+    var queryRegex = new RegExp(`^${query}`, 'i')
+    return row.some((rowValue) => queryRegex.test(rowValue))
   }
 }
-
-/*
-TODO:
-- Styles
-  - Search input icon
-- Search optimization
-*/
