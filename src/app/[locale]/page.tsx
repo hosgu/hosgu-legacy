@@ -19,7 +19,6 @@ const Page: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
   const cookieStore = cookies()
   const t = await getI18n(locale)
   const connectedUser = await services.users.connectedUser(cookieStore.get('at')?.value || '')
-  console.log(connectedUser)
 
   return (
     <>

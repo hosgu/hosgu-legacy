@@ -7,7 +7,6 @@ type Props = {
 }
 
 const CreateGuestForm: FC<Props> = ({ connectedUser }) => {
-  console.log(connectedUser)
   return <Form action="save" data={{ businessId: connectedUser.businessId }} />
 }
 

@@ -1,13 +1,12 @@
 'use client'
 import { FC } from 'react'
-import Button from '~/components/Button'
 import { Locale } from '@architecturex/utils.i18n'
 import cx from '@architecturex/utils.cx'
+import { RenderIf } from '@architecturex/components.renderif'
 
 import { Translations } from '~app/i18n'
-
 import { useTheme } from '~contexts/ThemeContext'
-
+import Button from '~/components/Button'
 import Avatar from '~/components/Avatar'
 import Link from '~appComponents/Link'
 import Logo from '~appComponents/Logo'
@@ -126,9 +125,11 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page, t }) => {
           </div>
         )}
 
-        <div className="-mt-1 ml-4">
-          <Avatar url={connectedUser.businessLogo || ''} name="1 G" size="medium" />
-        </div>
+        <RenderIf isTrue={connectedUser && page === 'dashboard'}>
+          <div className="-mt-1 ml-4">
+            <Avatar url={connectedUser.businessLogo || ''} name="1 G" size="medium" />
+          </div>
+        </RenderIf>
       </div>
     </header>
   )

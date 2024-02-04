@@ -87,7 +87,7 @@ export const getUserBy = async (where: any, roles: string[], fields: string): Pr
     .from(userTable)
     .where(eq(where.code ? userTable.code : userTable.email, where.code || where.email))
 
-  if (response[0] && roles.includes(response[0].role)) {
+  if (response[0] && roles.includes(response[0].role || '')) {
     const businessResponse = await db
       .select()
       .from(businessTable)
