@@ -10,13 +10,13 @@ export const comission = pgTable('comission', {
   reservationId: uuid('reservationId')
     .references(() => reservation.id)
     .notNull(),
-  commission: integer('commission').notNull().default(0),
-  isOffer: boolean('isOffer').notNull().default(false),
-  isPaid: boolean('isPaid').notNull().default(false),
-  paymentMethod: varchar('paymentMethod', { length: 100 }).notNull(),
-  month: varchar('month', { length: 20 }).notNull(),
-  year: varchar('year', { length: 20 }).notNull(),
-  reservationCost: integer('reservationCost').notNull().default(0),
+  commission: integer('commission').default(0),
+  isOffer: boolean('isOffer').default(false),
+  isPaid: boolean('isPaid').default(false),
+  paymentMethod: varchar('paymentMethod', { length: 100 }),
+  month: varchar('month', { length: 20 }),
+  year: varchar('year', { length: 20 }),
+  reservationCost: integer('reservationCost').default(0),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

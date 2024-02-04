@@ -6,11 +6,11 @@ export const cancellation = pgTable('cancellation', {
   reservationId: uuid('reservationId')
     .references(() => reservation.id)
     .notNull(),
-  cancellationDate: varchar('cancellationDate', { length: 20 }).notNull(),
-  securityDepositReturned: integer('securityDepositReturned').notNull().default(0),
-  securityDepositHeld: integer('securityDepositHeld').notNull().default(0),
-  securityDepositFile: varchar('securityDepositFile', { length: 255 }).notNull(),
-  reason: text('reason').notNull().default(''),
+  cancellationDate: varchar('cancellationDate', { length: 20 }),
+  securityDepositReturned: integer('securityDepositReturned').default(0),
+  securityDepositHeld: integer('securityDepositHeld').default(0),
+  securityDepositFile: varchar('securityDepositFile', { length: 255 }),
+  reason: text('reason').default(''),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

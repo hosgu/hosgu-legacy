@@ -10,12 +10,12 @@ export const agent = pgTable('agent', {
   userId: uuid('userId')
     .references(() => user.id)
     .notNull(),
-  isCompany: boolean('isCompany').notNull().default(false),
-  comissionType: varchar('comissionType', { length: 100 }).notNull().default('fixed'),
-  highestCommissionWihoutOffer: integer('highestCommissionWihoutOffer').notNull().default(0),
-  highestCommissionWithOffer: integer('highestCommissionWithOffer').notNull().default(0),
-  lowestCommissionWihoutOffer: integer('lowestCommissionWihoutOffer').notNull().default(0),
-  lowestCommissionWithOffer: integer('lowestCommissionWithOffer').notNull().default(0),
+  isCompany: boolean('isCompany').default(false),
+  comissionType: varchar('comissionType', { length: 100 }).default('fixed'),
+  highestCommissionWihoutOffer: integer('highestCommissionWihoutOffer').default(0),
+  highestCommissionWithOffer: integer('highestCommissionWithOffer').default(0),
+  lowestCommissionWihoutOffer: integer('lowestCommissionWihoutOffer').default(0),
+  lowestCommissionWithOffer: integer('lowestCommissionWithOffer').default(0),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

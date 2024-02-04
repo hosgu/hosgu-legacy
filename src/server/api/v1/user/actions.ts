@@ -86,14 +86,18 @@ export const getUserBy = async (where: any, roles: string[], fields: string): Pr
     .select()
     .from(userTable)
     .where(eq(where.code ? userTable.code : userTable.email, where.code || where.email))
-  console.log('RESPONSE====>', response)
+
   if (response[0] && roles.includes(response[0].role)) {
     const businessResponse = await db
       .select()
       .from(businessTable)
       .where(eq(businessTable.userId, response[0].id))
-    console.log('businessResponse====>', businessResponse)
-    const user = { ...response[0], businessId: businessResponse[0].id }
+
+    const user = {
+      ...response[0],
+      businessId: businessResponse[0].id,
+      businessLogo: businessResponse[0].logo || ''
+    }
 
     return user
   } else {
@@ -109,7 +113,6 @@ export const authenticate = async (emailOrUsername: string, password: string): P
   const where = is(emailOrUsername).email()
     ? { email: emailOrUsername }
     : { username: emailOrUsername }
-  console.log('WHERE===>', where)
 
   const user = await getUserBy(
     where,

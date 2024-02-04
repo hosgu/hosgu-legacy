@@ -127,7 +127,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page, t }) => {
         )}
 
         <div className="-mt-1 ml-4">
-          <Avatar url="/images/clients/san-pancho.png" name="Cabañas San Pancho" size="medium" />
+          <Avatar url={connectedUser.businessLogo || ''} name="1 G" size="medium" />
         </div>
       </div>
     </header>
