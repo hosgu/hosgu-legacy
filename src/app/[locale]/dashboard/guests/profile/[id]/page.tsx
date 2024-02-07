@@ -2,8 +2,7 @@ import { FC } from 'react'
 import { getI18n, Locale } from '~/app/i18n'
 import { getOneGuestServerAction } from '~/app/actions/dashboard/guest'
 import core from '@architecturex/utils.core'
-import GuestProfile from '../../../components/Guests/GuestProfile'
-
+import GuestProfile from '~app/[locale]/dashboard/components/Guests/GuestProfile'
 
 type Props = {
   params: {

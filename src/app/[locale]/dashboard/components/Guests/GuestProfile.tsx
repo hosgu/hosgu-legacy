@@ -1,5 +1,4 @@
 'use client'
-
 import { FC } from 'react'
 import { GuestFields } from '~/server/db/schemas/guest'
 import Table from '~/components/Table'
@@ -8,7 +7,7 @@ type Props = {
   data: GuestFields
 }
 
-const GuestProfile: FC<Props> = ({ data: { fullName, photo, email, phone } }: Props) => {
+const GuestProfile: FC<Props> = ({ data: { fullName, photo, email, phone } }) => {
   const headers = ['Photo', 'Name', 'Discount', 'Booking date', 'Check out date']
 
   // TODO: Fetch reservations data
@@ -26,7 +25,7 @@ const GuestProfile: FC<Props> = ({ data: { fullName, photo, email, phone } }: Pr
 
   const rows = response.map((row) => {
     return [
-      <img src={row.photo} alt="Business " />,
+      <img src={row.photo} alt={row.name} />,
       row.name,
       row.discount,
       row.bookingDate,
@@ -37,7 +36,7 @@ const GuestProfile: FC<Props> = ({ data: { fullName, photo, email, phone } }: Pr
   return (
     <div className="flex bg-gray-100 dark:bg-gray-900 flex-col">
       <div className="flex gap-4 p-5 rounded-lg border border-slate-400 bg-white">
-        <img src={photo || ''} alt="Guest profile" className="w-16 h-16 rounded-full" />
+        <img src={photo || ''} alt="Guest photo" className="w-16 h-16 rounded-full" />
         <div>
           <p className="text-xl">{fullName}</p>
           <p>{email}</p>
