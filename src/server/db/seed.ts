@@ -12,7 +12,7 @@ async function seed() {
       tier: 'free',
       role: 'business.admin',
       email: 'cabanassanpancho@gmail.com',
-      password: '16249809f34c1b88ce1bdeb3d392c7ab86f147bb',
+      password: '16249809f34c1b88ce1bdeb3d392c7ab86f147bb', // Abc123456$
       fullName: 'Carlos Santana',
       phone: '+523123195612',
       avatar: '',
