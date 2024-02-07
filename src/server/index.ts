@@ -58,7 +58,10 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/estate', estateApiV1)
   app.use('/api/v1/guest', guestApiV1)
   app.use('/api/v1/property', propertieApiV1)
+<<<<<<< HEAD
   app.use('/api/v1/reservations', reservationsApiV1)
+=======
+>>>>>>> main
   app.use('/api/v1/settings', settingsApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
