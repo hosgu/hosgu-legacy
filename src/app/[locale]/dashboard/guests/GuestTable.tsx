@@ -34,7 +34,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [] }) => {
   const getRows = useCallback(
     () =>
       data?.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
-        fullName,
+        <a href={`guests/profile/${id}`}>{fullName}</a>,
         email,
         phone,
         website,
@@ -44,7 +44,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [] }) => {
           <a key={`delete-${fullName}`} href="#" onClick={() => handleDelete(id)}>
             X
           </a>
-          <a key={`edit-${fullName}`} href={`guests/edit/${id}`} >
+          <a key={`edit-${fullName}`} href={`guests/edit/${id}`}>
             Edit
           </a>
         </>
