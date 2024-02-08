@@ -134,91 +134,120 @@ const Form: FC<any> = ({
   }
 
   return (
-    <div className="w-1/2 ml-8 mb-8">
-      <Input label="Photo" name="photo" value={values.photo} onChange={handleChange} required />
-      <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
-      <Input
-        label="Full name"
-        name="fullName"
-        value={values.fullName}
-        onChange={handleChange}
-        className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-        required
-      />
-      <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.fullName}</p>
+    <>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <Input label="Photo" name="photo" value={values.photo} onChange={handleChange} required />
+          <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
+        </div>
 
-      <Input
-        label="Email"
-        name="email"
-        placeholder="example@gmail.com"
-        value={values.email}
-        onChange={handleChange}
-        required
-        className={errors.email ? 'border-red-500 dark:border-red-500' : ''}
-      />
-      <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.email}</p>
+        <div>
+          <Input
+            label="Full name"
+            name="fullName"
+            value={values.fullName}
+            onChange={handleChange}
+            className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+            required
+          />
+          <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.fullName}</p>
+        </div>
 
-      <Input
-        label="Phone"
-        name="phone"
-        placeholder="+1 999 999 9999"
-        value={values.phone}
-        onChange={handleChange}
-        required
-        className={errors.phone ? 'border-red-500 dark:border-red-500' : ''}
-      />
-      <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
-      <Input
-        label="Website"
-        name="website"
-        value={values.website}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        label="Facebook"
-        name="facebook"
-        value={values.facebook}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        label="Instagram"
-        name="instagram"
-        value={values.instagram}
-        onChange={handleChange}
-        required
-      />
-      <Input label="Gender" name="gender" value={values.gender} onChange={handleChange} required />
-      <Input
-        label="Birthday"
-        name="birthday"
-        placeholder="MM/DD/YYYY"
-        value={values.birthday}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        label="Organization"
-        name="organization"
-        value={values.organization}
-        onChange={handleChange}
-        required
-      />
-      <Input
-        label="Tax Identifier"
-        name="taxIdentifier"
-        value={values.taxIdentifier}
-        onChange={handleChange}
-        required
-      />
+        <div>
+          <Input
+            label="Email"
+            name="email"
+            placeholder="example@gmail.com"
+            value={values.email}
+            onChange={handleChange}
+            required
+            className={errors.email ? 'border-red-500 dark:border-red-500' : ''}
+          />
+          <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.email}</p>
+        </div>
 
-      <TextArea label="Notes" value={values.notes} name="notes" onChange={handleChange} required />
+        <div>
+          <Input
+            label="Phone"
+            name="phone"
+            placeholder="+1 999 999 9999"
+            value={values.phone}
+            onChange={handleChange}
+            required
+            className={errors.phone ? 'border-red-500 dark:border-red-500' : ''}
+          />
+          <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
+        </div>
 
-      <Button color="secondary" onClick={handleSubmit} shape="circle">
-        Save
-      </Button>
-    </div>
+        <Input
+          label="Website"
+          name="website"
+          value={values.website}
+          onChange={handleChange}
+          required
+        />
+
+        <Input
+          label="Facebook"
+          name="facebook"
+          value={values.facebook}
+          onChange={handleChange}
+          required
+        />
+
+        <Input
+          label="Instagram"
+          name="instagram"
+          value={values.instagram}
+          onChange={handleChange}
+          required
+        />
+
+        <Input
+          label="Gender"
+          name="gender"
+          value={values.gender}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          label="Birthday"
+          name="birthday"
+          placeholder="MM/DD/YYYY"
+          value={values.birthday}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          label="Organization"
+          name="organization"
+          value={values.organization}
+          onChange={handleChange}
+          required
+        />
+        <Input
+          label="Tax Identifier"
+          name="taxIdentifier"
+          value={values.taxIdentifier}
+          onChange={handleChange}
+          required
+        />
+
+        <TextArea
+          label="Notes"
+          value={values.notes}
+          name="notes"
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="flex justify-center">
+        <Button color="secondary" onClick={handleSubmit} shape="circle" size="large" fullWidth>
+          Save
+        </Button>
+      </div>
+    </>
   )
 }
 
