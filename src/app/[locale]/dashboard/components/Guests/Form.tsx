@@ -2,6 +2,8 @@
 import { FC, useState, ChangeEvent } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
+import { RenderIf } from '@architecturex/components.renderif'
+import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~components/Input'
 import TextArea from '~/components/TextArea'
@@ -31,6 +33,7 @@ const Form: FC<any> = ({
   },
   action = 'save'
 }) => {
+  const [showNotification, setShowNotification] = useState(false)
   const [values, setValues] = useState({
     id,
     businessId,
@@ -128,13 +131,24 @@ const Form: FC<any> = ({
         action === 'save'
           ? await createGuestServerAction(formData)
           : await editServerAction(formData)
+
       if (response.status === 200) {
+        setShowNotification(true)
       }
     }
   }
 
   return (
     <>
+      <RenderIf isTrue={showNotification}>
+        <Notification
+          key="notification"
+          message="Guest saved successfully"
+          type="info"
+          onClose={() => null}
+        />
+      </RenderIf>
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Input label="Photo" name="photo" value={values.photo} onChange={handleChange} required />
