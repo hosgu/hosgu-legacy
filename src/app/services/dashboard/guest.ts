@@ -26,6 +26,8 @@ type EditGuestPayload = CreateGuestPayload & {
 export const getAll = async () => {
   const response = await api.fetch<APIResponse<GuestFields>>('/api/v1/guest', {
     method: 'GET',
+    cache: 'force-cache',
+    next: { tags: ['guests'] },
     addLocalHost: process.env.NODE_ENV === 'development'
   })
 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import cx from '@architecturex/utils.cx'
 
 interface NotificationProps {
   message: string
   type: 'success' | 'error' | 'info'
-  onClose: () => void
+  onClose?: () => void
   duration?: number
 }
 
@@ -16,7 +17,7 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose, dur
     }, duration)
 
     const closeTimer = setTimeout(() => {
-      onClose()
+      onClose && onClose()
     }, duration + 500)
 
     return () => {
@@ -27,13 +28,14 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose, dur
 
   return (
     <div
-      className={`w-full fixed top-0 right-0 space-y-2 z-50 mt-[-100px] alert ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 ${show ? 'mt-0' : 'mt-[-100px]'}`}
+      className={`w-full fixed mt-[-80px] left-0 right-0 space-y-2 z-50 ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 ${show ? 'mt-0' : 'mt-[-149px]'}`}
     >
-      <span className="text-sm">{message}</span>
+      <span className="block text-sm text-center w-full">{message}</span>
+
       <button
         onClick={() => setShow(false)}
-        className="text-lg ml-2 h-14"
-        style={{ marginTop: '-3px' }}
+        className={cx.join('text-lg h-14', onClose ? 'visible' : 'invisible')}
+        style={{ marginTop: '-3px', marginRight: '10px' }}
       >
         &times;
       </button>

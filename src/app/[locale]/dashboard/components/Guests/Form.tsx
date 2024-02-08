@@ -3,6 +3,7 @@ import { FC, useState, ChangeEvent } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
+
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~components/Input'
@@ -12,6 +13,9 @@ import { editServerAction, createGuestServerAction } from '~/app/actions/dashboa
 type Props = {
   action: 'save' | 'edit'
   data?: any
+  serverActions: {
+    revalidateCacheByTag: any
+  }
 }
 
 const Form: FC<any> = ({
@@ -31,7 +35,8 @@ const Form: FC<any> = ({
     notes = '',
     photo = ''
   },
-  action = 'save'
+  action = 'save',
+  serverActions
 }) => {
   const initialValues = {
     id,
@@ -122,10 +127,12 @@ const Form: FC<any> = ({
 
   const handleSubmit = async () => {
     const isValidForm = validate()
+
     if (isValidForm) {
       if (action === 'save') {
         delete values.id
       }
+
       const formData = core.formData.set(new FormData(), values)
 
       const response =
@@ -135,8 +142,13 @@ const Form: FC<any> = ({
 
       if (response.status === 200) {
         setShowNotification(true)
-
         setValues(initialValues)
+
+        serverActions.revalidateCacheByTag(
+          core.formData.set(new FormData(), {
+            tag: 'guests'
+          })
+        )
       }
     }
   }
@@ -144,12 +156,7 @@ const Form: FC<any> = ({
   return (
     <>
       <RenderIf isTrue={showNotification}>
-        <Notification
-          key="notification"
-          message="Guest saved successfully"
-          type="info"
-          onClose={() => null}
-        />
+        <Notification message="Guest saved successfully" type="success" />
       </RenderIf>
 
       <div className="grid grid-cols-2 gap-4">
@@ -258,7 +265,6 @@ const Form: FC<any> = ({
           required
         />
       </div>
-
       <div className="flex justify-center">
         <Button color="secondary" onClick={handleSubmit} shape="circle" size="large" fullWidth>
           Save

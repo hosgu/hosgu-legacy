@@ -1,18 +1,25 @@
 'use client'
 import { FC, useState, useEffect, useCallback } from 'react'
+import core from '@architecturex/utils.core'
+import { useRouter } from 'next/navigation'
+
 import Table from '~/components/Table'
 import Button from '~/components/Button'
 import Modal from '~/components/Modal'
 import CreateGuestForm from './create/CreateGuestForm'
-import core from '@architecturex/utils.core'
 import { deleteGuestServerAction } from '~/app/actions/dashboard/guest'
 
 type Props = {
   data: any[]
   connectedUser: any
+  serverActions: {
+    revalidateCacheByTag: any
+  }
 }
 
-const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser }) => {
+const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser, serverActions }) => {
+  const router = useRouter()
+
   // Initial states
   const [data, setData] = useState(rawData)
 
@@ -24,6 +31,12 @@ const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser }) => {
       })
 
       const response = await deleteGuestServerAction(formData)
+
+      serverActions.revalidateCacheByTag(
+        core.formData.set(new FormData(), {
+          tag: 'guests'
+        })
+      )
 
       if (response.ok) {
         const filteredData = data.filter((guest: any) => guest.id !== id)
@@ -72,8 +85,15 @@ const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser }) => {
 
   return (
     <>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add new Guest">
-        <CreateGuestForm connectedUser={connectedUser} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false)
+          window.location.reload()
+        }}
+        title="Add new Guest"
+      >
+        <CreateGuestForm connectedUser={connectedUser} serverActions={serverActions} />
       </Modal>
 
       <Table
