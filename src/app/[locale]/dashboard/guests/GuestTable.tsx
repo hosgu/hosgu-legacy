@@ -9,9 +9,10 @@ import { deleteGuestServerAction } from '~/app/actions/dashboard/guest'
 
 type Props = {
   data: any[]
+  connectedUser: any
 }
 
-const GuestTable: FC<Props> = ({ data: rawData = [] }) => {
+const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser }) => {
   // Initial states
   const [data, setData] = useState(rawData)
 
@@ -72,7 +73,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [] }) => {
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add new Guest">
-        <CreateGuestForm connectedUser={{}} />
+        <CreateGuestForm connectedUser={connectedUser} />
       </Modal>
 
       <Table
