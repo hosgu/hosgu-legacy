@@ -1,5 +1,4 @@
 import api from '@architecturex/utils.api'
-import slug from '@architecturex/utils.slug'
 
 import { GuestFields } from '~/server/db/schemas/guest'
 import { APIResponse, CreatedItem } from '~/types'
@@ -29,6 +28,7 @@ export const getAll = async () => {
     method: 'GET',
     addLocalHost: process.env.NODE_ENV === 'development'
   })
+
   return {
     ok: true,
     data: response,
