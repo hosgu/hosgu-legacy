@@ -33,8 +33,7 @@ const Form: FC<any> = ({
   },
   action = 'save'
 }) => {
-  const [showNotification, setShowNotification] = useState(false)
-  const [values, setValues] = useState({
+  const initialValues = {
     id,
     businessId,
     fullName,
@@ -49,7 +48,9 @@ const Form: FC<any> = ({
     taxIdentifier,
     notes,
     photo
-  })
+  }
+  const [showNotification, setShowNotification] = useState(false)
+  const [values, setValues] = useState(initialValues)
 
   const [errors, setErrors] = useState({
     fullName: '',
@@ -134,6 +135,8 @@ const Form: FC<any> = ({
 
       if (response.status === 200) {
         setShowNotification(true)
+
+        setValues(initialValues)
       }
     }
   }
