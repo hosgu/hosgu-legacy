@@ -3,13 +3,13 @@ import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import security from '@architecturex/utils.security'
 
+import getI18nFromServer from '~/app/shared/contexts/server/I18nContext'
+import { loginServerAction } from '~/app/shared/actions/login'
+
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 
-import { loginServerAction } from '~/app/shared/actions/login'
-
 type Props = {
-  t: (key: string) => string
   locale: string
 }
 
@@ -17,7 +17,9 @@ type Errors = {
   invalidLogin?: string
 }
 
-const Form: FC<Props> = () => {
+const Form: FC<Props> = ({ locale }) => {
+  const t = getI18nFromServer(locale)
+
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [errors, setErrors] = useState<Errors>({ invalidLogin: '' })

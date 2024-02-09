@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import services from '~/app/shared/services'
+import { getConnectedUser } from '~/app/shared/services/users'
 import getI18nFromServer from '~/app/shared/contexts/server/I18nContext'
 import Header from '~/app/shared/components/Header'
 import Hero from '~/app/shared/components/Hero'
@@ -11,7 +11,7 @@ const Page: NextPage = async () => {
   const cookieStore = cookies()
   const locale = cookieStore.get('language')?.value || 'en-us'
   const t = getI18nFromServer(locale)
-  const connectedUser = await services.users.connectedUser(cookieStore.get('at')?.value || '')
+  const connectedUser = await getConnectedUser(cookieStore.get('at')?.value || '')
 
   const MissionSection = () => {
     return (
