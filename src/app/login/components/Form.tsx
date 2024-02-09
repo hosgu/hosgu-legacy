@@ -20,8 +20,6 @@ type Errors = {
 const Form: FC<Props> = ({ locale }) => {
   const t = getI18nFromServer(locale)
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
   const [errors, setErrors] = useState<Errors>({ invalidLogin: '' })
 
   useEffect(() => {
@@ -32,8 +30,13 @@ const Form: FC<Props> = ({ locale }) => {
     }
   }, [])
 
-  const handleSubmit = async () => {
-    const formData = new FormData()
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
     formData.append(security.base64.encode('email', true), security.base64.encode(email, true))
     formData.append(
@@ -57,15 +60,14 @@ const Form: FC<Props> = ({ locale }) => {
   }
 
   return (
-    <>
-      <Input label={t('email')} value={email} onChange={(e) => setEmail(e.target.value)} required />
+    <form onSubmit={handleSubmit}>
+      <Input label={t('email')} name="email" required />
 
       <Input
         label={t('password')}
+        name="password"
         type="password"
         autoComplete="new-password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
         required
       />
 
@@ -81,11 +83,11 @@ const Form: FC<Props> = ({ locale }) => {
       </div>
 
       <div className="flex justify-center items-center mb-4">
-        <Button color="secondary" shape="circle" onClick={handleSubmit}>
+        <Button color="secondary" shape="circle" type="submit">
           {t('connect')}
         </Button>
       </div>
-    </>
+    </form>
   )
 }
 
