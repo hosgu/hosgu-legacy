@@ -4,7 +4,6 @@ import { FC, ReactElement } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { cookies } from 'next/headers'
 import { Inter } from 'next/font/google'
-import Script from 'next/script'
 import cx from '@architecturex/utils.cx'
 
 import { ThemeProvider } from '~/app/shared/contexts/client/ThemeContext'
@@ -48,9 +47,6 @@ const RootLayout: FC<Props> = ({ children }) => {
     <html lang={locale} className={theme}>
       <head>
         <link rel="icon" href="/images/favicon.png" />
-        <Script id="appState" strategy="beforeInteractive">
-          {`window.appState = { locale: '${locale}', theme: '${theme}', at: '${at}' }`}
-        </Script>
       </head>
       <body className={cx.join(inter.className, 'bg-codGray')}>
         <ThemeProvider defaultDarkMode={theme === 'dark'}>{children}</ThemeProvider>
