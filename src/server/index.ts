@@ -74,13 +74,13 @@ nextApp.prepare().then(() => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     const languages = (req.headers['accept-language'] || '').split(';')[0]
     const userLanguage = languages.split(',')[0] || ''
-    let language = 'en-us'
+    let locale = 'en-us'
 
     if (userLanguage.includes('es')) {
-      language = 'es-mx'
+      locale = 'es-mx'
     }
 
-    res.cookie('language', language)
+    res.cookie('locale', locale)
 
     next()
   })
