@@ -60,7 +60,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
       data-component="Header"
       className={cx.join(
         width,
-        'm-auto bg-white flex items-center justify-between p-6 text-white sticky border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl'
+        'sticky m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl'
       )}
     >
       <Logo slogan={t('slogan')} key={darkMode.toString()} />
@@ -104,17 +104,12 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
         )}
 
         <div className="ml-2 lg:mt-2">
-          <ThemeSwitcher t={t} />
+          <ThemeSwitcher locale={locale} />
         </div>
 
         {showHamburgerMenu && (
           <div className="ml-2 lg:hidden">
-            <HamburgerMenu
-              t={t}
-              locale={locale}
-              isLogged={isLogged}
-              connectedUser={connectedUser}
-            />
+            <HamburgerMenu locale={locale} isLogged={isLogged} connectedUser={connectedUser} />
           </div>
         )}
 

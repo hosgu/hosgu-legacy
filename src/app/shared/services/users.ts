@@ -2,7 +2,11 @@ import api from '@architecturex/utils.api'
 import { UserFields } from '~/server/db/schemas/user'
 import { APIResponse } from '~/types'
 
-export const getConnectedUser = async (at: any): Promise<UserFields> => {
+type User = UserFields & {
+  businessId: string
+}
+
+export const getConnectedUser = async (at: any): Promise<User> => {
   const response = await api.fetch<APIResponse<UserFields>>('/api/v1/user/validate', {
     method: 'POST',
     fields: [

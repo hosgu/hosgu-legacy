@@ -41,7 +41,7 @@ const sidebars: any = {
       <div className="mx-2 mt-8 space-y-4">
         <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
           <a
-            href="/en-us/dashboard/guests/create"
+            href="/dashboard/guests/create"
             className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 hover:no-underline px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
           >
             <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200 ">
@@ -50,14 +50,16 @@ const sidebars: any = {
           </a>
         </button>
 
-        <a
-          href="/en-us/dashboard/guests"
-          className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 hover:no-underline px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
-        >
-          <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-            All guests
-          </h2>
-        </a>
+        <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
+          <a
+            href="/dashboard/guests"
+            className="flex w-full flex-col gap-y-2 rounded-lg hover:bg-slate-200 hover:no-underline px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:hover:bg-slate-800"
+          >
+            <h2 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200 ">
+              Guest list
+            </h2>
+          </a>
+        </button>
       </div>
     </div>
   ),

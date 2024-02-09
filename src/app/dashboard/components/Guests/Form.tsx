@@ -13,9 +13,6 @@ import { editServerAction, createGuestServerAction } from '~/app/shared/actions/
 type Props = {
   action: 'save' | 'edit'
   data?: any
-  serverActions: {
-    revalidateCacheByTag: any
-  }
 }
 
 const Form: FC<any> = ({
@@ -35,8 +32,7 @@ const Form: FC<any> = ({
     notes = '',
     photo = ''
   },
-  action = 'save',
-  serverActions
+  action = 'save'
 }) => {
   const initialValues = {
     id,
@@ -143,12 +139,6 @@ const Form: FC<any> = ({
       if (response.status === 200) {
         setShowNotification(true)
         setValues(initialValues)
-
-        serverActions.revalidateCacheByTag(
-          core.formData.set(new FormData(), {
-            tag: 'guests'
-          })
-        )
       }
     }
   }

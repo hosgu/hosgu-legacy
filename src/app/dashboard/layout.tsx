@@ -5,27 +5,29 @@ import { redirect } from 'next/navigation'
 import Header from '~/app/shared/components/Header'
 import Sidebar from './components/Sidebar'
 
-import services from '~/app/shared/services'
+import { getConnectedUser } from '~/app/shared/services/users'
+import { getBusiness } from '~/app/shared/services/business'
 
 type Props = {
   children: ReactElement
 }
 
-const Layout: FC<Props> = async ({ params, children }) => {
+const Layout: FC<Props> = async ({ children }) => {
   const cookieStore = cookies()
   const at = cookieStore.get('at')?.value
-  const user = await services.users.connectedUser(at)
+  const locale = cookieStore.get('locale')?.value || 'en-us'
+  const user = await getConnectedUser(at)
 
   if (!user) {
     redirect('/')
   }
 
-  const business = await services.business.getBusiness(user.id)
+  const business = await getBusiness(user.id)
 
   return (
     <main>
       <div className="flex flex-col h-screen">
-        <Header t={t} locale="en-us" page="dashboard" />
+        <Header locale={locale} page="dashboard" />
 
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />

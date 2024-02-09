@@ -47,7 +47,7 @@ const Dropdown: FC<DropdownProps> = ({ trigger, children }) => {
     <div className="relative" ref={dropdownRef}>
       {triggerElement}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-2xl bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 z-10">
+        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-2xl bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 z-50">
           <div
             className="py-1"
             role="menu"

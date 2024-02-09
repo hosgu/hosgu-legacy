@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
 import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
-import services from '~/app/shared/services'
+import { getConnectedUser } from '~/app/shared/services/users'
 import EditGuestForm from '~/app/dashboard/components/Guests/Form'
 
 type Props = {
@@ -19,7 +19,7 @@ const GuestEditPage: NextPage<Props> = async ({ params: { id = null } }) => {
   const response = await getOneGuestServerAction(formData)
   const cookieStore = cookies()
 
-  const connectedUser: any = await services.users.connectedUser(cookieStore.get('at')?.value || '')
+  const connectedUser: any = await getConnectedUser(cookieStore.get('at')?.value || '')
 
   if (response.ok && response.data.items) {
     const [guest] = response.data.items

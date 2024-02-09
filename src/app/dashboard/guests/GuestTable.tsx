@@ -12,12 +12,10 @@ import Modal from '~/components/Modal'
 type Props = {
   data: any[]
   connectedUser: any
-  serverActions: {
-    revalidateCacheByTag: any
-  }
+  refetch: any
 }
 
-const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser, serverActions }) => {
+const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) => {
   // Initial states
   const [data, setData] = useState(rawData)
 
@@ -30,19 +28,13 @@ const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser, serverAction
 
       const response = await deleteGuestServerAction(formData)
 
-      serverActions.revalidateCacheByTag(
-        core.formData.set(new FormData(), {
-          tag: 'guests'
-        })
-      )
-
       if (response.ok) {
         const filteredData = data.filter((guest: any) => guest.id !== id)
 
         setData(filteredData)
       }
     },
-    [data, serverActions]
+    [data]
   )
 
   const getRows = useCallback(
@@ -85,13 +77,18 @@ const GuestTable: FC<Props> = ({ data: rawData = [], connectedUser, serverAction
     <>
       <Modal
         isOpen={isModalOpen}
-        onClose={() => {
+        onClose={async () => {
           setIsModalOpen(false)
-          window.location.reload()
+
+          const {
+            data: { items: newGuests }
+          } = await refetch()
+
+          setData(newGuests)
         }}
         title="Add new Guest"
       >
-        <CreateGuestForm connectedUser={connectedUser} serverActions={serverActions} />
+        <CreateGuestForm action="save" data={{ businessId: connectedUser.businessId }} />
       </Modal>
 
       <Table

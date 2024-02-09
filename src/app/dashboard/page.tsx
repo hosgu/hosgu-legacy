@@ -1,16 +1,7 @@
 import { FC } from 'react'
 import Home from './components/Home'
-import { getI18n, Locale } from '~/app/i18n'
 
-type Props = {
-  params: {
-    locale: Locale
-  }
-}
-
-const DashboardPage: FC<Props> = async ({ params: { locale = 'en-us' } }) => {
-  const t = await getI18n(locale)
-
+const DashboardPage: FC = async () => {
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
       <div className="p-2 dark:text-white w-full">
