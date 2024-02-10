@@ -26,7 +26,7 @@ const GuestProfile: FC<Props> = ({ data: { fullName, photo, email, phone } }) =>
 
   const rows = response.map((row) => {
     return [
-      <img src={row.photo} alt={row.name} />,
+      <img key={row.photo} src={row.photo} alt={row.name} />,
       row.name,
       row.discount,
       row.bookingDate,
