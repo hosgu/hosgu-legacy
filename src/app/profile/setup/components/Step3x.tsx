@@ -1,13 +1,10 @@
 'use client'
 import React, { FC, useState, useEffect, ChangeEvent, useTransition } from 'react'
-import Input from '~components/Input'
+import Input from '~/components/Input'
 
-import Select from '~/app/components/Select'
-
-import { Translations } from '~app/i18n'
+import Select from '~/components/Select'
 
 type Props = {
-  t: Translations
   propertyName: string
   propertyAddress1: string
   propertyAddress2: string
@@ -29,7 +26,6 @@ type Props = {
 }
 
 const Step: FC<Props> = ({
-  t,
   propertyAddress1,
   propertyAddress2,
   propertyCity,
