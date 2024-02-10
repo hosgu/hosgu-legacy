@@ -8,7 +8,7 @@ interface NotificationProps {
   duration?: number
 }
 
-const Notification: React.FC<NotificationProps> = ({ message, type, onClose, duration = 4000 }) => {
+const Notification: React.FC<NotificationProps> = ({ message, type, onClose, duration = 3000 }) => {
   const [show, setShow] = useState(true)
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose, dur
     }
   }, [onClose, duration])
 
-  return (
+  return show ? (
     <div
-      className={`w-full fixed mt-[-80px] left-0 right-0 space-y-2 z-50 ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 ${show ? 'mt-0' : 'mt-[-149px]'}`}
+      className={`w-full fixed mt-[-80px] left-0 right-0 space-y-2 z-50 ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 mt-0`}
     >
       <span className="block text-sm text-center w-full">{message}</span>
 
@@ -40,7 +40,7 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose, dur
         &times;
       </button>
     </div>
-  )
+  ) : null
 }
 
 export default Notification

@@ -1,0 +1,24 @@
+name: validation
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '**'
+      - '!main'
+
+jobs:
+  release:
+    name: validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+      - run: npm install
+      - run: npm run lint
+      - run: npm run build
