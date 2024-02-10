@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import services from '~/app/shared/services'
+import { getUserByCode } from '~/app/shared/services/users'
 import { redirect } from 'next/navigation'
 
 import ProfileSetupForm from './components/Form'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Page: FC<Props> = async ({ searchParams: { code } }) => {
-  const user = await services.users.getUserByCode(code)
+  const user = await getUserByCode(code)
 
   if (!user) {
     redirect('/404')
