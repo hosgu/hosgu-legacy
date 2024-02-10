@@ -6,18 +6,21 @@ import core from '@architecturex/utils.core'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
-import Step3 from './Step3'
+// import Step3 from './Step3'
 import Step4 from './Step5'
 
+import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import { setupProfileServerAction } from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
 
 type Props = {
   user: UserFields
+  locale: string
 }
 
-const Form: FC<Props> = ({ user }) => {
+const Form: FC<Props> = ({ locale = 'en-us', user }) => {
+  const t = i18n(locale)
   const [isDisabled, setIsDisabled] = useState(false)
   const [step, setStep] = useState(1)
   const [values, setValues] = useState({
@@ -55,55 +58,55 @@ const Form: FC<Props> = ({ user }) => {
   const validations = {
     propertyName: (value: string) => {
       if (!value) {
-        return t.pleaseEnterYourPropertyName
+        return t('pleaseEnterYourPropertyName')
       }
 
       if (value.length < 3) {
-        return t.pleaseEnterAValidPropertyName
+        return t('pleaseEnterAValidPropertyName')
       }
 
       return ''
     },
     propertyAddress1: (value: string) => {
       if (!value) {
-        return t.pleaseEnterYourPropertyAddress
+        return t('pleaseEnterYourPropertyAddress')
       }
 
       if (value.length < 3) {
-        return t.pleaseEnterAValidPropertyAddress
+        return t('pleaseEnterAValidPropertyAddress')
       }
 
       return ''
     },
     propertyCity: (value: string) => {
       if (!value) {
-        return t.pleaseEnterYourPropertyCity
+        return t('pleaseEnterYourPropertyCity')
       }
 
       if (value.length < 3) {
-        return t.pleaseEnterAValidPropertyCity
+        return t('pleaseEnterAValidPropertyCity')
       }
 
       return ''
     },
     propertyState: (value: string) => {
       if (!value) {
-        return t.pleaseEnterYourPropertyState
+        return t('pleaseEnterYourPropertyState')
       }
 
       if (value.length < 3) {
-        return t.pleaseEnterAValidPropertyState
+        return t('pleaseEnterAValidPropertyState')
       }
 
       return ''
     },
     propertyZipCode: (value: string) => {
       if (!value) {
-        return t.pleaseEnterYourPropertyPostalCode
+        return t('pleaseEnterYourPropertyPostalCode')
       }
 
       if (value.length < 3) {
-        return t.pleaseEnterAValidPropertyPostalCode
+        return t('pleaseEnterAValidPropertyPostalCode')
       }
 
       return ''
@@ -117,31 +120,31 @@ const Form: FC<Props> = ({ user }) => {
       if (passwordValidation.reasons?.includes('length')) {
         setErrors({
           ...errors,
-          password: t.passwordLength
+          password: t('passwordLength')
         })
       } else if (passwordValidation.reasons?.includes('lowercase')) {
         setErrors({
           ...errors,
-          password: t.passwordLowercase
+          password: t('passwordLowercase')
         })
       } else if (passwordValidation.reasons?.includes('uppercase')) {
         setErrors({
           ...errors,
-          password: t.passwordUppercase
+          password: t('passwordUppercase')
         })
 
         return ''
       } else if (passwordValidation.reasons?.includes('digit')) {
         setErrors({
           ...errors,
-          password: t.passwordDigit
+          password: t('passwordDigit')
         })
 
         return ''
       } else if (passwordValidation.reasons?.includes('special')) {
         setErrors({
           ...errors,
-          password: t.passwordSpecial
+          password: t('passwordSpecial')
         })
 
         return ''
@@ -188,7 +191,7 @@ const Form: FC<Props> = ({ user }) => {
     '',
     <Step1
       key="step1"
-      t={t}
+      locale={locale}
       values={values}
       errors={errors}
       handleChange={handleChange}
@@ -196,21 +199,12 @@ const Form: FC<Props> = ({ user }) => {
     />,
     <Step2
       key="step2"
-      t={t}
+      locale={locale}
       setValues={setValues}
       setIsDisabled={setIsDisabled}
       setStep={setStep}
     />,
-    <Step3
-      key="step3"
-      t={t}
-      values={values}
-      errors={errors}
-      handleChange={handleChange}
-      validate={validate}
-      isCabin={values.propertyType === 'cabin'}
-    />,
-    <Step4 key="step4" t={t} />
+    <Step4 key="step4" />
   ]
 
   return (
@@ -225,15 +219,15 @@ const Form: FC<Props> = ({ user }) => {
               setStep((prevState) => prevState - 1)
             }}
           >
-            ← {t.back}
+            ← {t('back')}
           </a>
         )}
 
         <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-          {step === 1 && t.letsStart}
-          {step === 2 && t.whatPropertyTypeAreYouListing}
+          {step === 1 && t('letsStart')}
+          {step === 2 && t('whatPropertyTypeAreYouListing')}
           {step === 3 &&
-            `${t.informationAboutYour} ${values.propertyType === 'cabin' ? t.cabin : t.hotel}`}
+            `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
           {step === 4 && 'Negocio Registrado Exitosamente!'}
         </h2>
 
@@ -244,7 +238,7 @@ const Form: FC<Props> = ({ user }) => {
         {step !== 2 && step !== 4 && (
           <div className="flex items-center justify-center mt-8">
             <Button color="secondary" onClick={handleSubmit} disabled={isDisabled} shape="circle">
-              {step === 3 ? t.save : t.continue}
+              {step === 3 ? t('save') : t('continue')}
             </Button>
           </div>
         )}

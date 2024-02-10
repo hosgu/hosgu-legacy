@@ -38,13 +38,13 @@ const Page: NextPage = async () => {
   return (
     <>
       <div className="sticky top-0 z-50 bg-white dark:bg-black dark:text-white">
-        <Header t={t} locale={locale} connectedUser={connectedUser} />
+        <Header locale={locale} connectedUser={connectedUser} />
       </div>
-      <Hero t={t} />
+      <Hero locale={locale} />
 
       <MissionSection />
       <VisionSection />
-      <Footer t={t} locale={locale} />
+      <Footer locale={locale} />
     </>
   )
 }

@@ -1,8 +1,15 @@
 'use client'
 import React, { FC, useState } from 'react'
-import Counter from '~/components/Counter'
 
-const Step: FC = () => {
+import Counter from '~/components/Counter'
+import i18n from '~/app/shared/contexts/server/I18nContext'
+
+type Props = {
+  locale: string
+}
+
+const Step: FC<Props> = ({ locale }) => {
+  const t = i18n(locale)
   const [personCount, setPersonCount] = useState(1)
   const [roomCount, setRoomCount] = useState(0)
   const [bathroomCount, setBathroomCount] = useState(1)

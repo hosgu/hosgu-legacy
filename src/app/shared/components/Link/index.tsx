@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 interface LinkProps extends Omit<NextLinkProps, 'href' | 'as'> {
   href: string
-  children: ReactElement | ReactElement[]
+  children: string | ReactElement | ReactElement[]
   locale?: string
   className?: string
 }

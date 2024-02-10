@@ -7,7 +7,7 @@ type User = UserFields & {
 }
 
 export const getConnectedUser = async (at: any): Promise<User> => {
-  const response = await api.fetch<APIResponse<UserFields>>('/api/v1/user/validate', {
+  const response = await api.fetch<APIResponse<any>>('/api/v1/user/validate', {
     method: 'POST',
     fields: [
       'tier',

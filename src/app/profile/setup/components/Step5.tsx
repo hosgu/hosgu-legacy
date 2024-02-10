@@ -1,6 +1,6 @@
 'use client'
 import React, { FC } from 'react'
-import Link from '~/app/components/Link'
+import Link from '~/app/shared/components/Link'
 
 const Step: FC = () => (
   <div className="flex flex-col justify-center items-center text-center w-full">

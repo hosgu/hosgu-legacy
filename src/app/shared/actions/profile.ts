@@ -1,6 +1,6 @@
 'use server'
 import { APIResponse } from '~/types'
-import * as services from '../services'
+import { setup } from '../services/profile'
 
 export const setupProfileServerAction = async (e: FormData): Promise<APIResponse<any>> => {
   const userId = e.get('userId')?.toString() as string
@@ -19,7 +19,7 @@ export const setupProfileServerAction = async (e: FormData): Promise<APIResponse
   const propertyType = e.get('propertyType')?.toString() as string
   const propertyWebsite = e.get('propertyWebsite')?.toString() as string
 
-  const response = await services.setup({
+  const response = await setup({
     userId,
     email,
     fullName,
