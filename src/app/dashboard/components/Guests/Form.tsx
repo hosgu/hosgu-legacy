@@ -15,7 +15,7 @@ type Props = {
   data?: any
 }
 
-const Form: FC<any> = ({
+const Form: FC<Props> = ({
   data: {
     id = '',
     businessId = '',
@@ -51,26 +51,12 @@ const Form: FC<any> = ({
     photo
   }
   const [showNotification, setShowNotification] = useState(false)
-  const [values, setValues] = useState(initialValues)
 
   const [errors, setErrors] = useState({
     fullName: '',
     email: '',
     phone: ''
   })
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-
-    if (name !== '' && value !== '') {
-      setValues((prevState) => ({
-        ...prevState,
-        [name]: value
-      }))
-    }
-  }
 
   const validations = {
     fullName: (value: string) => {
@@ -108,7 +94,7 @@ const Form: FC<any> = ({
     }
   }
 
-  const validate = () => {
+  const validate = (values: any) => {
     const newErrors = {
       ...errors,
       fullName: validations.fullName(values.fullName),
@@ -121,16 +107,13 @@ const Form: FC<any> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
-  const handleSubmit = async () => {
-    const isValidForm = validate()
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const values = core.formData.get(formData)
+    const isValidForm = validate(values)
 
     if (isValidForm) {
-      if (action === 'save') {
-        delete values.id
-      }
-
-      const formData = core.formData.set(new FormData(), values)
-
       const response =
         action === 'save'
           ? await createGuestServerAction(formData)
@@ -138,20 +121,25 @@ const Form: FC<any> = ({
 
       if (response.status === 200) {
         setShowNotification(true)
-        setValues(initialValues)
       }
     }
   }
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <RenderIf isTrue={showNotification}>
         <Notification message="Guest saved successfully" type="success" />
       </RenderIf>
 
+      <RenderIf isTrue={action === 'edit'}>
+        <input type="hidden" name="id" value={initialValues.id} />
+      </RenderIf>
+
+      <input type="hidden" name="businessId" value={initialValues.businessId} />
+
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Input label="Photo" name="photo" value={values.photo} onChange={handleChange} required />
+          <Input label="Photo" name="photo" required />
           <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
         </div>
 
@@ -159,8 +147,6 @@ const Form: FC<any> = ({
           <Input
             label="Full name"
             name="fullName"
-            value={values.fullName}
-            onChange={handleChange}
             className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
             required
           />
@@ -172,8 +158,6 @@ const Form: FC<any> = ({
             label="Email"
             name="email"
             placeholder="example@gmail.com"
-            value={values.email}
-            onChange={handleChange}
             required
             className={errors.email ? 'border-red-500 dark:border-red-500' : ''}
           />
@@ -185,82 +169,31 @@ const Form: FC<any> = ({
             label="Phone"
             name="phone"
             placeholder="+1 999 999 9999"
-            value={values.phone}
-            onChange={handleChange}
             required
             className={errors.phone ? 'border-red-500 dark:border-red-500' : ''}
           />
           <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
         </div>
 
-        <Input
-          label="Website"
-          name="website"
-          value={values.website}
-          onChange={handleChange}
-          required
-        />
+        <Input label="Website" name="website" />
 
-        <Input
-          label="Facebook"
-          name="facebook"
-          value={values.facebook}
-          onChange={handleChange}
-          required
-        />
+        <Input label="Facebook" name="facebook" />
 
-        <Input
-          label="Instagram"
-          name="instagram"
-          value={values.instagram}
-          onChange={handleChange}
-          required
-        />
+        <Input label="Instagram" name="instagram" />
 
-        <Input
-          label="Gender"
-          name="gender"
-          value={values.gender}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          label="Birthday"
-          name="birthday"
-          placeholder="MM/DD/YYYY"
-          value={values.birthday}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          label="Organization"
-          name="organization"
-          value={values.organization}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          label="Tax Identifier"
-          name="taxIdentifier"
-          value={values.taxIdentifier}
-          onChange={handleChange}
-          required
-        />
+        <Input label="Gender" name="gender" />
+        <Input label="Birthday" name="birthday" placeholder="MM/DD/YYYY" required />
+        <Input label="Organization" name="organization" />
+        <Input label="Tax Identifier" name="taxIdentifier" />
 
-        <TextArea
-          label="Notes"
-          value={values.notes}
-          name="notes"
-          onChange={handleChange}
-          required
-        />
+        <TextArea label="Notes" name="notes" />
       </div>
       <div className="flex justify-center">
-        <Button color="secondary" onClick={handleSubmit} shape="circle" size="large" fullWidth>
+        <Button type="submit" color="secondary" shape="square" size="large" fullWidth>
           Save
         </Button>
       </div>
-    </>
+    </form>
   )
 }
 

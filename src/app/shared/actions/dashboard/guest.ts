@@ -5,6 +5,7 @@ import { create, getAll, deleteRow, edit, getOne } from '~/app/shared/services/d
 
 export const getAllGuestsServerAction = async (): Promise<APIResponse<any>> => {
   const response = await getAll()
+
   return response
 }
 
