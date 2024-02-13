@@ -37,8 +37,8 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
     [data]
   )
 
-  const getRows = useCallback(
-    () =>
+  const getRows = useCallback(() => {
+    var initialRows =
       data?.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
         <a key={`create-${id}`} href={`guests/profile/${id}`}>
           {fullName}
@@ -56,19 +56,28 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
             Edit
           </a>
         </>
-      ]) || [],
-    [data, handleDelete]
-  )
+      ]) || []
+    var searchRows =
+      data?.map(({ fullName, email, phone, website, gender, birthday }: any) => [
+        fullName,
+        email,
+        phone,
+        website,
+        gender,
+        birthday
+      ]) || []
+    return [initialRows, searchRows]
+  }, [data, handleDelete])
 
   // States
-  const initialRows = getRows()
+  const [initialRows, searchRows] = getRows()
   const [rows, setRows] = useState(initialRows)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    const newRows = getRows()
+    const [initialRows, _] = getRows()
 
-    setRows(newRows)
+    setRows(initialRows)
   }, [data, getRows])
 
   const headers = ['Full name', 'Email', 'Phone', 'Links', 'Gender', 'Birthday', 'Actions']
@@ -101,6 +110,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
         }
         headers={headers}
         rows={rows}
+        searchRows={searchRows}
         hoverHighlight
         rowsPerPage={10}
       />

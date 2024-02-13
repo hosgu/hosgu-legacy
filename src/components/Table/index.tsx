@@ -5,6 +5,7 @@ import SVG from '@architecturex/components.svg'
 interface TableProps {
   headers: string[]
   rows: any[][]
+  searchRows?: string[][]
   hoverHighlight?: boolean
   headerBgColor?: string
   rowColor?: string
@@ -32,6 +33,7 @@ const alignmentClasses = {
 const Table: FC<TableProps> = ({
   headers,
   rows: initialRows,
+  searchRows,
   hoverHighlight = false,
   headerBgColor = defaultColors.headerBgColor,
   rowColor = defaultColors.rowColor,
@@ -80,6 +82,7 @@ const Table: FC<TableProps> = ({
           <div className="text-xl font-semibold mr-auto">{label}</div>
           <TableSearch
             rows={initialRows}
+            searchRows={searchRows}
             setFoundRows={setDisplayedRows}
             setCurrentPage={setCurrentPage}
           />
@@ -189,13 +192,7 @@ const Table: FC<TableProps> = ({
 export default Table
 
 // ---- SearchInput Component ---- //
-interface TableSearchProps {
-  rows: string[][]
-  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | []>>
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
-}
-
-function TableSearch({ rows, setFoundRows, setCurrentPage }: TableSearchProps): React.JSX.Element {
+function TableSearch({ rows, searchRows, setFoundRows, setCurrentPage }: TableSearchProps) {
   var inputRef = useRef<HTMLInputElement>(null!)
   var [isInputVisible, setIsInputVisible] = useState(false)
 
@@ -225,10 +222,21 @@ function TableSearch({ rows, setFoundRows, setCurrentPage }: TableSearchProps): 
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>, rows: TableSearchProps['rows']) {
     var query = formatQuery(e.target.value)
+    var foundRows: string[][] | [] = []
 
     if (isValidQuery(query)) {
-      let querySearchResult = rows.filter((row) => byQuery(row, query))
-      setFoundRows(querySearchResult)
+      if (searchRows) {
+        var foundRowsIndex: Set<number> = new Set()
+
+        searchRows.forEach((row, index) => {
+          var isMatch = byQuery(row, query)
+          if (isMatch) foundRowsIndex.add(index)
+        })
+
+        foundRows = rows.filter((_, index) => foundRowsIndex.has(index))
+      } else foundRows = rows.filter((row) => byQuery(row, query))
+
+      setFoundRows(foundRows)
       setCurrentPage(1)
     } else setFoundRows(rows)
   }
@@ -251,4 +259,11 @@ function TableSearch({ rows, setFoundRows, setCurrentPage }: TableSearchProps): 
     var regex = new RegExp(`^${query}`, 'i')
     return row.some((rowValue) => regex.test(rowValue))
   }
+}
+
+interface TableSearchProps {
+  rows: string[][]
+  searchRows?: string[][]
+  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | []>>
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
