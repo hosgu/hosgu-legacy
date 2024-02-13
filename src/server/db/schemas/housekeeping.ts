@@ -17,9 +17,9 @@ export const housekeeping = pgTable('housekeeping', {
   reservationId: uuid('reservationId')
     .references(() => reservation.id)
     .notNull(),
-  date: varchar('date', { length: 20 }).notNull(),
-  time: varchar('time', { length: 20 }).notNull(),
-  notes: customJsonbNotes.notNull().default([]),
+  date: varchar('date', { length: 20 }),
+  time: varchar('time', { length: 20 }),
+  notes: customJsonbNotes.default([]),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

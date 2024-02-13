@@ -6,12 +6,12 @@ export const setting = pgTable('setting', {
   userId: uuid('userId')
     .references(() => user.id)
     .notNull(),
-  currency: varchar('currency', { length: 10 }).notNull().default('USD'),
-  language: varchar('language', { length: 10 }).notNull().default('en-us'),
-  timezone: varchar('timezone', { length: 50 }).notNull().default('UTC'),
-  taxesPercentage: integer('taxesPercentage').notNull().default(0),
-  minimumBooking: integer('minimumBooking').notNull().default(1),
-  theme: varchar('theme', { length: 20 }).notNull().default('dark'),
+  currency: varchar('currency', { length: 10 }).default('USD'),
+  language: varchar('language', { length: 10 }).default('en-us'),
+  timezone: varchar('timezone', { length: 50 }).default('UTC'),
+  taxesPercentage: integer('taxesPercentage').default(0),
+  minimumBooking: integer('minimumBooking').default(1),
+  theme: varchar('theme', { length: 20 }).default('dark'),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

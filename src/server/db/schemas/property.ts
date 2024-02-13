@@ -51,12 +51,12 @@ export const property = pgTable('property', {
   businessId: uuid('businessId')
     .references(() => business.id)
     .notNull(),
-  type: varchar('type', { length: 100 }).notNull(),
-  name: varchar('name', { length: 255 }).notNull(),
-  slug: varchar('slug', { length: 255 }).notNull(),
+  type: varchar('type', { length: 100 }),
+  name: varchar('name', { length: 255 }),
+  slug: varchar('slug', { length: 255 }),
   description: text('description'),
-  floors: integer('floors').notNull(),
-  rooms: integer('rooms').notNull(),
+  floors: integer('floors'),
+  rooms: integer('rooms'),
   photos: customJsonbPhotos.default([]),
   amenities: customJsonbAmenities.default([
     {
@@ -238,7 +238,7 @@ export const property = pgTable('property', {
   cancellationPolicy: text('cancellationPolicy'),
   checkIn: varchar('checkIn', { length: 50 }),
   checkOut: varchar('checkOut', { length: 50 }),
-  active: boolean('active').notNull().default(false),
+  active: boolean('active').default(false),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

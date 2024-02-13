@@ -28,15 +28,7 @@
     "incremental": true,
     "isolatedModules": true,
     "paths": {
-      "~/*": ["./src/*"],
-      "~app/*": ["./src/app/*"],
-      "~appComponents/*": ["./src/app/components/*"],
-      "~components/*": ["./src/components/*"],
-      "~contexts/*": ["./src/app/contexts/*"],
-      "~i18n/*": ["./src/app/i18n/*"],
-      "~services/*": ["./src/services/*"],
-      "~actions/*": ["./src/actions/*"],
-      "~types/*": ["./src/types/*"]
+      "~/*": ["./src/*"]
     },
     "plugins": [
       {

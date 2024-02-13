@@ -1,5 +1,5 @@
 {
-  "id": "2ea8cf5a-c65f-46dd-996e-d45ebcc8c6b7",
+  "id": "dbe63505-01f7-4499-9f81-ecd505e56e8f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -31,42 +31,42 @@
           "name": "isCompany",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "comissionType": {
           "name": "comissionType",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'fixed'"
         },
         "highestCommissionWihoutOffer": {
           "name": "highestCommissionWihoutOffer",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "highestCommissionWithOffer": {
           "name": "highestCommissionWithOffer",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "lowestCommissionWihoutOffer": {
           "name": "lowestCommissionWihoutOffer",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "lowestCommissionWithOffer": {
           "name": "lowestCommissionWithOffer",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "createdAt": {
@@ -137,31 +137,31 @@
           "name": "type",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "name": {
           "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "slug": {
           "name": "slug",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "email": {
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone": {
           "name": "phone",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "priceRange": {
           "name": "priceRange",
@@ -191,13 +191,13 @@
           "name": "logo",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "raiting": {
           "name": "raiting",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "addressLine1": {
           "name": "addressLine1",
@@ -239,7 +239,7 @@
           "name": "active",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "createdAt": {
@@ -297,33 +297,33 @@
           "name": "cancellationDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "securityDepositReturned": {
           "name": "securityDepositReturned",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "securityDepositHeld": {
           "name": "securityDepositHeld",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "securityDepositFile": {
           "name": "securityDepositFile",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "reason": {
           "name": "reason",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "''"
         },
         "createdAt": {
@@ -387,46 +387,46 @@
           "name": "commission",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "isOffer": {
           "name": "isOffer",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "isPaid": {
           "name": "isPaid",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "paymentMethod": {
           "name": "paymentMethod",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "month": {
           "name": "month",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "year": {
           "name": "year",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "reservationCost": {
           "name": "reservationCost",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "createdAt": {
@@ -497,44 +497,44 @@
           "name": "designation",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "fullName": {
           "name": "fullName",
           "type": "varchar(200)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "email": {
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone": {
           "name": "phone",
           "type": "varchar(40)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "salary": {
           "name": "salary",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "jobTitle": {
           "name": "jobTitle",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "photo": {
           "name": "photo",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "addressLine1": {
           "name": "addressLine1",
@@ -627,208 +627,208 @@
           "name": "type",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "floor": {
           "name": "floor",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'0'"
         },
         "roomNumber": {
           "name": "roomNumber",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'0'"
         },
         "roomType": {
           "name": "roomType",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "insideBathrooms": {
           "name": "insideBathrooms",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 1
         },
         "outsideBathrooms": {
           "name": "outsideBathrooms",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "maxGuests": {
           "name": "maxGuests",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 6
         },
         "minGuests": {
           "name": "minGuests",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 1
         },
         "cleaningFee": {
           "name": "cleaningFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "extraGuestFee": {
           "name": "extraGuestFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "extraBedFee": {
           "name": "extraBedFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "securityDepositFee": {
           "name": "securityDepositFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "weekendFee": {
           "name": "weekendFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "weekdayFee": {
           "name": "weekdayFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "initialOfferFee": {
           "name": "initialOfferFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "secondOfferFee": {
           "name": "secondOfferFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "emergencyOfferFee": {
           "name": "emergencyOfferFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "highestFee": {
           "name": "highestFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "lowestFee": {
           "name": "lowestFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "hasWifi": {
           "name": "hasWifi",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": true
         },
         "hasTv": {
           "name": "hasTv",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": true
         },
         "hasNetflix": {
           "name": "hasNetflix",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": true
         },
         "hasHeat": {
           "name": "hasHeat",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "hasAc": {
           "name": "hasAc",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "hasIron": {
           "name": "hasIron",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "hasDesk": {
           "name": "hasDesk",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "hasKitchen": {
           "name": "hasKitchen",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": true
         },
         "hasCrib": {
           "name": "hasCrib",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": true
         },
         "isPetsAllowed": {
           "name": "isPetsAllowed",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "isSmokingAllowed": {
           "name": "isSmokingAllowed",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "createdAt": {
@@ -886,19 +886,19 @@
           "name": "fullName",
           "type": "varchar(200)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "email": {
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "phone": {
           "name": "phone",
           "type": "varchar(40)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "website": {
           "name": "website",
@@ -922,25 +922,25 @@
           "name": "gender",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "birthday": {
           "name": "birthday",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "organization": {
           "name": "organization",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "taxIdentifier": {
           "name": "taxIdentifier",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "notes": {
           "name": "notes",
@@ -1021,19 +1021,19 @@
           "name": "date",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "time": {
           "name": "time",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "notes": {
           "name": "notes",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'[]'::jsonb"
         },
         "createdAt": {
@@ -1123,114 +1123,114 @@
           "name": "invoiceNumber",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "invoiceDate": {
           "name": "invoiceDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "dueDate": {
           "name": "dueDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "totalAmount": {
           "name": "totalAmount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "paidAmount": {
           "name": "paidAmount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "discount": {
           "name": "discount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "status": {
           "name": "status",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'pending'"
         },
         "paymentMethod": {
           "name": "paymentMethod",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "paymentDate": {
           "name": "paymentDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "nights": {
           "name": "nights",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 1
         },
         "nightPrice": {
           "name": "nightPrice",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "cleaningFee": {
           "name": "cleaningFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "serviceFee": {
           "name": "serviceFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "tax": {
           "name": "tax",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "currency": {
           "name": "currency",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'USD'"
         },
         "checkIn": {
           "name": "checkIn",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "checkOut": {
           "name": "checkOut",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -1300,19 +1300,19 @@
           "name": "type",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "name": {
           "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "slug": {
           "name": "slug",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "description": {
           "name": "description",
@@ -1324,13 +1324,13 @@
           "name": "floors",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "rooms": {
           "name": "rooms",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "photos": {
           "name": "photos",
@@ -1394,7 +1394,7 @@
           "name": "active",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "createdAt": {
@@ -1458,165 +1458,165 @@
           "name": "startDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "endDate": {
           "name": "endDate",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "nights": {
           "name": "nights",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "freeNights": {
           "name": "freeNights",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "occupancy": {
           "name": "occupancy",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "adults": {
           "name": "adults",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "children": {
           "name": "children",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "infants": {
           "name": "infants",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "pets": {
           "name": "pets",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "extraOccupancy": {
           "name": "extraOccupancy",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "pendingAmount": {
           "name": "pendingAmount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "totalAmount": {
           "name": "totalAmount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "paidAmount": {
           "name": "paidAmount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "discount": {
           "name": "discount",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "taxes": {
           "name": "taxes",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "cleaningFee": {
           "name": "cleaningFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "serviceFee": {
           "name": "serviceFee",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "securityDeposit": {
           "name": "securityDeposit",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "securityDepositFile": {
           "name": "securityDepositFile",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "needCrib": {
           "name": "needCrib",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "isCancelled": {
           "name": "isCancelled",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "isOffer": {
           "name": "isOffer",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "offerDetails": {
           "name": "offerDetails",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "''"
         },
         "notes": {
           "name": "notes",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'[]'::jsonb"
         },
         "createdAt": {
@@ -1687,42 +1687,42 @@
           "name": "currency",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'USD'"
         },
         "language": {
           "name": "language",
           "type": "varchar(10)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'en-us'"
         },
         "timezone": {
           "name": "timezone",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'UTC'"
         },
         "taxesPercentage": {
           "name": "taxesPercentage",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "minimumBooking": {
           "name": "minimumBooking",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 1
         },
         "theme": {
           "name": "theme",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": "'dark'"
         },
         "createdAt": {
@@ -1774,40 +1774,40 @@
           "name": "tier",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "description": {
           "name": "description",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "agents": {
           "name": "agents",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "guests": {
           "name": "guests",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "invoices": {
           "name": "invoices",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "users": {
           "name": "users",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": 0
         },
         "createdAt": {
@@ -1853,13 +1853,13 @@
           "name": "tier",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "role": {
           "name": "role",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -1871,7 +1871,7 @@
           "name": "password",
           "type": "varchar(40)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "fullName": {
           "name": "fullName",
@@ -1913,7 +1913,7 @@
           "name": "active",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "default": false
         },
         "createdAt": {

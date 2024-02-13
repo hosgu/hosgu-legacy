@@ -70,9 +70,15 @@ const Input: FC<Props> = ({
   const inputType = isPasswordType && showPassword ? 'text' : type
 
   return (
-    <div data-component="Input" className={cx.join('p-4 text-left', fullWidth ? 'w-full block' : null)}>
+    <div
+      data-component="Input"
+      className={cx.join('p-4 text-left', fullWidth ? 'w-full block' : null)}
+    >
       {label && (
-        <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300" htmlFor={name}>
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
+          htmlFor={name}
+        >
           {label}
         </label>
       )}
@@ -80,20 +86,18 @@ const Input: FC<Props> = ({
         <input
           autoComplete="new-password"
           name={name}
-          className={
-            cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white',
-              disabled ? 'opacity-50 cursor-not-allowed' : null,
-              fullWidth ? 'w-full block' : null,
-              hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,
-              className
-            )
-          }
+          className={cx.join(
+            'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white',
+            disabled ? 'opacity-50 cursor-not-allowed' : null,
+            fullWidth ? 'w-full block' : null,
+            hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,
+            className
+          )}
           type={inputType}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
           onChange={onChange}
-          value={value}
+          value={value || undefined}
           disabled={disabled}
           style={hasError ? { border: '1px solid red' } : restProps.style}
           {...restProps}

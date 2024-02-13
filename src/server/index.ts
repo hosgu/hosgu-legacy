@@ -14,6 +14,8 @@ import guestApiV1 from './api/v1/guest'
 import employeeApiV1 from './api/v1/employee'
 import estateApiV1 from './api/v1/estate'
 import propertieApiV1 from './api/v1/property'
+import reservationApiV1 from './api/v1/reservation'
+import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
 
@@ -56,6 +58,8 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/estate', estateApiV1)
   app.use('/api/v1/guest', guestApiV1)
   app.use('/api/v1/property', propertieApiV1)
+  app.use('/api/v1/reservation', reservationApiV1)
+  app.use('/api/v1/settings', settingsApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
 
@@ -70,13 +74,13 @@ nextApp.prepare().then(() => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     const languages = (req.headers['accept-language'] || '').split(';')[0]
     const userLanguage = languages.split(',')[0] || ''
-    let language = 'en-us'
+    let locale = 'en-us'
 
     if (userLanguage.includes('es')) {
-      language = 'es-mx'
+      locale = 'es-mx'
     }
 
-    res.cookie('language', language)
+    res.cookie('locale', locale)
 
     next()
   })
