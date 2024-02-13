@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState, useRef } from 'react'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
+
 interface TableProps {
   headers: string[]
   rows: any[][]
@@ -42,15 +43,17 @@ const Table: FC<TableProps> = ({
   label = '',
   createButton = null
 }) => {
-  const [sortedRows, setSortedRows] = useState(initialRows)
+  const [displayedRows, setDisplayedRows] = useState(initialRows)
   const [sortConfig, setSortConfig] = useState<{ key: number; direction: 'asc' | 'desc' } | null>(
     null
   )
   const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = Math.ceil(sortedRows.length / rowsPerPage)
-  const [foundRows, setFoundRows] = useState<string[][] | null>(null)
+  const totalPages = Math.ceil(displayedRows.length / rowsPerPage)
 
-  // Sorting function
+  const startIndex = (currentPage - 1) * rowsPerPage
+  const endIndex = startIndex + rowsPerPage
+  const currentRows = displayedRows.slice(startIndex, endIndex)
+
   const onHeaderClick = (colIndex: number) => {
     let direction: 'asc' | 'desc' = 'asc'
 
@@ -58,22 +61,16 @@ const Table: FC<TableProps> = ({
       direction = 'desc'
     }
 
-    const sorted = [...getDisplayedRows()].sort((a, b) => {
+    setDisplayedRows((prevRows) => sortRows(prevRows, colIndex, direction))
+    setSortConfig({ key: colIndex, direction })
+  }
+
+  function sortRows(rows: string[][], colIndex: number = 0, direction: 'asc' | 'desc' = 'asc') {
+    return [...rows].sort((a, b) => {
       if (a[colIndex] < b[colIndex]) return direction === 'asc' ? -1 : 1
       if (a[colIndex] > b[colIndex]) return direction === 'asc' ? 1 : -1
       return 0
     })
-
-    foundRows ? setFoundRows(sorted) : setSortedRows(sorted)
-    setSortConfig({ key: colIndex, direction })
-  }
-
-  const startIndex = (currentPage - 1) * rowsPerPage
-  const endIndex = startIndex + rowsPerPage
-  const currentRows = getDisplayedRows().slice(startIndex, endIndex)
-
-  function getDisplayedRows() {
-    return foundRows ? foundRows : sortedRows
   }
 
   return (
@@ -81,7 +78,11 @@ const Table: FC<TableProps> = ({
       {label && (
         <div className="w-[95%] m-auto mt-4 mb-0 flex items-center gap-2">
           <div className="text-xl font-semibold mr-auto">{label}</div>
-          <TableSearch rows={initialRows} setFoundRows={setFoundRows} />
+          <TableSearch
+            rows={initialRows}
+            setFoundRows={setDisplayedRows}
+            setCurrentPage={setCurrentPage}
+          />
           {createButton && <div className="text-sm text-gray-600">{createButton}</div>}
         </div>
       )}
@@ -146,11 +147,11 @@ const Table: FC<TableProps> = ({
           </table>
         </div>
 
-        {getDisplayedRows().length > rowsPerPage && (
+        {displayedRows.length > rowsPerPage && (
           <div className="mt-4 flex justify-between items-center">
             <span className="text-xs text-gray-600">
-              Showing {startIndex + 1} to {Math.min(endIndex, getDisplayedRows().length)} of{' '}
-              {getDisplayedRows().length} entries
+              Showing {startIndex + 1} to {Math.min(endIndex, displayedRows.length)} of{' '}
+              {displayedRows.length} entries
             </span>
             <div>
               <button
@@ -190,10 +191,11 @@ export default Table
 // ---- SearchInput Component ---- //
 interface TableSearchProps {
   rows: string[][]
-  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | null>>
+  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | []>>
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Element {
+function TableSearch({ rows, setFoundRows, setCurrentPage }: TableSearchProps): React.JSX.Element {
   var inputRef = useRef<HTMLInputElement>(null!)
   var [isInputVisible, setIsInputVisible] = useState(false)
 
@@ -222,20 +224,31 @@ function TableSearch({ rows, setFoundRows }: TableSearchProps): React.JSX.Elemen
   }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>, rows: TableSearchProps['rows']) {
-    var query = e.target.value.trim()
+    var query = formatQuery(e.target.value)
 
     if (isValidQuery(query)) {
       let querySearchResult = rows.filter((row) => byQuery(row, query))
       setFoundRows(querySearchResult)
-    } else setFoundRows(null)
+      setCurrentPage(1)
+    } else setFoundRows(rows)
   }
 
   function isValidQuery(query: string): boolean {
     return query.length > 0
   }
 
+  function formatQuery(query: string): string {
+    var extraWhitespace = /\s{2,}/g
+    var specialCharacters = /[+*?^$.[/\]{}()|/]/g
+    return query.trim().replace(extraWhitespace, ' ').replace(specialCharacters, escapeCharacters)
+
+    function escapeCharacters(match: string) {
+      return `\\${match}`
+    }
+  }
+
   function byQuery(row: string[], query: string): boolean {
-    var queryRegex = new RegExp(`^${query}`, 'i')
-    return row.some((rowValue) => queryRegex.test(rowValue))
+    var regex = new RegExp(`^${query}`, 'i')
+    return row.some((rowValue) => regex.test(rowValue))
   }
 }
