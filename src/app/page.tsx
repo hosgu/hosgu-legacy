@@ -16,7 +16,7 @@ const Page: NextPage = async () => {
   return (
     <>
       <Header locale={locale} connectedUser={connectedUser} />
-      <Hero locale={locale} />
+      <Hero locale={locale} action="save" />
       <Blocks locale={locale} />
       <Footer locale={locale} />
     </>

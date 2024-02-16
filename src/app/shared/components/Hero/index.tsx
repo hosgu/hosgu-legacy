@@ -1,32 +1,40 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
-import { Select } from '@architecturex/components.select'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
-
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
+import Select from '~/components/Select'
 
 import { initialSignupAction } from '~/app/shared/actions/signup'
 
+type HeroData = {
+  fullName: string
+  businessName: string
+  businessEmail: string
+  businessPhone: string
+  businessWebsite: string
+  country: string
+}
 type Props = {
-  locale: string
+  action?: 'save' | 'edit'
+  data?: HeroData
+  locale?: string
 }
 
-const Hero: FC<Props> = ({ locale }) => {
+const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
   const t = i18n(locale)
-  const [isRegistered, setIsRegistered] = useState(false)
-
-  const [values, setValues] = useState({
+  const initialValues: HeroData = {
     fullName: '',
     businessName: '',
     businessEmail: '',
     businessPhone: '',
-    businessWebsite: '',
+    businessWebsite: 'https://',
     country: ''
-  })
+  }
+  const [isRegistered, setIsRegistered] = useState(false)
 
   const [errors, setErrors] = useState({
     fullName: '',
@@ -34,71 +42,105 @@ const Hero: FC<Props> = ({ locale }) => {
     businessEmail: '',
     businessPhone: '',
     businessWebsite: '',
-    country: ''
+    country: 'Mexico'
   })
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    let newValue = value
-
-    if (name === 'businessPhone') {
-      if (newValue.length > 16) {
-        return false
+  const validations = {
+    fullName: (value: string) => {
+      if (!value) {
+        return t('required')
       }
-    }
+      if (value.length < 2) {
+        return t('required')
+      }
 
-    return setValues({ ...values, [name]: newValue })
+      return ''
+    },
+    businessName: (value: string) => {
+      if (!value) {
+        return t('required')
+      }
+      if (value.length < 2) {
+        return t('required')
+      }
+
+      return ''
+    },
+    businessEmail: (value: string) => {
+      if (!value) {
+        return t('required')
+      }
+      if (!is(value).email()) {
+        return t('invalidEmail')
+      }
+      return ''
+    },
+    businessPhone: (value: string) => {
+      if (!value) {
+        return t('required')
+      }
+      if (!is(value).phone()) {
+        return t('invalidPhone')
+      }
+      return ''
+    },
+    businessWebsite: (value: string) => {
+      if (!value) {
+        return t('required')
+      }
+      if (!is(value).url) {
+        return t('invalidUrl')
+      }
+      return ''
+    },
+    country: (value: string) => {
+      if (!value) {
+        return t('required')
+      }
+      if (value.length < 2) {
+        return t('required')
+      }
+      return ''
+    }
   }
 
-  const handleSubmit = async () => {
-    let fullName = ''
-    let businessName = ''
-    let businessEmail = ''
-    let businessPhone = ''
-    let businessWebsite = ''
-    let country = ''
-
-    if (!values.fullName) {
-      fullName = t('required')
+  const validate = (values: any) => {
+    const newErrors = {
+      ...errors,
+      fullName: validations.fullName(values.fullName),
+      businessName: validations.businessName(values.businessName),
+      businessEmail: validations.businessEmail(values.businessEmail),
+      businessPhone: validations.businessPhone(values.businessPhone),
+      businessWebsite: validations.businessWebsite(values.businessWebsite)
     }
+    setErrors(newErrors)
+    return (
+      !newErrors.fullName &&
+      !newErrors.businessEmail &&
+      !newErrors.businessName &&
+      !newErrors.businessPhone &&
+      !newErrors.businessWebsite
+    )
+  }
 
-    if (!values.businessName) {
-      businessName = t('required')
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    console.log('Event Triggered on Submit')
+
+    const formData = new FormData(e.target)
+    const values = core.formData.get(formData)
+    const isValidForm = validate(values)
+    console.log('Values:', values)
+    console.log('formData:', formData)
+    if (isValidForm) {
+      const response = await initialSignupAction(formData)
+      console.log('Response:', response)
+      if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
+        initialValues.businessEmail = t[response.error.message as keyof typeof t]
+      } else if (response.ok) {
+        setIsRegistered(true)
+      }
     }
-
-    if (!is(values.businessEmail).email()) {
-      businessEmail = t('invalidEmail')
-    }
-
-    if (!is(values.businessPhone).phone()) {
-      businessPhone = t('invalidPhone')
-    }
-
-    if (!is(values.businessWebsite).url()) {
-      businessWebsite = t('invalidUrl')
-    }
-
-    if (!values.country) {
-      country = t('required')
-    }
-
-    const formData = core.formData.set(new FormData(), values)
-    const response = await initialSignupAction(formData)
-
-    if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
-      businessEmail = t[response.error.message as keyof typeof t]
-    } else if (response.ok) {
-      setIsRegistered(true)
-    }
-
-    setErrors({
-      fullName,
-      businessName,
-      businessEmail,
-      businessPhone,
-      businessWebsite,
-      country
-    })
   }
 
   const SuccessMessage = () => (
@@ -109,82 +151,6 @@ const Hero: FC<Props> = ({ locale }) => {
       </p>
     </div>
   )
-
-  const form = [
-    <div key="row-1" className="flex">
-      <Input
-        id="fullName"
-        label={t('fullName')}
-        name="fullName"
-        placeholder={t('fullName')}
-        errorText={errors.fullName}
-        onChange={handleChange}
-        value={values.fullName}
-      />
-      <Input
-        label={t('businessName')}
-        name="businessName"
-        placeholder={t('businessName')}
-        errorText={errors.businessName}
-        onChange={handleChange}
-        value={values.businessName}
-      />
-    </div>,
-    <div key="row-2" className="flex">
-      <Input
-        label={t('businessEmail')}
-        name="businessEmail"
-        placeholder={t('businessEmail')}
-        errorText={errors.businessEmail}
-        onChange={handleChange}
-        value={values.businessEmail}
-      />
-      <Input
-        label={t('businessPhone')}
-        name="businessPhone"
-        placeholder={t('businessPhonePlaceholder')}
-        errorText={errors.businessPhone}
-        onChange={handleChange}
-        value={values.businessPhone}
-      />
-    </div>,
-    <div key="row-3" className="flex">
-      <Input
-        label={t('businessWebsite')}
-        name="businessWebsite"
-        placeholder="https://"
-        errorText={errors.businessWebsite}
-        onChange={handleChange}
-        value={values.businessWebsite}
-      />
-
-      <Select
-        label="Country"
-        searchable
-        onSelectionChange={(value) => {
-          setValues({ ...values, country: value })
-        }}
-        style={{
-          marginTop: '15px',
-          marginLeft: '20px',
-          marginRight: '20px',
-          width: '195px'
-        }}
-        options={[
-          {
-            label: 'México',
-            value: 'Mexico',
-            selected: false
-          },
-          {
-            label: 'United States',
-            value: 'United States',
-            selected: false
-          }
-        ]}
-      />
-    </div>
-  ]
 
   return (
     <div
@@ -203,19 +169,79 @@ const Hero: FC<Props> = ({ locale }) => {
           </RenderIf>
 
           <RenderIf isFalse={isRegistered}>
-            {form}
+            <form onSubmit={handleSubmit}>
+              <div key="row-1" className="flex">
+                <Input
+                  id="fullName"
+                  label="Full name"
+                  name="fullName"
+                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+                  placeholder="fullName"
+                  required
+                  defaultValue={initialValues.fullName}
+                />
+                <Input
+                  id="businessName"
+                  label={t('businessName')}
+                  name="businessName"
+                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+                  placeholder={t('businessName')}
+                  required
+                  defaultValue={initialValues.businessName}
+                />
+              </div>
+              <div key="row-2" className="flex">
+                <Input
+                  label={t('businessEmail')}
+                  name="businessEmail"
+                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+                  placeholder={t('businessEmail')}
+                  required
+                  defaultValue={initialValues.businessEmail}
+                />
+                <Input
+                  label={t('businessPhone')}
+                  name="businessPhone"
+                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+                  placeholder={t('businessPhonePlaceholder')}
+                  required
+                  defaultValue={initialValues.businessPhone}
+                />
+              </div>
+              <div key="row-3" className="flex">
+                <Input
+                  label={t('businessWebsite')}
+                  name="businessWebsite"
+                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
+                  placeholder="https://"
+                  required
+                  defaultValue={initialValues.businessWebsite}
+                />
 
-            <div className="flex justify-center mb-6 mt-6">
-              <Button
-                color="secondary"
-                shape="rounded"
-                onClick={handleSubmit}
-                style={{ width: '92%' }}
-              >
-                {t('getStarted')}
-              </Button>
-            </div>
-
+                <Select
+                  label={t('country')}
+                  name="country"
+                  placeholder="Select a value"
+                  fullWidth={true}
+                  options={[
+                    { label: '', value: '' },
+                    {
+                      label: 'México',
+                      value: 'Mexico'
+                    },
+                    {
+                      label: 'United States',
+                      value: 'United States'
+                    }
+                  ]}
+                />
+              </div>
+              <div className="flex justify-center mb-6 mt-6">
+                <Button color="secondary" shape="rounded" type="submit" style={{ width: '92%' }}>
+                  {t('getStarted')}
+                </Button>
+              </div>
+            </form>
             <div
               className="flex justify-center mb-6 text-center dark:text-white p-2"
               style={{ fontSize: '10px' }}
