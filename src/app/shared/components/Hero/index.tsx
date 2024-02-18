@@ -1,12 +1,12 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
+import { Select } from '@architecturex/components.select'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
-import Select from '~/components/Select'
 
 import { initialSignupAction } from '~/app/shared/actions/signup'
 
@@ -31,10 +31,11 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     businessName: '',
     businessEmail: '',
     businessPhone: '',
-    businessWebsite: 'https://',
+    businessWebsite: '',
     country: ''
   }
   const [isRegistered, setIsRegistered] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState('')
 
   const [errors, setErrors] = useState({
     fullName: '',
@@ -42,7 +43,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     businessEmail: '',
     businessPhone: '',
     businessWebsite: '',
-    country: 'Mexico'
+    country: ''
   })
 
   const validations = {
@@ -93,11 +94,8 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       }
       return ''
     },
-    country: (value: string) => {
-      if (!value) {
-        return t('required')
-      }
-      if (value.length < 2) {
+    country: () => {
+      if (selectedCountry === '') {
         return t('required')
       }
       return ''
@@ -111,7 +109,8 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       businessName: validations.businessName(values.businessName),
       businessEmail: validations.businessEmail(values.businessEmail),
       businessPhone: validations.businessPhone(values.businessPhone),
-      businessWebsite: validations.businessWebsite(values.businessWebsite)
+      businessWebsite: validations.businessWebsite(values.businessWebsite),
+      country: validations.country()
     }
     setErrors(newErrors)
     return (
@@ -119,22 +118,19 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       !newErrors.businessEmail &&
       !newErrors.businessName &&
       !newErrors.businessPhone &&
-      !newErrors.businessWebsite
+      !newErrors.businessWebsite &&
+      !newErrors.country
     )
   }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    console.log('Event Triggered on Submit')
-
     const formData = new FormData(e.target)
+    formData.append('country', selectedCountry)
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
-    console.log('Values:', values)
-    console.log('formData:', formData)
     if (isValidForm) {
       const response = await initialSignupAction(formData)
-      console.log('Response:', response)
       if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
         initialValues.businessEmail = t[response.error.message as keyof typeof t]
       } else if (response.ok) {
@@ -178,7 +174,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
                   placeholder="fullName"
                   required
-                  defaultValue={initialValues.fullName}
+                  errorText={errors.fullName}
                 />
                 <Input
                   id="businessName"
@@ -187,7 +183,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
                   placeholder={t('businessName')}
                   required
-                  defaultValue={initialValues.businessName}
+                  errorText={errors.businessName}
                 />
               </div>
               <div key="row-2" className="flex">
@@ -197,7 +193,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
                   placeholder={t('businessEmail')}
                   required
-                  defaultValue={initialValues.businessEmail}
+                  errorText={errors.businessEmail}
                 />
                 <Input
                   label={t('businessPhone')}
@@ -205,7 +201,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
                   placeholder={t('businessPhonePlaceholder')}
                   required
-                  defaultValue={initialValues.businessPhone}
+                  errorText={errors.businessPhone}
                 />
               </div>
               <div key="row-3" className="flex">
@@ -215,26 +211,41 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
                   placeholder="https://"
                   required
-                  defaultValue={initialValues.businessWebsite}
+                  errorText={errors.businessWebsite}
                 />
-
-                <Select
-                  label={t('country')}
-                  name="country"
-                  placeholder="Select a value"
-                  fullWidth={true}
-                  options={[
-                    { label: '', value: '' },
-                    {
-                      label: 'México',
-                      value: 'Mexico'
-                    },
-                    {
-                      label: 'United States',
-                      value: 'United States'
-                    }
-                  ]}
-                />
+                <div className={errors.country ? 'border-red-500 dark:border-red-500' : ''}>
+                  <Select
+                    label="Country"
+                    searchable
+                    onSelectionChange={(value) => {
+                      setSelectedCountry(value)
+                    }}
+                    style={{
+                      marginTop: '15px',
+                      marginLeft: '20px',
+                      marginRight: '20px',
+                      width: '195px'
+                    }}
+                    options={[
+                      {
+                        label: 'México',
+                        value: 'Mexico',
+                        selected: false
+                      },
+                      {
+                        label: 'United States',
+                        value: 'United States',
+                        selected: false
+                      }
+                    ]}
+                  />
+                  {errors.country && (
+                    <p className="mx-5 text-red-500 text-xs text-left mb-4 block">
+                      {' '}
+                      {errors.country}{' '}
+                    </p>
+                  )}
+                </div>
               </div>
               <div className="flex justify-center mb-6 mt-6">
                 <Button color="secondary" shape="rounded" type="submit" style={{ width: '92%' }}>
