@@ -132,7 +132,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     if (isValidForm) {
       const response = await initialSignupAction(formData)
       if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
-        initialValues.businessEmail = t[response.error.message as keyof typeof t]
+        initialValues.businessEmail = t(response.error.message as keyof typeof t)
       } else if (response.ok) {
         setIsRegistered(true)
       }
