@@ -6,7 +6,7 @@ import core from '@architecturex/utils.core'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
-// import Step3 from './Step3'
+import Step3 from './Step3'
 import Step4 from './Step5'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -204,6 +204,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       setIsDisabled={setIsDisabled}
       setStep={setStep}
     />,
+    <Step3 key="step3" locale={locale} />,
     <Step4 key="step4" />
   ]
 
