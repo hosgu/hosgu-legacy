@@ -60,7 +60,8 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
       data-component="Header"
       className={cx.join(
         width,
-        'sticky m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl'
+        'sticky m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl',
+        'z-50'
       )}
     >
       <Logo slogan={t('slogan')} key={darkMode.toString()} />
