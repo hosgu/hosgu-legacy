@@ -34,7 +34,7 @@ const HamburgerMenu: FC<Props> = ({ isLogged, locale, connectedUser }) => {
           {isLogged && (
             <div className="flex flex-col items-center justify-center pt-20 text-black dark:text-white text-xl">
               <div className="mb-10">
-                <b>{t('welcome')},</b> {connectedUser.information.fullName}!
+                <b>{t('welcome')},</b> {connectedUser.fullName}!
               </div>
 
               <Link
