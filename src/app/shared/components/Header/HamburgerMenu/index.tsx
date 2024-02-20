@@ -18,6 +18,8 @@ const HamburgerMenu: FC<Props> = ({ isLogged, locale, connectedUser }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const stroke = darkMode ? 'white' : 'black'
 
+  console.log('Connected user', connectedUser)
+
   return (
     <div data-component="HamburgerMenu">
       <SVG.Hamburger label="Open Menu" stroke={stroke} onClick={() => setIsOpen(true)} />
@@ -34,7 +36,7 @@ const HamburgerMenu: FC<Props> = ({ isLogged, locale, connectedUser }) => {
           {isLogged && (
             <div className="flex flex-col items-center justify-center pt-20 text-black dark:text-white text-xl">
               <div className="mb-10">
-                <b>{t('welcome')},</b> {connectedUser.information.fullName}!
+                <b>{t('welcome')},</b> {connectedUser.fullName}!
               </div>
 
               <Link
