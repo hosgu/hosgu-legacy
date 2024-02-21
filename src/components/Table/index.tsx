@@ -1,6 +1,7 @@
-import React, { FC, ReactElement, useState, useRef } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
+import TableSearch from './TableSearch'
 
 interface TableProps {
   headers: string[]
@@ -190,80 +191,3 @@ const Table: FC<TableProps> = ({
 }
 
 export default Table
-
-// ---- SearchInput Component ---- //
-function TableSearch({ rows, searchRows, setFoundRows, setCurrentPage }: TableSearchProps) {
-  var inputRef = useRef<HTMLInputElement>(null!)
-  var [isInputVisible, setIsInputVisible] = useState(false)
-
-  return (
-    <div className="flex gap-2">
-      <div
-        onClick={toggleInputVisibility}
-        className="hover:cursor-pointer hover:bg-slate-200 hover:rounded-md p-1 flex justify-center items-center select-none"
-      >
-        🔍
-      </div>
-      <input
-        ref={inputRef}
-        onChange={(e) => handleSearch(e, rows)}
-        type="search"
-        placeholder="Type to search..."
-        className={`transition-{width} ease-in-out duration-300 bg-gray-50 text-sm placeholder-gray-400 rounded outline-gray-200
-          ${isInputVisible ? 'w-36 px-2 py-1.5 outline' : 'w-0'}`}
-      />
-    </div>
-  )
-
-  function toggleInputVisibility() {
-    isInputVisible ? inputRef.current?.blur() : inputRef.current?.focus()
-    setIsInputVisible((prevIsOpen) => !prevIsOpen)
-  }
-
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>, rows: TableSearchProps['rows']) {
-    var query = formatQuery(e.target.value)
-    var foundRows: string[][] | [] = []
-
-    if (isValidQuery(query)) {
-      if (searchRows) {
-        var foundRowsIndex: Set<number> = new Set()
-
-        searchRows.forEach((row, index) => {
-          var isMatch = byQuery(row, query)
-          if (isMatch) foundRowsIndex.add(index)
-        })
-
-        foundRows = rows.filter((_, index) => foundRowsIndex.has(index))
-      } else foundRows = rows.filter((row) => byQuery(row, query))
-
-      setFoundRows(foundRows)
-      setCurrentPage(1)
-    } else setFoundRows(rows)
-  }
-
-  function isValidQuery(query: string): boolean {
-    return query.length > 0
-  }
-
-  function formatQuery(query: string): string {
-    var extraWhitespace = /\s{2,}/g
-    var specialCharacters = /[+*?^$.[/\]{}()|/]/g
-    return query.trim().replace(extraWhitespace, ' ').replace(specialCharacters, escapeCharacters)
-
-    function escapeCharacters(match: string) {
-      return `\\${match}`
-    }
-  }
-
-  function byQuery(row: string[], query: string): boolean {
-    var regex = new RegExp(`^${query}`, 'i')
-    return row.some((rowValue) => regex.test(rowValue))
-  }
-}
-
-interface TableSearchProps {
-  rows: string[][]
-  searchRows?: string[][]
-  setFoundRows: React.Dispatch<React.SetStateAction<string[][] | []>>
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
-}
