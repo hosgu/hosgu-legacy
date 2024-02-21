@@ -38,7 +38,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
   )
 
   const getRows = useCallback(() => {
-    var initialRows =
+    const initialRows =
       data?.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
         <a key={`create-${id}`} href={`guests/profile/${id}`}>
           {fullName}
@@ -57,7 +57,7 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
           </a>
         </>
       ]) || []
-    var searchRows =
+    const searchRows =
       data?.map(({ fullName, email, phone, website, gender, birthday }: any) => [
         fullName,
         email,
