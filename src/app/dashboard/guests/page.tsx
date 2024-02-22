@@ -1,9 +1,10 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import GuestTable from './GuestTable'
+import Results from './Results'
 import { getConnectedUser } from '~/app/shared/services/users'
 import { getAllGuestsServerAction } from '~/app/shared/actions/dashboard/guest'
+import { deleteGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 
 const GuestsPage: NextPage = async () => {
   const cookieStore = cookies()
@@ -14,7 +15,12 @@ const GuestsPage: NextPage = async () => {
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-      <GuestTable data={guests} connectedUser={connectedUser} refetch={getAllGuestsServerAction} />
+      <Results
+        data={guests}
+        connectedUser={connectedUser}
+        refetch={getAllGuestsServerAction}
+        deleteServerAction={deleteGuestServerAction}
+      />
     </div>
   )
 }

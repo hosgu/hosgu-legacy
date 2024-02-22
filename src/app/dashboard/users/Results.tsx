@@ -10,9 +10,13 @@ type Props = {
   data: any
   refetch: any
   connectedUser: any
+  deleteServerAction: any
 }
 
-const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) => {
+const viewLink = (id: string) => `/dashboard/users/profile/${id}`
+const editLink = (id: string) => `/dashboard/users/edit/${id}`
+
+const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, connectedUser }) => {
   // Initial states
   const [data, setData] = useState(rawData)
 
@@ -22,28 +26,29 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
       id
     })
 
-    const response = await deleteGuestServerAction(formData)
+    const response = await deleteServerAction(formData)
 
     if (response.ok) {
-      const filteredData = data.filter((guest: any) => guest.id !== id)
+      const filteredData = data.filter((item: any) => item.id !== id)
 
       setData(filteredData)
     }
   }
 
   const renderRow = (item: any) => [
-    <a key={`name-${item.id}`} href={`/dashboard/guests/profile/${item.id}`}>
+    <a key={`name-${item.id}`} href={viewLink(item.id)}>
       {item.fullName}
     </a>,
+    item.tier,
+    item.role,
     item.email,
     item.phone,
     item.website,
-    item.gender,
     item.birthday,
     <>
-      <a key={`edit-${item.id}`} href={`/dashboard/guests/edit/${item.id}`}>
+      <a key={`edit-${item.id}`} href={editLink(item.id)}>
         Edit
-      </a>
+      </a>{' '}
       <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
         Delete
       </a>
@@ -53,9 +58,9 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
       <ResultsTable
-        label="Guests"
-        modalTitle="Add New Guest"
-        headers={['Full Name', 'Email', 'Phone', 'Website', 'Gender', 'Birthday', 'Actions']}
+        label="Users"
+        modalTitle="Add New User"
+        headers={['Full Name', 'Tier', 'Role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']}
         data={data}
         refetch={refetch}
         renderRow={renderRow}
@@ -67,4 +72,4 @@ const GuestTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
   )
 }
 
-export default GuestTable
+export default Results

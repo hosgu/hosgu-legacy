@@ -1,67 +1,27 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
+import GuestTable from './Results'
 import { getConnectedUser } from '~/app/shared/services/users'
 import { getAllUsersServerAction } from '~/app/shared/actions/dashboard/user'
-import CustomTable from '~/app/dashboard/components/CustomTable/index'
 
-const UsersPage: NextPage = async () => {
+const GuestsPage: NextPage = async () => {
   const cookieStore = cookies()
   const connectedUser: any = await getConnectedUser(cookieStore.get('at')?.value || '')
   const {
-    data: { items: users }
+    data: { items: guests }
   } = await getAllUsersServerAction()
-
-  const headerMapping = [
-    {
-      key: 'id',
-      tableLabel: null
-    },
-    {
-      key: 'fullName',
-      tableLabel: 'Name',
-      action: {
-        type: 'link',
-        href: `user/profile/`
-      }
-    },
-    {
-      key: 'tier',
-      tableLabel: 'Tier'
-    },
-    {
-      key: 'role',
-      tableLabel: 'Role'
-    },
-    {
-      key: 'email',
-      tableLabel: 'Email'
-    },
-    {
-      key: 'phone',
-      tableLabel: 'Phone'
-    },
-    {
-      key: 'website',
-      tableLabel: 'Website'
-    },
-    {
-      key: 'birthday',
-      tableLabel: 'Birthday'
-    }
-  ]
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-      <CustomTable
-        headerMapping={headerMapping}
-        data={users}
-        deleteServerAction={''}
+      <GuestTable
+        data={guests}
         connectedUser={connectedUser}
         refetch={getAllUsersServerAction}
+        deleteServerAction={() => null}
       />
     </div>
   )
 }
 
-export default UsersPage
+export default GuestsPage
