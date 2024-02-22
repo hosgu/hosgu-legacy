@@ -10,7 +10,7 @@ type Props = {
   data: any
   refetch: any
   connectedUser: any
-  deleteServerAction: any
+  deleteServerAction?: any
 }
 
 const viewLink = (id: string) => `/dashboard/users/profile/${id}`
@@ -22,17 +22,14 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
 
   // Methods
   const handleDelete = async (id: string) => {
-    const formData = core.formData.set(new FormData(), {
-      id
-    })
-
-    const response = await deleteServerAction(formData)
-
-    if (response.ok) {
-      const filteredData = data.filter((item: any) => item.id !== id)
-
-      setData(filteredData)
-    }
+    // const formData = core.formData.set(new FormData(), {
+    //   id
+    // })
+    // const response = await deleteServerAction(formData)
+    // if (response.ok) {
+    //   const filteredData = data.filter((item: any) => item.id !== id)
+    //   setData(filteredData)
+    // }
   }
 
   const renderRow = (item: any) => [
