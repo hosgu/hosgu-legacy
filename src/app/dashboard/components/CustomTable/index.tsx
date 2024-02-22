@@ -3,19 +3,26 @@ import { FC, useState, useEffect, useCallback } from 'react'
 import core from '@architecturex/utils.core'
 
 import CreateGuestForm from '~/app/dashboard/components/Guests/Form'
-import { deleteGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 
 import Table from '~/components/Table'
 import Button from '~/components/Button'
 import Modal from '~/components/Modal'
 
 type Props = {
-  data?: any[]
+  headerMapping: any
+  data: any[]
+  deleteServerAction: any
   connectedUser: any
   refetch: any
 }
 
-const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) => {
+const CustomTable: FC<Props> = ({
+  headerMapping,
+  data: rawData = [],
+  deleteServerAction,
+  refetch,
+  connectedUser
+}) => {
   // Initial states
   const [data, setData] = useState(rawData)
 
@@ -26,10 +33,10 @@ const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
         id
       })
 
-      const response = await deleteGuestServerAction(formData)
+      const response = await deleteServerAction(formData)
 
       if (response.ok) {
-        const filteredData = data.filter((guest: any) => guest.id !== id)
+        const filteredData = data.filter((item: any) => item.id !== id)
 
         setData(filteredData)
       }
@@ -37,17 +44,42 @@ const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
     [data]
   )
 
+  let tableHeaders = headerMapping
+    .filter((item) => {
+      if (item.label) return item.label
+    })
+    .map((item) => item.label)
+
+  const tableRows = data.map((item) => {
+    let row = []
+    headerMapping.forEach((headerColumn) => {
+      if (item.hasOwnProperty(headerColumn.key) && headerColumn.key != 'id') {
+        if (headerColumn.action) {
+          if (headerColumn.action.type == 'link') {
+            row.push(
+              <a key={`create-${item.id}`} href={`${headerColumn.action.href}/${item.id}`}>
+                {item[headerColumn.key]}
+              </a>
+            )
+          }
+        } else {
+          row.push(item[headerColumn.key])
+        }
+      }
+    })
+    return row
+  })
+
   const getRows = useCallback(
     () =>
-      data?.map(({ id, fullName, tier, role, email, phone, website, birthday }: any) => [
+      tableRows?.map(({ id, fullName, email, phone, website, gender, birthday }: any) => [
         <a key={`create-${id}`} href={`guests/profile/${id}`}>
           {fullName}
         </a>,
-        tier,
-        role,
         email,
         phone,
         website,
+        gender,
         birthday,
         <>
           <a key={`delete-${fullName}`} href="#" onClick={() => handleDelete(id)}>
@@ -72,8 +104,6 @@ const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
     setRows(newRows)
   }, [data, getRows])
 
-  const headers = ['Full name', 'tier', 'role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']
-
   return (
     <>
       <Modal
@@ -93,15 +123,15 @@ const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
       </Modal>
 
       <Table
-        key={`table-${rows.length}`}
-        label="Users"
+        key={`table-${tableRows.length}`}
+        label="Guests"
         createButton={
           <Button color="info" size="small" onClick={() => setIsModalOpen(true)}>
             + Create
           </Button>
         }
-        headers={headers}
-        rows={rows}
+        headers={tableHeaders}
+        rows={tableRows}
         hoverHighlight
         rowsPerPage={10}
       />
@@ -109,4 +139,4 @@ const UsersTable: FC<Props> = ({ data: rawData = [], refetch, connectedUser }) =
   )
 }
 
-export default UsersTable
+export default CustomTable
