@@ -5,7 +5,7 @@ import Results from './Results'
 import { getConnectedUser } from '~/app/shared/services/users'
 import { getAllUsersServerAction } from '~/app/shared/actions/dashboard/user'
 
-const GuestsPage: NextPage = async () => {
+const UsersPage: NextPage = async () => {
   const cookieStore = cookies()
   const connectedUser: any = await getConnectedUser(cookieStore.get('at')?.value || '')
   const {
@@ -19,4 +19,4 @@ const GuestsPage: NextPage = async () => {
   )
 }
 
-export default GuestsPage
+export default UsersPage
