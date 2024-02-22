@@ -1,9 +1,9 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
+import GuestTable from './GuestTable'
 import { getConnectedUser } from '~/app/shared/services/users'
 import { getAllGuestsServerAction } from '~/app/shared/actions/dashboard/guest'
-import GuestTable from './GuestTable'
 
 const GuestsPage: NextPage = async () => {
   const cookieStore = cookies()
