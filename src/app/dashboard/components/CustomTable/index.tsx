@@ -26,6 +26,30 @@ const CustomTable: FC<Props> = ({
   // Initial states
   const [data, setData] = useState(rawData)
 
+  const tableHeaders = headerMapping
+    .filter((item) => {
+      if (item.tableLabel) return item.tableLabel
+    })
+    .map((item) => item.tableLabel)
+
+  const tableRows = data.map((item) => {
+    let row = []
+    headerMapping.forEach((headerColumn) => {
+      if (item.hasOwnProperty(headerColumn.key) && headerColumn.key != 'id') {
+        if (headerColumn.action) {
+          if (headerColumn.action.type == 'link') {
+            row.push(
+              <a key={`create-${item.id}`} href={`${headerColumn.action.href}/${item.id}`}>
+                {item[headerColumn.key]}
+              </a>
+            )
+          }
+        } else row.push(item[headerColumn.key])
+      }
+    })
+    return row
+  })
+
   // Methods
   const handleDelete = useCallback(
     async (id: string) => {
@@ -43,32 +67,6 @@ const CustomTable: FC<Props> = ({
     },
     [data]
   )
-
-  let tableHeaders = headerMapping
-    .filter((item) => {
-      if (item.label) return item.label
-    })
-    .map((item) => item.label)
-
-  const tableRows = data.map((item) => {
-    let row = []
-    headerMapping.forEach((headerColumn) => {
-      if (item.hasOwnProperty(headerColumn.key) && headerColumn.key != 'id') {
-        if (headerColumn.action) {
-          if (headerColumn.action.type == 'link') {
-            row.push(
-              <a key={`create-${item.id}`} href={`${headerColumn.action.href}/${item.id}`}>
-                {item[headerColumn.key]}
-              </a>
-            )
-          }
-        } else {
-          row.push(item[headerColumn.key])
-        }
-      }
-    })
-    return row
-  })
 
   const getRows = useCallback(
     () =>
