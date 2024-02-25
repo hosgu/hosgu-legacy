@@ -31,7 +31,7 @@ const Layout: FC<Props> = async ({ children }) => {
 
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
-          <div className="flex-1 overflow-auto">{children}</div>
+          <div className="flex-1 overflow-auto bg-gray-100">{children}</div>
         </div>
       </div>
     </main>
