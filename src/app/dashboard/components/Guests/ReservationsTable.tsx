@@ -1,8 +1,13 @@
 'use client'
+import { FC } from 'react'
 import Table from '~/components/Table'
 import { ReservationFields } from '~/server/db/schemas/reservation'
 
-function ReservationsTable({ reservations }: Props) {
+type Props = {
+  reservations: ReservationFields[]
+}
+
+const ReservationsTable: FC<Props> = ({ reservations }) => {
   const headers = [
     'Photo',
     'Name',
@@ -33,10 +38,6 @@ function ReservationsTable({ reservations }: Props) {
     ]
   })
   return <Table headers={headers} rows={rows} label="Reservation history" />
-}
-
-type Props = {
-  reservations: ReservationFields[]
 }
 
 export default ReservationsTable
