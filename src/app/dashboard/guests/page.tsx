@@ -3,8 +3,10 @@ import { cookies } from 'next/headers'
 
 import Results from './Results'
 import { getConnectedUser } from '~/app/shared/services/users'
-import { getAllGuestsServerAction } from '~/app/shared/actions/dashboard/guest'
-import { deleteGuestServerAction } from '~/app/shared/actions/dashboard/guest'
+import {
+  getAllGuestsServerAction,
+  deleteGuestServerAction
+} from '~/app/shared/actions/dashboard/guest'
 
 const GuestsPage: NextPage = async () => {
   const cookieStore = cookies()
