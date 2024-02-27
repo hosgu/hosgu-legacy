@@ -1,8 +1,8 @@
 'use client'
 import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
+import { RenderIf } from '@architecturex/components.renderif'
 
-import { deleteGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 import CreateGuestForm from '~/app/dashboard/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
 
@@ -22,14 +22,14 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
 
   // Methods
   const handleDelete = async (id: string) => {
-    // const formData = core.formData.set(new FormData(), {
-    //   id
-    // })
-    // const response = await deleteServerAction(formData)
-    // if (response.ok) {
-    //   const filteredData = data.filter((item: any) => item.id !== id)
-    //   setData(filteredData)
-    // }
+    const formData = core.formData.set(new FormData(), {
+      id
+    })
+    const response = await deleteServerAction(formData)
+    if (response.ok) {
+      const filteredData = data.filter((item: any) => item.id !== id)
+      setData(filteredData)
+    }
   }
 
   const renderRow = (item: any) => [
@@ -46,9 +46,11 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
       <a key={`edit-${item.id}`} href={editLink(item.id)}>
         Edit
       </a>{' '}
-      <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
-        Delete
-      </a>
+      <RenderIf isTrue={connectedUser.email !== item.email}>
+        <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
+          Delete
+        </a>
+      </RenderIf>
     </>
   ]
 

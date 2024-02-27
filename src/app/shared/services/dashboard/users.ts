@@ -15,3 +15,15 @@ export const getAllUsers = async () => {
     status: 200
   }
 }
+
+export const deleteRow = async (id: string) => {
+  const response = await api.fetch<APIResponse<UserFields>>(`/api/v1/user/${id}`, {
+    method: 'DELETE',
+    addLocalHost: process.env.NODE_ENV === 'development'
+  })
+  return {
+    ok: true,
+    data: response,
+    status: 200
+  }
+}
