@@ -13,8 +13,8 @@ export const reservation = pgTable('reservation', {
   guestId: uuid('guestId')
     .references(() => guest.id)
     .notNull(),
-  startDate: varchar('startDate', { length: 20 }),
-  endDate: varchar('endDate', { length: 20 }),
+  startDate: varchar('startDate', { length: 20 }).notNull(),
+  endDate: varchar('endDate', { length: 20 }).notNull(),
   nights: integer('nights').default(0),
   freeNights: integer('freeNights').default(0),
   occupancy: integer('occupancy').default(0),
