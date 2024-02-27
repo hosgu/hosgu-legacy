@@ -7,12 +7,12 @@ export async function getReservationById(id: ReservationFields['id']) {
     method: 'GET',
     addLocalHost: process.env.NODE_ENV === 'development'
   })
-  return handleResponse(response)
+  return response
 }
 
 export async function getAllReservations() {
   const response = await api.fetch<APIResponse<ReservationFields[]>>('/api/v1/reservation')
-  return handleResponse(response)
+  return response
 }
 
 export async function createReservation(payload: any) {
@@ -20,7 +20,7 @@ export async function createReservation(payload: any) {
     method: 'POST',
     addLocalHost: process.env.NODE_ENV === 'development'
   })
-  return handleResponse(response)
+  return response
 }
 
 export async function getReservationsByGuestId(id: ReservationFields['guestId']) {
@@ -31,11 +31,5 @@ export async function getReservationsByGuestId(id: ReservationFields['guestId'])
       addLocalHost: process.env.NODE_ENV === 'development'
     }
   )
-  return handleResponse(response)
-}
-
-function handleResponse(response: APIResponse<ReservationFields[]> | APIResponse<CreatedItem>) {
-  if (response.ok) return response
-  console.error('Fetching failed', response)
   return response
 }
