@@ -3,6 +3,9 @@ import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 import core from '@architecturex/utils.core'
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
 import { getReservationsByGuestIdServerAction } from '~/app/shared/actions/reservations'
+import { ReservationFields, reservation } from '~/server/db/schemas/reservation'
+import GuestCard from '~/app/dashboard/components/Guests/GuestCard'
+import { GuestFields } from '~/server/db/schemas/guest'
 
 type Props = {
   params: {
@@ -21,6 +24,15 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
   } = await getOneGuestServerAction(formData)
 
   const reservations = await getReservationsByGuestIdServerAction(guest.id)
+  let latestReservation
+  let latestReservationStatus
+
+  if (reservations.ok) {
+    latestReservation = getLatestReservation(reservations.data.items)
+    latestReservationStatus = latestReservation
+      ? getReservationStatus(latestReservation.startDate, latestReservation.endDate)
+      : { text: 'No reservartions', style: 's' }
+  }
 
   return (
     <div className="h-full max-w- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-[min_content_min-content_min-content] gap-4 md:gap-6 grid-rows-[auto_1fr] p-4 bg-gray-100 dark:bg-gray-900">
@@ -28,7 +40,7 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
         <img
           src={guest.photo || ''}
           alt="Guest photo"
-          className="aspect-square w-16 lg:w-20 rounded-full object-cover self-center"
+          className="aspect-square w-16 lg:w-20 rounded-full object-cover self-center bg-gray-100"
         />
         <div className="leading-none">
           <p className="mb-2 self-center lg:text-2xl">{guest.fullName}</p>
@@ -46,8 +58,10 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
       <div className="p-6 rounded-lg border border-slate-400 bg-white">
         <div className="flex items-center gap-2 lg:gap-4 mb-4 md:mb-6">
           <p className="lg:text-3xl">Marcella Court</p>
-          <div className="border bg-purple-100 text-purple-600 py-1 px-4 text-xs lg:text-base rounded-full">
-            Booked
+          <div
+            className={`border py-1 px-4 text-xs lg:text-base rounded-full ${latestReservationStatus?.style}`}
+          >
+            {latestReservationStatus?.text}
           </div>
         </div>
         <div className="mb-4 lg:mb-6">
@@ -63,15 +77,15 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
             </div>
             <div>
               <p className="text-xs lg:text-sm text-slate-500 mb-1"> Booking</p>
-              <p className="text-xs lg:text-base">13/06/2024 10:15AM</p>
+              <p className="text-xs lg:text-base">{}</p>
             </div>
             <div>
               <p className="text-xs lg:text-sm text-slate-500 mb-1"> Check in</p>
-              <p className="text-xs lg:text-base">14/06/2024 12:00PM</p>
+              <p className="text-xs lg:text-base">{latestReservation.startDate}</p>
             </div>
             <div>
               <p className="text-xs lg:text-sm text-slate-500 mb-1"> Check out</p>
-              <p className="text-xs lg:text-base">17/06/2024 12:00PM</p>
+              <p className="text-xs lg:text-base">{latestReservation.endDate}</p>
             </div>
           </div>
         </div>
@@ -92,6 +106,41 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
       </div>
     </div>
   )
+
+  function getLatestReservation(reservations: ReservationFields[]) {
+    if (reservations.length == 0) return null
+    return reservations.reduce((dateA, dateB) =>
+      Date.parse(dateA.endDate) > Date.parse(dateB.endDate) ? dateA : dateB
+    )
+  }
+
+  function getReservationStatus(startDate: string, endDate: string) {
+    if (!startDate) return null
+    const today = new Date()
+    const reservationStartDate = new Date(startDate)
+    const reservationEndDate = new Date(endDate)
+
+    if (today < reservationStartDate)
+      return {
+        text: 'Booked',
+        style: 'bg-purple-100 text-purple-600'
+      }
+    else if (today > reservationEndDate)
+      return {
+        text: 'Checked out',
+        style: 'bg-pink-100 text-pink-600'
+      }
+    else if (today >= reservationStartDate && today <= reservationEndDate)
+      return {
+        text: 'In progress',
+        style: 'bg-green-100 text-green-600'
+      }
+    else
+      return {
+        text: 'Unknown',
+        style: 'bg-gray-100 text-gray-600'
+      }
+  }
 }
 
 export default GuestProfilePage
