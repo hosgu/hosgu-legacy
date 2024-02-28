@@ -2,7 +2,7 @@
 import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
 
-import CreateGuestForm from '~/app/dashboard/components/Guests/Form'
+import GuestForm from '~/app/dashboard/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
 
 type Props = {
@@ -13,11 +13,12 @@ type Props = {
 }
 
 const viewLink = (id: string) => `/dashboard/guests/profile/${id}`
-const editLink = (id: string) => `/dashboard/guests/edit/${id}`
 
 const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, connectedUser }) => {
   // Initial states
   const [data, setData] = useState(rawData)
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
+  const [itemToEdit, setItemToEdit] = useState({})
 
   // Methods
   const handleDelete = async (id: string) => {
@@ -34,6 +35,11 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
     }
   }
 
+  const handleEdit = (item: any) => {
+    setItemToEdit(item)
+    setIsEditModalOpen(!isEditModalOpen)
+  }
+
   const renderRow = (item: any) => [
     <a key={`name-${item.id}`} href={viewLink(item.id)}>
       {item.fullName}
@@ -44,7 +50,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
     item.gender,
     item.birthday,
     <>
-      <a key={`edit-${item.id}`} href={editLink(item.id)}>
+      <a key={`edit-${item.id}`} onClick={() => handleEdit(item)}>
         Edit
       </a>{' '}
       <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
@@ -57,14 +63,20 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
       <ResultsTable
         label="Guests"
-        modalTitle="Add New Guest"
+        createModalTitle="Add New Guest"
+        editModalTitle="Edit Guest"
         headers={['Full Name', 'Email', 'Phone', 'Website', 'Gender', 'Birthday', 'Actions']}
         data={data}
         refetch={refetch}
         renderRow={renderRow}
-        FormComponent={
-          <CreateGuestForm action="save" data={{ businessId: connectedUser.businessId }} />
+        CreateFormComponent={
+          <GuestForm action="save" data={{ businessId: connectedUser.businessId }} />
         }
+        EditFormComponent={
+          <GuestForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
+        }
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
       />
     </div>
   )

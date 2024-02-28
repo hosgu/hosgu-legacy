@@ -151,7 +151,7 @@ export const edit = async ({
     addLocalHost: process.env.NODE_ENV === 'development'
   })
 
-  if (editedGuest.status === 201) {
+  if (editedGuest.status === 200) {
     return {
       ok: true,
       data: body,
@@ -162,8 +162,8 @@ export const edit = async ({
   return {
     ok: false,
     error: {
-      code: 'ERROR_CREATING_GUEST',
-      message: 'Error creating guest'
+      code: 'ERROR_EDITING_GUEST',
+      message: 'Error editing guest'
     },
     status: 500
   }
