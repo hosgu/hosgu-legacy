@@ -59,13 +59,19 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
       <ResultsTable
         label="Users"
         createModalTitle="Add New User"
+        editModalTitle="Edit User"
         headers={['Full Name', 'Tier', 'Role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']}
         data={data}
         refetch={refetch}
         renderRow={renderRow}
-        FormComponent={
+        CreateFormComponent={
           <CreateGuestForm action="save" data={{ businessId: connectedUser.businessId }} />
         }
+        EditFormComponent={
+          <CreateGuestForm action="edit" data={{ businessId: connectedUser.businessId }} />
+        }
+        isEditModalOpen={false}
+        setIsEditModalOpen={() => {}}
       />
     </div>
   )
