@@ -5,25 +5,34 @@ import Button from '~/components/Button'
 
 type Props = {
   label: string
-  modalTitle: string
+  createModalTitle: string
+  editModalTitle: string
   headers: string[]
   data: any[]
   refetch: any
   renderRow: (item: any) => ReactNode[]
-  FormComponent: ReactNode
+  CreateFormComponent: ReactNode
+  EditFormComponent: ReactNode
+  isEditModalOpen: boolean
+  setIsEditModalOpen: any
 }
 
 const ResultsTable: FC<Props> = ({
   label,
-  modalTitle,
+  createModalTitle,
+  editModalTitle,
   headers,
   data,
   refetch,
   renderRow,
-  FormComponent
+  CreateFormComponent,
+  EditFormComponent,
+  isEditModalOpen,
+  setIsEditModalOpen
 }) => {
   const [rows, setRows] = useState<ReactNode[][]>([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [action, setAction] = useState('save')
 
   useEffect(() => {
     setRows(data.map(renderRow))
@@ -32,9 +41,9 @@ const ResultsTable: FC<Props> = ({
   return (
     <>
       <Modal
-        isOpen={isModalOpen}
+        isModalOpen={isCreateModalOpen}
         onClose={async () => {
-          setIsModalOpen(false)
+          setIsCreateModalOpen(false)
 
           const {
             data: { items: newData }
@@ -42,16 +51,32 @@ const ResultsTable: FC<Props> = ({
 
           setRows(newData.map(renderRow))
         }}
-        title={modalTitle}
+        title={createModalTitle}
       >
-        {FormComponent}
+        {CreateFormComponent}
+      </Modal>
+
+      <Modal
+        isModalOpen={isEditModalOpen}
+        onClose={async () => {
+          setIsEditModalOpen(false)
+
+          const {
+            data: { items: newData }
+          } = await refetch()
+          setRows(newData.map(renderRow))
+          setAction('edit')
+        }}
+        title={editModalTitle}
+      >
+        {EditFormComponent}
       </Modal>
 
       <Table
-        key={`table-${rows.length}`}
+        key={`table-${rows.length}-${action}`}
         label={label}
         createButton={
-          <Button color="info" size="small" onClick={() => setIsModalOpen(true)}>
+          <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>
             + Create
           </Button>
         }

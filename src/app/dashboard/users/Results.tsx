@@ -58,7 +58,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
       <ResultsTable
         label="Users"
-        modalTitle="Add New User"
+        createModalTitle="Add New User"
         headers={['Full Name', 'Tier', 'Role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']}
         data={data}
         refetch={refetch}
