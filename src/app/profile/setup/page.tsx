@@ -24,10 +24,11 @@ const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="p-6 dark:text-white">
-        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">{t('signUp')}</h1>
-
+    <div className="min-h-screen flex justify-center bg-white dark:bg-gray-900 w-full">
+      <div
+        className="p-6 dark:text-white w-full"
+        style={{ height: '700px', border: '1px solid red' }}
+      >
         <ProfileSetupForm locale="en-us" user={user} />
       </div>
     </div>

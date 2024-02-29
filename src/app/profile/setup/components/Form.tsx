@@ -1,6 +1,5 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import Button from '~/components/Button'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 
@@ -21,8 +20,7 @@ type Props = {
 
 const Form: FC<Props> = ({ locale = 'en-us', user }) => {
   const t = i18n(locale)
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [step, setStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0)
   const [values, setValues] = useState({
     userId: user.id || '',
     email: user.email || '',
@@ -45,6 +43,18 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     businessWebsite: '',
     country: ''
   })
+
+  const goBack = () => {
+    setCurrentStep((prev: number) => (prev > 0 ? prev - 1 : 0))
+  }
+
+  const goNext = async () => {
+    const result = await handleSubmit()
+
+    if (result) {
+      setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
+    }
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -114,7 +124,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
   }
 
   const validate = () => {
-    if (step === 1) {
+    if (currentStep === 0) {
       const passwordValidation = security.password.validation(values.password)
 
       if (passwordValidation.reasons?.includes('length')) {
@@ -153,7 +163,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       return passwordValidation.isValid
     }
 
-    if (step === 3) {
+    if (currentStep === 3) {
       const newErrors = {
         ...errors,
         address1: validations.propertyAddress1(values.address1),
@@ -172,23 +182,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
   const handleSubmit = async () => {
     const isValidStep = validate()
-    if (isValidStep && step < 3) {
-      setStep((prevState) => prevState + 1)
+    console.log('isValidStep', isValidStep, currentStep, values)
+    if (isValidStep && currentStep < 3) {
+      return true
     }
 
-    if (isValidStep && step === 3) {
+    if (isValidStep && currentStep === 2) {
       const formData = core.formData.set(new FormData(), values)
 
       const response = await setupProfileServerAction(formData)
 
       if (response.status === 200) {
-        setStep((prevState) => prevState + 1)
+        setCurrentStep((prevState) => prevState + 1)
       }
     }
+
+    return false
   }
 
   const steps = [
-    '',
     <Step1
       key="step1"
       locale={locale}
@@ -197,54 +209,31 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       handleChange={handleChange}
       validate={validate}
     />,
-    <Step2
-      key="step2"
-      locale={locale}
-      setValues={setValues}
-      setIsDisabled={setIsDisabled}
-      setStep={setStep}
-    />,
+    <Step2 key="step2" locale={locale} setValues={setValues} setStep={setCurrentStep} />,
     <Step3 key="step3" locale={locale} />,
     <Step4 key="step4" />
   ]
 
   return (
-    <div className="flex items-center justify-center w-[500px]">
-      <div className="p-10 rounded-lg">
-        {step > 1 && step < 4 && (
-          <a
-            href="#"
-            className="text-gray-600 text-sm"
-            onClick={() => {
-              setIsDisabled(false)
-              setStep((prevState) => prevState - 1)
-            }}
-          >
-            ← {t('back')}
-          </a>
-        )}
+    <>
+      <div className="flex items-center justify-center w-full">
+        <div className="p-10 rounded-lg">
+          <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+            {currentStep === 0 && t('letsStart')}
+            {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
+            {currentStep === 2 &&
+              `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
+            {currentStep === 3 && 'Negocio Registrado Exitosamente!'}
+          </h2>
 
-        <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-          {step === 1 && t('letsStart')}
-          {step === 2 && t('whatPropertyTypeAreYouListing')}
-          {step === 3 &&
-            `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
-          {step === 4 && 'Negocio Registrado Exitosamente!'}
-        </h2>
-
-        {step < 4 && <StepIndicator totalSteps={3} currentStep={step} />}
-
-        {steps[step]}
-
-        {step !== 2 && step !== 4 && (
-          <div className="flex items-center justify-center mt-8">
-            <Button color="secondary" onClick={handleSubmit} disabled={isDisabled} shape="circle">
-              {step === 3 ? t('save') : t('continue')}
-            </Button>
-          </div>
-        )}
+          {steps[currentStep]}
+        </div>
       </div>
-    </div>
+
+      <div className="w-2/3 m-auto" style={{ border: '1px solid blue', marginTop: '300px' }}>
+        <StepIndicator steps={4} currentStep={currentStep} onBack={goBack} onNext={goNext} />
+      </div>
+    </>
   )
 }
 

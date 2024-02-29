@@ -48,7 +48,7 @@ const RootLayout: FC<Props> = ({ children }) => {
       <head>
         <link rel="icon" href="/images/favicon.png" />
       </head>
-      <body className={cx.join(inter.className, 'bg-codGray')}>
+      <body className={cx.join(inter.className)}>
         <ThemeProvider defaultDarkMode={theme === 'dark'}>{children}</ThemeProvider>
       </body>
     </html>
