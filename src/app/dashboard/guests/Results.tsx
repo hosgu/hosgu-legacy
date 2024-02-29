@@ -37,7 +37,9 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
 
   const handleEdit = (item: any) => {
     setItemToEdit(item)
-    setIsEditModalOpen(!isEditModalOpen)
+    setIsEditModalOpen((prev) => {
+      return !prev
+    })
   }
 
   const renderRow = (item: any) => [
