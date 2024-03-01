@@ -12,7 +12,7 @@ const customRoutes: Record<string, { method: string; handler: RequestHandler }> 
       try {
         const { id } = req.params
         const response = await customCRUD.getByGuestId(id)
-        res.json({ ok: true, data: response })
+        res.json({ ok: true, ...response })
       } catch (error) {
         res.status(500).json({ ok: false, error: error })
       }
