@@ -2,10 +2,14 @@ import { NextPage } from 'next'
 import core from '@architecturex/utils.core'
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
 import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
-import { getReservationsByGuestIdServerAction } from '~/app/shared/actions/reservations'
+import {
+  getReservationByIdSeverAction,
+  getReservationsByGuestIdServerAction
+} from '~/app/shared/actions/reservations'
 import { ReservationFields } from '~/server/db/schemas/reservation'
 import ReservationCard from '~/app/dashboard/components/Guests/ReservationCard'
 import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
+import { getReservationById } from '~/app/shared/services/reservations'
 
 type Props = {
   params: {
@@ -51,16 +55,20 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
           className="rounded-lg object-cover w-full h-full"
         />
       </div>
-      <ReservationCard reservation={latestReservation} />
-      <ReservationsTable reservations={reservations} />
+      {/* <ReservationCard reservation={latestReservation} /> */}
+      {/* <ReservationsTable reservations={reservations} /> */}
     </div>
   )
 
-  function getLatestReservation(reservations: ReservationFields[]) {
+  async function getLatestReservation(reservations: ReservationFields[]) {
     if (reservations.length == 0) return null
-    return reservations.reduce((dateA, dateB) =>
+
+    const lastReservation = reservations.reduce((dateA, dateB) =>
       Date.parse(dateA.endDate) > Date.parse(dateB.endDate) ? dateA : dateB
     )
+
+    const response = await getReservationByIdSeverAction(lastReservation.id)
+    return response
   }
 }
 
