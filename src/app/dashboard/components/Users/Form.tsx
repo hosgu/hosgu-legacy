@@ -1,11 +1,13 @@
 'use client'
 import React, { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
+import is from '@architecturex/utils.is'
 
 import { RenderIf } from '@architecturex/components.renderif'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
+import { editUserServerAction, createUserServerAction } from '~/app/shared/actions/dashboard/user'
 
 type Props = {
   action: 'save' | 'edit'
@@ -41,7 +43,8 @@ const Form: FC<Props> = ({
     website,
     active
   }
-  const [showNotification, setNotification] = useState(false)
+  const [showNotification, setShowNotification] = useState(false)
+
   const [errors, setErrors] = useState({
     tier: '',
     role: '',
@@ -59,24 +62,29 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a tier'
       }
+
       if (value.length < 2) {
         return 'Please enter a valid tier'
       }
+
       return ''
     },
     role: (value: string) => {
       if (!value) {
         return 'Please enter a role'
       }
+
       if (value.length < 2) {
         return 'Please enter a valid role'
       }
+
       return ''
     },
     fullName: (value: string) => {
       if (!value) {
         return 'Please enter a fullname'
       }
+      console.log('=====>lenght ', value.length)
       if (value.length < 2) {
         return 'Please enter a valid fullname'
       }
@@ -86,7 +94,7 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a email'
       }
-      if (value.length < 2) {
+      if (!is(value).email()) {
         return 'Please enter a valid email'
       }
       return ''
@@ -95,7 +103,7 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a phone number'
       }
-      if (value.length < 2) {
+      if (!is(value).phone()) {
         return 'Please enter a valid phone number'
       }
       return ''
@@ -113,7 +121,7 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a birthday'
       }
-      if (value.length < 2) {
+      if (!is(value).url()) {
         return 'Please enter a valid birthday'
       }
       return ''
@@ -122,17 +130,51 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a website'
       }
-      if (value.length < 2) {
+      if (!is(value).url()) {
         return 'Please enter a valid website'
       }
       return ''
     }
   }
 
+  const validate = (values: any) => {
+    const newErrors = {
+      ...errors,
+      tier: validations.tier(values.tier),
+      role: validations.role(values.role),
+      fullName: validations.fullName(values.fullName),
+      email: validations.email(values.email),
+      phone: validations.phone(values.phone),
+      avatar: validations.avatar(values.avatar),
+      birthday: validations.birthday(values.birthday),
+      website: validations.website(values.website)
+    }
+    setErrors(newErrors)
+    return (
+      !newErrors.avatar &&
+      !newErrors.role &&
+      !newErrors.fullName &&
+      !newErrors.email &&
+      !newErrors.phone &&
+      !newErrors.avatar &&
+      !newErrors.birthday &&
+      !newErrors.website
+    )
+  }
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
+    const isValidForm = validate(values)
+    if (isValidForm) {
+      const response =
+        action === 'save'
+          ? await createUserServerAction(formData)
+          : await editUserServerAction(formData)
+      if (response.status === 200) {
+        setShowNotification(true)
+      }
+    }
   }
 
   return (
@@ -172,9 +214,9 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={tier}
+              defaultValue={role}
               label="Role"
-              name="tole"
+              name="role"
               className={errors.role ? 'border-red-500 dark:border-red-500' : ''}
               required
             />
@@ -182,13 +224,13 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={tier}
+              defaultValue={phone}
               label="Phone"
               name="phone"
               placeholder="+525534567890"
               className={errors.role ? 'border-red-500 dark:border-red-500' : ''}
             />
-            <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.role}</p>
+            <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
           </div>
           <div>
             <Input
@@ -229,7 +271,7 @@ const Form: FC<Props> = ({
                 className={errors.email ? 'border-red-500 dark:border-red-500' : ''}
                 required
               />
-              <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.role}</p>
+              <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.email}</p>
             </div>
             <div>
               <Input
@@ -239,7 +281,7 @@ const Form: FC<Props> = ({
                 className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
                 required
               />
-              <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.role}</p>
+              <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.password}</p>
             </div>
           </RenderIf>
         </div>

@@ -76,7 +76,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
           <UserForm action="save" data={{ businessId: connectedUser.businessId }} />
         }
         EditFormComponent={
-          <UserForm action="edit" data={{ businessId: connectedUser.businessId }} />
+          <UserForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
         }
         isEditModalOpen={isEditModalOpen}
         setIsEditModalOpen={setIsEditModalOpen}
