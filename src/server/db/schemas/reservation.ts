@@ -37,8 +37,8 @@ export const reservation = pgTable('reservation', {
   isOffer: boolean('isOffer').default(false),
   offerDetails: text('offerDetails').default(''),
   notes: customJsonbNotes.default([]),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').defaultNow()
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 
 export type Reservation = typeof reservation
