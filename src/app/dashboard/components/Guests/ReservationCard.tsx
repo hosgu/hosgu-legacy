@@ -1,59 +1,116 @@
+import SVG from '@architecturex/components.svg'
 import { ReservationFields } from '~/server/db/schemas/reservation'
+import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
+import { getPropertyByIdServerAction } from '~/app/shared/actions/property'
 
-function ReservationCard({ reservation, reservationStatus }: Props) {
+async function ReservationCard({ reservation }: Props) {
+  if (reservation == null)
+    return (
+      <div className="p-6 rounded-lg border border-slate-400 bg-white flex flex-col justify-center items-center">
+        <SVG.NoData />
+        <div className="text-gray-300">No recent reservartions</div>
+      </div>
+    )
+
+  const reservationStatus = getReservationStatus(reservation.startDate, reservation.endDate)
+
+  const estateResponse = await getEstateByIdServerAction(reservation.estateId)
+  const [estate] = estateResponse.ok && estateResponse.items ? estateResponse.items : []
+
+  const propertyResponse = await getPropertyByIdServerAction(estate.propertyId)
+  const [property] = propertyResponse.ok && propertyResponse.items ? propertyResponse.items : []
+  console.log('[ Property Response ]', property)
+
   return (
-    <>
+    <div className="p-6 rounded-lg border border-slate-400 bg-white">
       <div className="flex items-center gap-2 lg:gap-4 mb-4 md:mb-6">
-        <p className="lg:text-3xl">Marcella Court</p>
+        <p className="lg:text-3xl">{property.name}</p>
         <div
-          // className={`border py-1 px-4 text-xs lg:text-base rounded-full ${reservationStatus.style}`}
+          className={`border py-1 px-4 text-xs lg:text-base rounded-full ${reservationStatus.style}`}
         >
-          {/* {reservationStatus.text} */}
+          {reservationStatus.text}
         </div>
       </div>
       <div className="mb-4 lg:mb-6">
         <p className="mb-2 lg:text-2xl">Details</p>
         <div className="grid grid-cols-3 gap-x-4 gap-y-3">
           <div>
-            <p className="text-xs lg:text-sm text-slate-500 mb-1"> Type</p>
-            <p className="text-xs lg:text-base">Cabaña</p>
-          </div>
-          <div className="col-span-2">
-            <p className="text-xs lg:text-sm text-slate-500 mb-1"> Capacity</p>
-            <p className="text-xs lg:text-base">2 - 4</p>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Type</p>
+            <p className="text-xs lg:text-base">{estate.type}</p>
           </div>
           <div>
-            <p className="text-xs lg:text-sm text-slate-500 mb-1"> Booking</p>
-            <p className="text-xs lg:text-base">{}</p>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Occupancy</p>
+            <p className="text-xs lg:text-base">
+              {Number(reservation.occupancy) + Number(reservation.extraOccupancy)}
+            </p>
           </div>
           <div>
-            <p className="text-xs lg:text-sm text-slate-500 mb-1"> Check in</p>
-            <p className="text-xs lg:text-base">{reservation.startDate}</p>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Booking</p>
+            <p className="text-xs lg:text-base">{toDateString(reservation.updatedAt)}</p>
           </div>
           <div>
-            <p className="text-xs lg:text-sm text-slate-500 mb-1"> Check out</p>
-            <p className="text-xs lg:text-base">{reservation.endDate}</p>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Check in</p>
+            <p className="text-xs lg:text-base">{`${reservation.startDate} ${property.checkIn}`}</p>
+          </div>
+          <div>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Check out</p>
+            <p className="text-xs lg:text-base">{`${reservation.endDate} ${property.checkOut}`}</p>
           </div>
         </div>
       </div>
       <div>
-        <p className="mb-2 lg:text-2xl">Facilities</p>
-        <ul className="text-xs lg:text-base grid grid-cols-[30%_1fr] grid-rows-3 gap-x-4 gap-y-1">
-          <li>Shower</li>
-          <li>Air conditioner</li>
-          <li>Fridge</li>
-          <li>Kitchen</li>
-          <li>Microwave</li>
-          <li>Fridge</li>
+        <p className="mb-2 lg:text-2xl">Amenities</p>
+        <ul className="text-xs lg:text-base grid grid-cols-[30%_1fr] gap-x-4">
+          {getAmenities(property.amenities ? property.amenities : [])}
         </ul>
       </div>
-    </>
+    </div>
   )
+
+  function toDateString(date: string | Date) {
+    const newDate = new Date(date)
+    return newDate.toISOString().split('T')[0]
+  }
+
+  function getAmenities(amenities: any) {
+    const existingAmenities = JSON.parse(amenities).filter((amenity) => amenity.exists)
+    return existingAmenities.map((amenity) => (
+      <li key={amenity.name} className="mb-2 ml-3 list-disc marker:text-slate-500">
+        {amenity.name}
+      </li>
+    ))
+  }
+
+  function getReservationStatus(startDate: string, endDate: string) {
+    const today = new Date()
+    const reservationStartDate = new Date(startDate)
+    const reservationEndDate = new Date(endDate)
+
+    if (today < reservationStartDate)
+      return {
+        text: 'Booked',
+        style: 'bg-purple-100 text-purple-600'
+      }
+    else if (today > reservationEndDate)
+      return {
+        text: 'Checked out',
+        style: 'bg-pink-100 text-pink-600'
+      }
+    else if (today >= reservationStartDate && today <= reservationEndDate)
+      return {
+        text: 'In progress',
+        style: 'bg-blue-100 text-blue-600'
+      }
+    else
+      return {
+        text: 'Unknown',
+        style: 'bg-gray-100 text-gray-600'
+      }
+  }
 }
 
 type Props = {
   reservation: ReservationFields | null
-  // reservationStatus: { text: string; style: string }
 }
 
 export default ReservationCard
