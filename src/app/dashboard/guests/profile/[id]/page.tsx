@@ -1,10 +1,11 @@
 import { NextPage } from 'next'
-import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 import core from '@architecturex/utils.core'
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
+import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 import { getReservationsByGuestIdServerAction } from '~/app/shared/actions/reservations'
 import { ReservationFields } from '~/server/db/schemas/reservation'
 import ReservationCard from '~/app/dashboard/components/Guests/ReservationCard'
+import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
 
 type Props = {
   params: {
@@ -12,18 +13,22 @@ type Props = {
   }
 }
 
-// TODO: Handle fetch failure
 const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
   const formData = core.formData.set(new FormData(), { id })
-  const {
-    data: {
-      ok,
-      items: [guest]
-    }
-  } = await getOneGuestServerAction(formData)
+
+  try {
+    var guestResponse = await getOneGuestServerAction(formData)
+    if (!guestResponse.ok) throw new Error('Failed to fetch Guest')
+    var [guest] = guestResponse.data.items
+  } catch (error) {
+    console.error('⚠️', error)
+    return <div>Error loading data</div>
+  }
 
   const reservationsResponse = await getReservationsByGuestIdServerAction(guest.id)
-  const reservations = reservationsResponse.data.items
+  const reservations =
+    reservationsResponse.ok && reservationsResponse.items ? reservationsResponse.items : []
+  const latestReservation = getLatestReservation(reservations)
 
   return (
     <div className="h-full max-w- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-[min_content_min-content_min-content] gap-4 md:gap-6 grid-rows-[auto_1fr] p-4 bg-gray-100 dark:bg-gray-900">
@@ -46,14 +51,8 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
           className="rounded-lg object-cover w-full h-full"
         />
       </div>
-      <div className="p-6 rounded-lg border border-slate-400 bg-white">
-        <ReservationCard
-          reservation={reservationsResponse.ok ? getLatestReservation(reservations) : null}
-        />
-      </div>
-      <div className="p-6 rounded-lg border border-slate-400 bg-white  md:col-span-2 lg:col-span-full">
-        <ReservationsTable reservations={reservationsResponse.ok ? reservations : []} />
-      </div>
+      <ReservationCard reservation={latestReservation} />
+      <ReservationsTable reservations={reservations} />
     </div>
   )
 
@@ -62,34 +61,6 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
     return reservations.reduce((dateA, dateB) =>
       Date.parse(dateA.endDate) > Date.parse(dateB.endDate) ? dateA : dateB
     )
-  }
-
-  function getReservationStatus(startDate: string, endDate: string) {
-    if (!startDate) return null
-    const today = new Date()
-    const reservationStartDate = new Date(startDate)
-    const reservationEndDate = new Date(endDate)
-
-    if (today < reservationStartDate)
-      return {
-        text: 'Booked',
-        style: 'bg-purple-100 text-purple-600'
-      }
-    else if (today > reservationEndDate)
-      return {
-        text: 'Checked out',
-        style: 'bg-pink-100 text-pink-600'
-      }
-    else if (today >= reservationStartDate && today <= reservationEndDate)
-      return {
-        text: 'In progress',
-        style: 'bg-green-100 text-green-600'
-      }
-    else
-      return {
-        text: 'Unknown',
-        style: 'bg-gray-100 text-gray-600'
-      }
   }
 }
 
