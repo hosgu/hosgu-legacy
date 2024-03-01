@@ -37,7 +37,11 @@ const ReservationsTable: FC<Props> = ({ reservations }) => {
     reservation.endDate
   ])
 
-  return <Table headers={headers} rows={rows} label="Reservation history" />
+  return (
+    <div className="p-6 rounded-lg border border-slate-400 bg-white  md:col-span-2 lg:col-span-full">
+      <Table headers={headers} rows={rows} label="Reservation history" />
+    </div>
+  )
 }
 
 export default ReservationsTable
