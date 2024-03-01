@@ -13,7 +13,7 @@ type Props = {
   action: 'save' | 'edit'
   data?: any
 }
-const dateRegex = /^.*[0-1]{1}[1-9]{1}[\/]{1}[0-3]{1}[1-9]{1}[\/]{1}[0-9]{4}/
+const dateRegex = /^.*[0-1]{1}[0-9]{1}[\/]{1}[0-3]{1}[0-9]{1}[\/]{1}[0-9]{4}/
 
 const Form: FC<Props> = ({
   data: {
@@ -44,6 +44,7 @@ const Form: FC<Props> = ({
     website,
     active
   }
+
   const [showNotification, setShowNotification] = useState(false)
 
   const [errors, setErrors] = useState({
