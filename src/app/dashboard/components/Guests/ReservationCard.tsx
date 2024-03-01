@@ -2,6 +2,7 @@ import SVG from '@architecturex/components.svg'
 import { ReservationFields } from '~/server/db/schemas/reservation'
 import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
 import { getPropertyByIdServerAction } from '~/app/shared/actions/property'
+import { Amenity } from '~/server/db/schemas/property'
 
 async function ReservationCard({ reservation }: Props) {
   if (reservation == null)
@@ -45,8 +46,8 @@ async function ReservationCard({ reservation }: Props) {
             </p>
           </div>
           <div>
-            <p className="text-xs lg:text-sm text-slate-500 mb-1">Booking</p>
-            <p className="text-xs lg:text-base">{toDateString(reservation.updatedAt)}</p>
+            <p className="text-xs lg:text-sm text-slate-500 mb-1">Created at</p>
+            <p className="text-xs lg:text-base">{toDateString(reservation.createdAt)}</p>
           </div>
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Check in</p>
@@ -72,9 +73,9 @@ async function ReservationCard({ reservation }: Props) {
     return newDate.toISOString().split('T')[0]
   }
 
-  function getAmenities(amenities: any) {
-    const existingAmenities = JSON.parse(amenities).filter((amenity) => amenity.exists)
-    return existingAmenities.map((amenity) => (
+  function getAmenities(amenities: string) {
+    const existingAmenities = JSON.parse(amenities).filter((amenity: Amenity) => amenity.exists)
+    return existingAmenities.map((amenity: Amenity) => (
       <li key={amenity.name} className="mb-2 ml-3 list-disc marker:text-slate-500">
         {amenity.name}
       </li>
@@ -101,11 +102,8 @@ async function ReservationCard({ reservation }: Props) {
         text: 'In progress',
         style: 'bg-blue-100 text-blue-600'
       }
-    else
-      return {
-        text: 'Unknown',
-        style: 'bg-gray-100 text-gray-600'
-      }
+    // TODO: Default booked, remove unknown, add to if {}
+    // TODO: functions to arrow functions
   }
 }
 
