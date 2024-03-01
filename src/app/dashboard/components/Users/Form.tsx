@@ -13,6 +13,7 @@ type Props = {
   action: 'save' | 'edit'
   data?: any
 }
+const dateRegex = /^.*[0-1]{1}[1-9]{1}[\/]{1}[0-3]{1}[1-9]{1}[\/]{1}[0-9]{4}/
 
 const Form: FC<Props> = ({
   data: {
@@ -84,17 +85,17 @@ const Form: FC<Props> = ({
       if (!value) {
         return 'Please enter a fullname'
       }
-      console.log('=====>lenght ', value.length)
+
       if (value.length < 2) {
         return 'Please enter a valid fullname'
       }
       return ''
     },
     email: (value: string) => {
-      if (!value) {
+      if (action === 'save' && !value) {
         return 'Please enter a email'
       }
-      if (!is(value).email()) {
+      if (action === 'save' && !is(value).email()) {
         return 'Please enter a valid email'
       }
       return ''
@@ -109,28 +110,19 @@ const Form: FC<Props> = ({
       return ''
     },
     avatar: (value: string) => {
-      if (!value) {
-        return 'Please enter a avatar'
-      }
-      if (value.length < 2) {
+      if (value && !is(value).url()) {
         return 'Please enter a valid avatar'
       }
       return ''
     },
     birthday: (value: string) => {
-      if (!value) {
-        return 'Please enter a birthday'
-      }
-      if (!is(value).url()) {
+      if (value && !value.match(dateRegex)) {
         return 'Please enter a valid birthday'
       }
       return ''
     },
     website: (value: string) => {
-      if (!value) {
-        return 'Please enter a website'
-      }
-      if (!is(value).url()) {
+      if (value && !is(value).url()) {
         return 'Please enter a valid website'
       }
       return ''
@@ -166,6 +158,7 @@ const Form: FC<Props> = ({
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
+
     if (isValidForm) {
       const response =
         action === 'save'
@@ -182,7 +175,7 @@ const Form: FC<Props> = ({
       <form onSubmit={handleSubmit}>
         <RenderIf isTrue={showNotification}>
           <Notification
-            message={action == 'save' ? 'Guest saved successfully' : 'Guest edited successfully'}
+            message={action == 'save' ? 'User saved successfully' : 'User edited successfully'}
             type="success"
           />
         </RenderIf>
@@ -196,7 +189,7 @@ const Form: FC<Props> = ({
             <Input
               defaultValue={fullName}
               label="Full name"
-              name="fullname"
+              name="fullName"
               className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
               required
             />
