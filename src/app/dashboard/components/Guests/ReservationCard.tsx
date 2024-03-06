@@ -61,12 +61,12 @@ async function ReservationCard({ reservation }: Props) {
     </div>
   )
 
-  function toDateString(date: string | Date) {
+  const toDateString = (date: string | Date) => {
     const newDate = new Date(date)
     return newDate.toISOString().split('T')[0]
   }
 
-  function getAmenities(amenities: string) {
+  const getAmenities = (amenities: string) => {
     const existingAmenities = JSON.parse(amenities).filter((amenity: Amenity) => amenity.exists)
     return existingAmenities.map((amenity: Amenity) => (
       <li key={amenity.name} className="mb-2 ml-3 list-disc marker:text-slate-500">
@@ -75,7 +75,7 @@ async function ReservationCard({ reservation }: Props) {
     ))
   }
 
-  function getReservationStatus(startDate: string, endDate: string) {
+  const getReservationStatus = (startDate: string, endDate: string) => {
     const today = new Date()
     const reservationStartDate = new Date(startDate)
     const reservationEndDate = new Date(endDate)
@@ -95,8 +95,12 @@ async function ReservationCard({ reservation }: Props) {
         text: 'In progress',
         style: 'bg-blue-100 text-blue-600'
       }
-    // TODO: Default booked, remove unknown, add to if {}
-    // TODO: functions to arrow functions
+    else {
+      return {
+        text: 'Unknown',
+        style: 'bg-gray-100 text-gray-600'
+      }
+    }
   }
 }
 
