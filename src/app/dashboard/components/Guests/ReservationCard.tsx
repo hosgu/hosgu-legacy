@@ -11,15 +11,17 @@ async function ReservationCard({ reservation }: Props) {
       </div>
     )
 
+  const reservationStatus = getReservationStatus('', '')
+
   return (
     <div className="p-6 rounded-lg border border-slate-400 bg-white">
       <div className="flex items-center gap-2 lg:gap-4 mb-4 md:mb-6">
         <p className="lg:text-3xl">{/* {property.name} */}</p>
-        {/* <div
+        <div
           className={`border py-1 px-4 text-xs lg:text-base rounded-full ${reservationStatus.style}`}
         >
-          {reservationStatus.text}
-        </div> */}
+          {/* {reservationStatus.text} */}
+        </div>
       </div>
       <div className="mb-4 lg:mb-6">
         <p className="mb-2 lg:text-2xl">Details</p>
@@ -61,12 +63,12 @@ async function ReservationCard({ reservation }: Props) {
     </div>
   )
 
-  const toDateString = (date: string | Date) => {
+  function toDateString(date: string | Date) {
     const newDate = new Date(date)
     return newDate.toISOString().split('T')[0]
   }
 
-  const getAmenities = (amenities: string) => {
+  function getAmenities(amenities: string) {
     const existingAmenities = JSON.parse(amenities).filter((amenity: Amenity) => amenity.exists)
     return existingAmenities.map((amenity: Amenity) => (
       <li key={amenity.name} className="mb-2 ml-3 list-disc marker:text-slate-500">
@@ -75,7 +77,7 @@ async function ReservationCard({ reservation }: Props) {
     ))
   }
 
-  const getReservationStatus = (startDate: string, endDate: string) => {
+  function getReservationStatus(startDate: string, endDate: string) {
     const today = new Date()
     const reservationStartDate = new Date(startDate)
     const reservationEndDate = new Date(endDate)
