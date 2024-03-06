@@ -2,14 +2,11 @@ import { NextPage } from 'next'
 import core from '@architecturex/utils.core'
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
 import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
-import {
-  getReservationByIdSeverAction,
-  getReservationsByGuestIdServerAction
-} from '~/app/shared/actions/reservations'
+// import { getReservationById, getReservationsByGuestId } from '~/app/shared/actions/reservations'
 import { ReservationFields } from '~/server/db/schemas/reservation'
 import ReservationCard from '~/app/dashboard/components/Guests/ReservationCard'
 import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
-import { getReservationById } from '~/app/shared/services/reservations'
+import { getReservationById } from '~/app/shared/actions/reservations'
 
 type Props = {
   params: {
@@ -29,10 +26,12 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
     return <div>Error loading data</div>
   }
 
-  const reservationsResponse = await getReservationsByGuestIdServerAction(guest.id)
-  const reservations =
-    reservationsResponse.ok && reservationsResponse.items ? reservationsResponse.items : []
-  const latestReservation = getLatestReservation(reservations)
+  const response = await getReservationById('3505d0a0-180b-4900-8f39-e7cc24bc98e2')
+  console.log('⚡RESPONSE', response)
+  // const reservationsResponse = await getReservationsByGuestId(guest.id)
+  // const reservations =
+  //   reservationsResponse.ok && reservationsResponse.items ? reservationsResponse.items : []
+  // const latestReservation = getLatestReservation(reservations)
 
   return (
     <div className="h-full max-w- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-[min_content_min-content_min-content] gap-4 md:gap-6 grid-rows-[auto_1fr] p-4 bg-gray-100 dark:bg-gray-900">
@@ -60,16 +59,16 @@ const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
     </div>
   )
 
-  async function getLatestReservation(reservations: ReservationFields[]) {
-    if (reservations.length == 0) return null
+  // async function getLatestReservation(reservations: ReservationFields[]) {
+  //   if (reservations.length == 0) return null
 
-    const lastReservation = reservations.reduce((dateA, dateB) =>
-      Date.parse(dateA.endDate) > Date.parse(dateB.endDate) ? dateA : dateB
-    )
+  //   const latestReservation = reservations.reduce((dateA, dateB) =>
+  //     Date.parse(dateA.endDate) > Date.parse(dateB.endDate) ? dateA : dateB
+  //   )
 
-    const response = await getReservationByIdSeverAction(lastReservation.id)
-    return response
-  }
+  //   const response = await getReservationById(latestReservation.id)
+  //   return response.ok && response.items?.length ? response.items[0] : null
+  // }
 }
 
 export default GuestProfilePage

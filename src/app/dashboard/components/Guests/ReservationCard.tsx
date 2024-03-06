@@ -1,8 +1,6 @@
 import SVG from '@architecturex/components.svg'
 import { ReservationFields } from '~/server/db/schemas/reservation'
-import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
-import { getPropertyByIdServerAction } from '~/app/shared/actions/property'
-import { Amenity } from '~/server/db/schemas/property'
+import { Amenity, PropertyFields } from '~/server/db/schemas/property'
 
 async function ReservationCard({ reservation }: Props) {
   if (reservation == null)
@@ -13,56 +11,51 @@ async function ReservationCard({ reservation }: Props) {
       </div>
     )
 
-  const reservationStatus = getReservationStatus(reservation.startDate, reservation.endDate)
-
-  const estateResponse = await getEstateByIdServerAction(reservation.estateId)
-  const [estate] = estateResponse.ok && estateResponse.items ? estateResponse.items : []
-
-  const propertyResponse = await getPropertyByIdServerAction(estate.propertyId)
-  const [property] = propertyResponse.ok && propertyResponse.items ? propertyResponse.items : []
-  console.log('[ Property Response ]', property)
-
   return (
     <div className="p-6 rounded-lg border border-slate-400 bg-white">
       <div className="flex items-center gap-2 lg:gap-4 mb-4 md:mb-6">
-        <p className="lg:text-3xl">{property.name}</p>
-        <div
+        <p className="lg:text-3xl">{/* {property.name} */}</p>
+        {/* <div
           className={`border py-1 px-4 text-xs lg:text-base rounded-full ${reservationStatus.style}`}
         >
           {reservationStatus.text}
-        </div>
+        </div> */}
       </div>
       <div className="mb-4 lg:mb-6">
         <p className="mb-2 lg:text-2xl">Details</p>
         <div className="grid grid-cols-3 gap-x-4 gap-y-3">
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Type</p>
-            <p className="text-xs lg:text-base">{estate.type}</p>
+            <p className="text-xs lg:text-base">{/* {estate.type} */}</p>
           </div>
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Occupancy</p>
             <p className="text-xs lg:text-base">
-              {Number(reservation.occupancy) + Number(reservation.extraOccupancy)}
+              {/* {Number(reservation.occupancy) + Number(reservation.extraOccupancy)} */}
             </p>
           </div>
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Created at</p>
-            <p className="text-xs lg:text-base">{toDateString(reservation.createdAt)}</p>
+            <p className="text-xs lg:text-base">{/* {toDateString(reservation.createdAt)} */}</p>
           </div>
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Check in</p>
-            <p className="text-xs lg:text-base">{`${reservation.startDate} ${property.checkIn}`}</p>
+            <p className="text-xs lg:text-base">
+              {/* {`${reservation.startDate} ${property.checkIn}`} */}
+            </p>
           </div>
           <div>
             <p className="text-xs lg:text-sm text-slate-500 mb-1">Check out</p>
-            <p className="text-xs lg:text-base">{`${reservation.endDate} ${property.checkOut}`}</p>
+            <p className="text-xs lg:text-base">
+              {/* {`${reservation.endDate} ${property.checkOut}`} */}
+            </p>
           </div>
         </div>
       </div>
       <div>
         <p className="mb-2 lg:text-2xl">Amenities</p>
         <ul className="text-xs lg:text-base grid grid-cols-[30%_1fr] gap-x-4">
-          {getAmenities(property.amenities ? property.amenities : [])}
+          {/* {getAmenities(property.amenities ? property.amenities : [])} */}
         </ul>
       </div>
     </div>
@@ -108,7 +101,7 @@ async function ReservationCard({ reservation }: Props) {
 }
 
 type Props = {
-  reservation: ReservationFields | null
+  reservation: { reservation: ReservationFields; property: PropertyFields }
 }
 
 export default ReservationCard
