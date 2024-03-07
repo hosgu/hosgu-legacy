@@ -13,7 +13,8 @@ const GuestsPage: NextPage = async () => {
     credentials: 'include',
     body: {
       at: cookieStore.get('at')?.value || ''
-    }
+    },
+    returnFirstItemOnly: true
   })
   const {
     data: { items: guests }

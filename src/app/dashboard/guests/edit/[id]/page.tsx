@@ -23,7 +23,8 @@ const GuestEditPage: NextPage<Props> = async ({ params: { id = null } }) => {
     credentials: 'include',
     body: {
       at: cookieStore.get('at')?.value || ''
-    }
+    },
+    returnFirstItemOnly: true
   })
 
   if (response.ok && response.data.items) {

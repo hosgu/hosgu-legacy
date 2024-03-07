@@ -1,6 +1,16 @@
 import api from '@architecturex/utils.api'
 import { APIResponse } from '~/types'
 
+type GetOne = {
+  id?: string
+  endpoint?: string
+  method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
+  credentials?: any
+  body?: any
+  returnItemsOnly?: boolean
+  returnFirstItemOnly?: boolean
+}
+
 class Service {
   protected endpoint: string
 
@@ -23,28 +33,33 @@ class Service {
 
   async getOne({
     id,
-    endpoint = '',
+    endpoint,
     method = 'GET',
-    credentials = false,
+    credentials,
     body = {},
-    returnFirstElementOnly = false
-  }: any): Promise<any> {
+    returnItemsOnly = false,
+    returnFirstItemOnly = false
+  }: GetOne): Promise<any> {
     const endpointPath = endpoint ? '' : `/${id}`
     const response = await api.fetch<APIResponse<any>>(
       `/api/v1/${endpoint || this.endpoint}${endpointPath}`,
       {
         method,
         addLocalHost: process.env.NODE_ENV === 'development',
-        credentials: credentials || undefined,
+        credentials,
         body
       }
     )
 
-    return {
-      ok: true,
-      data: returnFirstElementOnly ? response[0] : response,
-      status: 200
+    if (returnItemsOnly) {
+      return response.items
     }
+
+    if (returnFirstItemOnly) {
+      return response.items?.[0]
+    }
+
+    return response
   }
 
   async create(itemData: any): Promise<any> {

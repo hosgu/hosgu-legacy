@@ -12,7 +12,8 @@ const GuestsCreatePage: NextPage = async () => {
     credentials: 'include',
     body: {
       at: cookieStore.get('at')?.value || ''
-    }
+    },
+    returnFirstItemOnly: true
   })
 
   return (

@@ -3,7 +3,7 @@ import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 
 import { APIResponse, CreatedItem } from '~/types'
-import * as services from '../services/signup'
+import UserService from '~/app/shared/services/user'
 
 export const initialSignupAction = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
   const { fullName, businessName, businessEmail, businessPhone, businessWebsite, country } =
@@ -27,7 +27,7 @@ export const initialSignupAction = async (e: FormData): Promise<APIResponse<Crea
     }
   }
 
-  const response = await services.initialSignup({
+  const response = await UserService.initialSignup({
     fullName,
     businessName,
     businessEmail,
@@ -57,7 +57,7 @@ export const signupServerAction = async (e: FormData): Promise<APIResponse<Creat
     }
   }
 
-  const response = await services.signup({ email, password })
+  const response = await UserService.signup({ email, password })
 
   return response
 }

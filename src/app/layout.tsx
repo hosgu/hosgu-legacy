@@ -35,12 +35,11 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   const cookieStore = cookies()
   const darkMode = cookieStore.get('darkMode')
-  const at = cookieStore.get('at')?.value || ''
-  const locale = cookieStore.get('locale')?.value || 'en-us'
   const theme = darkMode?.value === 'true' ? 'dark' : ''
+  let locale = cookieStore.get('locale')?.value || 'en-us'
 
   if (!allowedLocales.includes(locale)) {
-    return <NotFound />
+    locale = 'en-us'
   }
 
   return (

@@ -16,7 +16,8 @@ const Page: NextPage = async () => {
     credentials: 'include',
     body: {
       at: cookieStore.get('at')?.value || ''
-    }
+    },
+    returnFirstItemOnly: true
   })
   const locale = cookieStore.get('locale')?.value || 'en-us'
 

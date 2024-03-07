@@ -1,6 +1,6 @@
 'use server'
 import security from '@architecturex/utils.security'
-import * as services from '../services/login'
+import UserService from '~/app/shared/services/user'
 import { APIResponse, Token } from '~/types'
 
 export const loginServerAction = async (e: FormData): Promise<APIResponse<Token>> => {
@@ -9,7 +9,7 @@ export const loginServerAction = async (e: FormData): Promise<APIResponse<Token>
   const email = security.base64.decode(e.get(emailInput)?.toString(), true) as string
   const password = security.base64.decode(e.get(passwordInput)?.toString(), true) as string
 
-  const response = await services.login({ email, password })
+  const response = await UserService.login({ email, password })
 
   return response
 }
