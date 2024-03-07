@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { getOneGuest } from '~/app/shared/actions/dashboard/guest'
+import { getOneGuest } from '~/app/shared/actions/guest'
 import core from '@architecturex/utils.core'
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
 import { getReservationsByGuestId } from '~/app/shared/actions/reservations'

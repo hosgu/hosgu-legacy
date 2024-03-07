@@ -3,13 +3,7 @@ import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
 import DashboardGuestService from '~/app/shared/services/guest'
 
-export const getAllGuests = async (): Promise<APIResponse<any>> => {
-  const response = await DashboardGuestService.getAll()
-
-  return response
-}
-
-export const createGuest = async (e: FormData): Promise<APIResponse<any>> => {
+export const create = async (e: FormData): Promise<APIResponse<any>> => {
   const {
     businessId,
     fullName,
@@ -45,7 +39,19 @@ export const createGuest = async (e: FormData): Promise<APIResponse<any>> => {
   return response
 }
 
-export const deleteGuest = async (e: FormData): Promise<APIResponse<any>> => {
+export const getAll = async (): Promise<APIResponse<any>> => {
+  const response = await DashboardGuestService.getAll()
+
+  return response
+}
+
+export const getOne = async (e: FormData): Promise<APIResponse<any>> => {
+  const { id } = core.formData.get(e)
+  const response = await DashboardGuestService.getOne({ id })
+  return response
+}
+
+export const del = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
 
   const response = await DashboardGuestService.delete(id)
@@ -53,15 +59,7 @@ export const deleteGuest = async (e: FormData): Promise<APIResponse<any>> => {
   return response
 }
 
-export const getOneGuest = async (e: FormData): Promise<APIResponse<any>> => {
-  const { id } = core.formData.get(e)
-
-  const response = await DashboardGuestService.getOne({ id })
-
-  return response
-}
-
-export const editGuest = async (e: FormData): Promise<APIResponse<any>> => {
+export const update = async (e: FormData): Promise<APIResponse<any>> => {
   const {
     id,
     businessId,

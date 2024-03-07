@@ -4,7 +4,7 @@ import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import { editGuest, createGuest } from '~/app/shared/actions/dashboard/guest'
+import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
@@ -114,7 +114,10 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      const response = action === 'save' ? await createGuest(formData) : await editGuest(formData)
+      const response =
+        action === 'save'
+          ? await GuestActions.create(formData)
+          : await GuestActions.update(formData)
 
       if (response.status === 200) {
         setShowNotification(true)

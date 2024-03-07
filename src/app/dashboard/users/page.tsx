@@ -2,31 +2,23 @@ import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
 import Results from './Results'
-import UserService from '~/app/shared/services/user'
-import { getAllUsers, deleteUser } from '~/app/shared/actions/dashboard/user'
+import * as UserActions from '~/app/shared/actions/user'
 
 const UsersPage: NextPage = async () => {
   const cookieStore = cookies()
-  const connectedUser = await UserService.getOne({
-    endpoint: 'user/validate',
-    method: 'POST',
-    credentials: 'include',
-    body: {
-      at: cookieStore.get('at')?.value || ''
-    },
-    returnFirstItemOnly: true
-  })
+  const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
+
   const {
     data: { items: guests }
-  } = await getAllUsers()
+  } = await UserActions.getAll()
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
       <Results
         data={guests}
         connectedUser={connectedUser}
-        refetch={getAllUsers}
-        deleteServerAction={deleteUser}
+        refetch={UserActions.getAll}
+        deleteServerAction={UserActions.del}
       />
     </div>
   )
