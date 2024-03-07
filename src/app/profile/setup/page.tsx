@@ -18,7 +18,7 @@ type Props = {
 const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const t = i18n('en-us')
 
-  const user = UserActions.getUserByCode(code)
+  const user = await UserActions.getUserByCode(code)
 
   if (!user) {
     redirect('/404')
