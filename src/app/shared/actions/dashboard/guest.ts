@@ -1,15 +1,15 @@
 'use server'
 import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
-import { create, getAll, deleteRow, edit, getOne } from '~/app/shared/services/dashboard/guest'
+import DashboardGuestService from '~/app/shared/services/guest'
 
-export const getAllGuestsServerAction = async (): Promise<APIResponse<any>> => {
-  const response = await getAll()
+export const getAllGuests = async (): Promise<APIResponse<any>> => {
+  const response = await DashboardGuestService.getAll()
 
   return response
 }
 
-export const createGuestServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+export const createGuest = async (e: FormData): Promise<APIResponse<any>> => {
   const {
     businessId,
     fullName,
@@ -26,7 +26,7 @@ export const createGuestServerAction = async (e: FormData): Promise<APIResponse<
     photo
   } = core.formData.get(e)
 
-  const response = await create({
+  const response = await DashboardGuestService.create({
     businessId,
     fullName,
     email,
@@ -45,23 +45,23 @@ export const createGuestServerAction = async (e: FormData): Promise<APIResponse<
   return response
 }
 
-export const deleteGuestServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+export const deleteGuest = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
 
-  const response = await deleteRow(id)
+  const response = await DashboardGuestService.delete(id)
 
   return response
 }
 
-export const getOneGuestServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+export const getOneGuest = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
 
-  const response = await getOne(id)
+  const response = await DashboardGuestService.getOne({ id })
 
   return response
 }
 
-export const editServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+export const editGuest = async (e: FormData): Promise<APIResponse<any>> => {
   const {
     id,
     businessId,
@@ -79,8 +79,7 @@ export const editServerAction = async (e: FormData): Promise<APIResponse<any>> =
     photo
   } = core.formData.get(e)
 
-  const response = await edit({
-    id,
+  const response = await DashboardGuestService.update(id, {
     businessId,
     fullName,
     email,

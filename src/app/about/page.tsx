@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import { getConnectedUser } from '~/app/shared/services/users'
+import UserService from '~/app/shared/services/user'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Header from '~/app/shared/components/Header'
 import Hero from '~/app/shared/components/Hero'
@@ -9,7 +9,14 @@ import Footer from '~/app/shared/components/Footer'
 
 const Page: NextPage = async () => {
   const cookieStore = cookies()
-  const connectedUser = await getConnectedUser(cookieStore.get('at')?.value || '')
+  const connectedUser = await UserService.getOne({
+    endpoint: 'user/validate',
+    method: 'POST',
+    credentials: 'include',
+    body: {
+      at: cookieStore.get('at')?.value || ''
+    }
+  })
   const locale = cookieStore.get('language')?.value || 'en-us'
   const t = i18n(locale)
 

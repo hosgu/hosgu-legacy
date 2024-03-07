@@ -3,8 +3,8 @@ import core from '@architecturex/utils.core'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
-import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
-import { getConnectedUser } from '~/app/shared/services/users'
+import { getOneGuest } from '~/app/shared/actions/dashboard/guest'
+import UserService from '~/app/shared/services/user'
 import EditGuestForm from '~/app/dashboard/components/Guests/Form'
 
 type Props = {
@@ -15,11 +15,16 @@ type Props = {
 
 const GuestEditPage: NextPage<Props> = async ({ params: { id = null } }) => {
   const formData = core.formData.set(new FormData(), { id })
-
-  const response = await getOneGuestServerAction(formData)
+  const response = await getOneGuest(formData)
   const cookieStore = cookies()
-
-  const connectedUser: any = await getConnectedUser(cookieStore.get('at')?.value || '')
+  const connectedUser = await UserService.getOne({
+    endpoint: 'user/validate',
+    method: 'POST',
+    credentials: 'include',
+    body: {
+      at: cookieStore.get('at')?.value || ''
+    }
+  })
 
   if (response.ok && response.data.items) {
     const [guest] = response.data.items

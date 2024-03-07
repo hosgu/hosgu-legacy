@@ -1,17 +1,17 @@
 'use server'
 import core from '@architecturex/utils.core'
-import { getAllUsers, deleteRow } from '~/app/shared/services/dashboard/users'
+import UserService from '~/app/shared/services/dashboard/user'
 import { APIResponse } from '~/types'
 
-export const getAllUsersServerAction = async () => {
-  const response = await getAllUsers()
+export const getAllUsers = async () => {
+  const response = await UserService.getAll()
   return response
 }
 
-export const deleteUserServerAction = async (e: FormData): Promise<APIResponse<any>> => {
+export const deleteUser = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
 
-  const response = await deleteRow(id)
+  const response = await UserService.delete(id)
 
   return response
 }
