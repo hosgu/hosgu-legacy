@@ -3,7 +3,7 @@ import core from '@architecturex/utils.core'
 import security from '@architecturex/utils.security'
 
 import UserService from '~/app/shared/services/user'
-import { APIResponse, Token } from '~/types'
+import { APIResponse, Token, CreatedItem } from '~/types'
 
 export const getAll = async () => {
   const response = await UserService.getAll()
@@ -98,4 +98,14 @@ export const getConnectedUser = async (at: string) => {
   })
 
   return connectedUser
+}
+
+export const getUserByCode = async (code: string) => {
+  const user = await UserService.getOne({
+    endpoint: `user/code/${code}`,
+    credentials: 'include',
+    returnFirstItemOnly: true
+  })
+
+  return user
 }

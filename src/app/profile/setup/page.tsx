@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { redirect } from 'next/navigation'
 
-import UserService from '~/app/shared/services/user'
+import * as UserActions from '~/app/shared/actions/user'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import ProfileSetupForm from './components/Form'
@@ -17,10 +17,8 @@ type Props = {
 
 const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const t = i18n('en-us')
-  const user = await UserService.getOne({
-    endpoint: `user/code/${code}`,
-    credentials: 'include'
-  })
+
+  const user = UserActions.getUserByCode(code)
 
   if (!user) {
     redirect('/404')
