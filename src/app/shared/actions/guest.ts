@@ -1,7 +1,7 @@
 'use server'
 import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
-import DashboardGuestService from '~/app/shared/services/guest'
+import GuestService from '~/app/shared/services/guest'
 
 export const create = async (e: FormData): Promise<APIResponse<any>> => {
   const {
@@ -20,7 +20,7 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
     photo
   } = core.formData.get(e)
 
-  const response = await DashboardGuestService.create({
+  const response = await GuestService.create({
     businessId,
     fullName,
     email,
@@ -40,21 +40,21 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
 }
 
 export const getAll = async (): Promise<APIResponse<any>> => {
-  const response = await DashboardGuestService.getAll()
+  const response = await GuestService.getAll()
 
   return response
 }
 
 export const getOne = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
-  const response = await DashboardGuestService.getOne({ id })
+  const response = await GuestService.getOne({ id })
   return response
 }
 
 export const del = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
 
-  const response = await DashboardGuestService.delete(id)
+  const response = await GuestService.delete(id)
 
   return response
 }
@@ -77,7 +77,7 @@ export const update = async (e: FormData): Promise<APIResponse<any>> => {
     photo
   } = core.formData.get(e)
 
-  const response = await DashboardGuestService.update(id, {
+  const response = await GuestService.update(id, {
     businessId,
     fullName,
     email,
