@@ -11,7 +11,7 @@ import Step4 from './Step5'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
-import { setupProfileServerAction } from '~/app/shared/actions/profile'
+import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
 
 type Props = {
@@ -179,7 +179,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     if (isValidStep && step === 3) {
       const formData = core.formData.set(new FormData(), values)
 
-      const response = await setupProfileServerAction(formData)
+      const response = await ProfileActions.setupProfile(formData)
 
       if (response.status === 200) {
         setStep((prevState) => prevState + 1)
