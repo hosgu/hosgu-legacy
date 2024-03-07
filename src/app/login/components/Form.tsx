@@ -4,7 +4,7 @@ import Link from 'next/link'
 import security from '@architecturex/utils.security'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
-import { loginServerAction } from '~/app/shared/actions/login'
+import * as UserActions from '~/app/shared/actions/user'
 
 import Input from '~/components/Input'
 import Button from '~/components/Button'
@@ -48,7 +48,7 @@ const Form: FC<Props> = ({ locale }) => {
       return setErrors({ invalidLogin: t('invalidLogin') })
     }
 
-    const response = await loginServerAction(formData)
+    const response = await UserActions.login(formData)
 
     if (response?.ok) {
       window.location.href = '/'

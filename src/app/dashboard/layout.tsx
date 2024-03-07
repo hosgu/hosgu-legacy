@@ -5,8 +5,7 @@ import { redirect } from 'next/navigation'
 import Header from '~/app/shared/components/Header'
 import Sidebar from './components/Sidebar'
 
-import { getConnectedUser } from '~/app/shared/services/users'
-import { getBusiness } from '~/app/shared/services/business'
+import * as UserActions from '~/app/shared/actions/user'
 
 type Props = {
   children: ReactElement
@@ -14,15 +13,12 @@ type Props = {
 
 const Layout: FC<Props> = async ({ children }) => {
   const cookieStore = cookies()
-  const at = cookieStore.get('at')?.value
   const locale = cookieStore.get('locale')?.value || 'en-us'
-  const user = await getConnectedUser(at)
+  const user = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
   if (!user) {
     redirect('/')
   }
-
-  const business = await getBusiness(user.id)
 
   return (
     <main>

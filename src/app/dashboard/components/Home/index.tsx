@@ -2,7 +2,6 @@
 import React, { FC } from 'react'
 import SVG from '@architecturex/components.svg'
 
-import { events } from './fakeData'
 import Card from '~/components/Card'
 
 const Home: FC = () => {
