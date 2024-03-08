@@ -7,6 +7,7 @@ import { APIResponse, Token, CreatedItem } from '~/types'
 
 export const getAll = async () => {
   const response = await UserService.getAll()
+  console.log('>>> Response:::', response)
   return response
 }
 
@@ -108,4 +109,30 @@ export const getUserByCode = async (code: string) => {
   })
 
   return user
+}
+
+export const create = async (e: FormData): Promise<APIResponse<any>> => {
+  const { tier, role, email, password, fullName, phone, avatar, birthday, website, active } =
+    core.formData.get(e)
+
+  const response = await UserService.create({
+    tier,
+    role,
+    email,
+    password,
+    fullName,
+    phone,
+    avatar,
+    birthday,
+    website,
+    code: '',
+    active
+  })
+  return response
+}
+
+export const update = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
+  const userData = core.formData.get(e)
+  const response = await UserService.update(userData.id, userData)
+  return response
 }

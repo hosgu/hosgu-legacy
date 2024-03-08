@@ -8,13 +8,13 @@ type Props = {
   createModalTitle: string
   editModalTitle: string
   headers: string[]
-  data: any[]
+  data: { checksum: string; data: any[] }
   refetch: any
   renderRow: (item: any) => ReactNode[]
   CreateFormComponent: ReactNode
   EditFormComponent: ReactNode
   isEditModalOpen: boolean
-  setIsEditModalOpen: any
+  onCloseModal: any
 }
 
 const ResultsTable: FC<Props> = ({
@@ -22,21 +22,22 @@ const ResultsTable: FC<Props> = ({
   createModalTitle,
   editModalTitle,
   headers,
-  data,
+  data: { checksum, data },
   refetch,
   renderRow,
   CreateFormComponent,
   EditFormComponent,
   isEditModalOpen,
-  setIsEditModalOpen
+  onCloseModal
 }) => {
+  const [key, setKey] = useState<string>()
   const [rows, setRows] = useState<ReactNode[][]>([])
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [action, setAction] = useState('save')
 
   useEffect(() => {
     setRows(data.map(renderRow))
-  }, [data, renderRow])
+    setKey(checksum)
+  }, [data, renderRow, checksum])
 
   return (
     <>
@@ -45,11 +46,10 @@ const ResultsTable: FC<Props> = ({
         onClose={async () => {
           setIsCreateModalOpen(false)
 
-          const {
-            data: { items: newData }
-          } = await refetch()
+          const { checksum, items: newData } = await refetch()
 
           setRows(newData.map(renderRow))
+          setKey(checksum)
         }}
         title={createModalTitle}
       >
@@ -59,13 +59,12 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isEditModalOpen}
         onClose={async () => {
-          setIsEditModalOpen(false)
+          onCloseModal()
 
-          const {
-            data: { items: newData }
-          } = await refetch()
+          const { checksum, items: newData } = await refetch()
+
           setRows(newData.map(renderRow))
-          setAction('edit')
+          setKey(checksum)
         }}
         title={editModalTitle}
       >
@@ -73,7 +72,7 @@ const ResultsTable: FC<Props> = ({
       </Modal>
 
       <Table
-        key={`table-${rows.length}-${action}`}
+        key={key}
         label={label}
         createButton={
           <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>
