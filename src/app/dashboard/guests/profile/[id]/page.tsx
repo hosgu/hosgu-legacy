@@ -1,12 +1,9 @@
 import { NextPage } from 'next'
 import core from '@architecturex/utils.core'
+
 import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
-import { getOneGuestServerAction } from '~/app/shared/actions/dashboard/guest'
-// import { getReservationById, getReservationsByGuestId } from '~/app/shared/actions/reservations'
-import { ReservationFields } from '~/server/db/schemas/reservation'
-import ReservationCard from '~/app/dashboard/components/Guests/ReservationCard'
-import { getEstateByIdServerAction } from '~/app/shared/actions/estate'
-import { getReservationById } from '~/app/shared/actions/reservations'
+import * as GuestActions from '~/app/shared/actions/guest'
+import * as ReservationActions from '~/app/shared/actions/reservations'
 
 type Props = {
   params: {
@@ -16,22 +13,13 @@ type Props = {
 
 const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
   const formData = core.formData.set(new FormData(), { id })
+  const {
+    data: {
+      items: [guest]
+    }
+  } = await GuestActions.getOne(formData)
 
-  try {
-    var guestResponse = await getOneGuestServerAction(formData)
-    if (!guestResponse.ok) throw new Error('Failed to fetch Guest')
-    var [guest] = guestResponse.data.items
-  } catch (error) {
-    console.error('⚠️', error)
-    return <div>Error loading data</div>
-  }
-
-  const response = await getReservationById('3505d0a0-180b-4900-8f39-e7cc24bc98e2')
-  console.log('⚡RESPONSE', response)
-  // const reservationsResponse = await getReservationsByGuestId(guest.id)
-  // const reservations =
-  //   reservationsResponse.ok && reservationsResponse.items ? reservationsResponse.items : []
-  // const latestReservation = getLatestReservation(reservations)
+  const reservations = await ReservationActions.getOneByGuestId(guest.id)
 
   return (
     <div className="h-full max-w- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:grid-rows-[min_content_min-content_min-content] gap-4 md:gap-6 grid-rows-[auto_1fr] p-4 bg-gray-100 dark:bg-gray-900">

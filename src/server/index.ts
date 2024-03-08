@@ -64,7 +64,7 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/user', userApiV1)
 
   // Logout
-  app.get([`/:locale(en-us|es-mx)/logout`, '/logout'], (req: Request, res: Response) => {
+  app.get('/logout', (req: Request, res: Response) => {
     const redirect: any = req.query.redirectTo || '/'
     res.clearCookie('at')
     res.redirect(redirect)

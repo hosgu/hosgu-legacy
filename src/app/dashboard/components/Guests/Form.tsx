@@ -1,14 +1,14 @@
 'use client'
-import { FC, useState, ChangeEvent } from 'react'
+import { FC, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
 
+import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
 import TextArea from '~/components/TextArea'
-import { editServerAction, createGuestServerAction } from '~/app/shared/actions/dashboard/guest'
 
 type Props = {
   action: 'save' | 'edit'
@@ -116,8 +116,8 @@ const Form: FC<Props> = ({
     if (isValidForm) {
       const response =
         action === 'save'
-          ? await createGuestServerAction(formData)
-          : await editServerAction(formData)
+          ? await GuestActions.create(formData)
+          : await GuestActions.update(formData)
 
       if (response.status === 200) {
         setShowNotification(true)
@@ -128,7 +128,10 @@ const Form: FC<Props> = ({
   return (
     <form onSubmit={handleSubmit}>
       <RenderIf isTrue={showNotification}>
-        <Notification message="Guest saved successfully" type="success" />
+        <Notification
+          message={action == 'save' ? 'Guest saved successfully' : 'Guest edited successfully'}
+          type="success"
+        />
       </RenderIf>
 
       <RenderIf isTrue={action === 'edit'}>
@@ -139,12 +142,13 @@ const Form: FC<Props> = ({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Input label="Photo" name="photo" required />
+          <Input defaultValue={photo} label="Photo" name="photo" required />
           <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
         </div>
 
         <div>
           <Input
+            defaultValue={fullName}
             label="Full name"
             name="fullName"
             className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
@@ -155,6 +159,7 @@ const Form: FC<Props> = ({
 
         <div>
           <Input
+            defaultValue={email}
             label="Email"
             name="email"
             placeholder="example@gmail.com"
@@ -166,6 +171,7 @@ const Form: FC<Props> = ({
 
         <div>
           <Input
+            defaultValue={phone}
             label="Phone"
             name="phone"
             placeholder="+1 999 999 9999"
@@ -175,18 +181,24 @@ const Form: FC<Props> = ({
           <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
         </div>
 
-        <Input label="Website" name="website" />
+        <Input defaultValue={website} label="Website" name="website" />
 
-        <Input label="Facebook" name="facebook" />
+        <Input defaultValue={facebook} label="Facebook" name="facebook" />
 
-        <Input label="Instagram" name="instagram" />
+        <Input defaultValue={instagram} label="Instagram" name="instagram" />
 
-        <Input label="Gender" name="gender" />
-        <Input label="Birthday" name="birthday" placeholder="MM/DD/YYYY" required />
-        <Input label="Organization" name="organization" />
-        <Input label="Tax Identifier" name="taxIdentifier" />
+        <Input defaultValue={gender} label="Gender" name="gender" />
+        <Input
+          defaultValue={birthday}
+          label="Birthday"
+          name="birthday"
+          placeholder="MM/DD/YYYY"
+          required
+        />
+        <Input defaultValue={organization} label="Organization" name="organization" />
+        <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
 
-        <TextArea label="Notes" name="notes" />
+        <TextArea defaultValue={notes} label="Notes" name="notes" />
       </div>
       <div className="flex justify-center">
         <Button type="submit" color="secondary" shape="square" size="large" fullWidth>

@@ -8,7 +8,7 @@ import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 
-import { initialSignupAction } from '~/app/shared/actions/signup'
+import * as UserActions from '~/app/shared/actions/user'
 
 type HeroData = {
   fullName: string
@@ -127,10 +127,13 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     formData.append('country', selectedCountry)
+
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
+
     if (isValidForm) {
-      const response = await initialSignupAction(formData)
+      const response = await UserActions.initialSignup(formData)
+
       if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
         initialValues.businessEmail = t(response.error.message as keyof typeof t)
       } else if (response.ok) {
