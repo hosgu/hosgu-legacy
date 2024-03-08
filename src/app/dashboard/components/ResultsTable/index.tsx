@@ -30,15 +30,15 @@ const ResultsTable: FC<Props> = ({
   isEditModalOpen,
   setIsEditModalOpen
 }) => {
+  const [key, setKey] = useState<string>()
   const [rows, setRows] = useState<ReactNode[][]>([])
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [action, setAction] = useState('save')
 
-  console.log('Data ===>', data)
-  console.log('Checksum ===>', checksum)
   useEffect(() => {
     setRows(data.map(renderRow))
-  }, [data, renderRow])
+    setKey(checksum)
+  }, [data, renderRow, checksum])
 
   return (
     <>
@@ -47,11 +47,10 @@ const ResultsTable: FC<Props> = ({
         onClose={async () => {
           setIsCreateModalOpen(false)
 
-          const {
-            data: { items: newData }
-          } = await refetch()
+          const { checksum, items: newData } = await refetch()
 
           setRows(newData.map(renderRow))
+          setKey(checksum)
         }}
         title={createModalTitle}
       >
@@ -63,10 +62,10 @@ const ResultsTable: FC<Props> = ({
         onClose={async () => {
           setIsEditModalOpen(false)
 
-          const {
-            data: { items: newData }
-          } = await refetch()
+          const { checksum, items: newData } = await refetch()
+
           setRows(newData.map(renderRow))
+          setKey(checksum)
           setAction('edit')
         }}
         title={editModalTitle}
@@ -75,7 +74,7 @@ const ResultsTable: FC<Props> = ({
       </Modal>
 
       <Table
-        key={`checkid`}
+        key={`${action}${key}`}
         label={label}
         createButton={
           <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>
