@@ -7,6 +7,7 @@ import { APIResponse, Token, CreatedItem } from '~/types'
 
 export const getAll = async () => {
   const response = await UserService.getAll()
+  console.log('>>> Response:::', response)
   return response
 }
 

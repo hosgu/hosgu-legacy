@@ -8,7 +8,7 @@ type Props = {
   createModalTitle: string
   editModalTitle: string
   headers: string[]
-  data: any[]
+  data: { checksum: string; data: any[] }
   refetch: any
   renderRow: (item: any) => ReactNode[]
   CreateFormComponent: ReactNode
@@ -22,7 +22,7 @@ const ResultsTable: FC<Props> = ({
   createModalTitle,
   editModalTitle,
   headers,
-  data,
+  data: { checksum, data },
   refetch,
   renderRow,
   CreateFormComponent,
@@ -34,6 +34,8 @@ const ResultsTable: FC<Props> = ({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [action, setAction] = useState('save')
 
+  console.log('Data ===>', data)
+  console.log('Checksum ===>', checksum)
   useEffect(() => {
     setRows(data.map(renderRow))
   }, [data, renderRow])
@@ -73,7 +75,7 @@ const ResultsTable: FC<Props> = ({
       </Modal>
 
       <Table
-        key={`table-${rows.length}-${action}`}
+        key={`checkid`}
         label={label}
         createButton={
           <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>

@@ -23,12 +23,7 @@ class Service {
       method: 'GET',
       addLocalHost: process.env.NODE_ENV === 'development'
     })
-
-    return {
-      ok: true,
-      data: response,
-      status: 200
-    }
+    return response
   }
 
   async getOne({

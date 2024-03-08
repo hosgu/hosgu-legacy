@@ -15,7 +15,12 @@ type Props = {
 
 const viewLink = (id: string) => `/dashboard/users/profile/${id}`
 
-const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, connectedUser }) => {
+const Results: FC<Props> = ({
+  data: { checksum, data: rawData = [] },
+  refetch,
+  deleteServerAction,
+  connectedUser
+}) => {
   // Initial states
   const [data, setData] = useState(rawData)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
@@ -69,7 +74,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
         createModalTitle="Add New User"
         editModalTitle="Edit User"
         headers={['Full Name', 'Tier', 'Role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']}
-        data={data}
+        data={{ checksum, data }}
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
