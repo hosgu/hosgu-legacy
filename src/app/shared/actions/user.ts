@@ -110,7 +110,7 @@ export const getUserByCode = async (code: string) => {
   return user
 }
 
-export const createUser = async (e: FormData): Promise<APIResponse<any>> => {
+export const create = async (e: FormData): Promise<APIResponse<any>> => {
   const { tier, role, email, password, fullName, phone, avatar, birthday, website, active } =
     core.formData.get(e)
 
@@ -130,22 +130,8 @@ export const createUser = async (e: FormData): Promise<APIResponse<any>> => {
   return response
 }
 
-export const editUser = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
-  const { id, tier, role, email, password, fullName, phone, avatar, birthday, website, active } =
-    core.formData.get(e)
-
-  const response = await UserService.update(id, {
-    tier,
-    role,
-    email,
-    password,
-    fullName,
-    phone,
-    avatar,
-    birthday,
-    website,
-    code: '',
-    active
-  })
+export const update = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
+  const userData = core.formData.get(e)
+  const response = await UserService.update(userData.id, userData)
   return response
 }

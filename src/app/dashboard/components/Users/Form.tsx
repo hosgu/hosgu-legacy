@@ -7,7 +7,7 @@ import { RenderIf } from '@architecturex/components.renderif'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
-import { createUser, editUser } from '~/app/shared/actions/user'
+import * as UserActions from '~/app/shared/actions/user'
 
 type Props = {
   action: 'save' | 'edit'
@@ -161,7 +161,8 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      const response = action === 'save' ? await createUser(formData) : await editUser(formData)
+      const response =
+        action === 'save' ? await UserActions.create(formData) : await UserActions.update(formData)
       if (response.status === 200) {
         setShowNotification(true)
       }
