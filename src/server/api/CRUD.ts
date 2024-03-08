@@ -1,9 +1,8 @@
+import security from '@architecturex/utils.security'
 import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { DB, sql, SQL } from '../db'
 import { DataResponse, ItemData } from './types'
-
-import calculateMD5 from './securityUtils'
 
 type TableColumns = {
   [key: string]: any
@@ -79,13 +78,9 @@ class CRUD<T extends PgTable<TableConfig>> {
         message: 'noItemsFound'
       }
     }
-    data = data.map((item) => {
-      const md5 = calculateMD5(item)
-      const obj = { hash: md5, ...item }
-      return obj
-    })
 
     return {
+      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data,
       pagination: {
         totalItems,
