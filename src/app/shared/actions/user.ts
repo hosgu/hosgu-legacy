@@ -109,3 +109,43 @@ export const getUserByCode = async (code: string) => {
 
   return user
 }
+
+export const createUser = async (e: FormData): Promise<APIResponse<any>> => {
+  const { tier, role, email, password, fullName, phone, avatar, birthday, website, active } =
+    core.formData.get(e)
+
+  const response = await UserService.create({
+    tier,
+    role,
+    email,
+    password,
+    fullName,
+    phone,
+    avatar,
+    birthday,
+    website,
+    code: '',
+    active
+  })
+  return response
+}
+
+export const editUser = async (e: FormData): Promise<APIResponse<CreatedItem>> => {
+  const { id, tier, role, email, password, fullName, phone, avatar, birthday, website, active } =
+    core.formData.get(e)
+
+  const response = await UserService.update(id, {
+    tier,
+    role,
+    email,
+    password,
+    fullName,
+    phone,
+    avatar,
+    birthday,
+    website,
+    code: '',
+    active
+  })
+  return response
+}
