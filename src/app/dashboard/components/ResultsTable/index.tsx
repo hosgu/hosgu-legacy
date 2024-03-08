@@ -33,7 +33,6 @@ const ResultsTable: FC<Props> = ({
   const [key, setKey] = useState<string>()
   const [rows, setRows] = useState<ReactNode[][]>([])
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [action, setAction] = useState('save')
 
   useEffect(() => {
     setRows(data.map(renderRow))
@@ -66,7 +65,6 @@ const ResultsTable: FC<Props> = ({
 
           setRows(newData.map(renderRow))
           setKey(checksum)
-          setAction('edit')
         }}
         title={editModalTitle}
       >
@@ -74,7 +72,7 @@ const ResultsTable: FC<Props> = ({
       </Modal>
 
       <Table
-        key={`${action}${key}`}
+        key={key}
         label={label}
         createButton={
           <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>
