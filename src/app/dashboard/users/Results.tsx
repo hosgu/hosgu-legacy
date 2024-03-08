@@ -32,17 +32,20 @@ const Results: FC<Props> = ({
       id
     })
     const response = await deleteServerAction(formData)
+
     if (response.ok) {
       const filteredData = data.filter((item: any) => item.id !== id)
       setData(filteredData)
     }
   }
 
-  const handleEdit = async (item: any) => {
+  const handleEdit = (item: any) => {
+    setIsEditModalOpen(true)
     setItemToEdit(item)
-    setIsEditModalOpen((prev) => {
-      return !prev
-    })
+  }
+
+  const onCloseModal = () => {
+    setIsEditModalOpen(false)
   }
 
   const renderRow = (item: any) => [
@@ -84,7 +87,7 @@ const Results: FC<Props> = ({
           <UserForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
         }
         isEditModalOpen={isEditModalOpen}
-        setIsEditModalOpen={setIsEditModalOpen}
+        onCloseModal={onCloseModal}
       />
     </div>
   )

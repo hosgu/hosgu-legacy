@@ -9,14 +9,12 @@ const GuestsPage: NextPage = async () => {
   const cookieStore = cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
-  const {
-    data: { items: guests }
-  } = await GuestActions.getAll()
+  const { checksum, items: guests } = await GuestActions.getAll()
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
       <Results
-        data={guests}
+        data={{ checksum, data: guests }}
         connectedUser={connectedUser}
         refetch={GuestActions.getAll}
         deleteServerAction={GuestActions.del}

@@ -14,7 +14,12 @@ type Props = {
 
 const viewLink = (id: string) => `/dashboard/guests/profile/${id}`
 
-const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, connectedUser }) => {
+const Results: FC<Props> = ({
+  data: { checksum, data: rawData = [] },
+  refetch,
+  deleteServerAction,
+  connectedUser
+}) => {
   // Initial states
   const [data, setData] = useState(rawData)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
@@ -36,10 +41,12 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
   }
 
   const handleEdit = (item: any) => {
+    setIsEditModalOpen(true)
     setItemToEdit(item)
-    setIsEditModalOpen((prev) => {
-      return !prev
-    })
+  }
+
+  const onCloseModal = () => {
+    setIsEditModalOpen(false)
   }
 
   const renderRow = (item: any) => [
@@ -68,7 +75,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
         createModalTitle="Add New Guest"
         editModalTitle="Edit Guest"
         headers={['Full Name', 'Email', 'Phone', 'Website', 'Gender', 'Birthday', 'Actions']}
-        data={data}
+        data={{ checksum, data }}
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
@@ -78,7 +85,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
           <GuestForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
         }
         isEditModalOpen={isEditModalOpen}
-        setIsEditModalOpen={setIsEditModalOpen}
+        onCloseModal={onCloseModal}
       />
     </div>
   )

@@ -14,7 +14,7 @@ type Props = {
   CreateFormComponent: ReactNode
   EditFormComponent: ReactNode
   isEditModalOpen: boolean
-  setIsEditModalOpen: any
+  onCloseModal: any
 }
 
 const ResultsTable: FC<Props> = ({
@@ -28,7 +28,7 @@ const ResultsTable: FC<Props> = ({
   CreateFormComponent,
   EditFormComponent,
   isEditModalOpen,
-  setIsEditModalOpen
+  onCloseModal
 }) => {
   const [key, setKey] = useState<string>()
   const [rows, setRows] = useState<ReactNode[][]>([])
@@ -59,7 +59,7 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isEditModalOpen}
         onClose={async () => {
-          setIsEditModalOpen(false)
+          onCloseModal()
 
           const { checksum, items: newData } = await refetch()
 
