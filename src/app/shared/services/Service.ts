@@ -24,11 +24,7 @@ class Service {
       addLocalHost: process.env.NODE_ENV === 'development'
     })
 
-    return {
-      ok: true,
-      data: response,
-      status: 200
-    }
+    return response
   }
 
   async getOne({
@@ -36,7 +32,7 @@ class Service {
     endpoint,
     method = 'GET',
     credentials,
-    body = {},
+    body = undefined,
     returnItemsOnly = false,
     returnFirstItemOnly = false
   }: GetOne): Promise<any> {
