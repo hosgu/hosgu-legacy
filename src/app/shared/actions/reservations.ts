@@ -13,12 +13,12 @@ export const getAll = async () => {
   return response
 }
 
-export const getOne = async (id: ReservationFields['id']) => {
-  const response = await ReservationService.getOne({ id })
+export const getOne = async (id: ReservationFields['id'], endpoint?: string) => {
+  const response = await ReservationService.getOne({ id, endpoint })
   return response
 }
 
-export const getOneByGuestId = async (id: ReservationFields['guestId']) => {
+export const getAllByGuestId = async (id: ReservationFields['guestId']) => {
   const response = await ReservationService.getAll(`reservation/guest/${id}`)
   return response
 }

@@ -53,9 +53,7 @@ export const getOne = async (e: FormData): Promise<APIResponse<any>> => {
 
 export const del = async (e: FormData): Promise<APIResponse<any>> => {
   const { id } = core.formData.get(e)
-
   const response = await GuestService.delete(id)
-
   return response
 }
 
