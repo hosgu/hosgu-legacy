@@ -163,6 +163,7 @@ const Form: FC<Props> = ({
     if (isValidForm) {
       const response =
         action === 'save' ? await UserActions.create(formData) : await UserActions.update(formData)
+      console.log('Response::::', response)
       if (response.status === 200) {
         setShowNotification(true)
       }
