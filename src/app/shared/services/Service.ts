@@ -63,8 +63,7 @@ class Service {
       body: itemData,
       addLocalHost: process.env.NODE_ENV === 'development'
     })
-
-    if (createdItem.status === 201) {
+    if (createdItem.status === 201 || createdItem.status === 200) {
       return {
         ok: true,
         data: itemData,
