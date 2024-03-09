@@ -1,3 +1,4 @@
+import security from '@architecturex/utils.security'
 import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { DB, sql, SQL } from '../db'
@@ -79,6 +80,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     }
 
     return {
+      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data,
       pagination: {
         totalItems,

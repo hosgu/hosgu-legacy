@@ -23,7 +23,6 @@ class Service {
       method: 'GET',
       addLocalHost: process.env.NODE_ENV === 'development'
     })
-
     return response
   }
 

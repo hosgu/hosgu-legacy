@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import CreateGuestForm from '~/app/dashboard/components/Guests/Form'
+import UserForm from '~/app/dashboard/components/Users/Form'
 import ResultsTable from '../components/ResultsTable'
 
 type Props = {
@@ -14,11 +14,17 @@ type Props = {
 }
 
 const viewLink = (id: string) => `/dashboard/users/profile/${id}`
-const editLink = (id: string) => `/dashboard/users/edit/${id}`
 
-const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, connectedUser }) => {
+const Results: FC<Props> = ({
+  data: { checksum, data: rawData = [] },
+  refetch,
+  deleteServerAction,
+  connectedUser
+}) => {
   // Initial states
   const [data, setData] = useState(rawData)
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
+  const [itemToEdit, setItemToEdit] = useState({})
 
   // Methods
   const handleDelete = async (id: string) => {
@@ -26,10 +32,20 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
       id
     })
     const response = await deleteServerAction(formData)
+
     if (response.ok) {
       const filteredData = data.filter((item: any) => item.id !== id)
       setData(filteredData)
     }
+  }
+
+  const handleEdit = (item: any) => {
+    setIsEditModalOpen(true)
+    setItemToEdit(item)
+  }
+
+  const onCloseModal = () => {
+    setIsEditModalOpen(false)
   }
 
   const renderRow = (item: any) => [
@@ -43,7 +59,7 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
     item.website,
     item.birthday,
     <>
-      <a key={`edit-${item.id}`} href={editLink(item.id)}>
+      <a key={`edit-${item.id}`} onClick={() => handleEdit(item)}>
         Edit
       </a>{' '}
       <RenderIf isTrue={connectedUser.email !== item.email}>
@@ -61,17 +77,17 @@ const Results: FC<Props> = ({ data: rawData = [], refetch, deleteServerAction, c
         createModalTitle="Add New User"
         editModalTitle="Edit User"
         headers={['Full Name', 'Tier', 'Role', 'Email', 'Phone', 'Website', 'Birthday', 'Actions']}
-        data={data}
+        data={{ checksum, data }}
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
-          <CreateGuestForm action="save" data={{ businessId: connectedUser.businessId }} />
+          <UserForm action="save" data={{ businessId: connectedUser.businessId }} />
         }
         EditFormComponent={
-          <CreateGuestForm action="edit" data={{ businessId: connectedUser.businessId }} />
+          <UserForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
         }
-        isEditModalOpen={false}
-        setIsEditModalOpen={() => {}}
+        isEditModalOpen={isEditModalOpen}
+        onCloseModal={onCloseModal}
       />
     </div>
   )
