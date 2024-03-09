@@ -245,4 +245,4 @@ export const property = pgTable('property', {
 
 export type Property = typeof property
 export type PropertyFields = typeof property.$inferSelect
-export type { Amenity }
+export type { Amenity, Amenities}
