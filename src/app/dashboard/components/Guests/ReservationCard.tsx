@@ -3,16 +3,19 @@ import { ReservationFields } from '~/server/db/schemas/reservation'
 import { Amenities, PropertyFields } from '~/server/db/schemas/property'
 
 async function ReservationCard({ data }: Props) {
-  if (!data == null)
+  if (!data)
     return (
       <div className="p-6 rounded-lg border border-slate-400 bg-white flex flex-col justify-center items-center">
         <SVG.NoData />
-        <div className="text-gray-300">No recent reservartions</div>
+        <div className="text-gray-300">No data</div>
       </div>
     )
 
   const { reservation, property } = data
   const reservationStatus = getReservationStatus(reservation.startDate, reservation.endDate)
+  const propertyAmenities = getAmenities(
+    property.amenities ? JSON.parse(property.amenities as unknown as string) : []
+  )
 
   return (
     <div className="p-6 rounded-lg border border-slate-400 bg-white">
@@ -53,11 +56,7 @@ async function ReservationCard({ data }: Props) {
       </div>
       <div>
         <p className="mb-2 lg:text-2xl">Amenities</p>
-        <ul className="text-xs lg:text-base columns-3">
-          {getAmenities(
-            property.amenities ? JSON.parse(property.amenities as unknown as string) : []
-          )}
-        </ul>
+        <ul className="text-xs lg:text-base columns-3">{propertyAmenities}</ul>
       </div>
     </div>
   )
