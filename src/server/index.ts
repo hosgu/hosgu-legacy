@@ -1,9 +1,11 @@
 import bodyParser from 'body-parser'
+import fs from 'fs'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import nextJS from 'next'
 import path from 'path'
+import multer from 'multer'
 
 // APIs
 import agentApiV1 from './api/v1/agent'
@@ -19,6 +21,38 @@ import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
 
+// TODO: Move to @architecturex/utils.files
+function getFileInfo(file: string) {
+  if (!file) {
+    return {
+      fileName: '',
+      extension: ''
+    }
+  }
+
+  const parts = file.split('.')
+  const extension = parts.pop() || ''
+  const fileName = parts.pop() || ''
+
+  return {
+    fileName,
+    extension: extension.toLowerCase()
+  }
+}
+
+const getFileDir = (fileName: string) => {
+  const { extension } = getFileInfo(fileName)
+  let dir = path.join(__dirname, '../../public/files')
+
+  const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
+
+  if (isImage) {
+    dir += '/images'
+  }
+
+  return dir
+}
+
 const port = 3000
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = nextJS({ dev, port })
@@ -28,6 +62,15 @@ const corsOptions = {
   origin: '*',
   credentials: true
 }
+
+// File storage
+const storage = multer.diskStorage({
+  destination: (req: any, file: any, cb: any): any => cb(null, getFileDir(file.originalname)),
+  filename: (req: any, file: any, cb: any): any => cb(null, req.params.fileName)
+})
+
+// Upload
+const upload = multer({ storage }).single('file')
 
 // Running Next App
 nextApp.prepare().then(() => {
@@ -62,6 +105,31 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/settings', settingsApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
+  app.post('/api/v1/uploader/:fileName', (req: any, res: any) => {
+    upload(req, res, (err: any) => {
+      console.log('UPLADER========>>>>', err)
+      if (err instanceof multer.MulterError) {
+        return res.status(500).json(err)
+      }
+
+      if (err) {
+        return res.status(500).json(err)
+      }
+
+      return res.status(200).send(req.file)
+    })
+  })
+  app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
+    const file = `${getFileDir(req.params.fileName)}/${req.params.fileName}`
+
+    fs.unlink(file, (err: any) => {
+      if (err) {
+        return res.status(500).send(false)
+      }
+
+      return res.status(200).send(true)
+    })
+  })
 
   // Logout
   app.get('/logout', (req: Request, res: Response) => {

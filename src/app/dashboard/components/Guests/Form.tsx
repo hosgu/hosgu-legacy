@@ -4,6 +4,9 @@ import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
 
+import File from '~/components/File'
+// TODO: Move this to @architecturex/utils.files
+import { deleteFile, uploadFile, getSelectedFile } from '~/app/shared/filesUtils'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
@@ -34,6 +37,13 @@ const Form: FC<Props> = ({
   },
   action = 'save'
 }) => {
+  const [file, setFile] = useState<any>({})
+  const [fileUrl, setFileUrl] = useState('')
+  const [filename, setFilename] = useState('')
+  const [selectedFile, setSelectedFile] = useState<any>({})
+  const [deletedFile, setDeletedFile] = useState<any>('')
+  const [isUploaded, setIsUploaded] = useState(false)
+
   const initialValues = {
     id,
     businessId,
@@ -107,6 +117,25 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
+  const handleSelectedFile = async (e: any) => {
+    const { file: _file, fileName: name, fileUrl: _fileUrl } = await getSelectedFile(e)
+
+    setFile(_file)
+    setFilename(name)
+    setFileUrl(_fileUrl)
+    setSelectedFile(_file)
+    console.log('_file', _file)
+    console.log('NAME===>', name)
+    onUploadFile(_file, _fileUrl)
+  }
+
+  const onUploadFile = async (currentFile: any, url: string) => {
+    const [, , , _fileUrl] = url.split('/')
+    console.log('FILE URL==>>>', _fileUrl)
+    await uploadFile(currentFile, `/api/v1/uploader/${_fileUrl}`)
+    setIsUploaded(true)
+  }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -114,6 +143,14 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
+      if (selectedFile && selectedFile.name) {
+        formData.append('photo', selectedFile.name)
+      }
+
+      if (deletedFile) {
+        await deleteFile(deletedFile)
+      }
+
       const response =
         action === 'save'
           ? await GuestActions.create(formData)
@@ -142,8 +179,19 @@ const Form: FC<Props> = ({
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Input defaultValue={photo} label="Photo" name="photo" required />
-          <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
+          <RenderIf isTrue={isUploaded}>
+            <img src={`/files/images/${filename}`} alt="Uploaded file" width={200} />
+          </RenderIf>
+
+          <File
+            name="fileName"
+            selectedFile={selectedFile}
+            label="chooseFile"
+            onChange={handleSelectedFile}
+            maxFileSize={52000000}
+            allowedExtensions={['png', 'jpg', 'jpeg']}
+            onUpload={onUploadFile}
+          />
         </div>
 
         <div>
