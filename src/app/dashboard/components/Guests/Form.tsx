@@ -39,7 +39,7 @@ const Form: FC<Props> = ({
 }) => {
   const [file, setFile] = useState<any>({})
   const [fileUrl, setFileUrl] = useState('')
-  const [filename, setFilename] = useState('')
+  const [filename, setFilename] = useState(photo)
   const [selectedFile, setSelectedFile] = useState<any>({})
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
@@ -129,6 +129,14 @@ const Form: FC<Props> = ({
     onUploadFile(_file, _fileUrl)
   }
 
+  const handleDeleteFile = async () => {
+    setDeletedFile(filename.split('/').pop())
+    setFile({})
+    setFileUrl('')
+    setFilename('')
+    setSelectedFile({})
+  }
+
   const onUploadFile = async (currentFile: any, url: string) => {
     const [, , , _fileUrl] = url.split('/')
     console.log('FILE URL==>>>', _fileUrl)
@@ -143,11 +151,15 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
+      formData.append('photo', '')
       if (selectedFile && selectedFile.name) {
-        formData.append('photo', selectedFile.name)
+        formData.set('photo', `/files/images/${filename}`)
+      } else if (photo) {
+        formData.set('photo', photo)
       }
 
       if (deletedFile) {
+        console.log('⚠️ IMAGE DELETED')
         await deleteFile(deletedFile)
       }
 
@@ -178,22 +190,6 @@ const Form: FC<Props> = ({
       <input type="hidden" name="businessId" value={initialValues.businessId} />
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <RenderIf isTrue={isUploaded}>
-            <img src={`/files/images/${filename}`} alt="Uploaded file" width={200} />
-          </RenderIf>
-
-          <File
-            name="fileName"
-            selectedFile={selectedFile}
-            label="chooseFile"
-            onChange={handleSelectedFile}
-            maxFileSize={52000000}
-            allowedExtensions={['png', 'jpg', 'jpeg']}
-            onUpload={onUploadFile}
-          />
-        </div>
-
         <div>
           <Input
             defaultValue={fullName}
@@ -247,6 +243,34 @@ const Form: FC<Props> = ({
         <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
 
         <TextArea defaultValue={notes} label="Notes" name="notes" />
+        <div className="p-4">
+          <RenderIf isTrue={isUploaded || action == 'edit'}>
+            <img
+              src={action == 'edit' ? filename : `/files/images/${filename}`}
+              alt="Uploaded file"
+            />
+            <Button
+              className="button"
+              onClick={() => {
+                photo = ''
+                console.log('⚠️IMAGE VISUALLY REMOVED')
+              }}
+            >
+              Remove image
+            </Button>
+          </RenderIf>
+          <div>
+            <File
+              name="fileName"
+              selectedFile={selectedFile}
+              label="chooseFile"
+              onChange={handleSelectedFile}
+              maxFileSize={52000000}
+              allowedExtensions={['png', 'jpg', 'jpeg']}
+              onUpload={onUploadFile}
+            />
+          </div>
+        </div>
       </div>
       <div className="flex justify-center">
         <Button type="submit" shape="square" size="large" fullWidth>

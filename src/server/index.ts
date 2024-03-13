@@ -47,9 +47,9 @@ const getFileDir = (fileName: string) => {
   const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
 
   if (isImage) {
-    dir += '/images'
+    dir += dir.includes('\\') ? '\\images' : '/images'
   }
-
+  console.log('⚡DIRECTORY', dir)
   return dir
 }
 
@@ -120,8 +120,8 @@ nextApp.prepare().then(() => {
     })
   })
   app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
-    const file = `${getFileDir(req.params.fileName)}/${req.params.fileName}`
-
+    const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : "/"}${req.params.fileName}`
+    console.log('⚡File endpoint', file)
     fs.unlink(file, (err: any) => {
       if (err) {
         return res.status(500).send(false)
