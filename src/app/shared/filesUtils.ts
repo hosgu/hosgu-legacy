@@ -95,7 +95,7 @@ export async function deleteFile(file: string): Promise<boolean> {
     return false
   }
 
-  const response = await fetch(`/delete/${file}`, {
+  const response = await fetch(`/api/v1/uploader/${file}`, {
     method: 'DELETE'
   })
 
