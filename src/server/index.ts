@@ -5,6 +5,7 @@ import cors from 'cors'
 import express, { Application, NextFunction, Request, Response } from 'express'
 import nextJS from 'next'
 import path from 'path'
+import multer from 'multer'
 
 // APIs
 import agentApiV1 from './api/v1/agent'
@@ -61,6 +62,15 @@ const corsOptions = {
   origin: '*',
   credentials: true
 }
+
+// File storage
+const storage = multer.diskStorage({
+  destination: (req: any, file: any, cb: any): any => cb(null, getFileDir(file.originalname)),
+  filename: (req: any, file: any, cb: any): any => cb(null, req.params.fileName)
+})
+
+// Upload
+const upload = multer({ storage }).single('file')
 
 // Running Next App
 nextApp.prepare().then(() => {
