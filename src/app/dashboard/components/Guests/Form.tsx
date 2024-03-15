@@ -147,6 +147,7 @@ const Form: FC<Props> = ({
 
   // NOTE: Old method
   const handleSubmit = async (e: any) => {
+    console.log('⚡HANDLE SUBMIT FILE STATUS', fileStatus)
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
