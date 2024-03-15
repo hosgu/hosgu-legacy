@@ -43,6 +43,7 @@ const Form: FC<Props> = ({
   const [selectedFile, setSelectedFile] = useState<any>({})
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
+  const [fileStatus, setFileStatus] = useState(photo ? [{ file: photo, action: 'show' }] : [])
 
   const initialValues = {
     id,
@@ -142,9 +143,11 @@ const Form: FC<Props> = ({
     console.log('FILE URL==>>>', _fileUrl)
     await uploadFile(currentFile, `/api/v1/uploader/${_fileUrl}`)
     setIsUploaded(true)
+    setFileStatus((prev) => [...prev, { file: `/files/images/${_fileUrl}`, action: 'show' }])
   }
 
   const handleSubmit = async (e: any) => {
+    console.log('⚡HANDLE SUBMIT FILE STATUS', fileStatus)
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
@@ -152,15 +155,23 @@ const Form: FC<Props> = ({
 
     if (isValidForm) {
       formData.append('photo', '')
+      while (fileStatus.length > 0) {
+        let currentFileStatus = fileStatus.pop()
+        if (currentFileStatus && currentFileStatus.action === 'delete') {
+          // Delete photo from server
+          const fileName = currentFileStatus.file.split('/').pop()
+          console.log('⚡HANDLE SUBMIT FILE NAME', fileName)
+          await deleteFile(fileName)
+        }
+        if (currentFileStatus && currentFileStatus.action === 'upload') {
+          // Upload photo to server
+        }
+      }
+
       if (selectedFile && selectedFile.name) {
         formData.set('photo', `/files/images/${filename}`)
       } else if (photo) {
         formData.set('photo', photo)
-      }
-
-      if (deletedFile) {
-        console.log('⚠️ IMAGE DELETED')
-        await deleteFile(deletedFile)
       }
 
       const response =
@@ -172,6 +183,10 @@ const Form: FC<Props> = ({
         setShowNotification(true)
       }
     }
+  }
+
+  const findImage = (action: 'show' | 'delete' | 'upload') => {
+    return fileStatus.find((image) => image.action == action)
   }
 
   return (
@@ -245,19 +260,23 @@ const Form: FC<Props> = ({
         <TextArea defaultValue={notes} label="Notes" name="notes" />
         <div className="p-4">
           <RenderIf isTrue={isUploaded || action == 'edit'}>
-            <img
-              src={action == 'edit' ? filename : `/files/images/${filename}`}
-              alt="Uploaded file"
-            />
-            <Button
-              className="button"
-              onClick={() => {
-                photo = ''
-                console.log('⚠️IMAGE VISUALLY REMOVED')
-              }}
-            >
-              Remove image
-            </Button>
+            <RenderIf isTrue={!!findImage('show')?.file}>
+              <img
+                src={action === 'edit' ? findImage('show')?.file : `${findImage('show')?.file}`}
+                alt="Uploaded file"
+              />
+            </RenderIf>
+            <RenderIf isTrue={!!findImage('show')?.file}>
+              <Button
+                className="button"
+                onClick={() => {
+                  setFileStatus((prev) => prev.map((image) => ({ ...image, action: 'delete' })))
+                  console.log('⚠️IMAGE VISUALLY REMOVED AND ADDED TO ARRAY')
+                }}
+              >
+                Remove image
+              </Button>
+            </RenderIf>
           </RenderIf>
           <div>
             <File
