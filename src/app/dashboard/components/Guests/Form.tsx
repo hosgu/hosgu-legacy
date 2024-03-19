@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
@@ -43,7 +43,7 @@ const Form: FC<Props> = ({
   const [selectedFile, setSelectedFile] = useState<any>({})
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
-  const [fileStatus, setFileStatus] = useState(photo ? [{ file: photo, action: 'show' }] : [])
+  const [fileStatus, setFileStatus] = useState(photo ? [{ url: photo, action: 'show' }] : [])
 
   const initialValues = {
     id,
@@ -125,8 +125,6 @@ const Form: FC<Props> = ({
     setFilename(name)
     setFileUrl(_fileUrl)
     setSelectedFile(_file)
-    console.log('_file', _file)
-    console.log('NAME===>', name)
     onUploadFile(_file, _fileUrl)
   }
 
@@ -139,37 +137,53 @@ const Form: FC<Props> = ({
   }
 
   const onUploadFile = async (currentFile: any, url: string) => {
-    const [, , , _fileUrl] = url.split('/')
-    console.log('FILE URL==>>>', _fileUrl)
-    await uploadFile(currentFile, `/api/v1/uploader/${_fileUrl}`)
+    console.log('📦 onUploadFile', { currentFile, url })
+    const fileName = getFileNameFromUrl(url)
+    const apiEndPoint = `/api/v1/uploader/${fileName}`
+    await uploadFile(currentFile, apiEndPoint)
     setIsUploaded(true)
-    setFileStatus((prev) => [...prev, { file: `/files/images/${_fileUrl}`, action: 'show' }])
+    setFileStatus((prev) => [
+      ...markImagesToDelete(prev),
+      { url: `/files/images/${fileName}`, action: 'show' }
+    ])
   }
 
+  useEffect(() => {
+    console.log('🪄 File status', fileStatus)
+  }, [fileStatus])
+
   const handleSubmit = async (e: any) => {
-    console.log('⚡HANDLE SUBMIT FILE STATUS', fileStatus)
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
 
     if (isValidForm) {
+      let fileName
       formData.append('photo', '')
-      while (fileStatus.length > 0) {
-        let currentFileStatus = fileStatus.pop()
-        if (currentFileStatus && currentFileStatus.action === 'delete') {
-          // Delete photo from server
-          const fileName = currentFileStatus.file.split('/').pop()
-          console.log('⚡HANDLE SUBMIT FILE NAME', fileName)
-          await deleteFile(fileName)
-        }
-        if (currentFileStatus && currentFileStatus.action === 'upload') {
-          // Upload photo to server
+
+      for (let i = 0; i < fileStatus.length; i++) {
+        let currentFileStatus = fileStatus[i]
+
+        if (currentFileStatus) {
+          fileName = getFileNameFromUrl(currentFileStatus.url)
+
+          if (currentFileStatus.action === 'delete') {
+            // Delete photo from server
+            console.log('📦 handleSubmit() - Delete photo - File name:', fileName)
+            await deleteFile(fileName)
+          }
+          if (currentFileStatus.action === 'upload') {
+            // Upload photo to server
+            console.log('📦 handleSubmit() - Upload photo')
+          }
         }
       }
 
-      if (selectedFile && selectedFile.name) {
-        formData.set('photo', `/files/images/${filename}`)
+      setFileStatus([])
+
+      if (fileName) {
+        formData.set('photo', `/files/images/${fileName}`)
       } else if (photo) {
         formData.set('photo', photo)
       }
@@ -185,8 +199,22 @@ const Form: FC<Props> = ({
     }
   }
 
-  const findImage = (action: 'show' | 'delete' | 'upload') => {
+  const handleRemoveImage = () => {
+    setFileStatus((prev) => markImagesToDelete(prev))
+    console.log('🖼️ IMAGE VISUALLY REMOVED')
+  }
+
+  const findFileByAction = (action: 'show' | 'delete' | 'upload') => {
     return fileStatus.find((image) => image.action == action)
+  }
+
+  const getFileNameFromUrl = (url: string) => {
+    const fileName = url.split('/').pop()
+    return fileName ? fileName : ''
+  }
+
+  const markImagesToDelete = (imagesArray: any) => {
+    return imagesArray.map((image) => ({ ...image, action: 'delete' }))
   }
 
   return (
@@ -260,20 +288,11 @@ const Form: FC<Props> = ({
         <TextArea defaultValue={notes} label="Notes" name="notes" />
         <div className="p-4">
           <RenderIf isTrue={isUploaded || action == 'edit'}>
-            <RenderIf isTrue={!!findImage('show')?.file}>
-              <img
-                src={action === 'edit' ? findImage('show')?.file : `${findImage('show')?.file}`}
-                alt="Uploaded file"
-              />
+            <RenderIf isTrue={!!findFileByAction('show')?.url}>
+              <img src={findFileByAction('show')?.url} alt="Uploaded file" />
             </RenderIf>
-            <RenderIf isTrue={!!findImage('show')?.file}>
-              <Button
-                className="button"
-                onClick={() => {
-                  setFileStatus((prev) => prev.map((image) => ({ ...image, action: 'delete' })))
-                  console.log('⚠️IMAGE VISUALLY REMOVED AND ADDED TO ARRAY')
-                }}
-              >
+            <RenderIf isTrue={!!findFileByAction('show')?.url}>
+              <Button className="button" onClick={handleRemoveImage}>
                 Remove image
               </Button>
             </RenderIf>
