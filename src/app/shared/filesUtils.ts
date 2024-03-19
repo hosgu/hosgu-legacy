@@ -135,3 +135,36 @@ export async function getSelectedFile(e: any): Promise<any> {
     }
   }
 }
+
+export function findFileByAction(fileStatus: any, action: 'show' | 'delete' | 'upload') {
+  return fileStatus.find((image) => image.action == action)
+}
+
+export async function fileStatusActions(fileStack: any, deleteCallback: any) {
+  let fileName
+  while (fileStack.length > 1) {
+    let currentFileStatus = fileStack.pop()
+
+    if (currentFileStatus) {
+      fileName = getFileNameFromUrl(currentFileStatus.url)
+
+      if (currentFileStatus.action === 'delete') {
+        // Delete photo from server
+        console.log('📦 handleSubmit() - Delete photo - File name:', fileName)
+        await deleteCallback(fileName)
+      }
+      if (currentFileStatus.action === 'upload') {
+        // Upload photo to server
+        console.log('📦 handleSubmit() - Upload photo')
+        currentFileStatus.action = 'show'
+        fileStack.unshift(currentFileStatus)
+      }
+    }
+  }
+  return { fileStack: [...fileStack], fileName }
+}
+
+export function getFileNameFromUrl(url: string) {
+  const fileName = url.split('/').pop()
+  return fileName ? fileName : ''
+}
