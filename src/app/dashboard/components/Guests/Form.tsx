@@ -6,7 +6,15 @@ import { RenderIf } from '@architecturex/components.renderif'
 
 import File from '~/components/File'
 // TODO: Move this to @architecturex/utils.files
-import { deleteFile, uploadFile, getSelectedFile } from '~/app/shared/filesUtils'
+// TODO: Clean states after closing modal, do not alter backend
+import {
+  deleteFile,
+  uploadFile,
+  getSelectedFile,
+  findFileByAction,
+  fileStatusActions,
+  getFileNameFromUrl
+} from '~/app/shared/filesUtils'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
@@ -44,7 +52,10 @@ const Form: FC<Props> = ({
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
   const [fileStatus, setFileStatus] = useState(photo ? [{ url: photo, action: 'show' }] : [])
-
+  const displayedPhoto =
+    findFileByAction(fileStatus, 'upload')?.url ||
+    findFileByAction(fileStatus, 'show')?.url ||
+    photo
   const initialValues = {
     id,
     businessId,
@@ -144,7 +155,7 @@ const Form: FC<Props> = ({
     setIsUploaded(true)
     setFileStatus((prev) => [
       ...markImagesToDelete(prev),
-      { url: `/files/images/${fileName}`, action: 'show' }
+      { url: `/files/images/${fileName}`, action: 'upload' }
     ])
   }
 
@@ -159,31 +170,13 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      let fileName
+      let { fileStack } = await fileStatusActions([...fileStatus], deleteFile)
+      const [finalFile] = fileStack
+      setFileStatus([...fileStack])
       formData.append('photo', '')
 
-      for (let i = 0; i < fileStatus.length; i++) {
-        let currentFileStatus = fileStatus[i]
-
-        if (currentFileStatus) {
-          fileName = getFileNameFromUrl(currentFileStatus.url)
-
-          if (currentFileStatus.action === 'delete') {
-            // Delete photo from server
-            console.log('📦 handleSubmit() - Delete photo - File name:', fileName)
-            await deleteFile(fileName)
-          }
-          if (currentFileStatus.action === 'upload') {
-            // Upload photo to server
-            console.log('📦 handleSubmit() - Upload photo')
-          }
-        }
-      }
-
-      setFileStatus([])
-
-      if (fileName) {
-        formData.set('photo', `/files/images/${fileName}`)
+      if (finalFile.url) {
+        formData.set('photo', finalFile.url)
       } else if (photo) {
         formData.set('photo', photo)
       }
@@ -204,14 +197,14 @@ const Form: FC<Props> = ({
     console.log('🖼️ IMAGE VISUALLY REMOVED')
   }
 
-  const findFileByAction = (action: 'show' | 'delete' | 'upload') => {
-    return fileStatus.find((image) => image.action == action)
-  }
+  // const findFileByAction = (action: 'show' | 'delete' | 'upload') => {
+  //   return fileStatus.find((image) => image.action == action)
+  // }
 
-  const getFileNameFromUrl = (url: string) => {
-    const fileName = url.split('/').pop()
-    return fileName ? fileName : ''
-  }
+  // const getFileNameFromUrl = (url: string) => {
+  //   const fileName = url.split('/').pop()
+  //   return fileName ? fileName : ''
+  // }
 
   const markImagesToDelete = (imagesArray: any) => {
     return imagesArray.map((image) => ({ ...image, action: 'delete' }))
@@ -288,10 +281,10 @@ const Form: FC<Props> = ({
         <TextArea defaultValue={notes} label="Notes" name="notes" />
         <div className="p-4">
           <RenderIf isTrue={isUploaded || action == 'edit'}>
-            <RenderIf isTrue={!!findFileByAction('show')?.url}>
-              <img src={findFileByAction('show')?.url} alt="Uploaded file" />
+            <RenderIf isTrue={!!displayedPhoto}>
+              <img src={displayedPhoto} alt="Uploaded file" />
             </RenderIf>
-            <RenderIf isTrue={!!findFileByAction('show')?.url}>
+            <RenderIf isTrue={!!displayedPhoto}>
               <Button className="button" onClick={handleRemoveImage}>
                 Remove image
               </Button>
