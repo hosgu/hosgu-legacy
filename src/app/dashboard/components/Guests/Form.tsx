@@ -197,15 +197,6 @@ const Form: FC<Props> = ({
     console.log('🖼️ IMAGE VISUALLY REMOVED')
   }
 
-  // const findFileByAction = (action: 'show' | 'delete' | 'upload') => {
-  //   return fileStatus.find((image) => image.action == action)
-  // }
-
-  // const getFileNameFromUrl = (url: string) => {
-  //   const fileName = url.split('/').pop()
-  //   return fileName ? fileName : ''
-  // }
-
   const markImagesToDelete = (imagesArray: any) => {
     return imagesArray.map((image) => ({ ...image, action: 'delete' }))
   }
