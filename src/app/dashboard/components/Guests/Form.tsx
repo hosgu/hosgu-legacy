@@ -147,7 +147,6 @@ const Form: FC<Props> = ({
 
   // NOTE: Old method
   const handleSubmit = async (e: any) => {
-    console.log('⚡HANDLE SUBMIT FILE STATUS', fileStatus)
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
@@ -222,14 +221,23 @@ const Form: FC<Props> = ({
     setFileStatus((prev: any) => markImagesToDelete(prev))
   }
 
+  // const markImagesToDelete = (imagesArray: any) => {
+  //   return imagesArray.map((image: any) => {
+  //     let action = image.action !== 'pending' ? 'delete' : 'pending'
+  //     if (image.action === 'show') {
+  //       action = 'pending'
+  //     }
+  //     return { ...image, action }
+  //   })
+  // }
+
+  const getFileNameFromUrl = (url: string) => {
+    const fileName = url.split('/').pop()
+    return fileName ? fileName : ''
+  }
+
   const markImagesToDelete = (imagesArray: any) => {
-    return imagesArray.map((image: any) => {
-      let action = image.action !== 'pending' ? 'delete' : 'pending'
-      if (image.action === 'show') {
-        action = 'pending'
-      }
-      return { ...image, action }
-    })
+    return imagesArray.map((image: any) => ({ ...image, action: 'delete' }))
   }
 
   return (
