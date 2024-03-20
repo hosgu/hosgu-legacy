@@ -56,9 +56,12 @@ const Form: FC<Props> = ({
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
   const displayedPhoto =
-    findFileByAction(fileStatus, 'upload')?.url ||
-    findFileByAction(fileStatus, 'show')?.url ||
-    photo
+    findFileByAction(fileStatus, 'upload')?.url || findFileByAction(fileStatus, 'show')?.url
+  // photo
+  // console.log('Displayed photo UPLOAD', findFileByAction(fileStatus, 'upload')?.url)
+  // console.log('Displayed photo SHOW', findFileByAction(fileStatus, 'upload')?.url)
+  // console.log('Displayed photo PHOTO', photo)
+
   const initialValues = {
     id,
     businessId,
@@ -173,9 +176,10 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      let { fileStack } = await fileStatusActions([...fileStatus], deleteFile)
+      let { fileStack } = await fileStatusActions([...fileStatus], deleteFile, 'save')
       const [finalFile] = fileStack
       setFileStatus([...fileStack])
+
       formData.append('photo', '')
 
       if (finalFile.url) {
@@ -201,6 +205,7 @@ const Form: FC<Props> = ({
   }
 
   const markImagesToDelete = (imagesArray: any) => {
+    console.log('⚡Images array', imagesArray)
     return imagesArray.map((image) => ({ ...image, action: 'delete' }))
   }
 
