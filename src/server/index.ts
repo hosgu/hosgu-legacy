@@ -107,7 +107,6 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/user', userApiV1)
   app.post('/api/v1/uploader/:fileName', (req: any, res: any) => {
     upload(req, res, (err: any) => {
-      console.log('UPLADER========>>>>', err)
       if (err instanceof multer.MulterError) {
         return res.status(500).json(err)
       }
@@ -120,7 +119,7 @@ nextApp.prepare().then(() => {
     })
   })
   app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
-    const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : "/"}${req.params.fileName}`
+    const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : '/'}${req.params.fileName}`
     console.log('⚡File endpoint', file)
     fs.unlink(file, (err: any) => {
       if (err) {

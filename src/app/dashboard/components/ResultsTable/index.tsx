@@ -44,6 +44,8 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isCreateModalOpen}
         onClose={async () => {
+          console.log('Create Modal onClose')
+          onCloseModal()
           setIsCreateModalOpen(false)
 
           const { checksum, items: newData } = await refetch()
@@ -59,6 +61,7 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isEditModalOpen}
         onClose={async () => {
+          console.log('⚡Edit Modal onClose')
           onCloseModal()
 
           const { checksum, items: newData } = await refetch()

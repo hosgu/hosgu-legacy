@@ -24,6 +24,8 @@ import TextArea from '~/components/TextArea'
 type Props = {
   action: 'save' | 'edit'
   data?: any
+  fileStatus: any
+  setFileStatus: any
 }
 
 const Form: FC<Props> = ({
@@ -43,7 +45,9 @@ const Form: FC<Props> = ({
     notes = '',
     photo = ''
   },
-  action = 'save'
+  action = 'save',
+  fileStatus,
+  setFileStatus
 }) => {
   const [file, setFile] = useState<any>({})
   const [fileUrl, setFileUrl] = useState('')
@@ -51,7 +55,6 @@ const Form: FC<Props> = ({
   const [selectedFile, setSelectedFile] = useState<any>({})
   const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
-  const [fileStatus, setFileStatus] = useState(photo ? [{ url: photo, action: 'show' }] : [])
   const displayedPhoto =
     findFileByAction(fileStatus, 'upload')?.url ||
     findFileByAction(fileStatus, 'show')?.url ||
