@@ -140,8 +140,13 @@ export function findFileByAction(fileStatus: any, action: 'show' | 'delete' | 'u
   return fileStatus.find((image) => image.action == action)
 }
 
-export async function fileStatusActions(fileStack: any, deleteCallback: any) {
+export async function fileStatusActions(
+  fileStack: any,
+  deleteCallback: any,
+  actionFrom: 'save' | 'close'
+) {
   let fileName
+
   while (fileStack.length > 1) {
     let currentFileStatus = fileStack.pop()
 
@@ -172,9 +177,11 @@ export function getFileNameFromUrl(url: string) {
 export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
   console.log('📦 deleteFilesFromServer()', { array, deleteCallback })
   for (let i = 0; i < array.length; i++) {
-    console.log('📦 deleteFilesFromServer - For loop', { loop: i })
     const file = array[i]
+    const action = file.action
     const fileName = getFileNameFromUrl(file.url)
-    await deleteCallback(fileName)
+    if (action === 'delete') {
+      await deleteCallback(fileName)
+    }
   }
 }
