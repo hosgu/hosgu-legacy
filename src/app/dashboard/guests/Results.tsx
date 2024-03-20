@@ -4,6 +4,8 @@ import core from '@architecturex/utils.core'
 
 import GuestForm from '~/app/dashboard/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
+import { deleteFilesFromServer } from '~/app/shared/filesUtils'
+import { deleteFile } from '~/app/shared/filesUtils'
 
 type Props = {
   data: any
@@ -24,6 +26,7 @@ const Results: FC<Props> = ({
   const [data, setData] = useState(rawData)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [itemToEdit, setItemToEdit] = useState({})
+  const [fileStatus, setFileStatus] = useState<any>([])
 
   // Methods
   const handleDelete = async (id: string) => {
@@ -43,9 +46,12 @@ const Results: FC<Props> = ({
   const handleEdit = (item: any) => {
     setIsEditModalOpen(true)
     setItemToEdit(item)
+    setFileStatus(item.photo ? [{ url: item.photo, action: 'show' }] : [])
   }
 
-  const onCloseModal = () => {
+  const onCloseModal = async () => {
+    console.log('📦 onCloseModal()')
+    await deleteFilesFromServer(fileStatus, deleteFile)
     setIsEditModalOpen(false)
   }
 
@@ -79,10 +85,20 @@ const Results: FC<Props> = ({
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
-          <GuestForm action="save" data={{ businessId: connectedUser.businessId }} />
+          <GuestForm
+            action="save"
+            data={{ businessId: connectedUser.businessId }}
+            fileStatus={fileStatus}
+            setFileStatus={setFileStatus}
+          />
         }
         EditFormComponent={
-          <GuestForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
+          <GuestForm
+            action="edit"
+            data={{ businessId: connectedUser.businessId, ...itemToEdit }}
+            fileStatus={fileStatus}
+            setFileStatus={setFileStatus}
+          />
         }
         isEditModalOpen={isEditModalOpen}
         onCloseModal={onCloseModal}
