@@ -52,6 +52,7 @@ const Results: FC<Props> = ({
   const onCloseModal = async () => {
     console.log('📦 onCloseModal()')
     await deleteFilesFromServer(fileStatus, deleteFile)
+    setFileStatus([])
     setIsEditModalOpen(false)
   }
 
