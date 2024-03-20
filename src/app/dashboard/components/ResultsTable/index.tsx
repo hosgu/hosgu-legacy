@@ -60,6 +60,7 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isEditModalOpen}
         onClose={async () => {
+          console.log('⚡Edit Modal onClose')
           onCloseModal()
 
           const { checksum, items: newData } = await refetch()

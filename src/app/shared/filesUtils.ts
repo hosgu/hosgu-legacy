@@ -168,3 +168,13 @@ export function getFileNameFromUrl(url: string) {
   const fileName = url.split('/').pop()
   return fileName ? fileName : ''
 }
+
+export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
+  console.log('📦 deleteFilesFromServer()', { array, deleteCallback })
+  for (let i = 0; i < array.length; i++) {
+    console.log('📦 deleteFilesFromServer - For loop', { loop: i })
+    const file = array[i]
+    const fileName = getFileNameFromUrl(file.url)
+    await deleteCallback(fileName)
+  }
+}

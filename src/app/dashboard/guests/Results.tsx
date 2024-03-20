@@ -5,6 +5,8 @@ import files from '@architecturex/utils.files'
 
 import GuestForm from '~/app/dashboard/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
+import { deleteFilesFromServer } from '~/app/shared/filesUtils'
+import { deleteFile } from '~/app/shared/filesUtils'
 
 type Props = {
   data: any
