@@ -153,14 +153,12 @@ export async function fileStatusActions(
     if (currentFileStatus) {
       fileName = getFileNameFromUrl(currentFileStatus.url)
 
-      if (currentFileStatus.action === 'delete') {
+      if (currentFileStatus.action === 'delete' || currentFileStatus.action == 'pending') {
         // Delete photo from server
-        console.log('📦 handleSubmit() - Delete photo - File name:', fileName)
         await deleteCallback(fileName)
       }
       if (currentFileStatus.action === 'upload') {
         // Upload photo to server
-        console.log('📦 handleSubmit() - Upload photo')
         currentFileStatus.action = 'show'
         fileStack.unshift(currentFileStatus)
       }
@@ -175,12 +173,11 @@ export function getFileNameFromUrl(url: string) {
 }
 
 export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
-  console.log('📦 deleteFilesFromServer()', { array, deleteCallback })
   for (let i = 0; i < array.length; i++) {
     const file = array[i]
     const action = file.action
     const fileName = getFileNameFromUrl(file.url)
-    if (action === 'delete') {
+    if (action === 'delete' || action === 'upload') {
       await deleteCallback(fileName)
     }
   }
