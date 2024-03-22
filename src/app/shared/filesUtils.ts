@@ -173,6 +173,7 @@ export function getFileNameFromUrl(url: string) {
 }
 
 export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
+  console.log('FileStatusArray:', array)
   for (let i = 0; i < array.length; i++) {
     const file = array[i]
     const action = file.action
