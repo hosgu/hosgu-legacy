@@ -196,11 +196,11 @@ const Form: FC<Props> = ({
 
   const markImagesToDelete = (imagesArray: any) => {
     return imagesArray.map((image: any) => {
-      if (image.action !== 'show' && image.action !== 'pending') {
-        return { ...image, action: 'delete' }
-      } else {
-        return { ...image, action: 'pending' }
+      let action = image.action !== 'pending' ? 'delete' : 'pending'
+      if (image.action === 'show') {
+        action = 'pending'
       }
+      return { ...image, action }
     })
   }
 
