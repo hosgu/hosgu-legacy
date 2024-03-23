@@ -21,6 +21,10 @@ import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
 
+// 🧪 Multi uploader
+import multiUploaderApiV1 from './api/v1/uploader'
+console.log(multiUploaderApiV1)
+
 // TODO: Move to @architecturex/utils.files
 function getFileInfo(file: string) {
   if (!file) {
@@ -117,6 +121,7 @@ nextApp.prepare().then(() => {
       return res.status(200).send(req.file)
     })
   })
+  app.use('/api/v1/multiuploader', multiUploaderApiV1)
   app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
     const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : '/'}${req.params.fileName}`
     fs.unlink(file, (err: any) => {
