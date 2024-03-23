@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react'
 import Button from '../Button'
 import Input from '../Input'
-import { bytesToSize, getFileInfo } from '~/app/shared/filesUtils'
+import { bytesToSize, getFileNameAndExtension } from '~/app/shared/filesUtils'
 
 type Props = {
   className?: string
@@ -33,7 +33,7 @@ const File: FC<Props> = (props) => {
   } = props
   const file = bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = bytesToSize(maxFileSize, maxFileSize, true)
-  const { fileName, extension } = getFileInfo(selectedFile.name)
+  const { fileName, extension } = getFileNameAndExtension(selectedFile.name)
   const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
 
   return (
@@ -50,6 +50,7 @@ const File: FC<Props> = (props) => {
               name={name}
               id="file"
               {...props}
+              multiple
               style={{
                 fontSize: '200px',
                 cursor: 'pointer',
