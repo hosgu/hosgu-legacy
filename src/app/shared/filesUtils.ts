@@ -1,7 +1,9 @@
 import security from '@architecturex/utils.security'
 import slug from '@architecturex/utils.slug'
+import api from '@architecturex/utils.api'
+import { APIResponse } from '~/types'
 
-export function getFileInfo(file: any): any {
+export function getFileNameAndExtension(file: any): any {
   if (!file) {
     return {
       fileName: '',
@@ -55,7 +57,7 @@ export function getFileExtensionFromURL(fileUrl = ''): any {
     file = fileUrl.split('/').pop()
   }
 
-  return getFileInfo(file)
+  return getFileNameAndExtension(file)
 }
 
 export function getImageData(file: any): Promise<any> {
@@ -112,7 +114,7 @@ export async function getSelectedFile(e: any): Promise<any> {
   if (e.target.files[0]) {
     const fileData = e.target.files[0]
     const fileSize = bytesToSize(fileData.size, 52000000)
-    const { fileName, extension } = getFileInfo(fileData.name)
+    const { fileName, extension } = getFileNameAndExtension(fileData.name)
     const identifier = slug(fileName)
     const code = security.string.code(4)
     const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
@@ -182,4 +184,64 @@ export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
       await deleteCallback(fileName)
     }
   }
+}
+
+// 🧪 Test
+export async function uploadFiles(files: any, url: string): Promise<boolean> {
+  if (!files) {
+    return false
+  }
+
+  const fileData = new FormData()
+  console.log('📄 Files', files)
+
+  files.forEach((file: any, index: any) => {
+    fileData.append(`file-${index}`, file)
+  })
+
+  const response = await api.fetch<APIResponse<any>>(url, {
+    method: 'POST',
+    body: fileData
+  })
+
+  console.log('⚡ Files Response', response)
+
+  return true
+  // const responseData = await response.json()
+
+  // if (responseData.destination) {
+  //   return true
+  // }
+
+  // return false
+}
+
+// 🧪 Test
+export async function getSelectedFiles(fileList: FileList) {
+  const fileListArray = Array.from(fileList)
+
+  const files = fileListArray.map(async function formatFileData(file) {
+    const fileSize = bytesToSize(file.size, 52000000)
+    const { fileName, extension } = getFileNameAndExtension(file.name)
+    const identifier = slug(fileName)
+    const code = security.string.code(4)
+    const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
+    let url = '/files'
+    let information = ''
+
+    if (isImage) {
+      const img = await getImageData(file)
+      information = `${img.width}x${img.height}px`
+      url += '/images'
+    }
+
+    return {
+      file,
+      fileName: `${identifier}_${code}.${extension}`,
+      fileUrl: `${url}/${identifier}_${code}.${extension}`,
+      size: fileSize.size,
+      information
+    }
+  })
+  return Promise.all(files)
 }
