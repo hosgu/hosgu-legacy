@@ -22,6 +22,10 @@ import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
 import multiUploaderApiV1 from './api/v1/uploader'
 
+// 🧪 Multi uploader
+import multiUploaderApiV1 from './api/v1/uploader'
+console.log(multiUploaderApiV1)
+
 // TODO: Move to @architecturex/utils.files
 function getFileInfo(file: string) {
   if (!file) {

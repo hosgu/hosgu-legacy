@@ -3,7 +3,7 @@ import multiUpload from './uploader'
 
 const router = express.Router()
 
-router.post('/', multiUpload, (req, res) => {
+router.post('/', multiUpload, (req: any, res) => {
   if (!req.files || req.files.length == 0) {
     return res.status(400).json({ ok: false, error: 'No files' })
   }
