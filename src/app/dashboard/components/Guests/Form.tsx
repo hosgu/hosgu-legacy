@@ -10,7 +10,9 @@ import File from '~/components/File'
 import {
   deleteFile,
   uploadFile,
+  uploadFiles,
   getSelectedFile,
+  getSelectedFiles,
   findFileByAction,
   fileStatusActions,
   getFileNameFromUrl
@@ -133,12 +135,22 @@ const Form: FC<Props> = ({
 
   const handleSelectedFile = async (e: any) => {
     const { file: _file, fileName: name, fileUrl: _fileUrl } = await getSelectedFile(e)
-
     setFile(_file)
     setFilename(name)
     setFileUrl(_fileUrl)
     setSelectedFile(_file)
     onUploadFile(_file, _fileUrl)
+  }
+
+  // 🧪 Test
+  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files
+
+    if (fileList) {
+      const files = await getSelectedFiles(fileList)
+      console.log('📦 handleSelectedFiles()', files)
+    }
+    // onUploadFiles(_file, _fileUrl)
   }
 
   const handleDeleteFile = async () => {
@@ -158,6 +170,12 @@ const Form: FC<Props> = ({
       ...markImagesToDelete(prev),
       { url: `/files/images/${fileName}`, action: 'upload' }
     ])
+  }
+
+  // 🧪 WIP
+  const onUploadFiles = async (file: any, url: any) => {
+    console.log('📦 onUploadFiles()', { file, url })
+    await uploadFiles(file, url)
   }
 
   const handleSubmit = async (e: any) => {
@@ -289,10 +307,10 @@ const Form: FC<Props> = ({
               name="fileName"
               selectedFile={selectedFile}
               label="chooseFile"
-              onChange={handleSelectedFile}
+              onChange={handleSelectedFiles}
               maxFileSize={52000000}
               allowedExtensions={['png', 'jpg', 'jpeg']}
-              onUpload={onUploadFile}
+              onUpload={onUploadFiles}
             />
           </div>
         </div>
