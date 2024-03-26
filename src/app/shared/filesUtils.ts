@@ -3,7 +3,7 @@ import slug from '@architecturex/utils.slug'
 import api from '@architecturex/utils.api'
 import { APIResponse } from '~/types'
 
-export function getFileNameAndExtension(file: any): any {
+export function getFileNameAndExtension(file: any): { fileName: string; extension: string } {
   if (!file) {
     return {
       fileName: '',
@@ -70,7 +70,7 @@ export function getImageData(file: any): Promise<any> {
   })
 }
 
-export async function uploadFile(file: any, url: string): Promise<boolean> {
+export async function uploadFile(file: File, url: string): Promise<boolean> {
   if (!file) {
     return false
   }
@@ -139,7 +139,7 @@ export async function getSelectedFile(e: any): Promise<any> {
 }
 
 export function findFileByAction(fileStatus: any, action: 'show' | 'delete' | 'upload') {
-  return fileStatus.find((image) => image.action == action)
+  return fileStatus.find((image: any) => image.action == action)
 }
 
 export async function fileStatusActions(
@@ -187,61 +187,70 @@ export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
 }
 
 // 🧪 Test
-export async function uploadFiles(files: any, url: string): Promise<boolean> {
+export async function uploadFiles(files: any) {
   if (!files) {
-    return false
+    return
   }
 
-  const fileData = new FormData()
   console.log('📄 Files', files)
+  const fileUploadEndPoint = '/api/v1/multiuploader'
+  const formData = new FormData()
 
-  files.forEach((file: any, index: any) => {
-    fileData.append(`file-${index}`, file)
+  files.forEach((file: any) => {
+    formData.append(`files`, file.file)
   })
 
-  const response = await api.fetch<APIResponse<any>>(url, {
+  const multiUploadResponse = await fetch(fileUploadEndPoint, {
     method: 'POST',
-    body: fileData
+    body: formData
   })
 
-  console.log('⚡ Files Response', response)
-
-  return true
-  // const responseData = await response.json()
-
-  // if (responseData.destination) {
-  //   return true
-  // }
-
-  // return false
+  console.log('⚡ Files Response', multiUploadResponse)
 }
 
-// 🧪 Test
-export async function getSelectedFiles(fileList: FileList) {
+export async function formatFileList(fileList: FileList) {
   const fileListArray = Array.from(fileList)
+  const formattedFileList = fileListArray.map((file) => formatFileData(file))
+  return Promise.all(formattedFileList)
+}
 
-  const files = fileListArray.map(async function formatFileData(file) {
-    const fileSize = bytesToSize(file.size, 52000000)
-    const { fileName, extension } = getFileNameAndExtension(file.name)
-    const identifier = slug(fileName)
-    const code = security.string.code(4)
-    const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
-    let url = '/files'
-    let information = ''
+export async function formatFileData(file: File) {
+  const {
+    fileName,
+    nameParts: { identifier, code, extension }
+  } = generateUniqueFileName(file.name)
 
-    if (isImage) {
-      const img = await getImageData(file)
-      information = `${img.width}x${img.height}px`
-      url += '/images'
+  const fileSize = bytesToSize(file.size, 52000000)
+  const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
+  let url = '/files'
+  let information = ''
+
+  if (isImage) {
+    const img = await getImageData(file)
+    information = `${img.width}x${img.height}px`
+    url += '/images'
+  }
+
+  return {
+    file,
+    fileName,
+    storagePath: `${url}/${identifier}_${code}.${extension}`,
+    size: fileSize.size,
+    information
+  }
+}
+
+export function generateUniqueFileName(originalFileName: string) {
+  const { fileName, extension } = getFileNameAndExtension(originalFileName)
+  const identifier = slug(fileName)
+  const code = security.string.code(4)
+
+  return {
+    fileName: `${identifier}_${code}.${extension}`,
+    nameParts: {
+      identifier,
+      code,
+      extension
     }
-
-    return {
-      file,
-      fileName: `${identifier}_${code}.${extension}`,
-      fileUrl: `${url}/${identifier}_${code}.${extension}`,
-      size: fileSize.size,
-      information
-    }
-  })
-  return Promise.all(files)
+  }
 }
