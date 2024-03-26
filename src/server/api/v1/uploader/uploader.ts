@@ -15,10 +15,10 @@ const allowedFileTypes = {
 }
 
 const multerStorage = multer.diskStorage({
-  destination(_req, _file, cb) {
+  destination(_req: any, _file: any, cb: any) {
     cb(null, destinationDir)
   },
-  filename(_req, file, cb) {
+  filename(_req: any, file: any, cb: any) {
     const { fileName } = files.generateUniqueFileName(file.originalname)
     cb(null, fileName)
   }
@@ -30,7 +30,7 @@ const getMulterOptions = (fileTypes: string[]) => {
     limits: {
       files: 15
     },
-    fileFilter(_req: any, file: Express.Multer.File, cb: any) {
+    fileFilter(_req: any, file: any, cb: any) {
       const { extension } = files.getFileNameAndExtension(file.originalname)
       const isValidExtension = fileTypes.includes(extension)
 
