@@ -12,7 +12,7 @@ import {
   uploadFile,
   uploadFiles,
   getSelectedFile,
-  getSelectedFiles,
+  formatFileList,
   findFileByAction,
   fileStatusActions,
   getFileNameFromUrl
@@ -133,6 +133,14 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
+  const handleDeleteFile = async () => {
+    setDeletedFile(filename.split('/').pop())
+    setFile({})
+    setFileUrl('')
+    setFilename('')
+    setSelectedFile({})
+  }
+
   const handleSelectedFile = async (e: any) => {
     const { file: _file, fileName: name, fileUrl: _fileUrl } = await getSelectedFile(e)
     setFile(_file)
@@ -140,25 +148,6 @@ const Form: FC<Props> = ({
     setFileUrl(_fileUrl)
     setSelectedFile(_file)
     onUploadFile(_file, _fileUrl)
-  }
-
-  // 🧪 Test
-  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files
-
-    if (fileList) {
-      const files = await getSelectedFiles(fileList)
-      console.log('📦 handleSelectedFiles()', files)
-    }
-    // onUploadFiles(_file, _fileUrl)
-  }
-
-  const handleDeleteFile = async () => {
-    setDeletedFile(filename.split('/').pop())
-    setFile({})
-    setFileUrl('')
-    setFilename('')
-    setSelectedFile({})
   }
 
   const onUploadFile = async (currentFile: any, url: string) => {
@@ -172,10 +161,19 @@ const Form: FC<Props> = ({
     ])
   }
 
-  // 🧪 WIP
-  const onUploadFiles = async (file: any, url: any) => {
-    console.log('📦 onUploadFiles()', { file, url })
-    await uploadFiles(file, url)
+  // 🧪 Experimental
+  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files
+
+    if (fileList) {
+      const formattedFileList = await formatFileList(fileList)
+      await onUploadFiles(formattedFileList)
+    }
+  }
+
+  // 🧪 Experimental
+  const onUploadFiles = async (files: any) => {
+    await uploadFiles(files)
   }
 
   const handleSubmit = async (e: any) => {
@@ -191,7 +189,7 @@ const Form: FC<Props> = ({
 
       formData.append('photo', '')
 
-      if (finalFile.url) {
+      if (finalFile && finalFile.url) {
         formData.set('photo', finalFile.url)
       } else if (photo) {
         formData.set('photo', photo)
