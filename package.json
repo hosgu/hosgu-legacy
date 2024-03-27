@@ -63,7 +63,7 @@
     "@architecturex/utils.core": "^1.0.2",
     "@architecturex/utils.cx": "1.1.1",
     "@architecturex/utils.device": "1.0.3",
-    "@architecturex/utils.files": "^1.0.5",
+    "@architecturex/utils.files": "^1.0.8",
     "@architecturex/utils.is": "1.0.8",
     "@architecturex/utils.security": "^1.0.11",
     "@architecturex/utils.slug": "^1.0.4",
