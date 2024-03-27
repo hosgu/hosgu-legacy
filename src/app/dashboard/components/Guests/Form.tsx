@@ -46,6 +46,9 @@ const Form: FC<Props> = ({
     fileUtils.findFileByAction(fileStatus, 'upload')?.url ||
     fileUtils.findFileByAction(fileStatus, 'show')?.url
 
+  // 🧪 Test
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([])
+
   const initialValues = {
     id,
     businessId,
@@ -119,20 +122,6 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
-  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files
-    console.log('File list', fileList)
-
-    if (fileList) {
-      const formattedFileList = await fileUtils.formatFileList(fileList)
-      await onUploadFiles(formattedFileList)
-    }
-  }
-
-  const onUploadFiles = async (files: any) => {
-    await fileUtils.uploadFiles(files)
-  }
-
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -140,11 +129,7 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      let { fileStack } = await fileUtils.fileStatusActions(
-        [...fileStatus],
-        fileUtils.deleteFile,
-        'save'
-      )
+      let { fileStack } = await fileUtils.fileStatusActions([...fileStatus], fileUtils.deleteFile)
       const [finalFile] = fileStack
       setFileStatus([...fileStack])
 
@@ -180,6 +165,10 @@ const Form: FC<Props> = ({
       return { ...image, action }
     })
   }
+
+  useEffect(() => {
+    console.log('🪄 UploadFiles state', uploadedFiles)
+  }, [uploadedFiles])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -264,13 +253,11 @@ const Form: FC<Props> = ({
           <div>
             <File
               name="fileName"
+              setUploadedFiles={setUploadedFiles}
               selectedFile={selectedFile}
-              label="chooseFile"
-              onChange={handleSelectedFiles}
+              label="Choose a file"
               maxFileSize={52000000}
               allowedExtensions={['png', 'jpg', 'jpeg']}
-              onUpload={onUploadFiles}
-              multiple
             />
           </div>
         </div>

@@ -8,6 +8,7 @@ type Props = {
   hasError?: boolean
   id?: string
   name?: string
+  setUploadedFiles: React.Dispatch<string[]>
   noWrapper?: boolean
   onBlur?(e: any): any
   onChange?(e: any): any
@@ -24,17 +25,28 @@ type Props = {
 
 const File: FC<Props> = (props) => {
   const {
-    label = 'Choose a file',
+    label,
     name = 'file',
     selectedFile = {},
     maxFileSize = 12000000,
-    allowedExtensions = ['all'],
-    onUpload
+    allowedExtensions = ['all']
   } = props
+
   const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
   const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
   const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
+
+  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files
+    console.log('File list', fileList)
+
+    if (fileList) {
+      const formattedFileList = await files.formatFileList(fileList)
+      const response = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
+      console.log('⚡FormatterFileList response', response)
+    }
+  }
 
   return (
     <>
@@ -44,12 +56,12 @@ const File: FC<Props> = (props) => {
             className="h-10 overflow-hidden relative cursor-pointer mr-3"
             title={`Max File Size is ${maxSize.size}`}
           >
-            <Button className="button">Choose file</Button>
+            <Button className="button">{label}</Button>
             <input
               type="file"
               name={name}
               id="file"
-              {...props}
+              onChange={handleSelectedFiles}
               style={{
                 fontSize: '200px',
                 cursor: 'pointer',
@@ -58,6 +70,7 @@ const File: FC<Props> = (props) => {
                 right: 0,
                 top: 0
               }}
+              {...props}
             />
           </div>
         </div>
