@@ -9,13 +9,10 @@ import File from '~/components/File'
 // TODO: Clean states after closing modal, do not alter backend
 import {
   deleteFile,
-  uploadFile,
   uploadFiles,
-  getSelectedFile,
   formatFileList,
   findFileByAction,
-  fileStatusActions,
-  getFileNameFromUrl
+  fileStatusActions
 } from '~/app/shared/filesUtils'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
@@ -51,11 +48,7 @@ const Form: FC<Props> = ({
   fileStatus,
   setFileStatus
 }) => {
-  const [file, setFile] = useState<any>({})
-  const [fileUrl, setFileUrl] = useState('')
-  const [filename, setFilename] = useState(photo)
   const [selectedFile, setSelectedFile] = useState<any>({})
-  const [deletedFile, setDeletedFile] = useState<any>('')
   const [isUploaded, setIsUploaded] = useState(false)
   const displayedPhoto =
     findFileByAction(fileStatus, 'upload')?.url || findFileByAction(fileStatus, 'show')?.url
@@ -133,37 +126,9 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
-  const handleDeleteFile = async () => {
-    setDeletedFile(filename.split('/').pop())
-    setFile({})
-    setFileUrl('')
-    setFilename('')
-    setSelectedFile({})
-  }
-
-  const handleSelectedFile = async (e: any) => {
-    const { file: _file, fileName: name, fileUrl: _fileUrl } = await getSelectedFile(e)
-    setFile(_file)
-    setFilename(name)
-    setFileUrl(_fileUrl)
-    setSelectedFile(_file)
-    onUploadFile(_file, _fileUrl)
-  }
-
-  const onUploadFile = async (currentFile: any, url: string) => {
-    const fileName = getFileNameFromUrl(url)
-    const apiEndPoint = `/api/v1/uploader/${fileName}`
-    await uploadFile(currentFile, apiEndPoint)
-    setIsUploaded(true)
-    setFileStatus((prev: any) => [
-      ...markImagesToDelete(prev),
-      { url: `/files/images/${fileName}`, action: 'upload' }
-    ])
-  }
-
-  // 🧪 Experimental
   const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files
+    console.log('File list', fileList)
 
     if (fileList) {
       const formattedFileList = await formatFileList(fileList)
@@ -171,7 +136,6 @@ const Form: FC<Props> = ({
     }
   }
 
-  // 🧪 Experimental
   const onUploadFiles = async (files: any) => {
     await uploadFiles(files)
   }
@@ -309,6 +273,7 @@ const Form: FC<Props> = ({
               maxFileSize={52000000}
               allowedExtensions={['png', 'jpg', 'jpeg']}
               onUpload={onUploadFiles}
+              multiple
             />
           </div>
         </div>

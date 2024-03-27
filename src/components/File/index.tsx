@@ -20,6 +20,7 @@ type Props = {
   selectedFile?: any
   maxFileSize?: number
   allowedExtensions?: string[]
+  multiple?: boolean
 }
 
 const File: FC<Props> = (props) => {
@@ -50,7 +51,6 @@ const File: FC<Props> = (props) => {
               name={name}
               id="file"
               {...props}
-              multiple
               style={{
                 fontSize: '200px',
                 cursor: 'pointer',

@@ -1,7 +1,5 @@
 import security from '@architecturex/utils.security'
 import slug from '@architecturex/utils.slug'
-import api from '@architecturex/utils.api'
-import { APIResponse } from '~/types'
 
 export function getFileNameAndExtension(file: any): { fileName: string; extension: string } {
   if (!file) {
@@ -70,28 +68,6 @@ export function getImageData(file: any): Promise<any> {
   })
 }
 
-export async function uploadFile(file: File, url: string): Promise<boolean> {
-  if (!file) {
-    return false
-  }
-
-  const fileData: any = new FormData()
-  fileData.append('file', file)
-
-  const response = await fetch(url, {
-    method: 'POST',
-    body: fileData
-  })
-
-  const responseData = await response.json()
-
-  if (responseData.destination) {
-    return true
-  }
-
-  return false
-}
-
 export async function deleteFile(file: string): Promise<boolean> {
   if (!file) {
     return false
@@ -142,11 +118,7 @@ export function findFileByAction(fileStatus: any, action: 'show' | 'delete' | 'u
   return fileStatus.find((image: any) => image.action == action)
 }
 
-export async function fileStatusActions(
-  fileStack: any,
-  deleteCallback: any,
-  actionFrom: 'save' | 'close'
-) {
+export async function fileStatusActions(fileStack: any, deleteCallback: any) {
   let fileName
 
   while (fileStack.length > 1) {
@@ -156,11 +128,9 @@ export async function fileStatusActions(
       fileName = getFileNameFromUrl(currentFileStatus.url)
 
       if (currentFileStatus.action === 'delete' || currentFileStatus.action == 'pending') {
-        // Delete photo from server
         await deleteCallback(fileName)
       }
       if (currentFileStatus.action === 'upload') {
-        // Upload photo to server
         currentFileStatus.action = 'show'
         fileStack.unshift(currentFileStatus)
       }
@@ -186,14 +156,12 @@ export async function deleteFilesFromServer(array: any[], deleteCallback: any) {
   }
 }
 
-// 🧪 Test
 export async function uploadFiles(files: any) {
   if (!files) {
     return
   }
 
-  console.log('📄 Files', files)
-  const fileUploadEndPoint = '/api/v1/multiuploader'
+  const fileUploadEndPoint = '/api/v1/uploader'
   const formData = new FormData()
 
   files.forEach((file: any) => {
@@ -206,6 +174,7 @@ export async function uploadFiles(files: any) {
   })
 
   console.log('⚡ Files Response', multiUploadResponse)
+  //TODO: handle uploadResponse
 }
 
 export async function formatFileList(fileList: FileList) {
