@@ -1,11 +1,10 @@
 'use client'
 import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
+import files from '@architecturex/utils.files'
 
 import GuestForm from '~/app/dashboard/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
-import { deleteFilesFromServer } from '~/app/shared/filesUtils'
-import { deleteFile } from '~/app/shared/filesUtils'
 
 type Props = {
   data: any
@@ -50,7 +49,7 @@ const Results: FC<Props> = ({
   }
 
   const onCloseModal = async () => {
-    await deleteFilesFromServer(fileStatus, deleteFile)
+    await files.deleteFilesFromServer(fileStatus, files.deleteFile)
     setFileStatus([])
     setIsEditModalOpen(false)
   }

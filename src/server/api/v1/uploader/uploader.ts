@@ -1,6 +1,6 @@
 import path from 'path'
 import multer from 'multer'
-import { generateUniqueFileName, getFileNameAndExtension } from '../../../../app/shared/filesUtils'
+import files from '@architecturex/utils.files'
 
 const workingDir = process.cwd()
 const storageDir = '/public/files/images'
@@ -11,7 +11,7 @@ const multerStorage = multer.diskStorage({
     cb(null, destinationDir)
   },
   filename(_req, file, cb) {
-    const { fileName } = generateUniqueFileName(file.originalname)
+    const { fileName } = files.generateUniqueFileName(file.originalname)
     cb(null, fileName)
   }
 })
@@ -22,7 +22,7 @@ const multerOptions = {
     files: 15
   },
   fileFilter(_req: any, file: Express.Multer.File, cb: any) {
-    const { extension } = getFileNameAndExtension(file.originalname)
+    const { extension } = files.getFileNameAndExtension(file.originalname)
     const isValidExtension = ['png', 'jpg', 'jpeg'].includes(extension)
     cb(null, isValidExtension)
   }

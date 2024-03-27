@@ -3,17 +3,9 @@ import { FC, useEffect, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
+import { default as fileUtils } from '@architecturex/utils.files'
 
 import File from '~/components/File'
-// TODO: Move this to @architecturex/utils.files
-// TODO: Clean states after closing modal, do not alter backend
-import {
-  deleteFile,
-  uploadFiles,
-  formatFileList,
-  findFileByAction,
-  fileStatusActions
-} from '~/app/shared/filesUtils'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
@@ -51,7 +43,8 @@ const Form: FC<Props> = ({
   const [selectedFile, setSelectedFile] = useState<any>({})
   const [isUploaded, setIsUploaded] = useState(false)
   const displayedPhoto =
-    findFileByAction(fileStatus, 'upload')?.url || findFileByAction(fileStatus, 'show')?.url
+    fileUtils.findFileByAction(fileStatus, 'upload')?.url ||
+    fileUtils.findFileByAction(fileStatus, 'show')?.url
 
   const initialValues = {
     id,
@@ -131,13 +124,13 @@ const Form: FC<Props> = ({
     console.log('File list', fileList)
 
     if (fileList) {
-      const formattedFileList = await formatFileList(fileList)
+      const formattedFileList = await fileUtils.formatFileList(fileList)
       await onUploadFiles(formattedFileList)
     }
   }
 
   const onUploadFiles = async (files: any) => {
-    await uploadFiles(files)
+    await fileUtils.uploadFiles(files)
   }
 
   const handleSubmit = async (e: any) => {
@@ -147,7 +140,11 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      let { fileStack } = await fileStatusActions([...fileStatus], deleteFile, 'save')
+      let { fileStack } = await fileUtils.fileStatusActions(
+        [...fileStatus],
+        fileUtils.deleteFile,
+        'save'
+      )
       const [finalFile] = fileStack
       setFileStatus([...fileStack])
 

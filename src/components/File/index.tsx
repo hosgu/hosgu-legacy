@@ -1,7 +1,6 @@
 import React, { FC, Fragment } from 'react'
 import Button from '../Button'
-import Input from '../Input'
-import { bytesToSize, getFileNameAndExtension } from '~/app/shared/filesUtils'
+import files from '@architecturex/utils.files'
 
 type Props = {
   className?: string
@@ -32,9 +31,9 @@ const File: FC<Props> = (props) => {
     allowedExtensions = ['all'],
     onUpload
   } = props
-  const file = bytesToSize(selectedFile.size, maxFileSize)
-  const maxSize = bytesToSize(maxFileSize, maxFileSize, true)
-  const { fileName, extension } = getFileNameAndExtension(selectedFile.name)
+  const file = files.bytesToSize(selectedFile.size, maxFileSize)
+  const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
+  const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
   const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
 
   return (
