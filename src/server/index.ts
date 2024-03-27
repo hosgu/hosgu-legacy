@@ -96,7 +96,16 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
   app.use('/api/v1/uploader', multiUploaderApiV1)
+  app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
+    const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : '/'}${req.params.fileName}`
+    fs.unlink(file, (err: any) => {
+      if (err) {
+        return res.status(500).send(false)
+      }
 
+      return res.status(200).send(true)
+    })
+  })
   // Logout
   app.get('/logout', (req: Request, res: Response) => {
     const redirect: any = req.query.redirectTo || '/'
