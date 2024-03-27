@@ -240,6 +240,10 @@ const Form: FC<Props> = ({
     return imagesArray.map((image: any) => ({ ...image, action: 'delete' }))
   }
 
+  useEffect(() => {
+    console.log('🪄 UploadFiles state', uploadedFiles)
+  }, [uploadedFiles])
+
   return (
     <form onSubmit={handleSubmitTest}>
       <RenderIf isTrue={showNotification}>
