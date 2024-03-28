@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.post('/', multiUpload, (req, res) => {
   if (!req.files || req.files.length == 0) {
-    return res.status(400).send('No files were uploaded.')
+    return res.status(400).json({ ok: false, error: 'No files' })
   }
-  return res.status(200).send(req.files)
+  return res.status(200).json({ ok: true, data: req.files })
 })
 
 export default router
