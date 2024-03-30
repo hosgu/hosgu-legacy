@@ -1,6 +1,7 @@
-import React, { FC, Fragment } from 'react'
-import Button from '../Button'
+import React, { FC, Fragment, useEffect, useRef } from 'react'
 import files from '@architecturex/utils.files'
+import Image from 'next/image'
+import imageIcon from '../../../public/images/icons/image.svg'
 
 type Props = {
   className?: string
@@ -29,8 +30,12 @@ const File: FC<Props> = (props) => {
     name = 'file',
     selectedFile = {},
     maxFileSize = 12000000,
-    allowedExtensions = ['all']
+    allowedExtensions = ['all'],
+    setUploadedFiles
   } = props
+
+  const dropTarget = useRef<HTMLDivElement>(null)
+  let dragTargetStyleControl = 0
 
   const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
@@ -39,44 +44,89 @@ const File: FC<Props> = (props) => {
 
   const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files
-    console.log('File list', fileList)
 
     if (fileList) {
       const formattedFileList = await files.formatFileList(fileList)
-      const response = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
-      console.log('⚡FormatterFileList response', response)
+      const uploadFilesResponse = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
+      console.log('formattedFileList response', uploadFilesResponse)
+      if (uploadFilesResponse.ok) {
+        setUploadedFiles(uploadFilesResponse.data)
+      }
+    }
+  }
+
+  const handleDropTargetStyle = (dropTarget: HTMLDivElement, isActive: boolean) => {
+    if (isActive) {
+      dropTarget.classList.add('bg-gray-100')
+    } else {
+      dropTarget.classList.remove('bg-gray-100')
+    }
+  }
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    dragTargetStyleControl++
+
+    if (e.target == dropTarget.current) {
+      handleDropTargetStyle(dropTarget.current, true)
+    }
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+  }
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    dragTargetStyleControl--
+
+    if (e.target == dropTarget.current && dragTargetStyleControl == 0) {
+      handleDropTargetStyle(dropTarget.current, false)
+    }
+  }
+
+  const handleDragDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    dragTargetStyleControl = 0
+
+    if (dropTarget.current) {
+      handleDropTargetStyle(dropTarget.current, false)
     }
   }
 
   return (
     <>
-      <div className="File flex flex-start mt-1 mb-5">
-        <div>
-          <div
-            className="h-10 overflow-hidden relative cursor-pointer mr-3"
-            title={`Max File Size is ${maxSize.size}`}
-          >
-            <Button className="button">{label}</Button>
-            <input
-              type="file"
-              name={name}
-              id="file"
-              onChange={handleSelectedFiles}
-              style={{
-                fontSize: '200px',
-                cursor: 'pointer',
-                opacity: 0,
-                position: 'absolute',
-                right: 0,
-                top: 0
-              }}
-              {...props}
-            />
-          </div>
+      <div
+        id="droptarget"
+        ref={dropTarget}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDragDrop}
+        className="p-8 border border-dashed border-gray-400 rounded select-none"
+      >
+        <div className="mb-8">
+          <Image src={imageIcon} alt="Image icon" width={40} className="mx-auto mb-4" />
+          <p className="font-medium text-center">Drag your photo here</p>
+        </div>
+        <div className="relative text-center">
+          <label htmlFor="file" className="underline text-xs cursor-pointer">
+            Upload from your device
+          </label>
+          <input
+            type="file"
+            name={name}
+            id="file"
+            onChange={handleSelectedFiles}
+            accept={allowedExtensions
+              .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
+              .join(',')}
+            className="opacity-0 absolute top-0 left-0 w-0 h-0"
+            {...props}
+          />
         </div>
       </div>
 
-      <div className="-mt-10">
+      {/* <div className="-mt-10">
         <br />
         {selectedFile.name && (
           <div className="text-gray-500 text-xs mt-2">
@@ -103,7 +153,7 @@ const File: FC<Props> = (props) => {
             </Fragment>
           ))}
         </span>
-      </div>
+      </div> */}
     </>
   )
 }

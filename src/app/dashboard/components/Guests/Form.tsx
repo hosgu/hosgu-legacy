@@ -251,13 +251,19 @@ const Form: FC<Props> = ({
             </RenderIf>
           </RenderIf>
           <div>
+            {/* TODO:
+                - Handle Allowed extensions
+                - Handle max file size
+                -
+            */}
             <File
               name="fileName"
-              setUploadedFiles={setUploadedFiles}
-              selectedFile={selectedFile}
-              label="Choose a file"
+              label="Choose an image"
               maxFileSize={52000000}
               allowedExtensions={['png', 'jpg', 'jpeg']}
+              setUploadedFiles={setUploadedFiles}
+              selectedFile={selectedFile}
+              multiple
             />
           </div>
         </div>
