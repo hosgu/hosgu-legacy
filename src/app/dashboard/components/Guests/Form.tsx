@@ -325,6 +325,11 @@ const Form: FC<Props> = ({
             </RenderIf>
           </RenderIf>
           <div>
+            {/* TODO:
+                - Handle Allowed extensions
+                - Handle max file size
+                -
+            */}
             <File
               name="fileName"
               label="Drag your photo here"
