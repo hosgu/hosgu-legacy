@@ -1,7 +1,8 @@
-import React, { FC, Fragment, useEffect, useRef } from 'react'
+import React, { FC, Fragment, useEffect, useRef, useState } from 'react'
 import files from '@architecturex/utils.files'
 import Image from 'next/image'
-import imageIcon from '../../../public/images/icons/image.svg'
+
+import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 
 type Props = {
   className?: string
@@ -31,10 +32,12 @@ const File: FC<Props> = (props) => {
     selectedFile = {},
     maxFileSize = 12000000,
     allowedExtensions = ['all'],
+    multiple,
     setUploadedFiles
   } = props
 
   const dropTarget = useRef<HTMLDivElement>(null)
+  const dropIcon = useRef<HTMLImageElement>(null)
   let dragTargetStyleControl = 0
 
   const file = files.bytesToSize(selectedFile.size, maxFileSize)
@@ -42,54 +45,67 @@ const File: FC<Props> = (props) => {
   const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
   const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
 
-  const handleSelectedFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files
+  const handleSelectedFiles = async (fileList: FileList) => {
+    const formattedFileList = await files.formatFileList(fileList)
+    const uploadFilesResponse = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
+    console.log('Upload files response', uploadFilesResponse)
 
-    if (fileList) {
-      const formattedFileList = await files.formatFileList(fileList)
-      const uploadFilesResponse = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
-      console.log('formattedFileList response', uploadFilesResponse)
-      if (uploadFilesResponse.ok) {
-        setUploadedFiles(uploadFilesResponse.data)
-      }
+    if (uploadFilesResponse.ok) {
+      setUploadedFiles(uploadFilesResponse.data)
     }
   }
 
-  const handleDropTargetStyle = (dropTarget: HTMLDivElement, isActive: boolean) => {
-    if (isActive) {
-      dropTarget.classList.add('bg-gray-100')
+  const handleDropTargetStyle = (isAllowed: boolean) => {
+    if (!dropTarget.current || !dropIcon.current) {
+      return
+    }
+
+    const styles = {
+      dropTarget: ['bg-blue-100', 'border-blue-300'],
+      dropIcon: ['scale-110']
+    }
+
+    if (isAllowed) {
+      dropTarget.current.classList.add(...styles.dropTarget)
+      dropIcon.current.classList.add(...styles.dropIcon)
     } else {
-      dropTarget.classList.remove('bg-gray-100')
+      dropTarget.current.classList.remove(...styles.dropTarget)
+      dropIcon.current.classList.remove(...styles.dropIcon)
     }
   }
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     dragTargetStyleControl++
-
-    if (e.target == dropTarget.current) {
-      handleDropTargetStyle(dropTarget.current, true)
-    }
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-  }
+    const isFiles = e.dataTransfer.types.includes('Files')
 
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    dragTargetStyleControl--
-
-    if (e.target == dropTarget.current && dragTargetStyleControl == 0) {
-      handleDropTargetStyle(dropTarget.current, false)
+    if (isFiles && (multiple || e.dataTransfer.items.length == 1)) {
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'copy'
+      handleDropTargetStyle(true)
+    } else {
+      e.dataTransfer.dropEffect = 'none'
     }
   }
 
-  const handleDragDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    dragTargetStyleControl--
+
+    if (dropTarget.current && dragTargetStyleControl == 0) {
+      handleDropTargetStyle(false)
+    }
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
     dragTargetStyleControl = 0
 
     if (dropTarget.current) {
-      handleDropTargetStyle(dropTarget.current, false)
+      handleSelectedFiles(e.dataTransfer.files)
+      handleDropTargetStyle(false)
     }
   }
 
@@ -101,25 +117,38 @@ const File: FC<Props> = (props) => {
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        onDrop={handleDragDrop}
-        className="p-8 border border-dashed border-gray-400 rounded select-none"
+        onDrop={handleDrop}
+        className="p-8 border-2 border-dashed border-gray-300 rounded select-none transition-all"
       >
-        <div className="mb-8">
-          <Image src={imageIcon} alt="Image icon" width={40} className="mx-auto mb-4" />
-          <p className="font-medium text-center">Drag your photo here</p>
+        <div className="mb-6 text-center">
+          <Image
+            ref={dropIcon}
+            src={cloudUploadIcon}
+            alt="Image icon"
+            width={48}
+            className="mx-auto mb-1"
+          />
+          <p className="mb-2 font-medium">{label ? label : 'Drag your files here'}</p>
+          <p className="mb-1 text-xs">
+            {allowedExtensions.map((extension) => extension.toUpperCase()).join(', ')}{' '}
+            <span className="text-xs text-gray-500">( {maxSize.size} Max )</span>
+          </p>
         </div>
         <div className="relative text-center">
-          <label htmlFor="file" className="underline text-xs cursor-pointer">
+          <label
+            htmlFor="file"
+            className="underline text-xs font-medium cursor-pointer hover:text-gray-500"
+          >
             Upload from your device
           </label>
           <input
             type="file"
             name={name}
             id="file"
-            onChange={handleSelectedFiles}
+            onChange={(e) => (e.target.files ? handleSelectedFiles(e.target.files) : null)}
             accept={allowedExtensions
               .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
-              .join(',')}
+              .join(', ')}
             className="opacity-0 absolute top-0 left-0 w-0 h-0"
             {...props}
           />

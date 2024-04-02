@@ -258,12 +258,11 @@ const Form: FC<Props> = ({
             */}
             <File
               name="fileName"
-              label="Choose an image"
+              label="Drag your photo here"
               maxFileSize={52000000}
               allowedExtensions={['png', 'jpg', 'jpeg']}
               setUploadedFiles={setUploadedFiles}
               selectedFile={selectedFile}
-              multiple
             />
           </div>
         </div>
