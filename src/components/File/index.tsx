@@ -4,6 +4,15 @@ import Image from 'next/image'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 
+const config = {
+  files: {
+    extensions: {
+      images: ['jpeg', 'jpg', 'png'],
+      docs: ['pdf']
+    }
+  }
+}
+
 type Props = {
   className?: string
   disabled?: boolean
@@ -22,6 +31,7 @@ type Props = {
   selectedFile?: any
   maxFileSize?: number
   allowedExtensions?: string[]
+  allowedSetType: 'image' | 'document' | 'all'
   multiple?: boolean
 }
 
@@ -31,6 +41,7 @@ const File: FC<Props> = (props) => {
     name = 'file',
     selectedFile = {},
     maxFileSize = 12000000,
+    allowedSetType = 'all',
     allowedExtensions = ['all'],
     multiple,
     setUploadedFiles
@@ -40,6 +51,12 @@ const File: FC<Props> = (props) => {
   const dropIcon = useRef<HTMLImageElement>(null)
   let dragTargetStyleControl = 0
 
+  const allowedFileTypes = {
+    image: config.files.extensions.images,
+    document: config.files.extensions.docs,
+    all: [...config.files.extensions.images, ...config.files.extensions.docs]
+  }
+
   const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
   const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
@@ -47,7 +64,10 @@ const File: FC<Props> = (props) => {
 
   const handleSelectedFiles = async (fileList: FileList) => {
     const formattedFileList = await files.formatFileList(fileList)
-    const uploadFilesResponse = await files.uploadFiles(formattedFileList, '/api/v1/uploader')
+    const uploadFilesResponse = await files.uploadFiles(
+      formattedFileList,
+      `/api/v1/uploader?setType=${allowedSetType}`
+    )
     console.log('Upload files response', uploadFilesResponse)
 
     if (uploadFilesResponse.ok) {
@@ -83,9 +103,21 @@ const File: FC<Props> = (props) => {
     const isFiles = e.dataTransfer.types.includes('Files')
 
     if (isFiles && (multiple || e.dataTransfer.items.length == 1)) {
-      e.preventDefault()
-      e.dataTransfer.dropEffect = 'copy'
-      handleDropTargetStyle(true)
+      const fileExtensions = Array.from(e.dataTransfer.items).map((file) =>
+        file.type.split('/').pop()
+      )
+
+      const isValidExtensions = fileExtensions.every((extension: any) => {
+        return allowedFileTypes[allowedSetType].includes(extension)
+      })
+
+      if (isValidExtensions) {
+        e.preventDefault()
+        e.dataTransfer.dropEffect = 'copy'
+        handleDropTargetStyle(true)
+      } else {
+        e.dataTransfer.dropEffect = 'none'
+      }
     } else {
       e.dataTransfer.dropEffect = 'none'
     }

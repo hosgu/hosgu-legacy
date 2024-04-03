@@ -6,6 +6,7 @@ import { RenderIf } from '@architecturex/components.renderif'
 import { default as fileUtils } from '@architecturex/utils.files'
 
 import File from '~/components/File'
+import FilesPreviewer from '~/components/FilesPreviewer'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
@@ -166,10 +167,6 @@ const Form: FC<Props> = ({
     })
   }
 
-  useEffect(() => {
-    console.log('🪄 UploadFiles state', uploadedFiles)
-  }, [uploadedFiles])
-
   return (
     <form onSubmit={handleSubmit}>
       <RenderIf isTrue={showNotification}>
@@ -254,16 +251,22 @@ const Form: FC<Props> = ({
             {/* TODO:
                 - Handle Allowed extensions
                 - Handle max file size
-                -
+                - Handle file preview
+                - Handle file list
+                - Document directory
+                - Limit maximum drag files
             */}
             <File
               name="fileName"
               label="Drag your photo here"
               maxFileSize={52000000}
-              allowedExtensions={['png', 'jpg', 'jpeg']}
+              allowedSetType="image"
+              allowedExtensions={['jpg', 'jpeg', 'png']}
               setUploadedFiles={setUploadedFiles}
               selectedFile={selectedFile}
+              multiple
             />
+            <FilesPreviewer files={uploadedFiles} />
           </div>
         </div>
       </div>
