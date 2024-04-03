@@ -240,10 +240,6 @@ const Form: FC<Props> = ({
     return imagesArray.map((image: any) => ({ ...image, action: 'delete' }))
   }
 
-  useEffect(() => {
-    console.log('🪄 UploadFiles state', uploadedFiles)
-  }, [uploadedFiles])
-
   return (
     <form onSubmit={handleSubmitTest}>
       <RenderIf isTrue={showNotification}>
@@ -328,7 +324,10 @@ const Form: FC<Props> = ({
             {/* TODO:
                 - Handle Allowed extensions
                 - Handle max file size
-                -
+                - Handle file preview
+                - Handle file list
+                - Document directory
+                - Limit maximum drag files
             */}
             <File
               name="fileName"

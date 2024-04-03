@@ -16,7 +16,6 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
   }
   const imageFiles = files.filter((file: any) => file.file.type.split('/').shift() == 'image')
   const gridImages = imageFiles.map((file: any) => {
-
     return (
       <div key={file.file.name} className="h-full w-full relative">
         <div
