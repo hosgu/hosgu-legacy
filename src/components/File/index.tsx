@@ -141,6 +141,10 @@ const File: FC<Props> = ({
     return null
   }
 
+  if (!displayDragArea) {
+    return null
+  }
+
   return (
     <div
       ref={dropTargetRef}

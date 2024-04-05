@@ -322,7 +322,7 @@ const Form: FC<Props> = ({
           </RenderIf>
           <div>
             {/* TODO:
-                - Handle Allowed extensions
+                - Handle Allowed extensions ✔️
                 - Handle max file size
                 - Handle file preview
                 - Handle file list
