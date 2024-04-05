@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import cx from '@architecturex/utils.cx'
-import filesUtils from '@architecturex/utils.files'
 
 type Props = { files: string[]; setFiles: React.Dispatch<React.SetStateAction<string[]>> }
 
