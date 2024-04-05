@@ -4,6 +4,7 @@ import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
 import { default as fileUtils } from '@architecturex/utils.files'
+import files from '@architecturex/utils.files'
 
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
@@ -48,7 +49,7 @@ const Form: FC<Props> = ({
     fileUtils.findFileByAction(fileStatus, 'show')?.url
 
   // 🧪 Test
-  const [uploadedFiles, setUploadedFiles] = useState<any[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<any>([])
   useEffect(() => {
     console.log('🪄 Uploaded files', uploadedFiles)
   }, [uploadedFiles])
@@ -163,26 +164,26 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      // CASO 1: Crear un usuario
-      // 1.1 Guarda
-      // 1.2 No guarda
-      // Remover images del servidor
-      // CASO 2: Ya hay un usuario
-      // - No tiene imagen
-      // - Tiene imagen
-      // Aparecer en el drag and drop
-      //
+      const fileList = uploadedFiles.map((file: any) => file)
+      console.log('fileList 👉🏼', fileList)
 
-      if (uploadedFiles.length == 1) {
+      const uploadFilesResponse = await files.uploadFiles(
+        fileList,
+        '/api/v1/uploader?setType=image'
+      )
+      console.log('Upload files response', uploadFilesResponse)
+
+      if (uploadedFiles.length == 1 && uploadFilesResponse.ok) {
+        const fileName = uploadFilesResponse.data[0].filename
         console.log('👉🏼Uploaded files', uploadedFiles)
-        const url = `/files/images/${uploadedFiles[0].filename}`
-        // formData.append('photo', uploadedFiles[0].)
+        const url = `/files/images/${fileName}`
+        formData.append('photo', url)
       }
 
       if ('') {
-        formData.set('photo', finalFile.url)
+        // formData.set('photo', finalFile.url)
       } else if (photo) {
-        formData.set('photo', photo)
+        // formData.set('photo', photo)
       }
 
       const response =

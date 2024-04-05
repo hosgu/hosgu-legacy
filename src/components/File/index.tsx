@@ -20,7 +20,7 @@ type Props = {
   hasError?: boolean
   id?: string
   name?: string
-  setUploadedFiles: React.Dispatch<string[]>
+  setUploadedFiles: React.Dispatch<any>
   noWrapper?: boolean
   onBlur?(e: any): any
   onChange?(e: any): any
@@ -58,8 +58,6 @@ const File: FC<Props> = ({
     all: [...config.files.extensions.images, ...config.files.extensions.docs]
   }
 
-  const [imageSrcs, setImageSrcs] = useState<string[]>([])
-
   // const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
   // const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
@@ -84,7 +82,7 @@ const File: FC<Props> = ({
     const handleFileReaderLoad = (e: ProgressEvent<FileReader>) => {
       const base64 = fileReader.result
       if (is(base64).string()) {
-        setImageSrcs((prev: any) => [...prev, base64])
+        setUploadedFiles((prev: any) => [...prev, { file, base64 }])
       }
       fileReader.removeEventListener('load', handleFileReaderLoad)
     }
@@ -95,12 +93,8 @@ const File: FC<Props> = ({
 
   const handleSelectedFilesTest = async (fileList: FileList) => {
     const formattedFileList = await files.formatFileList(fileList)
-    formattedFileList.forEach(({ file }) => readFile(file))
+    formattedFileList.map(({ file }) => readFile(file))
   }
-
-  useEffect(() => {
-    console.log('⚛️ imageSrcs', imageSrcs)
-  }, [imageSrcs])
 
   const handleDropTargetStyle = (isAllowed: boolean) => {
     if (!dropTarget.current || !dropIcon.current) {
