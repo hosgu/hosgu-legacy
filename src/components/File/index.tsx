@@ -1,6 +1,7 @@
 import React, { FC, Fragment, useEffect, useRef, useState } from 'react'
 import files from '@architecturex/utils.files'
 import Image from 'next/image'
+import is from '@architecturex/utils.is'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 
@@ -33,19 +34,20 @@ type Props = {
   allowedExtensions?: string[]
   allowedSetType: 'image' | 'document' | 'all'
   multiple?: boolean
+  displayDragArea?: boolean
 }
 
-const File: FC<Props> = (props) => {
-  const {
-    label,
-    name = 'file',
-    selectedFile = {},
-    maxFileSize = 12000000,
-    allowedSetType = 'all',
-    allowedExtensions = ['all'],
-    multiple,
-    setUploadedFiles
-  } = props
+const File: FC<Props> = ({
+  label,
+  name = 'file',
+  selectedFile = {},
+  maxFileSize = 12000000,
+  allowedSetType = 'all',
+  allowedExtensions = ['all'],
+  multiple,
+  setUploadedFiles,
+  displayDragArea = true
+}) => {
 
   const dropTarget = useRef<HTMLDivElement>(null)
   const dropIcon = useRef<HTMLImageElement>(null)
@@ -57,10 +59,12 @@ const File: FC<Props> = (props) => {
     all: [...config.files.extensions.images, ...config.files.extensions.docs]
   }
 
-  const file = files.bytesToSize(selectedFile.size, maxFileSize)
+  const [imageSrcs, setImageSrcs] = useState<string[]>([])
+
+  // const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
-  const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
-  const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
+  // const { fileName, extension } = files.getFileNameAndExtension(selectedFile.name)
+  // const isAllowedExt = allowedExtensions.includes(extension) || allowedExtensions.includes('all')
 
   const handleSelectedFiles = async (fileList: FileList) => {
     const formattedFileList = await files.formatFileList(fileList)
@@ -74,6 +78,30 @@ const File: FC<Props> = (props) => {
       setUploadedFiles(uploadFilesResponse.data)
     }
   }
+
+  const readFile = (file: File) => {
+    const fileReader = new FileReader()
+
+    const handleFileReaderLoad = (e: ProgressEvent<FileReader>) => {
+      const base64 = fileReader.result
+      if (is(base64).string()) {
+        setImageSrcs((prev: any) => [...prev, base64])
+      }
+      fileReader.removeEventListener('load', handleFileReaderLoad)
+    }
+
+    fileReader.addEventListener('load', handleFileReaderLoad)
+    fileReader.readAsDataURL(file)
+  }
+
+  const handleSelectedFilesTest = async (fileList: FileList) => {
+    const formattedFileList = await files.formatFileList(fileList)
+    formattedFileList.forEach(({ file }) => readFile(file))
+  }
+
+  useEffect(() => {
+    console.log('⚛️ imageSrcs', imageSrcs)
+  }, [imageSrcs])
 
   const handleDropTargetStyle = (isAllowed: boolean) => {
     if (!dropTarget.current || !dropIcon.current) {
@@ -136,9 +164,14 @@ const File: FC<Props> = (props) => {
     dragTargetStyleControl = 0
 
     if (dropTarget.current) {
-      handleSelectedFiles(e.dataTransfer.files)
+      // handleSelectedFiles(e.dataTransfer.files)
+      handleSelectedFilesTest(e.dataTransfer.files)
       handleDropTargetStyle(false)
     }
+  }
+
+  if (!displayDragArea) {
+    return null
   }
 
   return (
@@ -177,7 +210,7 @@ const File: FC<Props> = (props) => {
             type="file"
             name={name}
             id="file"
-            onChange={(e) => (e.target.files ? handleSelectedFiles(e.target.files) : null)}
+            onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
             accept={allowedExtensions
               .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
               .join(', ')}

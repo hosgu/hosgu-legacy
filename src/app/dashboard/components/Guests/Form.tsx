@@ -48,7 +48,10 @@ const Form: FC<Props> = ({
     fileUtils.findFileByAction(fileStatus, 'show')?.url
 
   // 🧪 Test
-  const [uploadedFiles, setUploadedFiles] = useState<string[]>([])
+  const [uploadedFiles, setUploadedFiles] = useState<any[]>([])
+  useEffect(() => {
+    console.log('🪄 Uploaded files', uploadedFiles)
+  }, [uploadedFiles])
 
   const initialValues = {
     id,
@@ -153,6 +156,46 @@ const Form: FC<Props> = ({
     }
   }
 
+  const handleSubmitTest = async (e: any) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const values = core.formData.get(formData)
+    const isValidForm = validate(values)
+
+    if (isValidForm) {
+      // CASO 1: Crear un usuario
+      // 1.1 Guarda
+      // 1.2 No guarda
+      // Remover images del servidor
+      // CASO 2: Ya hay un usuario
+      // - No tiene imagen
+      // - Tiene imagen
+      // Aparecer en el drag and drop
+      //
+
+      if (uploadedFiles.length == 1) {
+        console.log('👉🏼Uploaded files', uploadedFiles)
+        const url = `/files/images/${uploadedFiles[0].filename}`
+        // formData.append('photo', uploadedFiles[0].)
+      }
+
+      if ('') {
+        formData.set('photo', finalFile.url)
+      } else if (photo) {
+        formData.set('photo', photo)
+      }
+
+      const response =
+        action === 'save'
+          ? await GuestActions.create(formData)
+          : await GuestActions.update(formData)
+
+      if (response.status === 200) {
+        setShowNotification(true)
+      }
+    }
+  }
+
   const handleRemoveImage = () => {
     setFileStatus((prev: any) => markImagesToDelete(prev))
   }
@@ -168,7 +211,7 @@ const Form: FC<Props> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmitTest}>
       <RenderIf isTrue={showNotification}>
         <Notification
           message={action == 'save' ? 'Guest saved successfully' : 'Guest edited successfully'}
@@ -249,7 +292,7 @@ const Form: FC<Props> = ({
           </RenderIf>
           <div>
             {/* TODO:
-                - Handle Allowed extensions
+                - Handle Allowed extensions ✔️
                 - Handle max file size
                 - Handle file preview
                 - Handle file list
@@ -264,9 +307,10 @@ const Form: FC<Props> = ({
               allowedExtensions={['jpg', 'jpeg', 'png']}
               setUploadedFiles={setUploadedFiles}
               selectedFile={selectedFile}
+              displayDragArea={uploadedFiles.length === 0}
               multiple
             />
-            <FilesPreviewer files={uploadedFiles} />
+            <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
           </div>
         </div>
       </div>

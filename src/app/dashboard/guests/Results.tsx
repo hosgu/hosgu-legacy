@@ -43,7 +43,7 @@ const Results: FC<Props> = ({
   }
 
   const handleEdit = (item: any) => {
-    setIsEditModalOpen(true)
+    // setIsEditModalOpen(true)
     setItemToEdit(item)
     setFileStatus(item.photo ? [{ url: item.photo, action: 'show' }] : [])
   }
