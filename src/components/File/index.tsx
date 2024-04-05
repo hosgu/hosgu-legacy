@@ -48,7 +48,6 @@ const File: FC<Props> = ({
   setUploadedFiles,
   displayDragArea = true
 }) => {
-
   const dropTarget = useRef<HTMLDivElement>(null)
   const dropIcon = useRef<HTMLImageElement>(null)
   let dragTargetStyleControl = 0
@@ -215,7 +214,7 @@ const File: FC<Props> = ({
               .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
               .join(', ')}
             className="opacity-0 absolute top-0 left-0 w-0 h-0"
-            {...props}
+            multiple={multiple}
           />
         </div>
       </div>
