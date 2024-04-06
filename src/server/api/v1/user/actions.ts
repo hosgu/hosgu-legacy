@@ -26,7 +26,10 @@ export const createToken = async (user: any): Promise<string[] | string> => {
     role,
     theme,
     language,
-    businessId
+    businessId,
+    businessLogo,
+    businessName,
+    businessSlug
   } = user
 
   const token = security.base64.encode(`${security.password.encrypt(secretKey)}${password}`, true)
@@ -41,7 +44,10 @@ export const createToken = async (user: any): Promise<string[] | string> => {
     token,
     theme,
     language,
-    businessId
+    businessId,
+    businessLogo,
+    businessName,
+    businessSlug
   }
 
   const createTk = jwt.sign({ data: security.base64.encode(userData, true) }, secretKey, {
@@ -96,7 +102,9 @@ export const getUserBy = async (where: any, roles: string[], fields: string): Pr
     const user = {
       ...response[0],
       businessId: businessResponse[0].id,
-      businessLogo: businessResponse[0].logo || ''
+      businessLogo: businessResponse[0].logo || '',
+      businessName: businessResponse[0].name || '',
+      businessSlug: businessResponse[0].slug || ''
     }
 
     return user
@@ -119,7 +127,7 @@ export const authenticate = async (emailOrUsername: string, password: string): P
     Config.user.roles,
     'id,tier,username,password,email,role,fullName,birthday,avatar,website,phone,active'
   )
-  console.log('user', user)
+
   if (!user) {
     throw {
       type: 'FORBIDDEN_ERROR',
