@@ -17,139 +17,178 @@ const InlineCalendar: FC = () => {
         <SVG.Arrow direction="right" />
       </header>
 
-      <ul className="flex w-full list-none mt-0 pt-0 justify-between text-center text-xs bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 overflow-x-auto">
-        <li className="border-r border-gray-400 h-14 w-full leading-[56px] pr-20">Expand</li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          MON <br />
-          17 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          TODAY <br />
-          18 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          WED <br />
-          19 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          THU <br />
-          20 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          FRI <br />
-          21 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1 bg-blue-200">
-          SAT <br />
-          22 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1 bg-blue-200">
-          SUN <br />
-          23 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          MON <br />
-          24 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          TUE <br />
-          25 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          WED <br />
-          26 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          THU <br />
-          27 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1">
-          FRI <br />
-          28 <br />
-          JUL
-        </li>
-        <li className="border-r border-gray-400 h-14 w-full pt-1 bg-blue-200">
-          SAT <br />
-          29 <br />
-          JUL
-        </li>
-        <li className="border-gray-400 h-14 w-full pt-1 bg-blue-200">
-          SUN <br />
-          30 <br />
-          JUL
-        </li>
-      </ul>
+      <table className="border border-gray-400 w-full text-xs">
+        <thead className="bg-white border-b border-gray-400 text-[10px] font-normal">
+          <tr>
+            <th className="border-r border-gray-400 text-xs">Properties</th>
+            <th className="border-r border-gray-400">
+              MON
+              <br />
+              17
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400 bg-yellow-100">
+              TUE
+              <br />
+              18
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              WED
+              <br />
+              19
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              THU
+              <br />
+              20
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              FRI
+              <br />
+              21
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400 bg-blue-200">
+              SAT
+              <br />
+              22
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400 bg-blue-200">
+              SUN
+              <br />
+              23
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              MON
+              <br />
+              24
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              TUE
+              <br />
+              25
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              WED
+              <br />
+              26
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              THU
+              <br />
+              27
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400">
+              FRI
+              <br />
+              28
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400 bg-blue-200">
+              SAT
+              <br />
+              29
+              <br />
+              JUL
+            </th>
+            <th className="border-r border-gray-400 bg-blue-200">
+              SUN
+              <br />
+              30
+              <br />
+              JUL
+            </th>
+          </tr>
+        </thead>
 
-      <ul className="flex w-full list-none mt-0 pt-0 justify-between text-center text-xs bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 overflow-x-auto">
-        <li className="border-l border-r border-gray-400 h-10 w-full pt-1 pr-20">
-          Cabaña de Piedra
-        </li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-      </ul>
-
-      <ul className="flex border-t w-full list-none mt-0 pt-0 justify-between text-center text-xs bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 overflow-x-auto bg-gray-200">
-        <li className="border-l border-r border-gray-400 h-10 w-full pt-1 pr-20">
-          Cabaña Victoria
-        </li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-      </ul>
-
-      <ul className="flex border-t border-b w-full list-none mt-0 pt-0 justify-between text-center text-[11px] bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-700 overflow-x-auto">
-        <li className="border-l border-r border-gray-400 h-10 w-full pr-20">
-          Cabaña Vista del Río
-        </li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-        <li className="border-r border-gray-400 h-10 w-full pt-1"></li>
-      </ul>
+        <tbody className="bg-white">
+          <tr className="border-b border-gray-400 text-center">
+            <td className="border-r border-gray-400 p-4 text-left">Cabaña de Piedra</td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
+              CR
+              <br /> $19,900
+            </td>
+            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+          </tr>
+          <tr className="border-b border-gray-400 bg-gray-200 text-center">
+            <td className="border-r border-gray-400 p-4 text-left hover:bg-gray-300 cursor-pointer">
+              Cabaña Victoria
+            </td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
+              CR
+              <br /> $19,900
+            </td>
+            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+          </tr>
+          <tr className="border-b border-gray-400 text-center">
+            <td className="border-r border-gray-400 p-4 text-left hover:bg-gray-300 cursor-pointer">
+              Cabaña Vista del Río
+            </td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
+              CR
+              <br /> $19,900
+            </td>
+            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
