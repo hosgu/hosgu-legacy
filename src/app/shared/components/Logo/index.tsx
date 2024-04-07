@@ -46,9 +46,9 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
               className={SVNGilroyBold.className}
               style={{ color: isDark ? '#fff' : '#222', marginRight: '1px' }}
             >
-              1ST
+              6
             </span>
-            <span className={SVNGilroyLight.className}>GUEST.com</span>
+            <span className={SVNGilroyLight.className}>uest.com</span>
           </span>
         </div>
       </div>

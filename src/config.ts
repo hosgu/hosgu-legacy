@@ -5,8 +5,8 @@ const isLocal = process.env.LOCAL === 'true'
 const isLocalProduction = isProduction && isLocal
 
 export const globalConfig: Configuration = {
-  siteTitle: '1st Guest',
-  domainName: '1stguest.com',
+  siteTitle: '6uest.com',
+  domainName: '6uest.com',
   theme: {
     defaultTheme: 'dark'
   },

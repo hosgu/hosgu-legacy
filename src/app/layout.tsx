@@ -14,7 +14,7 @@ import NotFound from '~/app/shared/components/NotFound'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '1STGUEST.com'
+  title: '6uest.com'
 }
 
 export const viewport: Viewport = {
