@@ -86,11 +86,10 @@ type Props = {
   t?: any
   splitter?: '-' | '/'
   view?: 'desktop' | 'mobile'
+  locale?: string
 }
 
-const InlineCalendar: FC<Props> = ({ t }) => {
-  today.setDate(1)
-
+const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
   const headerDatesArray = Array.from({ length: 14 }, (_, i) => {
     const date = new Date(today)
     date.setDate(today.getDate() + i)
@@ -103,31 +102,53 @@ const InlineCalendar: FC<Props> = ({ t }) => {
 
   const properties = data.properties
 
+  const [currentDate, setCurrentDate] = useState(today)
   const [currentMonth, setCurrentMonth] = useState<any>(today.getMonth())
   const [currentYear, setCurrentYear] = useState(today.getFullYear())
   const [headerDates, setHeaderDates] = useState<Date[]>(headerDatesArray)
 
+  const handleMoveBackTwoWeeks = () => {
+    const newHeaderDates = headerDates.map((date) => {
+      const newDate = new Date(date)
+      newDate.setDate(date.getDate() - 14)
+      return newDate
+    })
+
+    setCurrentDate(newHeaderDates[0])
+    setHeaderDates(newHeaderDates)
+  }
+
+  const handleMoveNextTwoWeeks = () => {
+    const newHeaderDates = headerDates.map((date) => {
+      const newDate = new Date(date)
+      newDate.setDate(date.getDate() + 14)
+      return newDate
+    })
+
+    setCurrentDate(newHeaderDates[0])
+    setHeaderDates(newHeaderDates)
+  }
+
   return (
     <div className="w-[98%] ml-auto mr-auto">
-      <header className="flex justify-center mt-4">
-        <SVG.Arrow direction="left" />
+      <header className="flex justify-center mt-4 mb-4 text-xl items-center">
+        <SVG.Arrow direction="left" size={30} onClick={handleMoveBackTwoWeeks} />
         <span className="capitalize">
-          {translate(dates.months[currentMonth].toLowerCase())} {currentYear}
+          {currentDate.getDate()} {translate(dates.months[currentDate.getMonth()].toLowerCase())}{' '}
+          {currentDate.getFullYear()}
         </span>
-        <SVG.Arrow direction="right" />
+        <SVG.Arrow direction="right" size={30} onClick={handleMoveNextTwoWeeks} />
       </header>
 
       <table className="border border-gray-400 w-full text-xs">
         <thead className="bg-white border-b border-gray-400 text-[10px] font-normal">
           <tr>
             <th className="border-r border-gray-400 text-xs">Properties</th>
+
             {headerDates.map((date, index) => {
-              const day = date.toLocaleString('en-US', { weekday: 'short' }).toUpperCase()
+              const day = date.toLocaleString(locale, { weekday: 'short' }).toUpperCase()
               const dayOfMonth = date.getDate()
-              const month = date
-                .toLocaleString('en-US', { month: 'long' })
-                .slice(0, 3)
-                .toUpperCase()
+              const month = date.toLocaleString(locale, { month: 'long' }).slice(0, 3).toUpperCase()
 
               return (
                 <th
