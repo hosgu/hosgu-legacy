@@ -261,7 +261,7 @@ const Calendar: FC<Props> = ({ events, dateClick, t, splitter = '-', view = 'des
 
   useEffect(() => {
     renderDays()
-  }, [currentMonth])
+  }, [])
 
   // For Server Side Rendering
   if (days.length === 0) {

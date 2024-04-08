@@ -25,7 +25,6 @@ const config: Config = {
         emerald: '#43D440',
         fire: '#F47C06',
         forest: '#2BA829',
-        orange: '#FA9129',
         palm: '#0e250a',
         pastel: '#68E365',
         seaweed: '#193314',

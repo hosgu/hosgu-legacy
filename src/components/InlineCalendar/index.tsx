@@ -24,7 +24,7 @@ const data = {
           reservationCost: 6000,
           deposit: false,
           canceled: false,
-          note: 'Jacky Mendoza - Amiga de Pachely',
+          note: 'Jacky Mendoza - Amiga de Pachely 1',
           fileName: '',
           reservationType: 'stone'
         }
@@ -34,7 +34,7 @@ const data = {
       name: 'Cabaña Victoria',
       reservations: [
         {
-          id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1a',
+          id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1b',
           startDate: '4/10/2024',
           endDate: '4/12/2024',
           googleContactId: '00000000-0000-0000-78f5-19f68c49f05b',
@@ -46,7 +46,7 @@ const data = {
           reservationCost: 6000,
           deposit: false,
           canceled: false,
-          note: 'Jacky Mendoza - Amiga de Pachely',
+          note: 'Jacky Mendoza - Amiga de Pachely 2',
           fileName: '',
           reservationType: 'victoria'
         }
@@ -56,7 +56,7 @@ const data = {
       name: 'Cabaña Vista del Río',
       reservations: [
         {
-          id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1a',
+          id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1c',
           startDate: '4/10/2024',
           endDate: '4/12/2024',
           googleContactId: '00000000-0000-0000-78f5-19f68c49f05b',
@@ -68,7 +68,7 @@ const data = {
           reservationCost: 6000,
           deposit: false,
           canceled: false,
-          note: 'Jacky Mendoza - Amiga de Pachely',
+          note: 'Jacky Mendoza - Amiga de Pachely 3',
           fileName: '',
           reservationType: 'river'
         }
@@ -103,8 +103,6 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
   const properties = data.properties
 
   const [currentDate, setCurrentDate] = useState(today)
-  const [currentMonth, setCurrentMonth] = useState<any>(today.getMonth())
-  const [currentYear, setCurrentYear] = useState(today.getFullYear())
   const [headerDates, setHeaderDates] = useState<Date[]>(headerDatesArray)
 
   const handleMoveBackTwoWeeks = () => {
@@ -186,9 +184,13 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
                 {headerDates.map((date, index) => {
                   const dateKey = date.toLocaleDateString(locale)
 
-                  const reservation = reservations.find(
-                    (reservation: any) => reservation.startDate === dateKey
-                  )
+                  const reservation = reservations.find((reservation) => {
+                    const startDate = new Date(reservation.startDate)
+                    const endDate = new Date(reservation.endDate)
+                    const currentDate = new Date(dateKey)
+
+                    return currentDate >= startDate && currentDate < endDate
+                  })
 
                   return (
                     <td
@@ -196,13 +198,14 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
                       className={cx.join(
                         'border-r border-gray-400 p-4 w-20',
                         index % 7 >= 5 ? 'bg-blue-200' : '',
+                        reservation ? 'bg-orange-100' : '',
                         'hover:bg-gray-300 cursor-pointer'
                       )}
                     >
                       {reservation ? (
                         <div>
-                          <div>{reservation.reservationType.toUpperCase()}</div>
-                          <div>{reservation.reservationCost}</div>
+                          <div>{reservation.note}</div>
+                          <div>${reservation.reservationCost}</div>
                         </div>
                       ) : (
                         ''
