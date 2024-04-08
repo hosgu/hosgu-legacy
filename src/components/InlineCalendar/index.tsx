@@ -13,8 +13,8 @@ const data = {
       reservations: [
         {
           id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1a',
-          startDate: '2024-04-10',
-          endDate: '2024-04-12',
+          startDate: '4/10/2024',
+          endDate: '4/12/2024',
           googleContactId: '00000000-0000-0000-78f5-19f68c49f05b',
           nights: 2,
           guests: 8,
@@ -35,8 +35,8 @@ const data = {
       reservations: [
         {
           id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1a',
-          startDate: '2024-04-10',
-          endDate: '2024-04-12',
+          startDate: '4/10/2024',
+          endDate: '4/12/2024',
           googleContactId: '00000000-0000-0000-78f5-19f68c49f05b',
           nights: 2,
           guests: 8,
@@ -57,8 +57,8 @@ const data = {
       reservations: [
         {
           id: '32257a76-3c4f-4e22-87b7-0be3a90b7d1a',
-          startDate: '2024-04-10',
-          endDate: '2024-04-12',
+          startDate: '4/10/2024',
+          endDate: '4/12/2024',
           googleContactId: '00000000-0000-0000-78f5-19f68c49f05b',
           nights: 2,
           guests: 8,
@@ -153,7 +153,10 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
               return (
                 <th
                   key={index}
-                  className={`border-r border-gray-400 ${index % 7 >= 5 ? 'bg-blue-200' : ''}`}
+                  className={cx.join(
+                    'border-r border-gray-400',
+                    index % 7 >= 5 ? 'bg-blue-200' : ''
+                  )}
                 >
                   <div>{day}</div>
                   <div>{dayOfMonth}</div>
@@ -165,70 +168,51 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
         </thead>
 
         <tbody className="bg-white">
-          <tr className="border-b border-gray-400 text-center">
-            <td className="border-r border-gray-400 p-4 text-left">Cabaña de Piedra</td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
-              CR
-              <br /> $19,900
-            </td>
-            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-          </tr>
-          <tr className="border-b border-gray-400 bg-gray-200 text-center">
-            <td className="border-r border-gray-400 p-4 text-left hover:bg-gray-300 cursor-pointer">
-              Cabaña Victoria
-            </td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
-              CR
-              <br /> $19,900
-            </td>
-            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-          </tr>
-          <tr className="border-b border-gray-400 text-center">
-            <td className="border-r border-gray-400 p-4 text-left hover:bg-gray-300 cursor-pointer">
-              Cabaña Vista del Río
-            </td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer">
-              CR
-              <br /> $19,900
-            </td>
-            <td className="border-r border-gray-400 p-4 bg-yellow-100 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-            <td className="border-r border-gray-400 p-4 w-20 bg-blue-200 hover:bg-gray-300 cursor-pointer"></td>
-          </tr>
+          {properties.map((property, index) => {
+            const reservations = property.reservations
+
+            return (
+              <tr
+                key={index}
+                className={cx.join(
+                  'border-b border-gray-400 text-center',
+                  index % 2 !== 0 ? 'bg-gray-300' : ''
+                )}
+              >
+                <td className="border-r border-gray-400 p-4 text-left hover:bg-gray-300 cursor-pointer">
+                  {property.name}
+                </td>
+
+                {headerDates.map((date, index) => {
+                  const dateKey = date.toLocaleDateString(locale)
+
+                  const reservation = reservations.find(
+                    (reservation: any) => reservation.startDate === dateKey
+                  )
+
+                  return (
+                    <td
+                      key={index}
+                      className={cx.join(
+                        'border-r border-gray-400 p-4 w-20',
+                        index % 7 >= 5 ? 'bg-blue-200' : '',
+                        'hover:bg-gray-300 cursor-pointer'
+                      )}
+                    >
+                      {reservation ? (
+                        <div>
+                          <div>{reservation.reservationType.toUpperCase()}</div>
+                          <div>{reservation.reservationCost}</div>
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
