@@ -22,7 +22,7 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
         <div
           title="Remove photo"
           onClick={handleRemoveImage}
-          data-fileName={file.file.name}
+          data-filename={file.file.name}
           className="absolute bg-black w-6 h-6 right-3 top-2 text-center text-white font-bold hover:text-gray-200 hover:cursor-pointer"
         >
           X
