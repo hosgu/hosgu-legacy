@@ -48,6 +48,7 @@ const File: FC<Props> = ({
   setUploadedFiles,
   displayDragArea = true
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null)
   const dropTargetRef = useRef<HTMLDivElement>(null)
   const styleControl = useRef(0)
   const [isDragging, setIsDragging] = useState<boolean>(false)
@@ -103,6 +104,12 @@ const File: FC<Props> = ({
     formattedFileList.map(({ file }) => readFile(file))
   }
 
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click()
+    }
+  }
+
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     styleControl.current++
@@ -152,6 +159,7 @@ const File: FC<Props> = ({
     <>
       <div
         ref={dropTargetRef}
+        onClick={handleClick}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -182,6 +190,7 @@ const File: FC<Props> = ({
               Upload from your device
             </label>
             <input
+              ref={inputRef}
               id="file"
               type="file"
               name={name}
