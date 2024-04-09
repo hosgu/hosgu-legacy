@@ -306,9 +306,7 @@ const Form: FC<Props> = ({
               maxFileSize={52000000}
               allowedSetType="image"
               setUploadedFiles={setUploadedFiles}
-              selectedFile={selectedFile}
               displayDragArea={uploadedFiles.length === 0}
-              multiple
             />
             <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
           </div>
