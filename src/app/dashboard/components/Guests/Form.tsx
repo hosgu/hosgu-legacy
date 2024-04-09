@@ -305,7 +305,6 @@ const Form: FC<Props> = ({
               label="Drag your photo here"
               maxFileSize={52000000}
               allowedSetType="image"
-              allowedExtensions={['jpg', 'jpeg', 'png']}
               setUploadedFiles={setUploadedFiles}
               selectedFile={selectedFile}
               displayDragArea={uploadedFiles.length === 0}

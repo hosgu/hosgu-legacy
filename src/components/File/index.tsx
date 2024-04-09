@@ -14,6 +14,12 @@ const config = {
   }
 }
 
+const allowedFileTypes = {
+  image: config.files.extensions.images,
+  document: config.files.extensions.docs,
+  all: [...config.files.extensions.images, ...config.files.extensions.docs]
+}
+
 type Props = {
   className?: string
   disabled?: boolean
@@ -31,7 +37,6 @@ type Props = {
   design?: string
   selectedFile?: any
   maxFileSize?: number
-  allowedExtensions?: string[]
   allowedSetType: 'image' | 'document' | 'all'
   multiple?: boolean
   displayDragArea?: boolean
@@ -43,7 +48,6 @@ const File: FC<Props> = ({
   selectedFile = {},
   maxFileSize = 12000000,
   allowedSetType = 'all',
-  allowedExtensions = ['all'],
   multiple,
   setUploadedFiles,
   displayDragArea = true
@@ -52,19 +56,6 @@ const File: FC<Props> = ({
   const dropTargetRef = useRef<HTMLDivElement>(null)
   const styleControl = useRef(0)
   const [isDragging, setIsDragging] = useState<boolean>(false)
-
-  const allowedFileTypes = {
-    image: config.files.extensions.images,
-    document: config.files.extensions.docs,
-    all: [...config.files.extensions.images, ...config.files.extensions.docs]
-  }
-
-  const hoverStyle = {
-    borderColor: 'border-blue-500',
-    backgroundColor: 'bg-blue-50',
-    color: 'text-blue-500',
-    transform: 'scale-110'
-  }
 
   // const file = files.bytesToSize(selectedFile.size, maxFileSize)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
@@ -164,28 +155,30 @@ const File: FC<Props> = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`group border-2 border-dashed border-gray-300 rounded select-none transition-all hover:cursor-pointer hover:${hoverStyle.borderColor} ${isDragging ? hoverStyle.borderColor : null}`}
+        className={`group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500 ${isDragging ? 'border-blue-500' : 'border-gray-300'}`}
       >
         <div
-          className={`m-3 p-4 rounded transition-all group-hover:${hoverStyle.backgroundColor} ${isDragging ? hoverStyle.backgroundColor : null}`}
+          className={`m-3 p-4 rounded transition-all group-hover:bg-blue-50 ${isDragging ? 'bg-blue-50' : ''}`}
         >
           <div className="mb-6 text-center">
             <Image
               src={cloudUploadIcon}
               alt="Image icon"
               width={48}
-              className={`mx-auto mb-1 transition-all group-hover:${hoverStyle.transform} ${isDragging ? hoverStyle.transform : null}`}
+              className={`mx-auto mb-1 transition-all group-hover:scale-110 ${isDragging ? 'scale-110' : ''}`}
             />
             <p className="mb-2 font-medium">{label ? label : 'Drag your files here'}</p>
             <p className="mb-1 text-xs">
-              {allowedExtensions.map((extension) => extension.toUpperCase()).join(', ')}{' '}
+              {allowedFileTypes[allowedSetType]
+                .map((extension) => extension.toUpperCase())
+                .join(', ')}{' '}
               <span className="text-xs text-gray-500">( {maxSize.size} Max )</span>
             </p>
           </div>
           <div className="relative text-center">
             <label
               htmlFor="file"
-              className={`underline text-xs font-medium transition-all hover:cursor-pointer group-hover:${hoverStyle.color} ${isDragging ? hoverStyle.color : null}`}
+              className={`underline text-xs font-medium transition-all hover:cursor-pointer group-hover:text-blue-500 ${isDragging ? 'text-blue-500' : ''}`}
             >
               Upload from your device
             </label>
@@ -195,7 +188,7 @@ const File: FC<Props> = ({
               type="file"
               name={name}
               onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
-              accept={allowedExtensions
+              accept={allowedFileTypes[allowedSetType]
                 .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
                 .join(', ')}
               className="opacity-0 absolute top-0 left-0 w-0 h-0"
