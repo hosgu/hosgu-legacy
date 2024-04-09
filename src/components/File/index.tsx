@@ -13,6 +13,12 @@ import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 // - Limit maximum drag files
 // - Optional? Handle invalid extensions / mimetypes (notify user)
 
+const allowedFileTypes = {
+  image: config.files.extensions.images,
+  document: config.files.extensions.docs,
+  all: [...config.files.extensions.images, ...config.files.extensions.docs]
+}
+
 type Props = {
   className?: string
   disabled?: boolean
@@ -135,10 +141,6 @@ const File: FC<Props> = ({
       if (!mimeType) return false
       return fileMimeTypes.includes(mimeType)
     })
-  }
-
-  if (!displayDragArea) {
-    return null
   }
 
   if (!displayDragArea) {
