@@ -48,14 +48,21 @@ const File: FC<Props> = ({
   setUploadedFiles,
   displayDragArea = true
 }) => {
-  const dropTarget = useRef<HTMLDivElement>(null)
-  const dropIcon = useRef<HTMLImageElement>(null)
-  let dragTargetStyleControl = 0
+  const dropTargetRef = useRef<HTMLDivElement>(null)
+  const styleControl = useRef(0)
+  const [isDragging, setIsDragging] = useState<boolean>(false)
 
   const allowedFileTypes = {
     image: config.files.extensions.images,
     document: config.files.extensions.docs,
     all: [...config.files.extensions.images, ...config.files.extensions.docs]
+  }
+
+  const hoverStyle = {
+    borderColor: 'border-blue-500',
+    backgroundColor: 'bg-blue-50',
+    color: 'text-blue-500',
+    transform: 'scale-110'
   }
 
   // const file = files.bytesToSize(selectedFile.size, maxFileSize)
@@ -96,31 +103,13 @@ const File: FC<Props> = ({
     formattedFileList.map(({ file }) => readFile(file))
   }
 
-  const handleDropTargetStyle = (isAllowed: boolean) => {
-    if (!dropTarget.current || !dropIcon.current) {
-      return
-    }
-
-    const styles = {
-      dropTarget: ['bg-blue-100', 'border-blue-300'],
-      dropIcon: ['scale-110']
-    }
-
-    if (isAllowed) {
-      dropTarget.current.classList.add(...styles.dropTarget)
-      dropIcon.current.classList.add(...styles.dropIcon)
-    } else {
-      dropTarget.current.classList.remove(...styles.dropTarget)
-      dropIcon.current.classList.remove(...styles.dropIcon)
-    }
-  }
-
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    dragTargetStyleControl++
+    styleControl.current++
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.dropEffect = 'none'
     const isFiles = e.dataTransfer.types.includes('Files')
 
     if (isFiles && (multiple || e.dataTransfer.items.length == 1)) {
@@ -135,32 +124,24 @@ const File: FC<Props> = ({
       if (isValidExtensions) {
         e.preventDefault()
         e.dataTransfer.dropEffect = 'copy'
-        handleDropTargetStyle(true)
-      } else {
-        e.dataTransfer.dropEffect = 'none'
+        setIsDragging(true)
       }
-    } else {
-      e.dataTransfer.dropEffect = 'none'
     }
   }
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    dragTargetStyleControl--
+    styleControl.current--
 
-    if (dropTarget.current && dragTargetStyleControl == 0) {
-      handleDropTargetStyle(false)
+    if (styleControl.current == 0) {
+      setIsDragging(false)
     }
   }
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    dragTargetStyleControl = 0
-
-    if (dropTarget.current) {
-      // handleSelectedFiles(e.dataTransfer.files)
-      handleSelectedFilesTest(e.dataTransfer.files)
-      handleDropTargetStyle(false)
-    }
+    setIsDragging(false)
+    styleControl.current = 0
+    handleSelectedFilesTest(e.dataTransfer.files)
   }
 
   if (!displayDragArea) {
@@ -170,46 +151,48 @@ const File: FC<Props> = ({
   return (
     <>
       <div
-        id="droptarget"
-        ref={dropTarget}
+        ref={dropTargetRef}
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className="p-8 border-2 border-dashed border-gray-300 rounded select-none transition-all"
+        className={`group border-2 border-dashed border-gray-300 rounded select-none transition-all hover:cursor-pointer hover:${hoverStyle.borderColor} ${isDragging ? hoverStyle.borderColor : null}`}
       >
-        <div className="mb-6 text-center">
-          <Image
-            ref={dropIcon}
-            src={cloudUploadIcon}
-            alt="Image icon"
-            width={48}
-            className="mx-auto mb-1"
-          />
-          <p className="mb-2 font-medium">{label ? label : 'Drag your files here'}</p>
-          <p className="mb-1 text-xs">
-            {allowedExtensions.map((extension) => extension.toUpperCase()).join(', ')}{' '}
-            <span className="text-xs text-gray-500">( {maxSize.size} Max )</span>
-          </p>
-        </div>
-        <div className="relative text-center">
-          <label
-            htmlFor="file"
-            className="underline text-xs font-medium cursor-pointer hover:text-gray-500"
-          >
-            Upload from your device
-          </label>
-          <input
-            type="file"
-            name={name}
-            id="file"
-            onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
-            accept={allowedExtensions
-              .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
-              .join(', ')}
-            className="opacity-0 absolute top-0 left-0 w-0 h-0"
-            multiple={multiple}
-          />
+        <div
+          className={`m-3 p-4 rounded transition-all group-hover:${hoverStyle.backgroundColor} ${isDragging ? hoverStyle.backgroundColor : null}`}
+        >
+          <div className="mb-6 text-center">
+            <Image
+              src={cloudUploadIcon}
+              alt="Image icon"
+              width={48}
+              className={`mx-auto mb-1 transition-all group-hover:${hoverStyle.transform} ${isDragging ? hoverStyle.transform : null}`}
+            />
+            <p className="mb-2 font-medium">{label ? label : 'Drag your files here'}</p>
+            <p className="mb-1 text-xs">
+              {allowedExtensions.map((extension) => extension.toUpperCase()).join(', ')}{' '}
+              <span className="text-xs text-gray-500">( {maxSize.size} Max )</span>
+            </p>
+          </div>
+          <div className="relative text-center">
+            <label
+              htmlFor="file"
+              className={`underline text-xs font-medium transition-all hover:cursor-pointer group-hover:${hoverStyle.color} ${isDragging ? hoverStyle.color : null}`}
+            >
+              Upload from your device
+            </label>
+            <input
+              id="file"
+              type="file"
+              name={name}
+              onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
+              accept={allowedExtensions
+                .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
+                .join(', ')}
+              className="opacity-0 absolute top-0 left-0 w-0 h-0"
+              multiple={multiple}
+            />
+          </div>
         </div>
       </div>
 
