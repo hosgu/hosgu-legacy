@@ -14,6 +14,21 @@ import Button from '~/components/Button'
 import Input from '~/components/Input'
 import TextArea from '~/components/TextArea'
 
+// TODO: Move to config
+const config = {
+  files: {
+    extensions: {
+      images: {
+        'image/jpeg': ['jpeg', 'jpg'],
+        'image/png': ['png']
+      },
+      docs: {
+        pdf: 'application/pdf'
+      }
+    }
+  }
+}
+
 type Props = {
   action: 'save' | 'edit'
   data?: any
@@ -305,6 +320,7 @@ const Form: FC<Props> = ({
               label="Drag your photo here"
               maxFileSize={52000000}
               allowedSetType="image"
+              allowedFiles={config.files.extensions.images}
               setUploadedFiles={setUploadedFiles}
               displayDragArea={uploadedFiles.length === 0}
             />

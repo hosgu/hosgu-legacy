@@ -2,23 +2,9 @@ import React, { FC, Fragment, useEffect, useRef, useState } from 'react'
 import files from '@architecturex/utils.files'
 import Image from 'next/image'
 import is from '@architecturex/utils.is'
+import cx from '@architecturex/utils.cx'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
-
-const config = {
-  files: {
-    extensions: {
-      images: ['jpeg', 'jpg', 'png'],
-      docs: ['pdf']
-    }
-  }
-}
-
-const allowedFileTypes = {
-  image: config.files.extensions.images,
-  document: config.files.extensions.docs,
-  all: [...config.files.extensions.images, ...config.files.extensions.docs]
-}
 
 type Props = {
   className?: string
@@ -37,6 +23,7 @@ type Props = {
   design?: string
   maxFileSize?: number
   allowedSetType: 'image' | 'document' | 'all'
+  allowedFiles: any
   multiple?: boolean
   displayDragArea?: boolean
 }
@@ -46,6 +33,7 @@ const File: FC<Props> = ({
   name = 'file',
   maxFileSize = 12000000,
   allowedSetType = 'all',
+  allowedFiles,
   multiple,
   setUploadedFiles,
   displayDragArea = true
@@ -55,6 +43,15 @@ const File: FC<Props> = ({
   const styleControl = useRef(0)
   const [isDragging, setIsDragging] = useState<boolean>(false)
   const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
+
+  console.log('allowedFiles', allowedFiles)
+
+  let fileExtensions: string[] = []
+  Object.values(allowedFiles as string[][]).forEach((allowedFile: string[]) => {
+    fileExtensions = fileExtensions.concat(allowedFile)
+  })
+
+  const fileMimeTypes: string[] = Object.keys(allowedFiles)
 
   const handleSelectedFiles = async (fileList: FileList) => {
     const formattedFileList = await files.formatFileList(fileList)
@@ -85,8 +82,14 @@ const File: FC<Props> = ({
   }
 
   const handleSelectedFilesTest = async (fileList: FileList) => {
-    const formattedFileList = await files.formatFileList(fileList)
-    formattedFileList.map(({ file }) => readFile(file))
+    const fileListMimeTypes = Array.from(fileList).map((file) => file.type)
+
+    if (isValidMimeTypes(fileListMimeTypes)) {
+      const formattedFileList = await files.formatFileList(fileList)
+      formattedFileList.map(({ file }) => readFile(file))
+    } else {
+      // TODO: handle invalid files
+    }
   }
 
   const handleClick = () => {
@@ -105,13 +108,17 @@ const File: FC<Props> = ({
     const isFiles = e.dataTransfer.types.includes('Files')
 
     if (isFiles && (multiple || e.dataTransfer.items.length == 1)) {
-      const fileExtensions = Array.from(e.dataTransfer.items).map((file) =>
-        file.type.split('/').pop()
-      )
-
-      const isValidExtensions = fileExtensions.every((extension: any) => {
-        return allowedFileTypes[allowedSetType].includes(extension)
+      const fileMimeTypes = Array.from(e.dataTransfer.items).map((file) => {
+        const mimeType = file.type
+        return mimeType
       })
+
+      let isValidExtensions: boolean
+      if (fileMimeTypes.length == 0) {
+        isValidExtensions = true
+      } else {
+        isValidExtensions = isValidMimeTypes(fileMimeTypes)
+      }
 
       if (isValidExtensions) {
         e.preventDefault()
@@ -136,6 +143,13 @@ const File: FC<Props> = ({
     handleSelectedFilesTest(e.dataTransfer.files)
   }
 
+  const isValidMimeTypes = (mimeTypes: string[]) => {
+    return mimeTypes.every((mimeType) => {
+      if (!mimeType) return false
+      return fileMimeTypes.includes(mimeType)
+    })
+  }
+
   if (!displayDragArea) {
     return null
   }
@@ -148,30 +162,43 @@ const File: FC<Props> = ({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500 ${isDragging ? 'border-blue-500' : 'border-gray-300'}`}
+      className={cx.join(
+        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500',
+        {
+          'border-blue-500': isDragging,
+          'border-gray-300': !isDragging
+        }
+      )}
     >
       <div
-        className={`m-3 p-4 rounded transition-all group-hover:bg-blue-50 ${isDragging ? 'bg-blue-50' : ''}`}
+        className={cx.join('m-3 p-4 rounded transition-all group-hover:bg-blue-50', {
+          'bg-blue-50': isDragging
+        })}
       >
         <div className="mb-6 text-center">
           <Image
             src={cloudUploadIcon}
             alt="Image icon"
             width={48}
-            className={`mx-auto mb-1 transition-all group-hover:scale-110 ${isDragging ? 'scale-110' : ''}`}
+            className={cx.join('mx-auto mb-1 transition-all group-hover:scale-110', {
+              'scale-110': isDragging
+            })}
           />
           <p className="mb-2 font-medium">{label ? label : 'Drag your files here'}</p>
           <p className="mb-1 text-xs">
-            {allowedFileTypes[allowedSetType]
-              .map((extension) => extension.toUpperCase())
-              .join(', ')}{' '}
+            {fileExtensions.map((extension: any) => extension.toUpperCase()).join(', ')}{' '}
             <span className="text-xs text-gray-500">( {maxSize.size} Max )</span>
           </p>
         </div>
         <div className="relative text-center">
           <label
             htmlFor="file"
-            className={`underline text-xs font-medium transition-all hover:cursor-pointer group-hover:text-blue-500 ${isDragging ? 'text-blue-500' : ''}`}
+            className={cx.join(
+              'underline text-xs font-medium transition-all hover:cursor-pointer group-hover:text-blue-500',
+              {
+                'text-blue-500': isDragging
+              }
+            )}
           >
             Upload from your device
           </label>
@@ -181,9 +208,7 @@ const File: FC<Props> = ({
             type="file"
             name={name}
             onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
-            accept={allowedFileTypes[allowedSetType]
-              .map((extension) => (extension.includes('.') ? extension : '.'.concat(extension)))
-              .join(', ')}
+            accept={fileMimeTypes.map((extension) => extension).join(', ')}
             className="opacity-0 absolute top-0 left-0 w-0 h-0"
             multiple={multiple}
           />
