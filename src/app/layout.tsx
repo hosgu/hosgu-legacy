@@ -9,12 +9,12 @@ import cx from '@architecturex/utils.cx'
 import { ThemeProvider } from '~/app/shared/contexts/client/ThemeContext'
 import { allowedLocales } from '~/app/shared/contexts/server/I18nContext'
 
-import NotFound from '~/app/shared/components/NotFound'
+import config from '~/config'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: '6uest.com'
+  title: config.siteTitle
 }
 
 export const viewport: Viewport = {
