@@ -84,20 +84,10 @@ const Results: FC<Props> = ({
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
-          <GuestForm
-            action="save"
-            data={{ businessId: connectedUser.businessId }}
-            fileStatus={fileStatus}
-            setFileStatus={setFileStatus}
-          />
+          <GuestForm action="save" data={{ businessId: connectedUser.businessId }} />
         }
         EditFormComponent={
-          <GuestForm
-            action="edit"
-            data={{ businessId: connectedUser.businessId, ...itemToEdit }}
-            fileStatus={fileStatus}
-            setFileStatus={setFileStatus}
-          />
+          <GuestForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
         }
         isEditModalOpen={isEditModalOpen}
         onCloseModal={onCloseModal}
