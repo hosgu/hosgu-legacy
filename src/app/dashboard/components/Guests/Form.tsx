@@ -18,8 +18,6 @@ import config from '~/config'
 type Props = {
   action: 'save' | 'edit'
   data?: any
-  fileStatus: any
-  setFileStatus: any
 }
 
 const Form: FC<Props> = ({
@@ -39,15 +37,8 @@ const Form: FC<Props> = ({
     notes = '',
     photo = ''
   },
-  action = 'save',
-  fileStatus,
-  setFileStatus
+  action = 'save'
 }) => {
-  const [isUploaded, setIsUploaded] = useState(false)
-  const displayedPhoto =
-    fileUtils.findFileByAction(fileStatus, 'upload')?.url ||
-    fileUtils.findFileByAction(fileStatus, 'show')?.url
-
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
 
   useEffect(() => {
@@ -136,13 +127,11 @@ const Form: FC<Props> = ({
 
     if (isValidForm) {
       const fileList = uploadedFiles.map((file: any) => file)
-      console.log('fileList', fileList)
 
       const uploadFilesResponse = await fileUtils.uploadFiles(
         fileList,
         '/api/v1/uploader?setType=image'
       )
-      console.log('Upload files response', uploadFilesResponse)
 
       if (uploadedFiles.length === 1 && uploadFilesResponse.ok) {
         const fileName = uploadFilesResponse.data[0].filename
@@ -160,19 +149,6 @@ const Form: FC<Props> = ({
         setShowNotification(true)
       }
     }
-  }
-
-  const handleRemoveImage = () => {
-    setFileStatus((prev: any) => markImagesToDelete(prev))
-  }
-
-  const getFileNameFromUrl = (url: string) => {
-    const fileName = url.split('/').pop()
-    return fileName ? fileName : ''
-  }
-
-  const markImagesToDelete = (imagesArray: any) => {
-    return imagesArray.map((image: any) => ({ ...image, action: 'delete' }))
   }
 
   return (
