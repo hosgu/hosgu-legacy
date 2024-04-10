@@ -26,7 +26,7 @@ const TryNow: FC<Props> = ({ locale }) => {
     >
       <p className="mb-4 text-2xl">{t('readyToTransformYourExperience')}</p>
 
-      <Button color="secondary" bold onClick={handleTryFree}>
+      <Button bold onClick={handleTryFree}>
         {t('tryNow')}
       </Button>
     </div>

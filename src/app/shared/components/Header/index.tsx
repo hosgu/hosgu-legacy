@@ -42,7 +42,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
   const loginLink = showLogin ? <Link href="/login">{t('login')}</Link> : ''
 
   const tryForFreeButton = showTryForFree ? (
-    <Button color="secondary" bold shape="circle" onClick={handleTryFree}>
+    <Button bold shape="circle" onClick={handleTryFree}>
       {t('tryForFree')}
     </Button>
   ) : (

@@ -251,7 +251,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                 </div>
               </div>
               <div className="flex justify-center mb-6 mt-6">
-                <Button color="secondary" shape="rounded" type="submit" style={{ width: '92%' }}>
+                <Button shape="rounded" type="submit" style={{ width: '92%' }}>
                   {t('getStarted')}
                 </Button>
               </div>

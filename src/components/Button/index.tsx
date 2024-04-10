@@ -49,10 +49,10 @@ const Button: FC<Props> = ({
   }
   const colorClasses: any = {
     primary: {
-      contained: 'bg-eden hover:bg-elephant text-white',
+      contained: 'bg-dodger hover:bg-cerulean text-white',
       outlined:
-        'bg-white hover:bg-elephant text-elephant border border-elephant hover:border-elephant hover:text-white',
-      text: 'bg-white hover:bg-elephant text-elephant'
+        'bg-white hover:bg-cerulean text-cerulean border border-cerulean hover:border-cerulean hover:text-white',
+      text: 'bg-white hover:bg-cerulean text-cerulean'
     },
     secondary: {
       contained: 'bg-green-600 hover:bg-green-700 text-white',

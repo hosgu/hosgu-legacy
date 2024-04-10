@@ -22,6 +22,7 @@ const config: Config = {
         cinnabar: '#E23428',
         codGray: '#111',
         colonial: '#FFEBBD',
+        dodger: '#049EDC',
         eden: '#135846',
         elephant: '#104235',
         emerald: '#43D440',

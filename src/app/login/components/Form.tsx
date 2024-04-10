@@ -83,7 +83,7 @@ const Form: FC<Props> = ({ locale }) => {
       </div>
 
       <div className="flex justify-center items-center mb-4">
-        <Button color="secondary" shape="circle" type="submit">
+        <Button shape="circle" type="submit">
           {t('connect')}
         </Button>
       </div>

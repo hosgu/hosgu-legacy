@@ -201,7 +201,7 @@ const Form: FC<Props> = ({
         <TextArea defaultValue={notes} label="Notes" name="notes" />
       </div>
       <div className="flex justify-center">
-        <Button type="submit" color="secondary" shape="square" size="large" fullWidth>
+        <Button type="submit" shape="square" size="large" fullWidth>
           Save
         </Button>
       </div>

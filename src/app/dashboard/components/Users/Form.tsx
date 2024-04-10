@@ -278,7 +278,7 @@ const Form: FC<Props> = ({
           </RenderIf>
         </div>
         <div className="flex justify-center">
-          <Button type="submit" color="secondary" shape="square" size="large" fullWidth>
+          <Button type="submit" shape="square" size="large" fullWidth>
             Save
           </Button>
         </div>

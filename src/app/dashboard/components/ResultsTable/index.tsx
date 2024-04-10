@@ -75,7 +75,7 @@ const ResultsTable: FC<Props> = ({
         key={key}
         label={label}
         createButton={
-          <Button color="info" size="small" onClick={() => setIsCreateModalOpen(true)}>
+          <Button shape="circle" onClick={() => setIsCreateModalOpen(true)}>
             + Create
           </Button>
         }
