@@ -15,6 +15,7 @@ interface Props extends ComponentPropsWithoutRef<'button'> {
   bold?: boolean
   isLoading?: boolean
   loadingText?: string
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const Button: FC<Props> = ({
@@ -32,7 +33,8 @@ const Button: FC<Props> = ({
   isLoading = false,
   loadingText = 'Loading...',
   children,
-  onClick = () => {}
+  onClick = () => {},
+  type = 'button'
 }) => {
   const baseClasses = 'p-2 text-center transition duration-300'
   const sizeClasses = {
@@ -129,6 +131,7 @@ const Button: FC<Props> = ({
       style={{ color: frontColor, backgroundColor: hoverColor }}
       disabled={disabled}
       onClick={onClick || undefined}
+      type={type}
     >
       {content}
     </button>

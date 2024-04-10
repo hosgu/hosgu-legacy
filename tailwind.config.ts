@@ -2,9 +2,11 @@ import { Config } from 'tailwindcss'
 import { tailwindClasses as selectClasses } from '@architecturex/components.select'
 import { tailwindClasses as calendarClasses } from '@architecturex/components.calendar'
 
+const localClasses = ['']
+
 const config: Config = {
   darkMode: 'class',
-  safelist: [...selectClasses, ...calendarClasses],
+  safelist: [...selectClasses, ...calendarClasses, ...localClasses],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',

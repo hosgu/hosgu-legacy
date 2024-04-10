@@ -27,4 +27,10 @@ export interface Configuration {
   redirections?: {
     localeRedirections: Record<string, Locale>
   }
+  files: {
+    extensions: {
+      images: Record<string, string[]>
+      docs: Record<string, string[]>
+    }
+  }
 }

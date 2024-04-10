@@ -1,14 +1,19 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
+import fileUtils from '@architecturex/utils.files'
 
+import File from '~/components/File'
+import FilesPreviewer from '~/components/FilesPreviewer'
 import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
 import TextArea from '~/components/TextArea'
+
+import config from '~/config'
 
 type Props = {
   action: 'save' | 'edit'
@@ -34,6 +39,8 @@ const Form: FC<Props> = ({
   },
   action = 'save'
 }) => {
+  const [uploadedFiles, setUploadedFiles] = useState<any>([])
+
   const initialValues = {
     id,
     businessId,
@@ -50,6 +57,7 @@ const Form: FC<Props> = ({
     notes,
     photo
   }
+
   const [showNotification, setShowNotification] = useState(false)
 
   const [errors, setErrors] = useState({
@@ -114,6 +122,20 @@ const Form: FC<Props> = ({
     const isValidForm = validate(values)
 
     if (isValidForm) {
+      const fileList = uploadedFiles.map((file: any) => file)
+
+      const uploadFilesResponse = await fileUtils.uploadFiles(
+        fileList,
+        '/api/v1/uploader?setType=image'
+      )
+
+      if (uploadedFiles.length === 1 && uploadFilesResponse.ok) {
+        const fileName = uploadFilesResponse.data[0].filename
+        const url = `/files/images/${fileName}`
+
+        formData.append('photo', url)
+      }
+
       const response =
         action === 'save'
           ? await GuestActions.create(formData)
@@ -141,11 +163,6 @@ const Form: FC<Props> = ({
       <input type="hidden" name="businessId" value={initialValues.businessId} />
 
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Input defaultValue={photo} label="Photo" name="photo" required />
-          <p className="text-red-500 mb-4 text-xs ml-4 break-words"></p>
-        </div>
-
         <div>
           <Input
             defaultValue={fullName}
@@ -199,7 +216,22 @@ const Form: FC<Props> = ({
         <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
 
         <TextArea defaultValue={notes} label="Notes" name="notes" />
+
+        <div className="p-4">
+          <div>
+            <File
+              name="fileName"
+              label="Drag your photo here"
+              maxFileSize={52000000}
+              allowedFiles={config.files.extensions.images}
+              setUploadedFiles={setUploadedFiles}
+              displayDragArea={uploadedFiles.length === 0}
+            />
+            <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
+          </div>
+        </div>
       </div>
+
       <div className="flex justify-center">
         <Button type="submit" shape="square" size="large" fullWidth>
           Save

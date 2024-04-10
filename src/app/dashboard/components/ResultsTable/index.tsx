@@ -44,6 +44,7 @@ const ResultsTable: FC<Props> = ({
       <Modal
         isModalOpen={isCreateModalOpen}
         onClose={async () => {
+          onCloseModal()
           setIsCreateModalOpen(false)
 
           const { checksum, items: newData } = await refetch()

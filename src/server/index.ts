@@ -18,6 +18,7 @@ import reservationApiV1 from './api/v1/reservation'
 import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
+import multiUploaderApiV1 from './api/v1/uploader'
 
 const port = 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -62,6 +63,7 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/settings', settingsApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
+  app.use('/api/v1/uploader', multiUploaderApiV1)
 
   // Logout
   app.get('/logout', (req: Request, res: Response) => {
