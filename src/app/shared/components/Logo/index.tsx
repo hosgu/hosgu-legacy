@@ -23,37 +23,18 @@ const tw = {
   text: 'font-bold text-2xl text-center'
 } as const
 
-const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) => {
-  const { darkMode } = useTheme()
-  const isDark = style === 'dark' || darkMode
-
-  return (
-    <Link href="/" className="hover:no-underline" title="1ST Guest">
-      <div
-        data-component="Logo"
-        className={cx.join('flex items-center', className, {
-          'flex-col': position === 'below',
-          'flex-row': position === 'right'
-        })}
-      >
-        <div
-          className={cx.join('flex flex-col', {
-            'ml-2': position === 'right'
-          })}
-        >
-          <span className={cx.join(!isDark ? tw.dark : tw.light, tw.text)}>
-            <span
-              className={SVNGilroyBold.className}
-              style={{ color: isDark ? '#fff' : '#222', marginRight: '1px' }}
-            >
-              6
-            </span>
-            <span className={SVNGilroyLight.className}>uest.com</span>
-          </span>
-        </div>
-      </div>
-    </Link>
-  )
-}
+const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) => (
+  <Link href="/" className="hover:no-underline" title="1ST Guest">
+    <div
+      data-component="Logo"
+      className={cx.join('flex items-center', className, {
+        'flex-col': position === 'below',
+        'flex-row': position === 'right'
+      })}
+    >
+      <img src={`/images/logo.png`} alt="1ST Guest" className="w-32" />
+    </div>
+  </Link>
+)
 
 export default Logo
