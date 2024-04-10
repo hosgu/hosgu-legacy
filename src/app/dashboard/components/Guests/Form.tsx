@@ -14,7 +14,10 @@ import Button from '~/components/Button'
 import Input from '~/components/Input'
 import TextArea from '~/components/TextArea'
 
-// TODO: Move to config
+// TODO:
+// - Move config
+// - Handle file upload directories (images and documents directory)
+
 const config = {
   files: {
     extensions: {
@@ -57,7 +60,6 @@ const Form: FC<Props> = ({
   fileStatus,
   setFileStatus
 }) => {
-  const [selectedFile, setSelectedFile] = useState<any>({})
   const [isUploaded, setIsUploaded] = useState(false)
   const displayedPhoto =
     fileUtils.findFileByAction(fileStatus, 'upload')?.url ||
@@ -85,6 +87,7 @@ const Form: FC<Props> = ({
     notes,
     photo
   }
+
   const [showNotification, setShowNotification] = useState(false)
 
   const [errors, setErrors] = useState({
@@ -142,6 +145,7 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
+  // NOTE: Old method
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -172,6 +176,7 @@ const Form: FC<Props> = ({
     }
   }
 
+  // NOTE: new method.
   const handleSubmitTest = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -180,7 +185,7 @@ const Form: FC<Props> = ({
 
     if (isValidForm) {
       const fileList = uploadedFiles.map((file: any) => file)
-      console.log('fileList 👉🏼', fileList)
+      console.log('fileList', fileList)
 
       const uploadFilesResponse = await files.uploadFiles(
         fileList,
@@ -190,7 +195,7 @@ const Form: FC<Props> = ({
 
       if (uploadedFiles.length == 1 && uploadFilesResponse.ok) {
         const fileName = uploadFilesResponse.data[0].filename
-        console.log('👉🏼Uploaded files', uploadedFiles)
+        console.log('Uploaded files', uploadedFiles)
         const url = `/files/images/${fileName}`
         formData.append('photo', url)
       }
@@ -307,19 +312,10 @@ const Form: FC<Props> = ({
             </RenderIf>
           </RenderIf>
           <div>
-            {/* TODO:
-                - Handle Allowed extensions ✔️
-                - Handle max file size
-                - Handle file preview
-                - Handle file list
-                - Document directory
-                - Limit maximum drag files
-            */}
             <File
               name="fileName"
               label="Drag your photo here"
               maxFileSize={52000000}
-              allowedSetType="image"
               allowedFiles={config.files.extensions.images}
               setUploadedFiles={setUploadedFiles}
               displayDragArea={uploadedFiles.length === 0}

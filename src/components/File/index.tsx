@@ -6,6 +6,13 @@ import cx from '@architecturex/utils.cx'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 
+// TODO:
+// - Handle Allowed extensions / mimetypes ✔️
+// - Handle maximum file size
+// - Handle file preview ✔️
+// - Limit maximum drag files
+// - Optional? Handle invalid extensions / mimetypes (notify user)
+
 type Props = {
   className?: string
   disabled?: boolean
@@ -22,8 +29,7 @@ type Props = {
   label?: string
   design?: string
   maxFileSize?: number
-  allowedSetType: 'image' | 'document' | 'all'
-  allowedFiles: any
+  allowedFiles: { [mimeType: string]: string[] }
   multiple?: boolean
   displayDragArea?: boolean
 }
@@ -32,7 +38,6 @@ const File: FC<Props> = ({
   label,
   name = 'file',
   maxFileSize = 12000000,
-  allowedSetType = 'all',
   allowedFiles,
   multiple,
   setUploadedFiles,
@@ -40,31 +45,13 @@ const File: FC<Props> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const dropTargetRef = useRef<HTMLDivElement>(null)
+
   const styleControl = useRef(0)
   const [isDragging, setIsDragging] = useState<boolean>(false)
-  const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
 
-  console.log('allowedFiles', allowedFiles)
-
-  let fileExtensions: string[] = []
-  Object.values(allowedFiles as string[][]).forEach((allowedFile: string[]) => {
-    fileExtensions = fileExtensions.concat(allowedFile)
-  })
-
+  const fileExtensions: string[] = Object.values(allowedFiles).flat()
   const fileMimeTypes: string[] = Object.keys(allowedFiles)
-
-  const handleSelectedFiles = async (fileList: FileList) => {
-    const formattedFileList = await files.formatFileList(fileList)
-    const uploadFilesResponse = await files.uploadFiles(
-      formattedFileList,
-      `/api/v1/uploader?setType=${allowedSetType}`
-    )
-    console.log('Upload files response', uploadFilesResponse)
-
-    if (uploadFilesResponse.ok) {
-      setUploadedFiles(uploadFilesResponse.data)
-    }
-  }
+  const maxSize = files.bytesToSize(maxFileSize, maxFileSize, true)
 
   const readFile = (file: File) => {
     const fileReader = new FileReader()
@@ -81,7 +68,7 @@ const File: FC<Props> = ({
     fileReader.readAsDataURL(file)
   }
 
-  const handleSelectedFilesTest = async (fileList: FileList) => {
+  const handleSelectedFiles = async (fileList: FileList) => {
     const fileListMimeTypes = Array.from(fileList).map((file) => file.type)
 
     if (isValidMimeTypes(fileListMimeTypes)) {
@@ -140,7 +127,7 @@ const File: FC<Props> = ({
     e.preventDefault()
     setIsDragging(false)
     styleControl.current = 0
-    handleSelectedFilesTest(e.dataTransfer.files)
+    handleSelectedFiles(e.dataTransfer.files)
   }
 
   const isValidMimeTypes = (mimeTypes: string[]) => {
@@ -207,7 +194,7 @@ const File: FC<Props> = ({
             id="file"
             type="file"
             name={name}
-            onChange={(e) => (e.target.files ? handleSelectedFilesTest(e.target.files) : null)}
+            onChange={(e) => (e.target.files ? handleSelectedFiles(e.target.files) : null)}
             accept={fileMimeTypes.map((extension) => extension).join(', ')}
             className="opacity-0 absolute top-0 left-0 w-0 h-0"
             multiple={multiple}
