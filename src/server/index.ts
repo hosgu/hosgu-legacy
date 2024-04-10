@@ -1,5 +1,4 @@
 import bodyParser from 'body-parser'
-import fs from 'fs'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application, NextFunction, Request, Response } from 'express'
@@ -20,37 +19,6 @@ import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import userApiV1 from './api/v1/user'
 import multiUploaderApiV1 from './api/v1/uploader'
-
-// TODO: Move to @architecturex/utils.files
-function getFileInfo(file: string) {
-  if (!file) {
-    return {
-      fileName: '',
-      extension: ''
-    }
-  }
-
-  const parts = file.split('.')
-  const extension = parts.pop() || ''
-  const fileName = parts.pop() || ''
-
-  return {
-    fileName,
-    extension: extension.toLowerCase()
-  }
-}
-
-const getFileDir = (fileName: string) => {
-  const { extension } = getFileInfo(fileName)
-  let dir = path.join(__dirname, '../../public/files')
-
-  const isImage = ['png', 'jpg', 'jpeg'].includes(extension)
-
-  if (isImage) {
-    dir += dir.includes('\\') ? '\\images' : '/images'
-  }
-  return dir
-}
 
 const port = 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -96,16 +64,7 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/user', userApiV1)
   app.use('/api/v1/uploader', multiUploaderApiV1)
-  app.delete('/api/v1/uploader/:fileName', async (req: any, res: any) => {
-    const file = `${getFileDir(req.params.fileName)}${req.params.fileName.includes('\\') ? '\\' : '/'}${req.params.fileName}`
-    fs.unlink(file, (err: any) => {
-      if (err) {
-        return res.status(500).send(false)
-      }
 
-      return res.status(200).send(true)
-    })
-  })
   // Logout
   app.get('/logout', (req: Request, res: Response) => {
     const redirect: any = req.query.redirectTo || '/'

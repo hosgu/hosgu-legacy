@@ -246,18 +246,6 @@ const Form: FC<Props> = ({
         <TextArea defaultValue={notes} label="Notes" name="notes" />
 
         <div className="p-4">
-          <RenderIf isTrue={isUploaded || action == 'edit'}>
-            <RenderIf isTrue={!!displayedPhoto}>
-              <img src={displayedPhoto} alt="Uploaded file" />
-            </RenderIf>
-
-            <RenderIf isTrue={!!displayedPhoto}>
-              <Button className="button" onClick={handleRemoveImage}>
-                Remove image
-              </Button>
-            </RenderIf>
-          </RenderIf>
-
           <div>
             <File
               name="fileName"
