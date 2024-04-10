@@ -41,10 +41,6 @@ const Form: FC<Props> = ({
 }) => {
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
 
-  useEffect(() => {
-    console.log('🪄 Uploaded files', uploadedFiles)
-  }, [uploadedFiles])
-
   const initialValues = {
     id,
     businessId,
