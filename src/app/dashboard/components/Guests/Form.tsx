@@ -128,39 +128,7 @@ const Form: FC<Props> = ({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone
   }
 
-  // NOTE: Old method
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const values = core.formData.get(formData)
-    const isValidForm = validate(values)
-
-    if (isValidForm) {
-      let { fileStack } = await fileUtils.fileStatusActions([...fileStatus], fileUtils.deleteFile)
-      const [finalFile] = fileStack
-      setFileStatus([...fileStack])
-
-      formData.append('photo', '')
-
-      if (finalFile && finalFile.url) {
-        formData.set('photo', finalFile.url)
-      } else if (photo) {
-        formData.set('photo', photo)
-      }
-
-      const response =
-        action === 'save'
-          ? await GuestActions.create(formData)
-          : await GuestActions.update(formData)
-
-      if (response.status === 200) {
-        setShowNotification(true)
-      }
-    }
-  }
-
-  // NOTE: new method.
-  const handleSubmitTest = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
@@ -208,7 +176,7 @@ const Form: FC<Props> = ({
   }
 
   return (
-    <form onSubmit={handleSubmitTest}>
+    <form onSubmit={handleSubmit}>
       <RenderIf isTrue={showNotification}>
         <Notification
           message={action == 'save' ? 'Guest saved successfully' : 'Guest edited successfully'}
