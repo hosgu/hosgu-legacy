@@ -39,8 +39,15 @@ const Form: FC<Props> = ({
   },
   action = 'save'
 }) => {
-  const [uploadedFiles, setUploadedFiles] = useState<any>([])
-
+  const [uploadedFiles, setUploadedFiles] = useState<any>([
+    {
+      file: {
+        type: 'image'
+      },
+      url: photo
+    }
+  ])
+  console.log('Uploaded files', uploadedFiles)
   const initialValues = {
     id,
     businessId,
@@ -227,6 +234,7 @@ const Form: FC<Props> = ({
               setUploadedFiles={setUploadedFiles}
               displayDragArea={uploadedFiles.length === 0}
             />
+
             <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
           </div>
         </div>
