@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, useCallback } from 'react'
 
 import cx from '@architecturex/utils.cx'
 import dates from '@architecturex/utils.dates'
@@ -105,7 +105,7 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
   const [currentDate, setCurrentDate] = useState(today)
   const [headerDates, setHeaderDates] = useState<Date[]>(headerDatesArray)
 
-  const handleMoveBackTwoWeeks = () => {
+  const handleMoveBackTwoWeeks = useCallback(() => {
     const newHeaderDates = headerDates.map((date) => {
       const newDate = new Date(date)
       newDate.setDate(date.getDate() - 14)
@@ -114,9 +114,9 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
 
     setCurrentDate(newHeaderDates[0])
     setHeaderDates(newHeaderDates)
-  }
+  }, [headerDates])
 
-  const handleMoveNextTwoWeeks = () => {
+  const handleMoveNextTwoWeeks = useCallback(() => {
     const newHeaderDates = headerDates.map((date) => {
       const newDate = new Date(date)
       newDate.setDate(date.getDate() + 14)
@@ -125,7 +125,24 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
 
     setCurrentDate(newHeaderDates[0])
     setHeaderDates(newHeaderDates)
-  }
+  }, [headerDates])
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        handleMoveBackTwoWeeks()
+      } else if (event.key === 'ArrowRight') {
+        handleMoveNextTwoWeeks()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleMoveBackTwoWeeks, handleMoveNextTwoWeeks])
 
   return (
     <div className="w-[98%] ml-auto mr-auto">
