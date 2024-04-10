@@ -3,8 +3,7 @@ import { FC, useEffect, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
-import { default as fileUtils } from '@architecturex/utils.files'
-import files from '@architecturex/utils.files'
+import fileUtils from '@architecturex/utils.files'
 
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
@@ -14,23 +13,7 @@ import Button from '~/components/Button'
 import Input from '~/components/Input'
 import TextArea from '~/components/TextArea'
 
-// TODO:
-// - Move config
-// - Handle file upload directories (images and documents directory)
-
-const config = {
-  files: {
-    extensions: {
-      images: {
-        'image/jpeg': ['jpeg', 'jpg'],
-        'image/png': ['png']
-      },
-      docs: {
-        pdf: 'application/pdf'
-      }
-    }
-  }
-}
+import config from '~/config'
 
 type Props = {
   action: 'save' | 'edit'
