@@ -48,8 +48,8 @@ const Form: FC<Props> = ({
     fileUtils.findFileByAction(fileStatus, 'upload')?.url ||
     fileUtils.findFileByAction(fileStatus, 'show')?.url
 
-  // 🧪 Test
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
+
   useEffect(() => {
     console.log('🪄 Uploaded files', uploadedFiles)
   }, [uploadedFiles])
@@ -170,23 +170,17 @@ const Form: FC<Props> = ({
       const fileList = uploadedFiles.map((file: any) => file)
       console.log('fileList', fileList)
 
-      const uploadFilesResponse = await files.uploadFiles(
+      const uploadFilesResponse = await fileUtils.uploadFiles(
         fileList,
         '/api/v1/uploader?setType=image'
       )
       console.log('Upload files response', uploadFilesResponse)
 
-      if (uploadedFiles.length == 1 && uploadFilesResponse.ok) {
+      if (uploadedFiles.length === 1 && uploadFilesResponse.ok) {
         const fileName = uploadFilesResponse.data[0].filename
-        console.log('Uploaded files', uploadedFiles)
         const url = `/files/images/${fileName}`
-        formData.append('photo', url)
-      }
 
-      if ('') {
-        // formData.set('photo', finalFile.url)
-      } else if (photo) {
-        // formData.set('photo', photo)
+        formData.append('photo', url)
       }
 
       const response =
@@ -203,16 +197,6 @@ const Form: FC<Props> = ({
   const handleRemoveImage = () => {
     setFileStatus((prev: any) => markImagesToDelete(prev))
   }
-
-  // const markImagesToDelete = (imagesArray: any) => {
-  //   return imagesArray.map((image: any) => {
-  //     let action = image.action !== 'pending' ? 'delete' : 'pending'
-  //     if (image.action === 'show') {
-  //       action = 'pending'
-  //     }
-  //     return { ...image, action }
-  //   })
-  // }
 
   const getFileNameFromUrl = (url: string) => {
     const fileName = url.split('/').pop()
@@ -292,17 +276,20 @@ const Form: FC<Props> = ({
         <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
 
         <TextArea defaultValue={notes} label="Notes" name="notes" />
+
         <div className="p-4">
           <RenderIf isTrue={isUploaded || action == 'edit'}>
             <RenderIf isTrue={!!displayedPhoto}>
               <img src={displayedPhoto} alt="Uploaded file" />
             </RenderIf>
+
             <RenderIf isTrue={!!displayedPhoto}>
               <Button className="button" onClick={handleRemoveImage}>
                 Remove image
               </Button>
             </RenderIf>
           </RenderIf>
+
           <div>
             <File
               name="fileName"
@@ -316,6 +303,7 @@ const Form: FC<Props> = ({
           </div>
         </div>
       </div>
+
       <div className="flex justify-center">
         <Button type="submit" shape="square" size="large" fullWidth>
           Save

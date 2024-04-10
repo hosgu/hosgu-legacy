@@ -1,24 +1,14 @@
-import React, { FC, Fragment, useEffect, useRef, useState } from 'react'
+import React, { FC, useRef, useState, DragEvent } from 'react'
 import files from '@architecturex/utils.files'
 import Image from 'next/image'
 import is from '@architecturex/utils.is'
 import cx from '@architecturex/utils.cx'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
-
 import config from '~/config'
 
-// TODO:
-// - Handle Allowed extensions / mimetypes ✔️
-// - Handle maximum file size
-// - Handle file preview ✔️
-// - Limit maximum drag files
-// - Optional? Handle invalid extensions / mimetypes (notify user)
-
 const allowedFileTypes = {
-  image: config.files?.extensions.images,
-  document: config.files?.extensions.docs
-  // all: [...config.files?.extensions?.images, ...config.files?.extensions.docs]
+  image: config.files?.extensions.images
 }
 
 type Props = {
@@ -66,9 +56,11 @@ const File: FC<Props> = ({
 
     const handleFileReaderLoad = (e: ProgressEvent<FileReader>) => {
       const base64 = fileReader.result
+
       if (is(base64).string()) {
         setUploadedFiles((prev: any) => [...prev, { file, base64 }])
       }
+
       fileReader.removeEventListener('load', handleFileReaderLoad)
     }
 
@@ -81,9 +73,8 @@ const File: FC<Props> = ({
 
     if (isValidMimeTypes(fileListMimeTypes)) {
       const formattedFileList = await files.formatFileList(fileList)
+
       formattedFileList.map(({ file }) => readFile(file))
-    } else {
-      // TODO: handle invalid files
     }
   }
 
@@ -93,23 +84,22 @@ const File: FC<Props> = ({
     }
   }
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
+
     styleControl.current++
   }
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.dataTransfer.dropEffect = 'none'
+
     const isFiles = e.dataTransfer.types.includes('Files')
 
-    if (isFiles && (multiple || e.dataTransfer.items.length == 1)) {
-      const fileMimeTypes = Array.from(e.dataTransfer.items).map((file) => {
-        const mimeType = file.type
-        return mimeType
-      })
-
+    if (isFiles && (multiple || e.dataTransfer.items.length === 1)) {
+      const fileMimeTypes = Array.from(e.dataTransfer.items).map((file) => file.type)
       let isValidExtensions: boolean
-      if (fileMimeTypes.length == 0) {
+
+      if (fileMimeTypes.length === 0) {
         isValidExtensions = true
       } else {
         isValidExtensions = isValidMimeTypes(fileMimeTypes)
@@ -123,7 +113,7 @@ const File: FC<Props> = ({
     }
   }
 
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     styleControl.current--
 
     if (styleControl.current == 0) {
@@ -131,16 +121,20 @@ const File: FC<Props> = ({
     }
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setIsDragging(false)
+
     styleControl.current = 0
     handleSelectedFiles(e.dataTransfer.files)
   }
 
   const isValidMimeTypes = (mimeTypes: string[]) => {
     return mimeTypes.every((mimeType) => {
-      if (!mimeType) return false
+      if (!mimeType) {
+        return false
+      }
+
       return fileMimeTypes.includes(mimeType)
     })
   }
@@ -197,6 +191,7 @@ const File: FC<Props> = ({
           >
             Upload from your device
           </label>
+
           <input
             ref={inputRef}
             id="file"

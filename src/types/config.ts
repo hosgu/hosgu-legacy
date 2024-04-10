@@ -30,7 +30,7 @@ export interface Configuration {
   files: {
     extensions: {
       images: Record<string, string[]>
-      docs: Record<string, string>
+      docs: Record<string, string[]>
     }
   }
 }

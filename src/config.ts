@@ -31,7 +31,7 @@ export const globalConfig: Configuration = {
         'image/png': ['png']
       },
       docs: {
-        pdf: 'application/pdf'
+        'application/pdf': ['pdf']
       }
     }
   }
