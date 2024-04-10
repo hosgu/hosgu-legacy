@@ -6,6 +6,8 @@ import cx from '@architecturex/utils.cx'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 
+import config from '~/config'
+
 // TODO:
 // - Handle Allowed extensions / mimetypes ✔️
 // - Handle maximum file size
@@ -14,9 +16,9 @@ import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 // - Optional? Handle invalid extensions / mimetypes (notify user)
 
 const allowedFileTypes = {
-  image: config.files.extensions.images,
-  document: config.files.extensions.docs,
-  all: [...config.files.extensions.images, ...config.files.extensions.docs]
+  image: config.files?.extensions.images,
+  document: config.files?.extensions.docs
+  // all: [...config.files?.extensions?.images, ...config.files?.extensions.docs]
 }
 
 type Props = {

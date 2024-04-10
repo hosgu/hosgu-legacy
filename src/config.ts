@@ -23,6 +23,17 @@ export const globalConfig: Configuration = {
       en: 'en-us',
       es: 'es-mx'
     }
+  },
+  files: {
+    extensions: {
+      images: {
+        'image/jpeg': ['jpg', 'jpeg'],
+        'image/png': ['png']
+      },
+      docs: {
+        pdf: 'application/pdf'
+      }
+    }
   }
 }
 
