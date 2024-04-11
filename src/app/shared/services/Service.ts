@@ -31,6 +31,7 @@ class Service {
     endpoint,
     method = 'GET',
     credentials,
+    body = {},
     returnItemsOnly = false,
     returnFirstItemOnly = false
   }: GetOne): Promise<any> {
