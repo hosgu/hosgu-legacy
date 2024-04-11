@@ -7,7 +7,6 @@ type Props = {
 }
 
 const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
-  console.log('FILESSSS==>>', files)
   const handleRemoveImage = async (e: any) => {
     const fileName = e.target.dataset.filename
 
@@ -19,7 +18,7 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
   }
 
   const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
-  console.log('imageFiles', imageFiles)
+
   const gridImages = imageFiles.map((file: any) => {
     return (
       <div key={file.file.name} className="h-full w-full relative">
