@@ -39,9 +39,20 @@ const Form: FC<Props> = ({
   },
   action = 'save'
 }) => {
-  const [uploadedFiles, setUploadedFiles] = useState<any>([])
+  const initialFiles = photo
+    ? [
+        {
+          file: {
+            type: 'image'
+          },
+          url: photo
+        }
+      ]
+    : []
 
-  const initialValues = {
+  const [uploadedFiles, setUploadedFiles] = useState<any>(initialFiles)
+
+  const [initialValues, setInitialValues] = useState<any>({
     id,
     businessId,
     fullName,
@@ -56,8 +67,7 @@ const Form: FC<Props> = ({
     taxIdentifier,
     notes,
     photo
-  }
-
+  })
   const [showNotification, setShowNotification] = useState(false)
 
   const [errors, setErrors] = useState({
@@ -116,24 +126,52 @@ const Form: FC<Props> = ({
   }
 
   const handleSubmit = async (e: any) => {
+    setShowNotification(false)
+
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
 
     if (isValidForm) {
-      const fileList = uploadedFiles.map((file: any) => file)
+      const fileList = uploadedFiles.filter((file: any) => !file.url)
 
-      const uploadFilesResponse = await fileUtils.uploadFiles(
-        fileList,
-        '/api/v1/uploader?setType=image'
-      )
+      if (fileList.length > 0) {
+        const uploadFilesResponse = await fileUtils.uploadFiles(
+          fileList,
+          '/api/v1/uploader?setType=image'
+        )
 
-      if (uploadedFiles.length === 1 && uploadFilesResponse.ok) {
-        const fileName = uploadFilesResponse.data[0].filename
-        const url = `/files/images/${fileName}`
+        if (uploadFilesResponse.ok) {
+          const fileName = uploadFilesResponse.data[0].filename
+          const url = `/files/images/${fileName}`
 
-        formData.append('photo', url)
+          formData.append('photo', url)
+
+          setInitialValues({
+            ...initialValues,
+            photo: url
+          })
+        }
+      } else if (uploadedFiles.length > 0) {
+        formData.append('photo', uploadedFiles[0].url)
+
+        setInitialValues({
+          ...initialValues,
+          photo: uploadedFiles[0].url
+        })
+      } else {
+        formData.append('photo', '')
+
+        if (initialValues.photo) {
+          const imageToDelete = fileUtils.getFileNameFromUrl(initialValues.photo)
+          await fileUtils.deleteFile(imageToDelete)
+
+          setInitialValues({
+            ...initialValues,
+            photo: ''
+          })
+        }
       }
 
       const response =
@@ -141,7 +179,7 @@ const Form: FC<Props> = ({
           ? await GuestActions.create(formData)
           : await GuestActions.update(formData)
 
-      if (response.status === 200) {
+      if (response.ok) {
         setShowNotification(true)
       }
     }
@@ -227,6 +265,7 @@ const Form: FC<Props> = ({
               setUploadedFiles={setUploadedFiles}
               displayDragArea={uploadedFiles.length === 0}
             />
+
             <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
           </div>
         </div>
