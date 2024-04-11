@@ -18,7 +18,7 @@ const Card: FC<Props> = ({ svg, title, content, footer }) => {
 
         <span>{title}</span>
       </h2>
-      <p className="text-center">{content}</p>
+      <div className="text-center">{content}</div>
       {footer && <div className="mt-4 text-sm text-gray-600">{footer}</div>}
     </div>
   )
