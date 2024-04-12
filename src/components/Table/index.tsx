@@ -101,16 +101,18 @@ const Table: FC<TableProps> = ({
             </thead>
             <tbody>
               {currentRows.length === 0 && (
-                <td
-                  colSpan={headers.length}
-                  className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
-                >
-                  <div className="flex items-center justify-center">
-                    <SVG.NoData />
-                  </div>
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
+                  >
+                    <div className="flex items-center justify-center">
+                      <SVG.NoData />
+                    </div>
 
-                  <div className="text-gray-300 font-normal">No data</div>
-                </td>
+                    <div className="text-gray-300 font-normal">No data</div>
+                  </td>
+                </tr>
               )}
 
               {currentRows.map((row, rowIndex) => (
