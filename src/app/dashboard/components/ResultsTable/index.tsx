@@ -30,8 +30,8 @@ const ResultsTable: FC<Props> = ({
   isEditModalOpen,
   onCloseModal
 }) => {
-  const [key, setKey] = useState<string>()
-  const [rows, setRows] = useState<ReactNode[][]>([])
+  const [key, setKey] = useState<string>(checksum)
+  const [rows, setRows] = useState<ReactNode[][]>(data.map(renderRow))
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   useEffect(() => {
