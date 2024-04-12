@@ -35,7 +35,7 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   const cookieStore = cookies()
   const darkMode = cookieStore.get('darkMode')
-  const theme = darkMode?.value === 'true' ? 'dark' : ''
+  const theme = darkMode?.value === 'true' ? 'dark' : 'theme'
   let locale = cookieStore.get('locale')?.value || 'en-us'
 
   if (!allowedLocales.includes(locale)) {
