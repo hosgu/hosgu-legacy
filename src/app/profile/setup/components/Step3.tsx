@@ -13,53 +13,6 @@ type Props = {
 const Step: FC<Props> = ({ locale, values, setValues }) => {
   const { guests, bathrooms, beedrooms, beeds } = values
   const t = i18n(locale)
-  const [personCount, setPersonCount] = useState(guests)
-  const [roomCount, setRoomCount] = useState(0)
-  const [bathroomCount, setBathroomCount] = useState(1)
-
-  const onChange = (e: any) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-  }
-
-  /*   const renderRoomDropdown = (roomNumber: number) => {
-    return (
-      <div className="flex items-center mt-10 bg-slate-500 w-96 p-2 rounded-lg text-white">
-        <label className="w-36 text-sm">{`Camas en Cuarto ${roomNumber}`}:</label>&nbsp;
-        <div>
-          <Counter
-            label="King"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={12}
-            style={{ width: '139px', fontSize: '14px' }}
-          />
-
-          <Counter
-            label="Queen"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={9}
-            style={{ width: '140px', fontSize: '14px' }}
-          />
-
-          <Counter
-            label="Full"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={14}
-            style={{ width: '139px', fontSize: '14px' }}
-          />
-        </div>
-      </div>
-    )
-  } */
 
   return (
     <div className="flex flex-col space-y-4 w-96">

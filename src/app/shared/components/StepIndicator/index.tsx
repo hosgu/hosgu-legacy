@@ -7,9 +7,16 @@ interface StepIndicatorProps {
   currentStep: number
   onBack: () => void
   onNext: () => void
+  enableNext: boolean
 }
 
-const StepIndicator: FC<StepIndicatorProps> = ({ steps, currentStep, onBack, onNext }) => {
+const StepIndicator: FC<StepIndicatorProps> = ({
+  steps,
+  currentStep,
+  onBack,
+  onNext,
+  enableNext
+}) => {
   return (
     <div className="flex flex-col items-center w-full">
       <div className="flex justify-between w-full mb-4">
@@ -25,13 +32,15 @@ const StepIndicator: FC<StepIndicatorProps> = ({ steps, currentStep, onBack, onN
       <div className="flex w-full justify-between">
         <a
           onClick={onBack}
-          className={cx.join('py-2 px-4 cursor-pointer', { invisible: currentStep === 0 })}
+          className={cx.join('py-2 px-4 cursor-pointer', {
+            invisible: currentStep === 0 || currentStep === steps
+          })}
         >
           Back
         </a>
 
-        <Button color="secondary" onClick={onNext} disabled={currentStep === steps - 1}>
-          Next
+        <Button color="secondary" onClick={onNext} disabled={currentStep === steps}>
+          {currentStep === steps - 1 ? 'Submit' : 'Next'}
         </Button>
       </div>
     </div>

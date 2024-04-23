@@ -1,7 +1,10 @@
 'use client'
-import React, { FC, useState, ChangeEvent } from 'react'
+import React, { FC, useState, ChangeEvent, useEffect } from 'react'
 import security from '@architecturex/utils.security'
+import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
+import Notification from '~/components/Notification'
+import fileUtils from '@architecturex/utils.files'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
@@ -15,9 +18,12 @@ import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
+import { RenderIf } from '@architecturex/components.renderif'
 
 type Props = {
-  user: UserFields
+  user: UserFields & {
+    businessSlug: string
+  }
   locale: string
 }
 
@@ -67,6 +73,9 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       ['smokin', false]
     ])
   })
+  const [uploadedFiles, setUploadedFiles] = useState<any>([])
+  const [showNotification, setShowNotification] = useState(false)
+  const [enableNext, setEnableNext] = useState(false)
 
   const [errors, setErrors] = useState({
     password: '',
@@ -75,7 +84,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     businessEmail: '',
     businessPhone: '',
     businessWebsite: '',
-    country: ''
+    country: '',
+    priceNights: ''
   })
 
   const goBack = () => {
@@ -84,7 +94,24 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
   const goNext = async () => {
     const result = await handleSubmit()
+    setShowNotification(false)
 
+    if (currentStep === 5) {
+      if (uploadedFiles.length === 0) {
+        setShowNotification(true)
+        return
+      }
+      const uploadFilesResponse = await fileUtils.uploadFiles(
+        uploadedFiles,
+        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
+      )
+      if (uploadFilesResponse.ok) {
+        setValues({
+          ...values,
+          images: uploadFilesResponse.data.map((data: any) => data.path)
+        })
+      }
+    }
     if (result) {
       setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
     }
@@ -97,6 +124,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       ...prevState,
       [name]: value
     }))
+  }
+
+  const verifyProperties = (
+    value: string | number,
+    minLength: number = 3,
+    maxLength: number = 20,
+    acceptNegative: boolean = false
+  ) => {
+    if (!value) return t(`pleaseEnterYourProperty${value}`)
+    if (is(value).number()) {
+      if (!acceptNegative && (value as number) < 0) return t(`pleaseAValidProperty${value}`)
+    }
+
+    if (is(value).string()) {
+      if ((value as string).length < minLength || (value as string).length > maxLength) {
+        return t(`pleaseAValidProperty${value}`)
+      }
+    }
+    return ''
   }
 
   const validations = {
@@ -154,6 +200,12 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       }
 
       return ''
+    },
+    propertyPrice: (value: number) => {
+      if (!value) {
+        return t('pleaseEnterYourPrice')
+      }
+      return ''
     }
   }
 
@@ -200,10 +252,11 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     if (currentStep === 6) {
       const newErrors = {
         ...errors,
-        address1: validations.propertyAddress1(values.address1),
+        address1: verifyProperties(values.address1, 0, 300),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
-        zipCode: validations.propertyZipCode(values.zipCode)
+        zipCode: validations.propertyZipCode(values.zipCode),
+        priceNights: validations.propertyPrice(values.priceNights)
       }
 
       setErrors(newErrors)
@@ -217,6 +270,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
   const handleSubmit = async () => {
     const isValidStep = validate()
     console.log('isValidStep', isValidStep, currentStep, values)
+
     if (isValidStep && currentStep < 7) {
       return true
     }
@@ -265,12 +319,29 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       setStep={setCurrentStep}
       values={values}
       setValues={setValues}
+      setUploadedFiles={setUploadedFiles}
+      uploadedFiles={uploadedFiles}
     />,
     <Step7 key="step6" />
   ]
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(values.images)
+  }, [values])
+
   return (
     <>
+      <RenderIf isTrue={showNotification}>
+        <Notification message="Error on saving profile data" type="error" />
+      </RenderIf>
+
       <div className="flex justify-center w-full h-[75vh]">
         <div className="p-10 rounded-lg">
           <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
@@ -288,8 +359,16 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
         </div>
       </div>
 
-      <div className="w-2/3 m-auto">
-        <StepIndicator steps={6} currentStep={currentStep} onBack={goBack} onNext={goNext} />
+      <div className="fixed bottom-4 left-0  w-full flex justify-center items-center">
+        <div className="w-[90%]">
+          <StepIndicator
+            enableNext={enableNext}
+            steps={6}
+            currentStep={currentStep}
+            onBack={goBack}
+            onNext={goNext}
+          />
+        </div>
       </div>
     </>
   )
