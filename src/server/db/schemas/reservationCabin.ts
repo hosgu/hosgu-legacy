@@ -1,14 +1,14 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
-import { estate } from './estate'
+import { propertyCabin } from './propertyCabin'
 import { guest } from './guest'
 import { customJsonb, Notes } from '../schema'
 
 const customJsonbNotes = customJsonb<Notes>('notes')
 
-export const reservation = pgTable('reservation', {
+export const reservationCabin = pgTable('reservationCabin', {
   id: uuid('id').primaryKey().defaultRandom(),
-  estateId: uuid('estateId')
-    .references(() => estate.id)
+  propertyId: uuid('propertyId')
+    .references(() => propertyCabin.id)
     .notNull(),
   guestId: uuid('guestId')
     .references(() => guest.id)
@@ -41,5 +41,5 @@ export const reservation = pgTable('reservation', {
   updatedAt: timestamp('updatedAt').defaultNow()
 })
 
-export type Reservation = typeof reservation
-export type ReservationFields = typeof reservation.$inferSelect
+export type ReservationCabin = typeof reservationCabin
+export type ReservationCabinFields = typeof reservationCabin.$inferSelect

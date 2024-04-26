@@ -1,20 +1,17 @@
-import CRUDHandler from '../../CRUD'
-import { Reservation, reservation } from '../../../db/schemas/reservation'
-import { DB } from '../../../db'
+import CRUDHandler from '../../../CRUD'
+import { ReservationCabin, reservationCabin } from '../../../../db/schemas/reservationCabin'
+import { DB } from '../../../../db'
 import { eq } from 'drizzle-orm'
 import { DataResponse, ItemData } from '~/server/api/types'
 import { GuestFields } from '~/server/db/schemas/guest'
 
-class CRUD extends CRUDHandler<Reservation> {
+class CRUD extends CRUDHandler<ReservationCabin> {
   constructor(db: DB) {
-    super(db, reservation)
+    super(db, reservationCabin)
   }
 
   async getByGuestId(id: GuestFields['id']): Promise<DataResponse<ItemData>> {
-    const data = await this.db
-      .select()
-      .from(this.table)
-      .where(eq(reservation.guestId, id))
+    const data = await this.db.select().from(this.table).where(eq(reservationCabin.guestId, id))
 
     if (data.length === 0) {
       throw {

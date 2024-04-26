@@ -5,6 +5,7 @@ import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import Notification from '~/components/Notification'
 import fileUtils from '@architecturex/utils.files'
+import { setupProfile } from '~/app/shared/actions/profile'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
@@ -75,7 +76,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
   })
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
   const [showNotification, setShowNotification] = useState(false)
-  const [enableNext, setEnableNext] = useState(false)
+  const [enableNext, setEnableNext] = useState(true)
 
   const [errors, setErrors] = useState({
     password: '',
@@ -96,6 +97,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     const result = await handleSubmit()
     setShowNotification(false)
 
+    // upload photos
     if (currentStep === 5) {
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
@@ -111,7 +113,19 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
           images: uploadFilesResponse.data.map((data: any) => data.path)
         })
       }
+      let amenitiesValues: { i18n: string; name: string; exists: boolean }[] = []
+      values.amenities.forEach((value: boolean, key: string) => {
+        amenitiesValues.push({ i18n: key, name: key, exists: value })
+      })
+      let propertyData = { ...values, amenitiesValues }
+
+      const formData = core.formData.set(new FormData(), {
+        ...propertyData
+      })
+
+      await setupProfile(formData)
     }
+
     if (result) {
       setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
     }
@@ -126,7 +140,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     }))
   }
 
-  const verifyProperties = (
+  /*   const verifyProperties = (
     value: string | number,
     minLength: number = 3,
     maxLength: number = 20,
@@ -144,7 +158,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     }
     return ''
   }
-
+ */
   const validations = {
     propertyName: (value: string) => {
       if (!value) {
@@ -252,7 +266,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     if (currentStep === 6) {
       const newErrors = {
         ...errors,
-        address1: verifyProperties(values.address1, 0, 300),
+        address1: validations.propertyAddress1(values.address1),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
@@ -269,7 +283,6 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
   const handleSubmit = async () => {
     const isValidStep = validate()
-    console.log('isValidStep', isValidStep, currentStep, values)
 
     if (isValidStep && currentStep < 7) {
       return true
@@ -298,7 +311,14 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       validate={validate}
     />,
     <Step2 key="step2" locale={locale} setValues={setValues} setStep={setCurrentStep} />,
-    <Step3 key="step3" locale={locale} values={values} setValues={setValues} />,
+    <Step3
+      key="step3"
+      locale={locale}
+      values={values}
+      setValues={setValues}
+      enableNext={enableNext}
+      setEnableNext={setEnableNext}
+    />,
     <Step4
       key="step4"
       locale={locale}
@@ -312,6 +332,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       setStep={setCurrentStep}
       values={values}
       setValues={setValues}
+      enableNext={enableNext}
+      setEnableNext={setEnableNext}
     />,
     <Step6
       key="step6"

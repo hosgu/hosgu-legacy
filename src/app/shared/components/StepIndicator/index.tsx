@@ -33,13 +33,13 @@ const StepIndicator: FC<StepIndicatorProps> = ({
         <a
           onClick={onBack}
           className={cx.join('py-2 px-4 cursor-pointer', {
-            invisible: currentStep === 0 || currentStep === steps
+            invisible: currentStep === 0
           })}
         >
           Back
         </a>
 
-        <Button color="secondary" onClick={onNext} disabled={currentStep === steps}>
+        <Button color="secondary" onClick={onNext} disabled={currentStep === steps || !enableNext}>
           {currentStep === steps - 1 ? 'Submit' : 'Next'}
         </Button>
       </div>

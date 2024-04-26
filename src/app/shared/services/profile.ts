@@ -125,7 +125,7 @@ class Service extends ServiceHandler {
           body: {
             propertyId,
             type: propertyType,
-            floor: 1,
+            floor: 12,
             roomNumber: 1,
             roomType: propertyType === 'hotel' ? 'single' : 'entire',
             insideBathroom: 1,

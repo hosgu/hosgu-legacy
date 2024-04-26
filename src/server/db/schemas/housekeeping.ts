@@ -1,7 +1,7 @@
 import { pgTable, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { business } from './business'
 import { employee } from './employee'
-import { reservation } from './reservation'
+import { reservation } from './reservationHotel'
 import { customJsonb, Notes } from '../schema'
 
 const customJsonbNotes = customJsonb<Notes>('notes')

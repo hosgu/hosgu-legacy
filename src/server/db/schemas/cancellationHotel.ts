@@ -1,10 +1,10 @@
 import { pgTable, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
-import { reservation } from './reservation'
+import { reservationHotel } from './reservationHotel'
 
-export const cancellation = pgTable('cancellation', {
+export const cancellationHotel = pgTable('cancellationHotel', {
   id: uuid('id').primaryKey().defaultRandom(),
   reservationId: uuid('reservationId')
-    .references(() => reservation.id)
+    .references(() => reservationHotel.id)
     .notNull(),
   cancellationDate: varchar('cancellationDate', { length: 20 }),
   securityDepositReturned: integer('securityDepositReturned').default(0),
@@ -15,5 +15,5 @@ export const cancellation = pgTable('cancellation', {
   updatedAt: timestamp('updatedAt').defaultNow()
 })
 
-export type Cancellation = typeof cancellation
-export type CancellationFields = typeof cancellation.$inferSelect
+export type CancellationHotel = typeof cancellationHotel
+export type CancellationHotelFields = typeof cancellationHotel.$inferSelect

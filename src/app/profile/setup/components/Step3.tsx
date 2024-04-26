@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import Counter from '~/components/Counter'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -8,10 +8,21 @@ type Props = {
   locale: string
   values: any
   setValues: any
+  enableNext: boolean
+  setEnableNext: any
 }
 
-const Step: FC<Props> = ({ locale, values, setValues }) => {
+const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   const { guests, bathrooms, beedrooms, beeds } = values
+
+  useEffect(() => {
+    if (guests === 0 || bathrooms === 0 || beedrooms === 0 || beeds === 0) {
+      setEnableNext(false)
+      return
+    }
+    setEnableNext(true)
+  }, [guests, bathrooms, beedrooms, beeds, setEnableNext])
+
   const t = i18n(locale)
 
   return (

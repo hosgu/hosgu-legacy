@@ -1,5 +1,5 @@
 import core from '@architecturex/utils.core'
-import { ReservationFields } from '~/server/db/schemas/reservation'
+import { ReservationFields } from '~/server/db/schemas/reservationHotel'
 import ReservationService from '~/app/shared/services/reservation'
 
 export const create = async (e: FormData) => {

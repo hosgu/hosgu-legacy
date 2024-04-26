@@ -1,5 +1,5 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import Link from '~/app/shared/components/Link'
 import Checkbox from '~/components/Checkbox'
 import Input from '~/components/Input'
@@ -9,10 +9,26 @@ type Props = {
   setStep: (prevState: any) => void
   values: any
   setValues: any
+  enableNext: boolean
+  setEnableNext: any
 }
 
-const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
+const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) => {
   const { priceNights, cleaningFee, extraPersonPrice, checkIn, checkOut } = values
+
+  useEffect(() => {
+    if (
+      priceNights === 0 ||
+      cleaningFee === 0 ||
+      extraPersonPrice === 0 ||
+      checkIn === '' ||
+      checkOut === ''
+    ) {
+      setEnableNext(false)
+      return
+    }
+    setEnableNext(true)
+  }, [priceNights, setEnableNext, cleaningFee, extraPersonPrice, checkIn, checkOut])
 
   return (
     <div className="flex flex-col justify-between space items-center text-center w-full max-w-[500px] ">

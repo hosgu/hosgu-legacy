@@ -8,7 +8,8 @@ import path from 'path'
 // APIs
 import agentApiV1 from './api/v1/agent'
 import businessApiV1 from './api/v1/business'
-import cancellationApiV1 from './api/v1/cancellation'
+import cancellationCabinApiV1 from './api/v1/cabin/cancellation'
+import cancellatioHotelnApiV1 from './api/v1/hotel/cancellation'
 import comissionApiV1 from './api/v1/comission'
 import guestApiV1 from './api/v1/guest'
 import employeeApiV1 from './api/v1/employee'
@@ -53,7 +54,8 @@ nextApp.prepare().then(() => {
   // API
   app.use('/api/v1/agent', agentApiV1)
   app.use('/api/v1/business', businessApiV1)
-  app.use('/api/v1/cancellation', cancellationApiV1)
+  app.use('/api/v1/cabin/cancellation', cancellationCabinApiV1)
+  app.use('/api/v1/hotel/cancellation', cancellatioHotelnApiV1)
   app.use('/api/v1/comission', comissionApiV1)
   app.use('/api/v1/employee', employeeApiV1)
   app.use('/api/v1/estate', estateApiV1)

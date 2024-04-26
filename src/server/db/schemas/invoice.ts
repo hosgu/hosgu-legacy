@@ -1,6 +1,6 @@
 import { pgTable, integer, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { business } from './business'
-import { reservation } from './reservation'
+import { reservation } from './reservationHotel'
 
 export const invoice = pgTable('invoice', {
   id: uuid('id').primaryKey().defaultRandom(),

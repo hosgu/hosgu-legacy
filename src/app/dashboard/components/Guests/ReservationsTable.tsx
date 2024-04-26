@@ -1,7 +1,7 @@
 'use client'
 import { FC } from 'react'
 import Table from '~/components/Table'
-import { ReservationFields } from '~/server/db/schemas/reservation'
+import { ReservationFields } from '~/server/db/schemas/reservationHotel'
 
 type Props = {
   reservations: ReservationFields[]

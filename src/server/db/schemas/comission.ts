@@ -1,6 +1,6 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { agent } from './agent'
-import { reservation } from './reservation'
+import { reservationHotel } from './reservationHotel'
 
 export const comission = pgTable('comission', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -8,7 +8,7 @@ export const comission = pgTable('comission', {
     .references(() => agent.id)
     .notNull(),
   reservationId: uuid('reservationId')
-    .references(() => reservation.id)
+    .references(() => reservationHotel.id)
     .notNull(),
   commission: integer('commission').default(0),
   isOffer: boolean('isOffer').default(false),
