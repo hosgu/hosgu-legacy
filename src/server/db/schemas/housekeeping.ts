@@ -1,10 +1,7 @@
-import { pgTable, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, varchar, uuid, text, timestamp } from 'drizzle-orm/pg-core'
 import { business } from './business'
 import { employee } from './employee'
 import { reservation } from './reservation'
-import { customJsonb, Notes } from '../schema'
-
-const customJsonbNotes = customJsonb<Notes>('notes')
 
 export const housekeeping = pgTable('housekeeping', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -19,7 +16,7 @@ export const housekeeping = pgTable('housekeeping', {
     .notNull(),
   date: varchar('date', { length: 20 }),
   time: varchar('time', { length: 20 }),
-  notes: customJsonbNotes.default([]),
+  notes: text('notes').default(''),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { createCRUDRoutes } from '../../routerGenerator'
 import { db } from '../../../db'
-import CRUD from './business'
+import CRUD from './crud'
 import { handleErrorResponse } from '../../error'
 
 const CRUDHandler = new CRUD(db)

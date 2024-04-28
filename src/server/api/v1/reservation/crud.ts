@@ -11,10 +11,7 @@ class CRUD extends CRUDHandler<Reservation> {
   }
 
   async getByGuestId(id: GuestFields['id']): Promise<DataResponse<ItemData>> {
-    const data = await this.db
-      .select()
-      .from(this.table)
-      .where(eq(reservation.guestId, id))
+    const data = await this.db.select().from(this.table).where(eq(reservation.guestId, id))
 
     if (data.length === 0) {
       throw {

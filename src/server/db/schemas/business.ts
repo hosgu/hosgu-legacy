@@ -6,12 +6,11 @@ export const business = pgTable('business', {
   userId: uuid('userId')
     .references(() => user.id)
     .notNull(),
-  type: varchar('type', { length: 100 }),
   name: varchar('name', { length: 255 }),
   slug: varchar('slug', { length: 255 }),
   email: varchar('email', { length: 255 }),
   phone: varchar('phone', { length: 50 }),
-  priceRange: varchar('priceRange', { length: 20 }),
+  priceRange: varchar('priceRange', { length: 5 }),
   website: varchar('website', { length: 200 }),
   facebook: varchar('facebook', { length: 200 }),
   instagram: varchar('instagram', { length: 200 }),

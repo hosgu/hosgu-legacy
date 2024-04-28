@@ -14,9 +14,9 @@ export const comission = pgTable('comission', {
   isOffer: boolean('isOffer').default(false),
   isPaid: boolean('isPaid').default(false),
   paymentMethod: varchar('paymentMethod', { length: 100 }),
+  reservationCost: integer('reservationCost').default(0),
   month: varchar('month', { length: 20 }),
   year: varchar('year', { length: 20 }),
-  reservationCost: integer('reservationCost').default(0),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })
