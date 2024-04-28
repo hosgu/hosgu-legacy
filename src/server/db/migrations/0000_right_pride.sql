@@ -12,15 +12,92 @@ CREATE TABLE IF NOT EXISTS "agent" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "amenity" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"ac" boolean DEFAULT false,
+	"barberShop" boolean DEFAULT false,
+	"bbqGrill" boolean DEFAULT false,
+	"beachAccess" boolean DEFAULT false,
+	"beautySalon" boolean DEFAULT false,
+	"bikes" boolean DEFAULT false,
+	"childcareFacilities" boolean DEFAULT false,
+	"cinemaRoom" boolean DEFAULT false,
+	"convinienceStore" boolean DEFAULT false,
+	"dedicatedWorkspace" boolean DEFAULT false,
+	"dryer" boolean DEFAULT false,
+	"elevator" boolean DEFAULT false,
+	"excerciseEquipment" boolean DEFAULT false,
+	"fireExtinguisher" boolean DEFAULT false,
+	"firePit" boolean DEFAULT false,
+	"firstAidKit" boolean DEFAULT false,
+	"fitnessCenter" boolean DEFAULT false,
+	"freeParking" boolean DEFAULT false,
+	"fridge" boolean DEFAULT false,
+	"gamingRoom" boolean DEFAULT false,
+	"hammocks" boolean DEFAULT false,
+	"heating" boolean DEFAULT false,
+	"hotTub" boolean DEFAULT false,
+	"indoorFireplace" boolean DEFAULT false,
+	"kayaks" boolean DEFAULT false,
+	"kitchen" boolean DEFAULT false,
+	"lakeAccess" boolean DEFAULT false,
+	"miniFridge" boolean DEFAULT false,
+	"monoxideAlarm" boolean DEFAULT false,
+	"outdoorDiningArea" boolean DEFAULT false,
+	"outdoorShower" boolean DEFAULT false,
+	"paidParking" boolean DEFAULT false,
+	"patio" boolean DEFAULT false,
+	"petFriendly" boolean DEFAULT false,
+	"piano" boolean DEFAULT false,
+	"pool" boolean DEFAULT false,
+	"poolTable" boolean DEFAULT false,
+	"safeBox" boolean DEFAULT false,
+	"ski" boolean DEFAULT false,
+	"smokeAlarm" boolean DEFAULT false,
+	"smokingAllowed" boolean DEFAULT false,
+	"suitableForEvents" boolean DEFAULT false,
+	"tv" boolean DEFAULT false,
+	"washer" boolean DEFAULT false,
+	"wheelchairAccessible" boolean DEFAULT false,
+	"wifi" boolean DEFAULT false,
+	"yogaSpace" boolean DEFAULT false,
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "arrangement" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"airMattresses" integer DEFAULT 0,
+	"bedrooms" integer,
+	"bunkBeds" integer DEFAULT 0,
+	"cribs" integer DEFAULT 0,
+	"futons" integer DEFAULT 0,
+	"hammocks" integer DEFAULT 0,
+	"kingSizeBeds" integer DEFAULT 0,
+	"queenSizeBeds" integer DEFAULT 0,
+	"singleSizeBeds" integer DEFAULT 0,
+	"sofaBeds" integer DEFAULT 0,
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "asset" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"roomId" uuid,
+	"unitId" uuid,
+	"assetType" varchar(100),
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "business" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"userId" uuid NOT NULL,
-	"type" varchar(100),
 	"name" varchar(255),
 	"slug" varchar(255),
 	"email" varchar(255),
 	"phone" varchar(50),
-	"priceRange" varchar(20),
+	"priceRange" varchar(5),
 	"website" varchar(200),
 	"facebook" varchar(200),
 	"instagram" varchar(200),
@@ -57,9 +134,9 @@ CREATE TABLE IF NOT EXISTS "comission" (
 	"isOffer" boolean DEFAULT false,
 	"isPaid" boolean DEFAULT false,
 	"paymentMethod" varchar(100),
+	"reservationCost" integer DEFAULT 0,
 	"month" varchar(20),
 	"year" varchar(20),
-	"reservationCost" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -84,39 +161,19 @@ CREATE TABLE IF NOT EXISTS "employee" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "estate" (
+CREATE TABLE IF NOT EXISTS "fee" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"propertyId" uuid NOT NULL,
-	"type" varchar(100),
-	"floor" varchar(10) DEFAULT '0',
-	"roomNumber" varchar(10) DEFAULT '0',
-	"roomType" varchar(100),
-	"insideBathrooms" integer DEFAULT 1,
-	"outsideBathrooms" integer DEFAULT 0,
-	"maxGuests" integer DEFAULT 6,
-	"minGuests" integer DEFAULT 1,
 	"cleaningFee" integer DEFAULT 0,
-	"extraGuestFee" integer DEFAULT 0,
-	"extraBedFee" integer DEFAULT 0,
-	"securityDepositFee" integer DEFAULT 0,
-	"weekendFee" integer DEFAULT 0,
-	"weekdayFee" integer DEFAULT 0,
-	"initialOfferFee" integer DEFAULT 0,
-	"secondOfferFee" integer DEFAULT 0,
 	"emergencyOfferFee" integer DEFAULT 0,
+	"extraBedFee" integer DEFAULT 0,
+	"extraGuestFee" integer DEFAULT 0,
 	"highestFee" integer DEFAULT 0,
+	"initialOfferFee" integer DEFAULT 0,
 	"lowestFee" integer DEFAULT 0,
-	"hasWifi" boolean DEFAULT true,
-	"hasTv" boolean DEFAULT true,
-	"hasNetflix" boolean DEFAULT true,
-	"hasHeat" boolean DEFAULT false,
-	"hasAc" boolean DEFAULT false,
-	"hasIron" boolean DEFAULT false,
-	"hasDesk" boolean DEFAULT false,
-	"hasKitchen" boolean DEFAULT true,
-	"hasCrib" boolean DEFAULT true,
-	"isPetsAllowed" boolean DEFAULT false,
-	"isSmokingAllowed" boolean DEFAULT false,
+	"secondOfferFee" integer DEFAULT 0,
+	"securityDepositFee" integer DEFAULT 0,
+	"weekdayFee" integer DEFAULT 0,
+	"weekendFee" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -147,7 +204,7 @@ CREATE TABLE IF NOT EXISTS "housekeeping" (
 	"reservationId" uuid NOT NULL,
 	"date" varchar(20),
 	"time" varchar(20),
-	"notes" jsonb DEFAULT '[]'::jsonb,
+	"notes" text DEFAULT '',
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -177,19 +234,31 @@ CREATE TABLE IF NOT EXISTS "invoice" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "photo" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"propertyId" uuid NOT NULL,
+	"caption" varchar(255),
+	"fileSize" integer,
+	"fileType" varchar(50),
+	"url" varchar(255),
+	"visibility" varchar(50),
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "property" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"businessId" uuid NOT NULL,
-	"type" varchar(100),
+	"amenityId" uuid NOT NULL,
+	"serviceId" uuid NOT NULL,
+	"arrangementId" uuid NOT NULL,
+	"typeOfBuilding" varchar(50),
+	"typeOfPlace" varchar(50),
 	"name" varchar(255),
 	"slug" varchar(255),
 	"description" text,
 	"floors" integer,
 	"rooms" integer,
-	"photos" jsonb DEFAULT '[]'::jsonb,
-	"amenities" jsonb DEFAULT '[{"name":"Wifi","i18n":"wifi","exists":true},{"name":"Parking","i18n":"parking","exists":true},{"name":"Kitchen","i18n":"kitchen","exists":true},{"name":"TV","i18n":"tv","exists":true},{"name":"Washer","i18n":"washer","exists":true},{"name":"Dryer","i18n":"dryer","exists":true},{"name":"Heating","i18n":"heating","exists":true},{"name":"Air Conditioning","i18n":"airConditioning","exists":true},{"name":"Iron","i18n":"iron","exists":true},{"name":"Hair Dryer","i18n":"hairDryer","exists":true},{"name":"Smoke Detector","i18n":"smokeDetector","exists":true},{"name":"Carbon Monoxide Detector","i18n":"carbonMonoxideDetector","exists":true},{"name":"First Aid Kit","i18n":"firstAidKit","exists":true},{"name":"Fire Extinguisher","i18n":"fireExtinguisher","exists":true}]'::jsonb,
-	"services" jsonb DEFAULT '[{"name":"Airport Shuttle","i18n":"airportShuttle","exists":true},{"name":"Breakfast","i18n":"breakfast","exists":true},{"name":"Elevator","i18n":"elevator","exists":true},{"name":"Gym","i18n":"gym","exists":true},{"name":"Hot Tub","i18n":"hotTub","exists":true},{"name":"Pool","i18n":"pool","exists":true},{"name":"Spa","i18n":"spa","exists":true},{"name":"Parking","i18n":"parking","exists":true},{"name":"Pets Allowed","i18n":"petsAllowed","exists":true},{"name":"Smoking Allowed","i18n":"smokingAllowed","exists":true},{"name":"Events Allowed","i18n":"eventsAllowed","exists":true},{"name":"Wheelchair Accessible","i18n":"wheelchairAccessible","exists":true}]'::jsonb,
-	"sleepingArrangements" jsonb DEFAULT '[{"bedrooom":1,"kingSizeBeds":1,"queenSizeBeds":0,"doubleSizeBeds":0,"singleSizeBeds":0,"sofaBeds":0,"bunkBeds":0,"futons":0,"hammocks":0,"airMattresses":0,"cribs":1},{"bedrooom":2,"kingSizeBeds":0,"queenSizeBeds":1,"doubleSizeBeds":0,"singleSizeBeds":0,"sofaBeds":0,"bunkBeds":0,"futons":0,"hammocks":0,"airMattresses":0,"cribs":0},{"bedrooom":3,"kingSizeBeds":0,"queenSizeBeds":2,"doubleSizeBeds":0,"singleSizeBeds":0,"sofaBeds":0,"bunkBeds":0,"futons":0,"hammocks":0,"airMattresses":0,"cribs":0}]'::jsonb,
 	"generalRules" text,
 	"safetyRules" text,
 	"cancellationPolicy" text,
@@ -202,8 +271,8 @@ CREATE TABLE IF NOT EXISTS "property" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reservation" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"estateId" uuid NOT NULL,
 	"guestId" uuid NOT NULL,
+	"assetId" uuid NOT NULL,
 	"startDate" varchar(20),
 	"endDate" varchar(20),
 	"nights" integer DEFAULT 0,
@@ -227,7 +296,41 @@ CREATE TABLE IF NOT EXISTS "reservation" (
 	"isCancelled" boolean DEFAULT false,
 	"isOffer" boolean DEFAULT false,
 	"offerDetails" text DEFAULT '',
-	"notes" jsonb DEFAULT '[]'::jsonb,
+	"notes" text DEFAULT '',
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "room" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"propertyId" uuid NOT NULL,
+	"feeId" uuid NOT NULL,
+	"floor" varchar(10) DEFAULT '0',
+	"roomNumber" varchar(10) DEFAULT '0',
+	"roomType" varchar(100),
+	"maxGuests" integer DEFAULT 6,
+	"minGuests" integer DEFAULT 1,
+	"insideBathrooms" integer DEFAULT 1,
+	"outsideBathrooms" integer DEFAULT 0,
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "service" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"airportShuttle" boolean DEFAULT false,
+	"bar" boolean DEFAULT false,
+	"childcareServices" boolean DEFAULT false,
+	"concierge" boolean DEFAULT false,
+	"eventPlanningServices" boolean DEFAULT false,
+	"housekeeping" boolean DEFAULT false,
+	"laundryService" boolean DEFAULT false,
+	"petServices" boolean DEFAULT false,
+	"restaurant" boolean DEFAULT false,
+	"roomService" boolean DEFAULT false,
+	"spa" boolean DEFAULT false,
+	"transportationServices" boolean DEFAULT false,
+	"valetParking" boolean DEFAULT false,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -256,6 +359,18 @@ CREATE TABLE IF NOT EXISTS "tier" (
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now(),
 	CONSTRAINT "tier_tier_unique" UNIQUE("tier")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "unit" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"propertyId" uuid NOT NULL,
+	"feeId" uuid NOT NULL,
+	"maxGuests" integer DEFAULT 6,
+	"minGuests" integer DEFAULT 1,
+	"insideBathrooms" integer DEFAULT 1,
+	"outsideBathrooms" integer DEFAULT 0,
+	"createdAt" timestamp DEFAULT now(),
+	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
@@ -290,6 +405,18 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "asset" ADD CONSTRAINT "asset_roomId_room_id_fk" FOREIGN KEY ("roomId") REFERENCES "room"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "asset" ADD CONSTRAINT "asset_unitId_unit_id_fk" FOREIGN KEY ("unitId") REFERENCES "unit"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "business" ADD CONSTRAINT "business_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -315,12 +442,6 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "employee" ADD CONSTRAINT "employee_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "estate" ADD CONSTRAINT "estate_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -362,13 +483,31 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "photo" ADD CONSTRAINT "photo_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "property" ADD CONSTRAINT "property_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "reservation" ADD CONSTRAINT "reservation_estateId_estate_id_fk" FOREIGN KEY ("estateId") REFERENCES "estate"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "property" ADD CONSTRAINT "property_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "amenity"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "property" ADD CONSTRAINT "property_serviceId_service_id_fk" FOREIGN KEY ("serviceId") REFERENCES "service"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "property" ADD CONSTRAINT "property_arrangementId_arrangement_id_fk" FOREIGN KEY ("arrangementId") REFERENCES "arrangement"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -380,7 +519,37 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "reservation" ADD CONSTRAINT "reservation_assetId_asset_id_fk" FOREIGN KEY ("assetId") REFERENCES "asset"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "room" ADD CONSTRAINT "room_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "room" ADD CONSTRAINT "room_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "fee"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "setting" ADD CONSTRAINT "setting_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "fee"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

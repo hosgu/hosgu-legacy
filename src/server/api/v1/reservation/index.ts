@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 import { createCRUDRoutes } from '../../routerGenerator'
-import CRUD from './reservation'
+import CRUD from './crud'
 import { db } from '../../../db/index'
 
 const customCRUD = new CRUD(db)

@@ -1,5 +1,5 @@
 import { createCRUDRoutes } from '../../routerGenerator'
-import CRUD from './cancellation'
+import CRUD from './crud'
 
 const router = createCRUDRoutes(CRUD)
 

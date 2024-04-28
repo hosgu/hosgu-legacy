@@ -1,17 +1,14 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
-import { estate } from './estate'
+import { asset } from './asset'
 import { guest } from './guest'
-import { customJsonb, Notes } from '../schema'
-
-const customJsonbNotes = customJsonb<Notes>('notes')
 
 export const reservation = pgTable('reservation', {
   id: uuid('id').primaryKey().defaultRandom(),
-  estateId: uuid('estateId')
-    .references(() => estate.id)
-    .notNull(),
   guestId: uuid('guestId')
     .references(() => guest.id)
+    .notNull(),
+  assetId: uuid('assetId')
+    .references(() => asset.id)
     .notNull(),
   startDate: varchar('startDate', { length: 20 }),
   endDate: varchar('endDate', { length: 20 }),
@@ -36,7 +33,7 @@ export const reservation = pgTable('reservation', {
   isCancelled: boolean('isCancelled').default(false),
   isOffer: boolean('isOffer').default(false),
   offerDetails: text('offerDetails').default(''),
-  notes: customJsonbNotes.default([]),
+  notes: text('notes').default(''),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })

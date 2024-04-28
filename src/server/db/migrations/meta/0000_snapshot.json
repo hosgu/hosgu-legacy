@@ -1,5 +1,5 @@
 {
-  "id": "dbe63505-01f7-4499-9f81-ecd505e56e8f",
+  "id": "078c98a3-b659-49e4-b467-ad422b5f8a68",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -116,6 +116,542 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "amenity": {
+      "name": "amenity",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "ac": {
+          "name": "ac",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "barberShop": {
+          "name": "barberShop",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "bbqGrill": {
+          "name": "bbqGrill",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "beachAccess": {
+          "name": "beachAccess",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "beautySalon": {
+          "name": "beautySalon",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "bikes": {
+          "name": "bikes",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "childcareFacilities": {
+          "name": "childcareFacilities",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "cinemaRoom": {
+          "name": "cinemaRoom",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "convinienceStore": {
+          "name": "convinienceStore",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "dedicatedWorkspace": {
+          "name": "dedicatedWorkspace",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "dryer": {
+          "name": "dryer",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "elevator": {
+          "name": "elevator",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "excerciseEquipment": {
+          "name": "excerciseEquipment",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "fireExtinguisher": {
+          "name": "fireExtinguisher",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "firePit": {
+          "name": "firePit",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "firstAidKit": {
+          "name": "firstAidKit",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "fitnessCenter": {
+          "name": "fitnessCenter",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "freeParking": {
+          "name": "freeParking",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "fridge": {
+          "name": "fridge",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "gamingRoom": {
+          "name": "gamingRoom",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "hammocks": {
+          "name": "hammocks",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "heating": {
+          "name": "heating",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "hotTub": {
+          "name": "hotTub",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "indoorFireplace": {
+          "name": "indoorFireplace",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "kayaks": {
+          "name": "kayaks",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "kitchen": {
+          "name": "kitchen",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "lakeAccess": {
+          "name": "lakeAccess",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "miniFridge": {
+          "name": "miniFridge",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "monoxideAlarm": {
+          "name": "monoxideAlarm",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "outdoorDiningArea": {
+          "name": "outdoorDiningArea",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "outdoorShower": {
+          "name": "outdoorShower",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "paidParking": {
+          "name": "paidParking",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "patio": {
+          "name": "patio",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "petFriendly": {
+          "name": "petFriendly",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "piano": {
+          "name": "piano",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "pool": {
+          "name": "pool",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "poolTable": {
+          "name": "poolTable",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "safeBox": {
+          "name": "safeBox",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "ski": {
+          "name": "ski",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "smokeAlarm": {
+          "name": "smokeAlarm",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "smokingAllowed": {
+          "name": "smokingAllowed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "suitableForEvents": {
+          "name": "suitableForEvents",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "tv": {
+          "name": "tv",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "washer": {
+          "name": "washer",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "wheelchairAccessible": {
+          "name": "wheelchairAccessible",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "wifi": {
+          "name": "wifi",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "yogaSpace": {
+          "name": "yogaSpace",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "arrangement": {
+      "name": "arrangement",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "airMattresses": {
+          "name": "airMattresses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "bedrooms": {
+          "name": "bedrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bunkBeds": {
+          "name": "bunkBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "cribs": {
+          "name": "cribs",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "futons": {
+          "name": "futons",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "hammocks": {
+          "name": "hammocks",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "kingSizeBeds": {
+          "name": "kingSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "queenSizeBeds": {
+          "name": "queenSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "singleSizeBeds": {
+          "name": "singleSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "sofaBeds": {
+          "name": "sofaBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "asset": {
+      "name": "asset",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "roomId": {
+          "name": "roomId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "unitId": {
+          "name": "unitId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "assetType": {
+          "name": "assetType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "asset_roomId_room_id_fk": {
+          "name": "asset_roomId_room_id_fk",
+          "tableFrom": "asset",
+          "tableTo": "room",
+          "columnsFrom": [
+            "roomId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "asset_unitId_unit_id_fk": {
+          "name": "asset_unitId_unit_id_fk",
+          "tableFrom": "asset",
+          "tableTo": "unit",
+          "columnsFrom": [
+            "unitId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "business": {
       "name": "business",
       "schema": "",
@@ -132,12 +668,6 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
         },
         "name": {
           "name": "name",
@@ -165,7 +695,7 @@
         },
         "priceRange": {
           "name": "priceRange",
-          "type": "varchar(20)",
+          "type": "varchar(5)",
           "primaryKey": false,
           "notNull": false
         },
@@ -410,6 +940,13 @@
           "primaryKey": false,
           "notNull": false
         },
+        "reservationCost": {
+          "name": "reservationCost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "month": {
           "name": "month",
           "type": "varchar(20)",
@@ -421,13 +958,6 @@
           "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false
-        },
-        "reservationCost": {
-          "name": "reservationCost",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
         },
         "createdAt": {
           "name": "createdAt",
@@ -606,8 +1136,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "estate": {
-      "name": "estate",
+    "fee": {
+      "name": "fee",
       "schema": "",
       "columns": {
         "id": {
@@ -617,117 +1147,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "propertyId": {
-          "name": "propertyId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "floor": {
-          "name": "floor",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'0'"
-        },
-        "roomNumber": {
-          "name": "roomNumber",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'0'"
-        },
-        "roomType": {
-          "name": "roomType",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "insideBathrooms": {
-          "name": "insideBathrooms",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 1
-        },
-        "outsideBathrooms": {
-          "name": "outsideBathrooms",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "maxGuests": {
-          "name": "maxGuests",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 6
-        },
-        "minGuests": {
-          "name": "minGuests",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 1
-        },
         "cleaningFee": {
           "name": "cleaningFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "extraGuestFee": {
-          "name": "extraGuestFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "extraBedFee": {
-          "name": "extraBedFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "securityDepositFee": {
-          "name": "securityDepositFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "weekendFee": {
-          "name": "weekendFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "weekdayFee": {
-          "name": "weekdayFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "initialOfferFee": {
-          "name": "initialOfferFee",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "secondOfferFee": {
-          "name": "secondOfferFee",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -740,8 +1161,29 @@
           "notNull": false,
           "default": 0
         },
+        "extraBedFee": {
+          "name": "extraBedFee",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "extraGuestFee": {
+          "name": "extraGuestFee",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
         "highestFee": {
           "name": "highestFee",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "initialOfferFee": {
+          "name": "initialOfferFee",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -754,82 +1196,33 @@
           "notNull": false,
           "default": 0
         },
-        "hasWifi": {
-          "name": "hasWifi",
-          "type": "boolean",
+        "secondOfferFee": {
+          "name": "secondOfferFee",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": true
+          "default": 0
         },
-        "hasTv": {
-          "name": "hasTv",
-          "type": "boolean",
+        "securityDepositFee": {
+          "name": "securityDepositFee",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": true
+          "default": 0
         },
-        "hasNetflix": {
-          "name": "hasNetflix",
-          "type": "boolean",
+        "weekdayFee": {
+          "name": "weekdayFee",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": true
+          "default": 0
         },
-        "hasHeat": {
-          "name": "hasHeat",
-          "type": "boolean",
+        "weekendFee": {
+          "name": "weekendFee",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": false
-        },
-        "hasAc": {
-          "name": "hasAc",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "hasIron": {
-          "name": "hasIron",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "hasDesk": {
-          "name": "hasDesk",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "hasKitchen": {
-          "name": "hasKitchen",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "hasCrib": {
-          "name": "hasCrib",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "isPetsAllowed": {
-          "name": "isPetsAllowed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "isSmokingAllowed": {
-          "name": "isSmokingAllowed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
+          "default": 0
         },
         "createdAt": {
           "name": "createdAt",
@@ -847,21 +1240,7 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "estate_propertyId_property_id_fk": {
-          "name": "estate_propertyId_property_id_fk",
-          "tableFrom": "estate",
-          "tableTo": "property",
-          "columnsFrom": [
-            "propertyId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -1031,10 +1410,10 @@
         },
         "notes": {
           "name": "notes",
-          "type": "jsonb",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'[]'::jsonb"
+          "default": "''"
         },
         "createdAt": {
           "name": "createdAt",
@@ -1279,6 +1658,87 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "photo": {
+      "name": "photo",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "propertyId": {
+          "name": "propertyId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "caption": {
+          "name": "caption",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fileSize": {
+          "name": "fileSize",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fileType": {
+          "name": "fileType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "photo_propertyId_property_id_fk": {
+          "name": "photo_propertyId_property_id_fk",
+          "tableFrom": "photo",
+          "tableTo": "property",
+          "columnsFrom": [
+            "propertyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "property": {
       "name": "property",
       "schema": "",
@@ -1296,9 +1756,33 @@
           "primaryKey": false,
           "notNull": true
         },
-        "type": {
-          "name": "type",
-          "type": "varchar(100)",
+        "amenityId": {
+          "name": "amenityId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "serviceId": {
+          "name": "serviceId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "arrangementId": {
+          "name": "arrangementId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "typeOfBuilding": {
+          "name": "typeOfBuilding",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "typeOfPlace": {
+          "name": "typeOfPlace",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -1331,34 +1815,6 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false
-        },
-        "photos": {
-          "name": "photos",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[]'::jsonb"
-        },
-        "amenities": {
-          "name": "amenities",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[{\"name\":\"Wifi\",\"i18n\":\"wifi\",\"exists\":true},{\"name\":\"Parking\",\"i18n\":\"parking\",\"exists\":true},{\"name\":\"Kitchen\",\"i18n\":\"kitchen\",\"exists\":true},{\"name\":\"TV\",\"i18n\":\"tv\",\"exists\":true},{\"name\":\"Washer\",\"i18n\":\"washer\",\"exists\":true},{\"name\":\"Dryer\",\"i18n\":\"dryer\",\"exists\":true},{\"name\":\"Heating\",\"i18n\":\"heating\",\"exists\":true},{\"name\":\"Air Conditioning\",\"i18n\":\"airConditioning\",\"exists\":true},{\"name\":\"Iron\",\"i18n\":\"iron\",\"exists\":true},{\"name\":\"Hair Dryer\",\"i18n\":\"hairDryer\",\"exists\":true},{\"name\":\"Smoke Detector\",\"i18n\":\"smokeDetector\",\"exists\":true},{\"name\":\"Carbon Monoxide Detector\",\"i18n\":\"carbonMonoxideDetector\",\"exists\":true},{\"name\":\"First Aid Kit\",\"i18n\":\"firstAidKit\",\"exists\":true},{\"name\":\"Fire Extinguisher\",\"i18n\":\"fireExtinguisher\",\"exists\":true}]'::jsonb"
-        },
-        "services": {
-          "name": "services",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[{\"name\":\"Airport Shuttle\",\"i18n\":\"airportShuttle\",\"exists\":true},{\"name\":\"Breakfast\",\"i18n\":\"breakfast\",\"exists\":true},{\"name\":\"Elevator\",\"i18n\":\"elevator\",\"exists\":true},{\"name\":\"Gym\",\"i18n\":\"gym\",\"exists\":true},{\"name\":\"Hot Tub\",\"i18n\":\"hotTub\",\"exists\":true},{\"name\":\"Pool\",\"i18n\":\"pool\",\"exists\":true},{\"name\":\"Spa\",\"i18n\":\"spa\",\"exists\":true},{\"name\":\"Parking\",\"i18n\":\"parking\",\"exists\":true},{\"name\":\"Pets Allowed\",\"i18n\":\"petsAllowed\",\"exists\":true},{\"name\":\"Smoking Allowed\",\"i18n\":\"smokingAllowed\",\"exists\":true},{\"name\":\"Events Allowed\",\"i18n\":\"eventsAllowed\",\"exists\":true},{\"name\":\"Wheelchair Accessible\",\"i18n\":\"wheelchairAccessible\",\"exists\":true}]'::jsonb"
-        },
-        "sleepingArrangements": {
-          "name": "sleepingArrangements",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[{\"bedrooom\":1,\"kingSizeBeds\":1,\"queenSizeBeds\":0,\"doubleSizeBeds\":0,\"singleSizeBeds\":0,\"sofaBeds\":0,\"bunkBeds\":0,\"futons\":0,\"hammocks\":0,\"airMattresses\":0,\"cribs\":1},{\"bedrooom\":2,\"kingSizeBeds\":0,\"queenSizeBeds\":1,\"doubleSizeBeds\":0,\"singleSizeBeds\":0,\"sofaBeds\":0,\"bunkBeds\":0,\"futons\":0,\"hammocks\":0,\"airMattresses\":0,\"cribs\":0},{\"bedrooom\":3,\"kingSizeBeds\":0,\"queenSizeBeds\":2,\"doubleSizeBeds\":0,\"singleSizeBeds\":0,\"sofaBeds\":0,\"bunkBeds\":0,\"futons\":0,\"hammocks\":0,\"airMattresses\":0,\"cribs\":0}]'::jsonb"
         },
         "generalRules": {
           "name": "generalRules",
@@ -1426,6 +1882,45 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
+        },
+        "property_amenityId_amenity_id_fk": {
+          "name": "property_amenityId_amenity_id_fk",
+          "tableFrom": "property",
+          "tableTo": "amenity",
+          "columnsFrom": [
+            "amenityId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_serviceId_service_id_fk": {
+          "name": "property_serviceId_service_id_fk",
+          "tableFrom": "property",
+          "tableTo": "service",
+          "columnsFrom": [
+            "serviceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_arrangementId_arrangement_id_fk": {
+          "name": "property_arrangementId_arrangement_id_fk",
+          "tableFrom": "property",
+          "tableTo": "arrangement",
+          "columnsFrom": [
+            "arrangementId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1442,14 +1937,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "estateId": {
-          "name": "estateId",
+        "guestId": {
+          "name": "guestId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
-        "guestId": {
-          "name": "guestId",
+        "assetId": {
+          "name": "assetId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -1614,10 +2109,10 @@
         },
         "notes": {
           "name": "notes",
-          "type": "jsonb",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'[]'::jsonb"
+          "default": "''"
         },
         "createdAt": {
           "name": "createdAt",
@@ -1636,19 +2131,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "reservation_estateId_estate_id_fk": {
-          "name": "reservation_estateId_estate_id_fk",
-          "tableFrom": "reservation",
-          "tableTo": "estate",
-          "columnsFrom": [
-            "estateId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "reservation_guestId_guest_id_fk": {
           "name": "reservation_guestId_guest_id_fk",
           "tableFrom": "reservation",
@@ -1661,8 +2143,261 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
+        },
+        "reservation_assetId_asset_id_fk": {
+          "name": "reservation_assetId_asset_id_fk",
+          "tableFrom": "reservation",
+          "tableTo": "asset",
+          "columnsFrom": [
+            "assetId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
       },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "room": {
+      "name": "room",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "propertyId": {
+          "name": "propertyId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "feeId": {
+          "name": "feeId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "floor": {
+          "name": "floor",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "roomNumber": {
+          "name": "roomNumber",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'0'"
+        },
+        "roomType": {
+          "name": "roomType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "maxGuests": {
+          "name": "maxGuests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 6
+        },
+        "minGuests": {
+          "name": "minGuests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "insideBathrooms": {
+          "name": "insideBathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "outsideBathrooms": {
+          "name": "outsideBathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "room_propertyId_property_id_fk": {
+          "name": "room_propertyId_property_id_fk",
+          "tableFrom": "room",
+          "tableTo": "property",
+          "columnsFrom": [
+            "propertyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "room_feeId_fee_id_fk": {
+          "name": "room_feeId_fee_id_fk",
+          "tableFrom": "room",
+          "tableTo": "fee",
+          "columnsFrom": [
+            "feeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "service": {
+      "name": "service",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "airportShuttle": {
+          "name": "airportShuttle",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "bar": {
+          "name": "bar",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "childcareServices": {
+          "name": "childcareServices",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "concierge": {
+          "name": "concierge",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "eventPlanningServices": {
+          "name": "eventPlanningServices",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "housekeeping": {
+          "name": "housekeeping",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "laundryService": {
+          "name": "laundryService",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "petServices": {
+          "name": "petServices",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "restaurant": {
+          "name": "restaurant",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "roomService": {
+          "name": "roomService",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "spa": {
+          "name": "spa",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "transportationServices": {
+          "name": "transportationServices",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "valetParking": {
+          "name": "valetParking",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -1837,6 +2572,104 @@
           ]
         }
       }
+    },
+    "unit": {
+      "name": "unit",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "propertyId": {
+          "name": "propertyId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "feeId": {
+          "name": "feeId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maxGuests": {
+          "name": "maxGuests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 6
+        },
+        "minGuests": {
+          "name": "minGuests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "insideBathrooms": {
+          "name": "insideBathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "outsideBathrooms": {
+          "name": "outsideBathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "unit_propertyId_property_id_fk": {
+          "name": "unit_propertyId_property_id_fk",
+          "tableFrom": "unit",
+          "tableTo": "property",
+          "columnsFrom": [
+            "propertyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "unit_feeId_fee_id_fk": {
+          "name": "unit_feeId_fee_id_fk",
+          "tableFrom": "unit",
+          "tableTo": "fee",
+          "columnsFrom": [
+            "feeId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     },
     "user": {
       "name": "user",

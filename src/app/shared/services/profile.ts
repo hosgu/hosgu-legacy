@@ -2,7 +2,6 @@ import api from '@architecturex/utils.api'
 import slug from '@architecturex/utils.slug'
 
 import { BusinessFields } from '~/server/db/schemas/business'
-import { EstateFields } from '~/server/db/schemas/estate'
 import { PropertyFields } from '~/server/db/schemas/property'
 import { UserFields } from '~/server/db/schemas/user'
 import { APIResponse, CreatedItem } from '~/types'
