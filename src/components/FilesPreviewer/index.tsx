@@ -4,6 +4,7 @@ import cx from '@architecturex/utils.cx'
 type Props = {
   files: any[]
   setFiles: React.Dispatch<React.SetStateAction<string[]>>
+  showUploader?: boolean
 }
 
 const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
@@ -19,9 +20,12 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
 
   const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
 
-  const gridImages = imageFiles.map((file: any) => {
+  const gridImages = imageFiles.map((file: any, index: number) => {
     return (
-      <div key={file.file.name} className="h-full w-full relative">
+      <div
+        key={file.file.name}
+        className={`h-full w-full relative ${index === 0 && 'col-span-full h-fit'}`}
+      >
         <div
           title="Remove photo"
           onClick={handleRemoveImage}
@@ -37,6 +41,7 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
             'object-cover': true,
             'w-full': true,
             'h-[196px]': true,
+            'col-span-full h-full': index === 0,
             'rounded-md': true
           })}
         />

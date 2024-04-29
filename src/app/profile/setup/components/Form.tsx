@@ -1,31 +1,39 @@
 'use client'
-import React, { FC, useState, ChangeEvent } from 'react'
-import Button from '~/components/Button'
+import React, { FC, useState, ChangeEvent, useEffect } from 'react'
 import security from '@architecturex/utils.security'
+import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
+import Notification from '~/components/Notification'
+import fileUtils from '@architecturex/utils.files'
+import { setupProfile } from '~/app/shared/actions/profile'
 
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
-import Step4 from './Step5'
+import Step4 from './step4'
+import Step5 from './Step5'
+import Step6 from './Step6'
+import Step7 from './FinalStep'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
+import { RenderIf } from '@architecturex/components.renderif'
 
 type Props = {
-  user: UserFields
+  user: UserFields & {
+    businessSlug: string
+  }
   locale: string
 }
 
 const Form: FC<Props> = ({ locale = 'en-us', user }) => {
   const t = i18n(locale)
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [step, setStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0)
   const [values, setValues] = useState({
-    userId: user.id || '',
-    email: user.email || '',
+    userId: user?.id || '',
+    email: user?.email || '',
     password: '',
     propertyName: '',
     propertyType: '',
@@ -33,8 +41,42 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     address2: '',
     city: '',
     state: '',
-    zipCode: ''
+    zipCode: '',
+    guests: 0,
+    bathrooms: 0,
+    beedrooms: 0,
+    beeds: 0,
+    priceNights: 0,
+    cleaningFee: 0,
+    extraPersonPrice: 0,
+    checkIn: '',
+    checkOut: '',
+    images: [],
+    amenities: new Map<string, boolean>([
+      ['wifi', true],
+      ['tv', false],
+      ['kitchen', false],
+      ['extraBed', false],
+      ['refrigerator', false],
+      ['bedSheets', false],
+      ['freeParking', false],
+      ['kitchenBasics', false],
+      ['towels', false],
+      ['pool', false],
+      ['coffeeMachine', false],
+      ['hotWater', false],
+      ['oven', false],
+      ['ac', false],
+      ['garden', false],
+      ['glassesPlates', false],
+      ['laundry', false],
+      ['petFriendly', false],
+      ['smokin', false]
+    ])
   })
+  const [uploadedFiles, setUploadedFiles] = useState<any>([])
+  const [showNotification, setShowNotification] = useState(false)
+  const [enableNext, setEnableNext] = useState(true)
 
   const [errors, setErrors] = useState({
     password: '',
@@ -43,8 +85,51 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     businessEmail: '',
     businessPhone: '',
     businessWebsite: '',
-    country: ''
+    country: '',
+    priceNights: ''
   })
+
+  const goBack = () => {
+    setCurrentStep((prev: number) => (prev > 0 ? prev - 1 : 0))
+  }
+
+  const goNext = async () => {
+    const result = await handleSubmit()
+    setShowNotification(false)
+
+    // upload photos
+    if (currentStep === 5) {
+      if (uploadedFiles.length === 0) {
+        setShowNotification(true)
+        return
+      }
+      const uploadFilesResponse = await fileUtils.uploadFiles(
+        uploadedFiles,
+        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
+      )
+      if (uploadFilesResponse.ok) {
+        setValues({
+          ...values,
+          images: uploadFilesResponse.data.map((data: any) => data.path)
+        })
+      }
+      let amenitiesValues: { i18n: string; name: string; exists: boolean }[] = []
+      values.amenities.forEach((value: boolean, key: string) => {
+        amenitiesValues.push({ i18n: key, name: key, exists: value })
+      })
+      let propertyData = { ...values, amenitiesValues }
+
+      const formData = core.formData.set(new FormData(), {
+        ...propertyData
+      })
+
+      await setupProfile(formData)
+    }
+
+    if (result) {
+      setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
+    }
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -55,6 +140,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     }))
   }
 
+  /*   const verifyProperties = (
+    value: string | number,
+    minLength: number = 3,
+    maxLength: number = 20,
+    acceptNegative: boolean = false
+  ) => {
+    if (!value) return t(`pleaseEnterYourProperty${value}`)
+    if (is(value).number()) {
+      if (!acceptNegative && (value as number) < 0) return t(`pleaseAValidProperty${value}`)
+    }
+
+    if (is(value).string()) {
+      if ((value as string).length < minLength || (value as string).length > maxLength) {
+        return t(`pleaseAValidProperty${value}`)
+      }
+    }
+    return ''
+  }
+ */
   const validations = {
     propertyName: (value: string) => {
       if (!value) {
@@ -110,11 +214,17 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       }
 
       return ''
+    },
+    propertyPrice: (value: number) => {
+      if (!value) {
+        return t('pleaseEnterYourPrice')
+      }
+      return ''
     }
   }
 
   const validate = () => {
-    if (step === 1) {
+    if (currentStep === 0) {
       const passwordValidation = security.password.validation(values.password)
 
       if (passwordValidation.reasons?.includes('length')) {
@@ -153,13 +263,14 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       return passwordValidation.isValid
     }
 
-    if (step === 3) {
+    if (currentStep === 6) {
       const newErrors = {
         ...errors,
         address1: validations.propertyAddress1(values.address1),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
-        zipCode: validations.propertyZipCode(values.zipCode)
+        zipCode: validations.propertyZipCode(values.zipCode),
+        priceNights: validations.propertyPrice(values.priceNights)
       }
 
       setErrors(newErrors)
@@ -172,23 +283,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
   const handleSubmit = async () => {
     const isValidStep = validate()
-    if (isValidStep && step < 3) {
-      setStep((prevState) => prevState + 1)
+
+    if (isValidStep && currentStep < 7) {
+      return true
     }
 
-    if (isValidStep && step === 3) {
+    if (isValidStep && currentStep === 2) {
       const formData = core.formData.set(new FormData(), values)
 
       const response = await ProfileActions.setupProfile(formData)
 
       if (response.status === 200) {
-        setStep((prevState) => prevState + 1)
+        setCurrentStep((prevState) => prevState + 1)
       }
     }
+
+    return false
   }
 
   const steps = [
-    '',
     <Step1
       key="step1"
       locale={locale}
@@ -197,54 +310,89 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       handleChange={handleChange}
       validate={validate}
     />,
-    <Step2
-      key="step2"
+    <Step2 key="step2" locale={locale} setValues={setValues} setStep={setCurrentStep} />,
+    <Step3
+      key="step3"
       locale={locale}
+      values={values}
       setValues={setValues}
-      setIsDisabled={setIsDisabled}
-      setStep={setStep}
+      enableNext={enableNext}
+      setEnableNext={setEnableNext}
     />,
-    <Step3 key="step3" locale={locale} />,
-    <Step4 key="step4" />
+    <Step4
+      key="step4"
+      locale={locale}
+      setStep={setCurrentStep}
+      values={values}
+      setValues={setValues}
+    />,
+    <Step5
+      key="step5"
+      locale={locale}
+      setStep={setCurrentStep}
+      values={values}
+      setValues={setValues}
+      enableNext={enableNext}
+      setEnableNext={setEnableNext}
+    />,
+    <Step6
+      key="step6"
+      locale={locale}
+      setStep={setCurrentStep}
+      values={values}
+      setValues={setValues}
+      setUploadedFiles={setUploadedFiles}
+      uploadedFiles={uploadedFiles}
+    />,
+    <Step7 key="step6" />
   ]
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(values.images)
+  }, [values])
+
   return (
-    <div className="flex items-center justify-center w-[500px]">
-      <div className="p-10 rounded-lg">
-        {step > 1 && step < 4 && (
-          <a
-            href="#"
-            className="text-gray-600 text-sm"
-            onClick={() => {
-              setIsDisabled(false)
-              setStep((prevState) => prevState - 1)
-            }}
-          >
-            ← {t('back')}
-          </a>
-        )}
+    <>
+      <RenderIf isTrue={showNotification}>
+        <Notification message="Error on saving profile data" type="error" />
+      </RenderIf>
 
-        <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-          {step === 1 && t('letsStart')}
-          {step === 2 && t('whatPropertyTypeAreYouListing')}
-          {step === 3 &&
-            `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
-          {step === 4 && 'Negocio Registrado Exitosamente!'}
-        </h2>
+      <div className="flex justify-center w-full h-[75vh]">
+        <div className="p-10 rounded-lg">
+          <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+            {currentStep === 0 && t('letsStart')}
+            {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
+            {currentStep === 2 &&
+              `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
+            {currentStep === 3 && 'Tell guests what are the amenities!'}
+            {currentStep === 4 && 'Set your prices'}
+            {currentStep === 5 && 'Add some photos of your place'}
+            {currentStep === 6 && 'Finish'}
+          </h2>
 
-        {step < 4 && <StepIndicator totalSteps={3} currentStep={step} />}
-
-        {steps[step]}
-
-        {step !== 2 && step !== 4 && (
-          <div className="flex items-center justify-center mt-8">
-            <Button onClick={handleSubmit} disabled={isDisabled} shape="circle">
-              {step === 3 ? t('save') : t('continue')}
-            </Button>
-          </div>
-        )}
+          {steps[currentStep]}
+        </div>
       </div>
-    </div>
+
+      <div className="fixed bottom-4 left-0  w-full flex justify-center items-center">
+        <div className="w-[90%]">
+          <StepIndicator
+            enableNext={enableNext}
+            steps={6}
+            currentStep={currentStep}
+            onBack={goBack}
+            onNext={goNext}
+          />
+        </div>
+      </div>
+    </>
   )
 }
 

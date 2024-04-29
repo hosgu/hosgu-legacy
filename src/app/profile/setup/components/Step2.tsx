@@ -11,7 +11,7 @@ type Props = {
   setIsDisabled: any
 }
 
-const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep, setIsDisabled }) => {
+const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep }) => {
   const t = i18n(locale)
 
   return (
@@ -24,7 +24,6 @@ const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep, setIsDisabled }
               ...prevState,
               propertyType: 'cabin'
             }))
-            setIsDisabled(false)
             setStep((prevState: any) => prevState + 1)
           }}
           title={t('cabin')}
@@ -42,7 +41,6 @@ const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep, setIsDisabled }
               ...prevState,
               propertyType: 'hotel'
             }))
-            setIsDisabled(false)
             setStep((prevState: any) => prevState + 1)
           }}
           title={t('hotel')}
