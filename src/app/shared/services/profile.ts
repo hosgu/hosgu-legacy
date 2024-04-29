@@ -2,6 +2,7 @@ import api from '@architecturex/utils.api'
 import slug from '@architecturex/utils.slug'
 
 import { BusinessFields } from '~/server/db/schemas/business'
+import { EstateFields } from '~/server/db/schemas/estate'
 import { PropertyFields } from '~/server/db/schemas/property'
 import { UserFields } from '~/server/db/schemas/user'
 import { APIResponse, CreatedItem } from '~/types'
@@ -124,7 +125,7 @@ class Service extends ServiceHandler {
           body: {
             propertyId,
             type: propertyType,
-            floor: 1,
+            floor: 12,
             roomNumber: 1,
             roomType: propertyType === 'hotel' ? 'single' : 'entire',
             insideBathroom: 1,
