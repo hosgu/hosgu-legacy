@@ -36,14 +36,19 @@ class Service {
     returnFirstItemOnly = false
   }: GetOne): Promise<any> {
     const endpointPath = endpoint ? '' : `/${id}`
+    const fetchOptions: any = {
+      method,
+      addLocalHost: process.env.NODE_ENV === 'development',
+      credentials
+    }
+
+    if (method === 'POST') {
+      fetchOptions.body = body
+    }
+
     const response = await api.fetch<APIResponse<any>>(
       `/api/v1/${endpoint || this.endpoint}${endpointPath}`,
-      {
-        method,
-        addLocalHost: process.env.NODE_ENV === 'development',
-        credentials,
-        body
-      }
+      fetchOptions
     )
 
     if (returnItemsOnly) {

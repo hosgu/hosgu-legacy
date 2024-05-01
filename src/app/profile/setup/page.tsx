@@ -19,7 +19,7 @@ const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const t = i18n('en-us')
 
   const user = await UserActions.getUserByCode(code)
-  console.log(code)
+
   return (
     <div className="min-h-screen flex justify-center bg-white dark:bg-gray-900 w-full">
       <div className="p-6 dark:text-white w-full" style={{ border: '1px solid red' }}>
