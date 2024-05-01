@@ -41,7 +41,8 @@ class Service {
       {
         method,
         addLocalHost: process.env.NODE_ENV === 'development',
-        credentials
+        credentials,
+        body
       }
     )
 
