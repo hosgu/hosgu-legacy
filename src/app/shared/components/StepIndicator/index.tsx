@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import cx from '@architecturex/utils.cx'
 import Button from '~/components/Button'
+import { RenderIf } from '@architecturex/components.renderif'
 
 interface StepIndicatorProps {
   steps: number
@@ -38,10 +39,15 @@ const StepIndicator: FC<StepIndicatorProps> = ({
         >
           Back
         </a>
-
-        <Button color="secondary" onClick={onNext} disabled={currentStep === steps || !enableNext}>
-          {currentStep === steps - 1 ? 'Submit' : 'Next'}
-        </Button>
+        <RenderIf isTrue={currentStep !== 1}>
+          <Button
+            color="secondary"
+            onClick={onNext}
+            disabled={currentStep === steps || !enableNext}
+          >
+            {currentStep === steps - 1 ? 'Submit' : 'Next'}
+          </Button>
+        </RenderIf>
       </div>
     </div>
   )

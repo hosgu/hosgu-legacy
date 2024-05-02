@@ -1,5 +1,5 @@
 'use client'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import CheckCard from '~/components/CheckCard'
 
 type Props = {
@@ -7,15 +7,27 @@ type Props = {
   values: any
   setValues: any
   setStep: (prevState: any) => void
+  setEnableNext: any
 }
 
-const Step: FC<Props> = ({ locale, setStep, values, setValues }) => {
+const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) => {
   const { amenities } = values
+
+  useEffect(() => {
+    const currentValues = Array.from(values.amenities.values())
+    setEnableNext(currentValues.includes(true))
+  }, [])
 
   const onChangeCheck = (name: string) => {
     let value = amenities.get(name)
     amenities.set(name, !value)
     setValues({ ...values, amenities: amenities })
+    const currentValues = Array.from(values.amenities.values())
+    if (currentValues.includes(true)) {
+      setEnableNext(true)
+    } else {
+      setEnableNext(false)
+    }
   }
   return (
     <div className=" flex flex-col items-center   h-[60vh] overflow-scroll ">

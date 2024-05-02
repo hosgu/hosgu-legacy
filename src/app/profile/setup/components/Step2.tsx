@@ -8,7 +8,6 @@ type Props = {
   locale: string
   setValues: any
   setStep: any
-  setIsDisabled: any
 }
 
 const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep }) => {

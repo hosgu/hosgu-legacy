@@ -53,7 +53,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     checkOut: '',
     images: [],
     amenities: new Map<string, boolean>([
-      ['wifi', true],
+      ['wifi', false],
       ['tv', false],
       ['kitchen', false],
       ['extraBed', false],
@@ -263,6 +263,10 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       return passwordValidation.isValid
     }
 
+    if (currentStep === 3) {
+      const currentValues = Array.from(values.amenities.values())
+      return currentValues.includes(true)
+    }
     if (currentStep === 6) {
       const newErrors = {
         ...errors,
@@ -325,6 +329,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       setStep={setCurrentStep}
       values={values}
       setValues={setValues}
+      setEnableNext={setEnableNext}
     />,
     <Step5
       key="step5"
