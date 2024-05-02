@@ -18,6 +18,9 @@ const config: Config = {
       xLarge: '1920px'
     },
     extend: {
+      backgroundImage: {
+        'gradient-to-r': 'linear-gradient(to right, var(--tw-gradient-stops))'
+      },
       colors: {
         caribbean: '#01C98F',
         cerulean: '#007fb2',

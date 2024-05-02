@@ -1,6 +1,6 @@
 import { Configuration } from './types/config'
 
-const domainName = '6uest.com'
+const domainName = 'guestty.com'
 
 export const customConfig: Configuration = {
   domainName,

@@ -13,7 +13,7 @@ type Props = {
   position?: 'below' | 'right'
 }
 
-const VisbyMedium = localFont({ src: '../../fonts/VisbyMedium.otf' })
+const Poppins = localFont({ src: '../../fonts/Poppins.ttf' })
 
 const tw = {
   light: 'text-white',
@@ -42,15 +42,24 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
         >
           <span className={cx.join(!isDark ? tw.dark : tw.light, tw.text, 'flex')}>
             <span style={{ marginRight: '1px' }}>
-              <img src="/images/isotype.svg" alt="6uest.com" style={{ width: '30px' }} />
+              <img src="/images/isotype.svg" alt="Guestty.com" style={{ width: '30px' }} />
             </span>
             <span
-              className={cx.join(VisbyMedium.className, 'text-4xl', '-mt-[3px]', {
-                'text-cerulean': !isDark,
-                'text-turquoise': isDark
-              })}
+              className={cx.join(
+                Poppins.className,
+                'bg-gradient-to-r from-[#2b499a] to-[#27e3fe] text-transparent bg-clip-text',
+                'text-4xl',
+                '-mt-[3px]',
+                {
+                  'text-cerulean': !isDark,
+                  'text-turquoise': isDark
+                }
+              )}
+              style={{
+                marginLeft: '5px'
+              }}
             >
-              uest
+              GUESTTY
             </span>
           </span>
         </div>
