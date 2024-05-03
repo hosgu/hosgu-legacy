@@ -42,7 +42,7 @@ const Footer: FC<Props> = ({ locale }) => {
       </ul>
 
       <div className="flex justify-center text-sm items-center w-full mt-4 ml-8 md:mt-0 md:w-auto md:justify-end lg:justify-end mt-10">
-        © {currentYear} - Guestty.com
+        © {currentYear} - Guehost.com
       </div>
     </footer>
   )
