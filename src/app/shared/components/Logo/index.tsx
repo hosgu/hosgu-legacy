@@ -42,7 +42,7 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
         >
           <span className={cx.join(!isDark ? tw.dark : tw.light, tw.text, 'flex')}>
             <span style={{ marginRight: '1px' }}>
-              <img src="/images/isotype.svg" alt="Guehost.com" style={{ width: '30px' }} />
+              <img src="/images/isotype.svg" alt="hosgu.com" style={{ width: '30px' }} />
             </span>
             <span
               className={cx.join(
@@ -55,7 +55,7 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
                 marginTop: '0px'
               }}
             >
-              GUEHOST
+              hosgu
             </span>
           </span>
         </div>

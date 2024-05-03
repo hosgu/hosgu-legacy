@@ -1,6 +1,6 @@
 import { Configuration } from './types/config'
 
-const domainName = 'guehost.com'
+const domainName = 'hosgu.com'
 
 export const customConfig: Configuration = {
   domainName,

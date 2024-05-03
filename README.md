@@ -1,1 +1,1 @@
-# Guehost.com
+# hosgu.com
