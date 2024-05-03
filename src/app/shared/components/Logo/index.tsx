@@ -26,6 +26,12 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
   const { darkMode } = useTheme()
   const isDark = style === 'dark' || darkMode
 
+  const isotype = {
+    url: '/images/isotype-original.svg',
+    from: 'from-[#27bcfd]',
+    to: 'to-[#88c54a]'
+  }
+
   return (
     <Link href="/" className="hover:no-underline" title="1ST Guest">
       <div
@@ -42,12 +48,12 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
         >
           <span className={cx.join(!isDark ? tw.dark : tw.light, tw.text, 'flex')}>
             <span style={{ marginRight: '1px' }}>
-              <img src="/images/isotype.svg" alt="hosgu.com" style={{ width: '30px' }} />
+              <img src={isotype.url} alt="hosgu.com" style={{ width: '30px' }} />
             </span>
             <span
               className={cx.join(
                 SVNGilroyBold.className,
-                'bg-gradient-to-r from-[#02a7c5] to-[#03d085] text-transparent bg-clip-text',
+                `bg-gradient-to-r ${isotype.from} ${isotype.to} text-transparent bg-clip-text`,
                 'text-3xl'
               )}
               style={{
