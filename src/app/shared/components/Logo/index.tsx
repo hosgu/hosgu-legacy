@@ -13,7 +13,7 @@ type Props = {
   position?: 'below' | 'right'
 }
 
-const Poppins = localFont({ src: '../../fonts/Poppins.ttf' })
+const SVNGilroyBold = localFont({ src: '../../fonts/SVNGilroyBold.otf' })
 
 const tw = {
   light: 'text-white',
@@ -22,7 +22,7 @@ const tw = {
   text: 'font-bold text-2xl text-center'
 } as const
 
-const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) => {
+const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
   const { darkMode } = useTheme()
   const isDark = style === 'dark' || darkMode
 
@@ -46,20 +46,16 @@ const Logo: FC<Props> = ({ className = '', slogan, position = 'below', style }) 
             </span>
             <span
               className={cx.join(
-                Poppins.className,
-                'bg-gradient-to-r from-[#2b499a] to-[#27e3fe] text-transparent bg-clip-text',
-                'text-4xl',
-                '-mt-[3px]',
-                {
-                  'text-cerulean': !isDark,
-                  'text-turquoise': isDark
-                }
+                SVNGilroyBold.className,
+                'bg-gradient-to-r from-[#02a7c5] to-[#03d085] text-transparent bg-clip-text',
+                'text-3xl'
               )}
               style={{
-                marginLeft: '5px'
+                marginLeft: '5px',
+                marginTop: '0px'
               }}
             >
-              GUESTTY
+              GUESTAT
             </span>
           </span>
         </div>
