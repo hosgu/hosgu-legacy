@@ -55,7 +55,7 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
                 marginTop: '0px'
               }}
             >
-              GUESTAT
+              GUEHOST
             </span>
           </span>
         </div>
