@@ -104,7 +104,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
           </div>
         )}
 
-        <div className="ml-2">
+        <div className="ml-2 mt-2">
           <ThemeSwitcher locale={locale} />
         </div>
 
