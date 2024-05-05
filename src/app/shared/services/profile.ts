@@ -2,7 +2,6 @@ import api from '@architecturex/utils.api'
 import slug from '@architecturex/utils.slug'
 
 import { BusinessFields } from '~/server/db/schemas/business'
-import { EstateFields } from '~/server/db/schemas/estate'
 import { PropertyFields } from '~/server/db/schemas/property'
 import { UserFields } from '~/server/db/schemas/user'
 import { APIResponse, CreatedItem } from '~/types'
@@ -117,60 +116,6 @@ class Service extends ServiceHandler {
       )
 
       if (createdProperty.status === 201) {
-        const [property] = createdProperty.items as PropertyFields[]
-        const propertyId = property.id
-
-        const createdEstate = await api.fetch<APIResponse<EstateFields>>(`/api/v1/estate/create`, {
-          method: 'POST',
-          body: {
-            propertyId,
-            type: propertyType,
-            floor: 12,
-            roomNumber: 1,
-            roomType: propertyType === 'hotel' ? 'single' : 'entire',
-            insideBathroom: 1,
-            outsideBathroom: 0,
-            maxGuests: 6,
-            minGuests: 1,
-            cleaningFee: 0,
-            extraGuestFee: 0,
-            extraBedFee: 0,
-            securityDepositFee: 0,
-            weekendFee: 0,
-            weekdayFee: 0,
-            initialOfferFee: 0,
-            secondOfferFee: 0,
-            emergencyOfferFee: 0,
-            highestFee: 0,
-            lowestFee: 0,
-            hasWifi: true,
-            hasTv: true,
-            hasNetflix: true,
-            hasHeat: false,
-            hasAc: true,
-            hasIron: true,
-            hasDesk: true,
-            hasKitchen: true,
-            hasCrib: true,
-            isPetsAllowed: false,
-            isSmokingAllowed: false
-          },
-          addLocalHost: process.env.NODE_ENV === 'development'
-        })
-
-        const [estate] = createdEstate.items as EstateFields[]
-        const estateId = estate.id
-
-        return {
-          ok: true,
-          data: {
-            userId,
-            businessId,
-            propertyId,
-            estateId
-          },
-          status: 200
-        }
       }
     }
 
