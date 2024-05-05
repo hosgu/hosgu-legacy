@@ -47,7 +47,7 @@ const Counter: FC<Props> = ({
         </button>
         <input
           type="number"
-          className="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-base cursor-default flex items-center text-gray-700 outline-none"
+          className="focus:outline-none text-center w-full rounded-none bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-base cursor-default flex items-center text-gray-700 outline-none"
           name="custom-input-number"
           value={count}
           readOnly
