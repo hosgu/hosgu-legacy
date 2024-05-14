@@ -9,12 +9,12 @@
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
-          "link": ""
+          "link": "https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
         },
-        "category": "",
-        "postDate": "",
+        "category": "Technology",
+        "postDate": "2022-01-01",
         "content": "<p>Content</p>",
         "locale": ""
       },
@@ -26,9 +26,9 @@
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_cK_iUnW-l_UW7fVHFduOAceiK126nxrKNNJAplwMvA&s",
           "email": "santana@gmail.com",
-          "link": ""
+          "link": "https://dev.to/chocoscoding/editing-react-quilljs-markdown-styling-3c4h"
         },
         "category": "",
         "postDate": "",
