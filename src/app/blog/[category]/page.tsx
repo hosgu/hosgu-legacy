@@ -1,5 +1,5 @@
 'use client'
-import LatestSection from '../sections/LatestSection'
+import LatestSection from '../sections/LatestPostsSection'
 
 const CategoryPage = ({ params }) => {
   const { category } = params

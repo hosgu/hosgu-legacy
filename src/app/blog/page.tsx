@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import LatestSection from './sections/LatestSection'
+import LatestSection from './sections/LatestPostsSection'
 
 const Page: NextPage = async () => {
   return (
