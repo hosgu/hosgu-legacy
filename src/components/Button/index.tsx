@@ -49,9 +49,11 @@ const Button: FC<Props> = ({
     circle: 'rounded-full',
     square: 'rounded-none'
   }
+
   const colorClasses: any = {
     primary: {
-      contained: 'bg-dodger hover:bg-cerulean text-white',
+      contained:
+        'bg-gradient-to-r from-blue-500 to-green-500  hover:from-blue-600 hover:to-green-600 text-white',
       outlined:
         'bg-white hover:bg-cerulean text-cerulean border border-cerulean hover:border-cerulean hover:text-white',
       text: 'bg-white hover:bg-cerulean text-cerulean'
