@@ -37,10 +37,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
     <div className="flex flex-col justify-between space items-center text-center w-full max-w-[500px] ">
       <div className="flex flex-row">
         <div className={cx.join('p-4 text-left')}>
-          <label
-            htmlFor=""
-            className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300 "
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300 ">
             price per night
           </label>
           <NumericFormat
@@ -56,10 +53,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
         </div>
 
         <div className={cx.join('p-4 text-left')}>
-          <label
-            htmlFor=""
-            className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
             cleaning fee
           </label>
           <NumericFormat
@@ -76,10 +70,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
       </div>
       <div className="flex flex-row">
         <div className={cx.join('p-4 text-left')}>
-          <label
-            htmlFor=""
-            className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
             price per extra person
           </label>
           <NumericFormat
