@@ -13,15 +13,15 @@ type Props = {
 }
 
 const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
-  const { guests, bathrooms, beedrooms, beeds } = values
+  const { guests, bathrooms, bedrooms, beds } = values
 
   useEffect(() => {
-    if (guests === 0 || bathrooms === 0 || beedrooms === 0 || beeds === 0) {
+    if (guests === 0 || bathrooms === 0 || bedrooms === 0 || beds === 0) {
       setEnableNext(false)
       return
     }
     setEnableNext(true)
-  }, [guests, bathrooms, beedrooms, beeds, setEnableNext])
+  }, [guests, bathrooms, bedrooms, beds, setEnableNext])
 
   const t = i18n(locale)
 
@@ -61,13 +61,13 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
         <hr className="border-solid	" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
-          <p>Beedrooms</p>
+          <p>Bedrooms</p>
           <Counter
             label=""
             onChange={(count: number) => {
-              setValues({ ...values, beedrooms: count })
+              setValues({ ...values, bedrooms: count })
             }}
-            defaultValue={beedrooms}
+            defaultValue={bedrooms}
             max={6}
             spaces={5}
             style={{ width: '120px' }}
@@ -77,13 +77,13 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
         <hr className="border-solid	" />
 
         <div className="flex flex-row justify-between  items-center space-x-2 my-6">
-          <p>Beeds</p>
+          <p>Beds</p>
           <Counter
             label=""
             onChange={(count: number) => {
-              setValues({ ...values, beeds: count })
+              setValues({ ...values, beds: count })
             }}
-            defaultValue={beeds}
+            defaultValue={beds}
             max={6}
             spaces={5}
             style={{ width: '120px' }}
