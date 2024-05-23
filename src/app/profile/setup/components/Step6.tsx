@@ -35,17 +35,15 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
       className="flex flex-col  space items-center text-center w-full  h-[650px] overflow-y-auto "
     >
       <h1>Fotos</h1>
-      <div className="w-[50vw] flex justify-center  flex-col items-center h-auto  ">
-        <div>
-          <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
-        </div>
-        <div className="w-full mt-3">
+      <div className="w-[50vw] flex justify-center flex-col items-center h-auto ">
+        <div className="w-full mt-3 h-auto">
           <Modal
             isModalOpen={isUploadPhotosOpen}
             onClose={() => {
               setIsUploadPhotosOpen(false)
             }}
             title="Upload your Photos"
+            isfullScreen={false}
           >
             <File
               name="fileName"
@@ -56,6 +54,9 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
               setUploadedFiles={setUploadedFiles}
             />
           </Modal>
+        </div>
+        <div>
+          <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
         </div>
       </div>
     </div>

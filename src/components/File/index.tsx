@@ -152,7 +152,7 @@ const File: FC<Props> = ({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cx.join(
-        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500 w-full h-full',
+        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500 h-auto ',
         {
           'border-blue-500': isDragging,
           'border-gray-300': !isDragging
@@ -160,7 +160,7 @@ const File: FC<Props> = ({
       )}
     >
       <div
-        className={cx.join('m-3 p-4 rounded transition-all group-hover:bg-blue-50 h-[95%]', {
+        className={cx.join('m-3 p-4 rounded transition-all group-hover:bg-blue-50 h-[95%] w-auto', {
           'bg-blue-50': isDragging
         })}
       >
