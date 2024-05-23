@@ -1,8 +1,10 @@
 'use client'
+import { RenderIf } from '@architecturex/components.renderif'
 import React, { FC, useState } from 'react'
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
+import Button from '~/components/Button'
 import config from '~/config'
 
 type Props = {
@@ -34,7 +36,17 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
       style={{ scrollbarWidth: 'none' }}
       className="flex flex-col  space items-center text-center w-full  h-[650px] overflow-y-auto "
     >
-      <h1>Fotos</h1>
+      <RenderIf isFalse={isUploadPhotosOpen}>
+        <div className="w-auto">
+          <Button
+            onClick={() => {
+              setIsUploadPhotosOpen(true)
+            }}
+          >
+            Add more photos
+          </Button>
+        </div>
+      </RenderIf>
       <div className="w-[50vw] flex justify-center flex-col items-center h-auto ">
         <div className="w-full mt-3 h-auto">
           <Modal
