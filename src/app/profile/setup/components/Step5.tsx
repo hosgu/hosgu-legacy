@@ -46,7 +46,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
               'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
             )}
             value={priceNights}
-            allowLeadingZeros
+            allowLeadingZeros={false}
             thousandSeparator=","
             onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
           />
