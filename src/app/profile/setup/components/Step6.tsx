@@ -34,7 +34,7 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
   return (
     <div
       style={{ scrollbarWidth: 'none' }}
-      className="flex flex-col  space items-center text-center w-full  h-[650px] overflow-y-auto "
+      className="flex flex-col  space items-center text-center w-full  h-full overflow-y-auto "
     >
       <RenderIf isFalse={isUploadPhotosOpen}>
         <div className="w-auto">

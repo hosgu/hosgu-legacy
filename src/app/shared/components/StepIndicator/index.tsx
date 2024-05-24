@@ -19,7 +19,7 @@ const StepIndicator: FC<StepIndicatorProps> = ({
   enableNext
 }) => {
   return (
-    <div className="flex flex-col items-center w-full bg-white">
+    <div className="flex flex-col items-center w-full bg-auto">
       <div className="flex justify-between w-full mb-4">
         {Array.from({ length: steps }, (_, index) => (
           <div
