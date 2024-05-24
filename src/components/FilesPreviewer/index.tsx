@@ -24,7 +24,7 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
     return (
       <div
         key={file.file.name}
-        className={`h-full w-full relative ${index === 0 && 'col-span-full h-fit'}`}
+        className={`h-auto w-full relative ${index === 0 && 'col-span-full h-fit'}`}
       >
         <div
           title="Remove photo"

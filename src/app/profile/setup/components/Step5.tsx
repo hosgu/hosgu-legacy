@@ -6,6 +6,7 @@ import cx from '@architecturex/utils.cx'
 import Link from '~/app/shared/components/Link'
 import Checkbox from '~/components/Checkbox'
 import Input from '~/components/Input'
+import NumericInput from '~/components/NumericInput'
 
 type Props = {
   locale: string
@@ -36,54 +37,32 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
   return (
     <div className="flex flex-col justify-between space items-center text-center w-full max-w-[500px] ">
       <div className="flex flex-row">
-        <div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300 ">
-            price per night
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={priceNights}
-            allowLeadingZeros
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
-          />
-        </div>
-
-        <div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
-            cleaning fee
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={cleaningFee}
-            allowLeadingZeros
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, cleaningFee: e.target.value })}
-          />
-        </div>
+        <NumericInput
+          value={priceNights}
+          label="price per night"
+          prefix="$"
+          thousandSeparator=","
+          allowLeadingZeros={false}
+          onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
+        />
+        <NumericInput
+          value={cleaningFee}
+          label="cleaning fee"
+          prefix="$"
+          thousandSeparator=","
+          allowLeadingZeros={false}
+          onChange={(e: any) => setValues({ ...values, cleaningFee: e.target.value })}
+        />
       </div>
       <div className="flex flex-row">
-        <div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
-            price per extra person
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={extraPersonPrice}
-            allowLeadingZeros
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, extraPersonPrice: e.target.value })}
-          />
-        </div>
+        <NumericInput
+          value={extraPersonPrice}
+          label="price per extra person"
+          prefix="$"
+          thousandSeparator=","
+          allowLeadingZeros={false}
+          onChange={(e: any) => setValues({ ...values, extraPersonPrice: e.target.value })}
+        />
         <div className="flex flex-row w-9/12">
           <Input
             value={checkIn}
@@ -106,3 +85,58 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
 }
 
 export default Step
+
+/*
+ <div className={cx.join('p-4 text-left')}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300 ">
+            price per night
+          </label>
+          <NumericFormat
+            prefix={'$'}
+            className={cx.join(
+              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
+            )}
+            value={priceNights}
+            allowLeadingZeros={false}
+            thousandSeparator=","
+            onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
+          />
+        </div>
+*/
+
+/*
+ <div className={cx.join('p-4 text-left')}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
+            cleaning fee
+          </label>
+          <NumericFormat
+            prefix={'$'}
+            className={cx.join(
+              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
+            )}
+            value={cleaningFee}
+            allowLeadingZeros
+            thousandSeparator=","
+            onChange={(e: any) => setValues({ ...values, cleaningFee: e.target.value })}
+          />
+        </div>
+*/
+
+/*
+<div className={cx.join('p-4 text-left')}>
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
+            price per extra person
+          </label>
+          <NumericFormat
+            prefix={'$'}
+            className={cx.join(
+              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
+            )}
+            value={extraPersonPrice}
+            allowLeadingZeros
+            thousandSeparator=","
+            onChange={(e: any) => setValues({ ...values, extraPersonPrice: e.target.value })}
+          />
+        </div>
+
+*/

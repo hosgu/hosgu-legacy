@@ -370,8 +370,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       </RenderIf>
 
       <div className="flex justify-center w-full h-[75vh]">
-        <div className="p-10 rounded-lg">
-          <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+        <div className="p-0 rounded-lg">
+          <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
             {currentStep === 0 && t('letsStart')}
             {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
             {currentStep === 2 &&
