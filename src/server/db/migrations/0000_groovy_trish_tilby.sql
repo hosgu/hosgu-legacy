@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS "business" (
 	"facebook" varchar(200),
 	"instagram" varchar(200),
 	"logo" varchar(255),
-	"raiting" integer,
+	"rating" integer,
 	"addressLine1" varchar(255),
 	"addressLine2" varchar(255),
 	"city" varchar(255),
