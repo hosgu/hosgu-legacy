@@ -49,6 +49,9 @@ const config: Config = {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         monserrat: ['Montserrat', 'sans-serif']
+      },
+      screens: {
+        '3xl': '1793px'
       }
     }
   },

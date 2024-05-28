@@ -15,7 +15,7 @@ export const business = pgTable('business', {
   facebook: varchar('facebook', { length: 200 }),
   instagram: varchar('instagram', { length: 200 }),
   logo: varchar('logo', { length: 255 }),
-  raiting: integer('raiting'),
+  rating: integer('rating'),
   addressLine1: varchar('addressLine1', { length: 255 }),
   addressLine2: varchar('addressLine2', { length: 255 }),
   city: varchar('city', { length: 255 }),

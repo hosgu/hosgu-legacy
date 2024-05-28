@@ -87,7 +87,7 @@ const Input: FC<Props> = ({
           autoComplete="new-password"
           name={name}
           className={cx.join(
-            'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white',
+            'mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm',
             disabled ? 'opacity-50 cursor-not-allowed' : null,
             fullWidth ? 'w-full block' : null,
             hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,

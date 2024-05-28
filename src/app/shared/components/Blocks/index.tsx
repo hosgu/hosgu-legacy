@@ -8,7 +8,7 @@ type Props = {
 }
 
 const Blocks: FC<Props> = ({ locale }) => (
-  <div data-component="Blocks" className="max-w-xLarge m-auto">
+  <div data-component="Blocks" className="max-w-xLarge m-auto -mt-20 lg:mt-0">
     <Features locale={locale} />
     <TryNow locale={locale} />
   </div>

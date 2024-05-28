@@ -14,6 +14,7 @@ import Avatar from '~/components/Avatar'
 
 import HamburgerMenu from './HamburgerMenu'
 import ThemeSwitcher from './ThemeSwitcher'
+import { max } from 'drizzle-orm'
 
 type Props = {
   connectedUser?: any
@@ -53,14 +54,12 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
   const name = fullName.split(' ')[0]
   const lastName = fullName.split(' ')[1]
 
-  const width = page === 'dashboard' ? 'w-full' : 'max-w-xLarge'
-
   return (
     <header
       data-component="Header"
       className={cx.join(
-        width,
-        'sticky m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600 max-w-3xl',
+        'sticky top-0 m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600',
+        'shadow-md',
         'z-50'
       )}
     >
@@ -104,7 +103,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
           </div>
         )}
 
-        <div className="ml-2 lg:mt-2">
+        <div className={cx.join('ml-2', { 'lg:mt-2': !isLogged })}>
           <ThemeSwitcher locale={locale} />
         </div>
 

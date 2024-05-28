@@ -11,61 +11,40 @@ const Features: FC<Props> = ({ locale }) => {
   const t = i18n(locale)
 
   return (
-    <div data-component="Features" className="bg-white dark:bg-gray-300 px-8 py-20">
-      <h2 className="font-bold mb-10 text-3xl text-center">
-        {t('manageYourBusinessFromStartToEnd')}
-      </h2>
-
-      <div className="gap-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        <div className="text-center">
-          <div className="mb-4">
-            <span className="text-4xl flex justify-center">
-              <SVG.Calendar className="w-20 h-20 text-center" />
-            </span>
+    <section className="py-4 bg-white dark:bg-black">
+      <div className="container mx-auto px-4" style={{ marginTop: '-40px' }}>
+        <h1 className="text-4xl font-bold text-center mb-8 uppercase dark:text-white">
+          Manage your bookings <br />
+          from start to end
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-8">
+          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
+            <img src="/images/icon_booking.svg" alt="Booking Icon" className="h-16 w-16 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 uppercase">Manage your bookings</h2>
+            <p className="text-gray-600">Simplify Booking for Everyone</p>
           </div>
-
-          <h3 className="font-semibold mb-4 text-xl">{t('manageYourBookings')}</h3>
-
-          <p>{t('simplifyBookingForEveryone')}.</p>
-        </div>
-
-        <div className="text-center">
-          <div className="mb-4">
-            <span className="text-4xl flex justify-center">
-              <SVG.Money className="w-20 h-20 text-center" />
-            </span>
+          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
+            <img src="/images/icon_price.svg" alt="Price Icon" className="h-16 w-16 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 uppercase">Flexible Pricing</h2>
+            <p className="text-gray-600">
+              Choose from our free tier or enhanced features to fir your business needs.
+            </p>
           </div>
-
-          <h3 className="font-semibold mb-4 text-xl">{t('flexiblePricing')}</h3>
-
-          <p>{t('chooseFromOurFreeTier')}.</p>
-        </div>
-
-        <div className="text-center">
-          <div className="mb-4">
-            <span className="text-4xl flex justify-center">
-              <SVG.Chart className="w-20 h-20 text-center" />
-            </span>
+          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
+            <img src="/images/icon_business.svg" alt="Business Icon" className="h-16 w-16 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 uppercase">Measure your business</h2>
+            <p className="text-gray-600">Easily Measure Your Success</p>
           </div>
-
-          <h3 className="font-semibold mb-4 text-xl">{t('measureYourBusiness')}</h3>
-
-          <p>{t('easilyMeasureYourSuccess')}.</p>
-        </div>
-
-        <div className="text-center">
-          <div className="mb-4">
-            <span className="text-4xl flex justify-center">
-              <SVG.Phone className="w-20 h-20 text-center" />
-            </span>
+          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
+            <img src="/images/icon_phone.svg" alt="Phone Icon" className="h-16 w-16 mb-4" />
+            <h2 className="text-xl font-semibold mb-2 uppercase">
+              Run your business from your phone
+            </h2>
+            <p className="text-gray-600">Stay Connected and Process Sales</p>
           </div>
-
-          <h3 className="font-semibold mb-4 text-xl">{t('runYourBusinessFromYourPhone')}</h3>
-
-          <p>{t('stayConnectedAndProcessSales')}.</p>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
