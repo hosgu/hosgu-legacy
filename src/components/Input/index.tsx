@@ -76,7 +76,7 @@ const Input: FC<Props> = ({
     >
       {label && (
         <label
-          className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300"
+          className="block text-gray-700 text-sm font-bold text-left dark:text-gray-300"
           htmlFor={name}
         >
           {label}

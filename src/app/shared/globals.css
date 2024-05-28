@@ -64,6 +64,17 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px transparent inset;
 }
 
+.bg-login {
+  background: url('/images/bg-login.svg') no-repeat center center;
+  background-size: cover;
+}
+
+html.dark body.bg-login {
+  background: url('/images/bg-login-dark.svg') no-repeat center center;
+  background-color: #111828;
+  background-size: cover;
+}
+
 /* Calendar */
 .calendar.mobile {
   width: 96%;

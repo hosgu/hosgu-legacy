@@ -27,7 +27,7 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
   const isDark = style === 'dark' || darkMode
 
   const isotype = {
-    url: '/images/isotype-original.svg',
+    url: '/images/isotype.svg',
     from: 'from-[#27bcfd]',
     to: 'to-[#88c54a]'
   }
