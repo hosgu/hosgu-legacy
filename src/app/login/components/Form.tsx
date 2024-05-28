@@ -65,7 +65,7 @@ const Form: FC<Props> = ({ locale }) => {
       <div className="flex justify-center items-center min-h-screen">
         <div
           id="form-container"
-          className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-[450px]"
+          className="bg-white dark:bg-black p-8 rounded-lg shadow-lg max-w-md w-[450px]"
         >
           <div className="flex justify-center mb-4">
             <img src="/images/isotype.svg" alt="Logo" className="w-16 h-16" />

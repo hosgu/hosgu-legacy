@@ -71,7 +71,7 @@ input:-webkit-autofill:active {
 
 html.dark body.bg-login {
   background: url('/images/bg-login-dark.svg') no-repeat center center;
-  background-color: #111828;
+  background-color: #000;
   background-size: cover;
 }
 
