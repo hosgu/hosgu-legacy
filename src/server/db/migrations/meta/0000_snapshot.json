@@ -1,5 +1,5 @@
 {
-  "id": "078c98a3-b659-49e4-b467-ad422b5f8a68",
+  "id": "cd72bd9a-a928-4b75-8181-808cbe881d3e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -723,8 +723,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "raiting": {
-          "name": "raiting",
+        "rating": {
+          "name": "rating",
           "type": "integer",
           "primaryKey": false,
           "notNull": false

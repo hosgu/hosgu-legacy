@@ -13,7 +13,7 @@ const ThemeSwitcher: FC<Props> = ({ locale }) => {
   const t = i18n(locale)
   const { darkMode, toggleDarkMode } = useTheme()
 
-  const stroke = darkMode ? 'white' : 'black'
+  const stroke = darkMode ? '#eab308' : '#1d4ed8'
 
   return (
     <div data-component="ThemeSwitcher" className="flex focus:outline-none items-center space-x-2">

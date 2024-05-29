@@ -10,12 +10,8 @@ const Page: NextPage = async () => {
   const t = i18n(locale)
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="p-6 dark:text-white">
-        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">{t('login')}</h1>
-
-        <LoginForm locale={locale} />
-      </div>
+    <div className="min-h-screen flex justify-center">
+      <LoginForm locale={locale} />
     </div>
   )
 }

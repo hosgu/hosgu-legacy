@@ -1,7 +1,6 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import { RenderIf } from '@architecturex/components.renderif'
-import { Select } from '@architecturex/components.select'
+import cx from '@architecturex/utils.cx'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -153,116 +152,143 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
 
   return (
     <div
-      className="max-w-xLarge m-auto relative h-[900px] md:h-max lg:screen px-8 text-center bg-cover bg-center bg-no-repeat bg-white dark:bg-gray-300"
-      style={{ backgroundImage: `url('/images/waves.png')` }}
+      className={cx.join(
+        'bg-cover bg-center py-20 lg:py-40 3xl:mb-20',
+        `min-h-[1150px] 3xl:min-h-[700px]`,
+        `bg-[url('/images/bg-hero.svg')] 3xl:bg-[url('/images/bg-hero-flat.svg')]`
+      )}
     >
-      <div className="flex justify-between items-center flex-col xl:flex-row pt-5 md:pt-30 pb-10">
-        <div className="relative z-10 align-center">
-          <h1>{t('boostYourBusiness')}</h1>
-          <p className="pr-6 pb-4">{t('elevateYourBookings')}</p>
+      <div className="container mx-auto mt-10 mb-40 flex flex-col md:flex-row items-center">
+        <div className="md:w-1/2 text-center md:text-left md:pr-10 mb-10 md:mb-0">
+          <h1 className="text-5xl text-white font-bold">
+            Boost Your Business Revenue by +30% <br />
+            in just 6 months
+          </h1>
+          <p className="text-white mt-4 p-6 text-center md:p-0 md:text-left">
+            Elevate your bookings by +30% in just six months. Our intelligent platform streamlines
+            your workflow, slashing operational expenses and freeing up to 80% of your time-
+            empowering you to focus on other areas of your business. Transform your booking
+            experience and leverage cutting-edge tools for effortless expansion with hosgu.com.
+          </p>
         </div>
 
-        <div className="border-gray-300 shadow-xl rounded bg-white dark:bg-gray-800 w-[400px] md:w-[480px] xl:w-[800px] pt-6">
-          <RenderIf isTrue={isRegistered}>
-            <SuccessMessage />
-          </RenderIf>
-
-          <RenderIf isFalse={isRegistered}>
-            <form onSubmit={handleSubmit}>
-              <div key="row-1" className="flex">
-                <Input
-                  id="fullName"
-                  label="Full name"
-                  name="fullName"
-                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-                  placeholder="fullName"
-                  required
-                  errorText={errors.fullName}
-                />
-                <Input
-                  id="businessName"
-                  label={t('businessName')}
-                  name="businessName"
-                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-                  placeholder={t('businessName')}
-                  required
-                  errorText={errors.businessName}
-                />
-              </div>
-              <div key="row-2" className="flex">
-                <Input
-                  label={t('businessEmail')}
-                  name="businessEmail"
-                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-                  placeholder={t('businessEmail')}
-                  required
-                  errorText={errors.businessEmail}
-                />
-                <Input
-                  label={t('businessPhone')}
-                  name="businessPhone"
-                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-                  placeholder={t('businessPhonePlaceholder')}
-                  required
-                  errorText={errors.businessPhone}
-                />
-              </div>
-              <div key="row-3" className="flex">
-                <Input
-                  label={t('businessWebsite')}
-                  name="businessWebsite"
-                  className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
-                  placeholder="https://"
-                  required
-                  errorText={errors.businessWebsite}
-                />
-                <div className={errors.country ? 'border-red-500 dark:border-red-500' : ''}>
-                  <Select
-                    label="Country"
-                    searchable
-                    onSelectionChange={(value) => {
-                      setSelectedCountry(value)
-                    }}
-                    style={{
-                      marginTop: '15px',
-                      marginLeft: '20px',
-                      marginRight: '20px',
-                      width: '195px'
-                    }}
-                    options={[
-                      {
-                        label: 'México',
-                        value: 'Mexico',
-                        selected: false
-                      },
-                      {
-                        label: 'United States',
-                        value: 'United States',
-                        selected: false
-                      }
-                    ]}
+        <div className="w-[90%] md:w-1/2 bg-white dark:bg-black p-8 rounded-md shadow-md mb-20">
+          <form>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="fullname"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Full Name *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="fullname"
+                    placeholder="e.g. John Smith"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
                   />
-                  {errors.country && (
-                    <p className="mx-5 text-red-500 text-xs text-left mb-4 block">
-                      {' '}
-                      {errors.country}{' '}
-                    </p>
-                  )}
                 </div>
               </div>
-              <div className="flex justify-center mb-6 mt-6">
-                <Button shape="rounded" type="submit" style={{ width: '92%' }}>
-                  {t('getStarted')}
-                </Button>
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="company"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Business Name *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="company"
+                    placeholder="e.g. Meta Logics"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
+                  />
+                </div>
               </div>
-            </form>
-            <div
-              className="flex justify-center mb-6 text-center dark:text-white p-2"
-              style={{ fontSize: '10px' }}
-            >
-              {t('weAreCommitted')}
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Email Address *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="email"
+                    placeholder="e.g. mail@example.com"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="business"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Business Phone *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="business"
+                    placeholder="e.g. +1 234 5677"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="website"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Business Website *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="website"
+                    placeholder="e.g. yourdomain.com"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="country"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Country *
+                </label>
+                <div className="relative mt-1">
+                  <input
+                    type="text"
+                    id="country"
+                    placeholder="e.g. United States"
+                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
+                    required
+                  />
+                </div>
+              </div>
             </div>
-          </RenderIf>
+            <Button color="primary" fullWidth>
+              Get Started
+            </Button>
+          </form>
+          <div className="mt-4 text-gray-500 dark:text-gray-300 text-sm text-center md:text-left">
+            <p>
+              We are committed to your privacy. The hosgu.com uses the information you provide to us
+              to contact you about our relevant content, products, and services. You may unsubscribe
+              at any time.
+            </p>
+          </div>
         </div>
       </div>
     </div>

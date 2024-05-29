@@ -20,16 +20,19 @@ const TryNow: FC<Props> = ({ locale }) => {
   }
 
   return (
-    <div
-      data-component="TryNow"
-      className="bg-white px-8 py-16 text-center dark:bg-black dark:text-white"
-    >
-      <p className="mb-4 text-2xl">{t('readyToTransformYourExperience')}</p>
-
-      <Button bold onClick={handleTryFree}>
-        {t('tryNow')}
-      </Button>
-    </div>
+    <section className="py-12">
+      <div className="container mx-auto px-4">
+        <div className="bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl p-10 flex flex-col md:flex-row items-start items-center md:justify-between">
+          <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">
+            Ready to transform your property management <br />
+            experience?
+          </h1>
+          <Button color="secondary" bold onClick={handleTryFree}>
+            {t('tryNow')}
+          </Button>
+        </div>
+      </div>
+    </section>
   )
 }
 
