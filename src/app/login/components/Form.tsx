@@ -96,13 +96,7 @@ const Form: FC<Props> = ({ locale }) => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between mb-4 mt-4 m-auto">
-            <label htmlFor="remember-me" className="flex items-center cursor-pointer">
-              <input type="checkbox" id="remember-me" className="mr-2" />
-              <span className="text-sm text-gray-500 dark:text-gray-300 toggle-text-dark-mode">
-                Remember Me
-              </span>
-            </label>
+          <div className="flex justify-end mb-4 mt-4 m-auto">
             <a href="#" className="text-sm text-green-500 dark:text-green-500 hover:underline">
               Forgot Password?
             </a>
