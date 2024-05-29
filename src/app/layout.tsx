@@ -11,7 +11,10 @@ import { allowedLocales } from '~/app/shared/contexts/server/I18nContext'
 
 import config from '~/config'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700']
+})
 
 export const metadata: Metadata = {
   title: config.siteTitle

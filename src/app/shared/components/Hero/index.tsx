@@ -176,35 +176,21 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
           <form>
             <div className="grid grid-cols-2 gap-4">
               <div className="mb-4 relative">
-                <label
-                  htmlFor="fullname"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Full Name *
-                </label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="fullname"
+                  <Input
+                    label="Full Name *"
+                    name="fullname"
                     placeholder="e.g. John Smith"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label
-                  htmlFor="company"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Business Name *
-                </label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="company"
+                  <Input
+                    label="Business Name *"
+                    name="company"
                     placeholder="e.g. Meta Logics"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>
@@ -213,15 +199,12 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Email Address *
-                </label>
+                ></label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="email"
+                  <Input
+                    label="Email Address *"
+                    name="email"
                     placeholder="e.g. mail@example.com"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>
@@ -230,49 +213,32 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                 <label
                   htmlFor="business"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Business Phone *
-                </label>
+                ></label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="business"
+                  <Input
+                    label="Business Phone *"
+                    name="business"
                     placeholder="e.g. +1 234 5677"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label
-                  htmlFor="website"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Business Website *
-                </label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="website"
+                  <Input
+                    label="Business Website *"
+                    name="website"
                     placeholder="e.g. yourdomain.com"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label
-                  htmlFor="country"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Country *
-                </label>
                 <div className="relative mt-1">
-                  <input
-                    type="text"
-                    id="country"
+                  <Input
+                    label="Country *"
+                    name="country"
                     placeholder="e.g. United States"
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm"
                     required
                   />
                 </div>

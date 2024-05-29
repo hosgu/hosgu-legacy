@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, FC, useState, ChangeEvent } from 'react'
+import React, { ComponentPropsWithoutRef, FC, useState, ChangeEvent, ReactNode } from 'react'
 import cx from '@architecturex/utils.cx'
 
 const EyeIcon = () => (
@@ -43,6 +43,7 @@ interface Props extends ComponentPropsWithoutRef<'input'> {
   countryCodes?: { [code: string]: string }
   countryCodeValue?: string
   onCountryCodeChange?: (e: ChangeEvent<HTMLSelectElement>) => void
+  leftIcon?: ReactNode
 }
 
 const Input: FC<Props> = ({
@@ -56,6 +57,7 @@ const Input: FC<Props> = ({
   type = 'text',
   value = '',
   onChange,
+  leftIcon = null,
   ...restProps
 }) => {
   const hasError = error || errorText
@@ -70,10 +72,7 @@ const Input: FC<Props> = ({
   const inputType = isPasswordType && showPassword ? 'text' : type
 
   return (
-    <div
-      data-component="Input"
-      className={cx.join('p-4 text-left', fullWidth ? 'w-full block' : null)}
-    >
+    <div data-component="Input" className={cx.join('text-left', fullWidth ? 'w-full block' : null)}>
       {label && (
         <label
           className="block text-gray-700 text-sm font-bold text-left dark:text-gray-300"
@@ -83,11 +82,23 @@ const Input: FC<Props> = ({
         </label>
       )}
       <div className="flex relative">
+        {leftIcon && (
+          <button
+            type="button"
+            className="absolute inset-y-0 left-2 pr-3 flex items-center text-sm leading-5"
+            onClick={togglePasswordVisibility}
+            style={{ top: '3px' }}
+          >
+            {leftIcon}
+          </button>
+        )}
+
         <input
           autoComplete="new-password"
           name={name}
           className={cx.join(
-            'mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-300 dark:focus:border-indigo-300 sm:text-sm',
+            'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border border-gray-300 dark:border-gray-600 rounded-md shadow-sm sm:text-sm',
+            'text-black dark:text-white',
             disabled ? 'opacity-50 cursor-not-allowed' : null,
             fullWidth ? 'w-full block' : null,
             hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,

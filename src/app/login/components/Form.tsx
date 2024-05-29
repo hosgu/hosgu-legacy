@@ -2,7 +2,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import security from '@architecturex/utils.security'
-
+import SVG from '@architecturex/components.svg'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import * as UserActions from '~/app/shared/actions/user'
 
@@ -73,14 +73,15 @@ const Form: FC<Props> = ({ locale }) => {
           <h2 className="text-2xl font-medium text-center mb-4 text-gray-800 dark:text-white toggle-text-dark-mode">
             Login to your account
           </h2>
-          <div className="relative">
+          <div className="relative mb-4">
             <div className="relative">
               <Input
+                leftIcon={<SVG.Email />}
                 label="Email:"
                 type="email"
                 placeholder="Please enter your email"
                 id="email"
-                className="input-light dark:input-dark mt-1 block w-full pl-10 pr-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="pl-10"
                 required
               />
             </div>
@@ -88,16 +89,17 @@ const Form: FC<Props> = ({ locale }) => {
           <div className="relative">
             <div className="relative">
               <Input
+                leftIcon={<SVG.Lock />}
                 label="Password:"
                 type="password"
                 placeholder="Please enter your password"
                 id="password"
-                className="input-light dark:input-dark mt-1 block w-full pl-10 pr-10 py-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="pl-10"
                 required
               />
             </div>
           </div>
-          <div className="flex items-center justify-between mb-4 w-[91%] m-auto">
+          <div className="flex items-center justify-between mb-4 mt-4 m-auto">
             <label htmlFor="remember-me" className="flex items-center cursor-pointer">
               <input type="checkbox" id="remember-me" className="mr-2" />
               <span className="text-sm text-gray-500 dark:text-gray-300 toggle-text-dark-mode">
@@ -109,7 +111,7 @@ const Form: FC<Props> = ({ locale }) => {
             </a>
           </div>
 
-          <div className="w-[91%] m-auto">
+          <div className="m-auto">
             <Button color="primary" fullWidth>
               Login
             </Button>
