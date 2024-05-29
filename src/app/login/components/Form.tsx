@@ -95,12 +95,6 @@ const Form: FC<Props> = ({ locale }) => {
                 className="input-light dark:input-dark mt-1 block w-full pl-10 pr-10 py-2 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-                <i
-                  id="toggle-password-visibility"
-                  className="far fa-eye text-gray-500 dark:text-gray-300"
-                ></i>
-              </div>
             </div>
           </div>
           <div className="flex items-center justify-between mb-4 w-[91%] m-auto">
@@ -137,37 +131,6 @@ const Form: FC<Props> = ({ locale }) => {
       </div>
     </form>
   )
-
-  // return (
-  //   <form onSubmit={handleSubmit}>
-  //     <Input label={t('email')} name="email" required />
-
-  //     <Input
-  //       label={t('password')}
-  //       name="password"
-  //       type="password"
-  //       autoComplete="new-password"
-  //       required
-  //     />
-
-  //     <p className="text-red-500 mb-4 text-xs">{errors.invalidLogin}</p>
-
-  //     <div className="flex justify-center items-center mb-4 text-sm text-gray-400">
-  //       <Link href={`/signup`} className="mr-4 hover:no-underline hover:text-gray-500">
-  //         {t('createNewAccount')}
-  //       </Link>
-  //       <Link href={`/forgot`} className="hover:no-underline hover:text-gray-500">
-  //         {t('forgot')}
-  //       </Link>
-  //     </div>
-
-  //     <div className="flex justify-center items-center mb-4">
-  //       <Button shape="circle" type="submit">
-  //         {t('connect')}
-  //       </Button>
-  //     </div>
-  //   </form>
-  // )
 }
 
 export default Form
