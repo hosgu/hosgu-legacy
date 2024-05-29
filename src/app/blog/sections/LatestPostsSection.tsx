@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { getAll } from '../../shared/actions/blog'
+import PostCard from '../components/PostCard/index'
 
 const LatestSection = ({ category }: Props) => {
   const [posts, setPosts] = useState([])
@@ -28,28 +29,17 @@ const LatestSection = ({ category }: Props) => {
 
   return (
     <>
-      <div className="bg-gray-100 grid gap-5 md:grid-cols-2 px-4">
+      <div className="bg-gray-100 grid gap-y-10 md:gap-y-16 md:gap-x-16 md:grid-cols-2 p-4 md:px-28">
         {posts.map((item: any) => {
           return (
-            <div key={item.title}>
-              <h2 className="pb-0">{item.title}</h2>
-              <p className="pb-2">{item.summary}</p>
-              <p className="pb-2">{item.category}</p>
-
-              <div className="flex flex-row-reverse justify-end gap-4">
-                <div>
-                  <a href={item.author.link}>{item.author.name}</a>
-                  <p>{item.author.role}</p>
-                </div>
-                <div className="h-[50px] w-[50px]">
-                  <img
-                    className="w-full h-full rounded-full"
-                    src={item.author.image}
-                    alt={item.author.name}
-                  />
-                </div>
-              </div>
-            </div>
+            <PostCard
+              key={item.id}
+              title={item.title}
+              postDate={item.postDate}
+              summary={item.summary}
+              category={item.category}
+              author={item.author}
+            />
           )
         })}
       </div>

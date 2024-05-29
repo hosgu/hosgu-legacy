@@ -3,11 +3,9 @@
 const PostCard = ({ title, summary, category, author, postDate }: Props) => {
   return (
     <div className="items-stretch">
-      <p className="pt-2 text-[12px] leading-4 text-neutral-600">{category}</p>
+      <p className="text-[12px] leading-4 text-neutral-600 gap-8 mb-1">{category}</p>
       <h2 className="p-0 text-[24px] font-bold tracking-tight leading-8">{title}</h2>
-      {/* <p className="pb-2">{summary}</p> */}
-
-      <div className="flex flex-row-reverse justify-end items-center gap-3 pt-2">
+      <div className="flex flex-row-reverse justify-end items-center gap-3 pt-3">
         <div>
           <p className="m-0 text-[14px] text-neutral-600">{postDate}</p>
         </div>
