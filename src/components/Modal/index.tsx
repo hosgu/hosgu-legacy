@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null
   return (
-    <div className="fixed inset-0 z-50 w-full overflow-auto bg-black bg-opacity-40 flex dark:bg-black">
+    <div className="fixed inset-0 z-50 w-full overflow-auto bg-black bg-opacity-40 flex dark:bg-gray">
       <div
         className={cx.join(
           'relative p-4 bg-white dark:bg-gray-900 max-w-md m-auto  flex-col flex',
