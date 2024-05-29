@@ -3,7 +3,7 @@
     "items": [
       {
         "id": 1,
-        "title": "First Post",
+        "title": "Introducing new developer tools in the Vercel Toolbar",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
@@ -13,14 +13,14 @@
           "email": "santana@gmail.com",
           "link": "https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
         },
-        "category": "A",
-        "postDate": "2022-01-01",
+        "category": "Company News",
+        "postDate": "May. 26th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
       {
         "id": 2,
-        "title": "First Post",
+        "title": "Shipping safer and smarter: Integrating feature flags deeper in the Vercel workflow",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
@@ -30,183 +30,182 @@
           "email": "santana@gmail.com",
           "link": "https://dev.to/chocoscoding/editing-react-quilljs-markdown-styling-3c4h"
         },
-        "category": "B",
-        "postDate": "",
+        "category": "Community",
+        "postDate": "May. 25th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
 
       {
         "id": 3,
-        "title": "First Post",
+        "title": "Securing data in your Next.js app with Okta and OpenFGA",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "C",
-        "postDate": "",
+        "category": "Engineering",
+        "postDate": "May. 22nd 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
 
       {
         "id": 4,
-        "title": "First Post",
+        "title": "Securing data in your Next.js app with Okta and OpenFGA",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_cK_iUnW-l_UW7fVHFduOAceiK126nxrKNNJAplwMvA&s",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "A",
-        "postDate": "",
+        "category": "Company News",
+        "postDate": "May. 14th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
       {
         "id": 5,
-        "title": "First Post",
+        "title": "How Vercel helped Tonies expand into new markets and improve conversion rates",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "A",
-        "postDate": "",
+        "category": "Company News",
+        "postDate": "May. 12th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
       {
         "id": 6,
-        "title": "First Post",
+        "title": "How Vercel helped Tonies expand into new markets and improve conversion rates",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_cK_iUnW-l_UW7fVHFduOAceiK126nxrKNNJAplwMvA&s",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "B",
-        "postDate": "",
-        "content": "<p>Content</p>",
+        "category": "Community",
+        "postDate": "May. 9th 2024",
         "locale": ""
       },
       {
         "id": 7,
-        "title": "First Post",
+        "title": "How Ruggable saw 300% more organic clicks by optimizing their frontend architecture",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "C",
-        "postDate": "",
+        "category": "Engineering",
+        "postDate": "Apr. 27th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
       {
         "id": 8,
-        "title": "First Post",
+        "title": "The Frontend Cloud: Powering resiliency for global web applications",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "C",
-        "postDate": "",
+        "category": "Engineering",
+        "postDate": "Apr. 22nd 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
       {
         "id": 9,
-        "title": "First Post",
+        "title": "Finishing Turborepo's migration from Go to Rust",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_cK_iUnW-l_UW7fVHFduOAceiK126nxrKNNJAplwMvA&s",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "C",
-        "postDate": "",
+        "category": "Engineering",
+        "postDate": "Apr. 19th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
 
       {
         "id": 10,
-        "title": "First Post",
+        "title": "How streaming helps build faster web applications",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "A",
-        "postDate": "",
+        "category": "Company News",
+        "postDate": "Apr. 15th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
 
       {
         "id": 11,
-        "title": "First Post",
+        "title": "Common mistakes with the Next.js App Router and how to fix them",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_cK_iUnW-l_UW7fVHFduOAceiK126nxrKNNJAplwMvA&s",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "B",
-        "postDate": "",
+        "category": "Community",
+        "postDate": "Apr. 12th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       },
 
       {
         "id": 12,
-        "title": "First Post",
+        "title": "Introducing Conformance and Code Owners: Move fast, don't break things",
         "slug": "first-post",
         "summary": "This is the First post",
         "author": {
           "name": "Carlos Santana",
           "role": "Senior software Engineer",
-          "image": "",
+          "image": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
           "email": "santana@gmail.com",
           "link": ""
         },
-        "category": "A",
-        "postDate": "",
+        "category": "Company News",
+        "postDate": "Mar. 18th 2024",
         "content": "<p>Content</p>",
         "locale": ""
       }
