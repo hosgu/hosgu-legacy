@@ -3,6 +3,8 @@ import React, { FC, useState, ChangeEvent } from 'react'
 import cx from '@architecturex/utils.cx'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
+import SVG from '@architecturex/components.svg'
+
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
@@ -178,9 +180,11 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               <div className="mb-4 relative">
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.User />}
                     label="Full Name *"
                     name="fullname"
                     placeholder="e.g. John Smith"
+                    className="pl-10"
                     required
                   />
                 </div>
@@ -188,6 +192,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               <div className="mb-4 relative">
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.Cabin />}
                     label="Business Name *"
                     name="company"
                     placeholder="e.g. Meta Logics"
@@ -196,12 +201,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                ></label>
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.Email />}
                     label="Email Address *"
                     name="email"
                     placeholder="e.g. mail@example.com"
@@ -210,12 +212,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                 </div>
               </div>
               <div className="mb-4 relative">
-                <label
-                  htmlFor="business"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                ></label>
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.Phone />}
                     label="Business Phone *"
                     name="business"
                     placeholder="e.g. +1 234 5677"
@@ -226,6 +225,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               <div className="mb-4 relative">
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.Link />}
                     label="Business Website *"
                     name="website"
                     placeholder="e.g. yourdomain.com"
@@ -236,6 +236,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               <div className="mb-4 relative">
                 <div className="relative mt-1">
                   <Input
+                    leftIcon={<SVG.World />}
                     label="Country *"
                     name="country"
                     placeholder="e.g. United States"

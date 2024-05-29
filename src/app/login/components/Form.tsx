@@ -81,7 +81,6 @@ const Form: FC<Props> = ({ locale }) => {
                 type="email"
                 placeholder="Please enter your email"
                 id="email"
-                className="pl-10"
                 required
               />
             </div>
@@ -93,8 +92,6 @@ const Form: FC<Props> = ({ locale }) => {
                 label="Password:"
                 type="password"
                 placeholder="Please enter your password"
-                id="password"
-                className="pl-10"
                 required
               />
             </div>

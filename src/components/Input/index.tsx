@@ -8,7 +8,7 @@ const EyeIcon = () => (
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#888"
+    stroke="#666"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -25,7 +25,7 @@ const EyeOffIcon = () => (
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#888"
+    stroke="#666"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -102,6 +102,7 @@ const Input: FC<Props> = ({
             disabled ? 'opacity-50 cursor-not-allowed' : null,
             fullWidth ? 'w-full block' : null,
             hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,
+            leftIcon ? 'pl-10' : '',
             className
           )}
           type={inputType}
