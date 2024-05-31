@@ -44,6 +44,7 @@ interface Props extends ComponentPropsWithoutRef<'input'> {
   countryCodeValue?: string
   onCountryCodeChange?: (e: ChangeEvent<HTMLSelectElement>) => void
   leftIcon?: ReactNode
+  shape?: 'rounded' | 'pill'
 }
 
 const Input: FC<Props> = ({
@@ -58,6 +59,7 @@ const Input: FC<Props> = ({
   value = '',
   onChange,
   leftIcon = null,
+  shape = 'rounded',
   ...restProps
 }) => {
   const hasError = error || errorText
@@ -97,8 +99,9 @@ const Input: FC<Props> = ({
           autoComplete="new-password"
           name={name}
           className={cx.join(
-            'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border border-gray-300 dark:border-gray-600 rounded-md shadow-sm sm:text-sm',
+            'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border border-gray-300 dark:border-gray-600 shadow-sm sm:text-sm',
             'text-black dark:text-white',
+            shape === 'rounded' ? 'rounded-md' : 'rounded-full',
             disabled ? 'opacity-50 cursor-not-allowed' : null,
             fullWidth ? 'w-full block' : null,
             hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,

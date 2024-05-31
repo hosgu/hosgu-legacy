@@ -3,14 +3,16 @@ import { FC } from 'react'
 import Link from 'next/link'
 import localFont from 'next/font/local'
 import cx from '@architecturex/utils.cx'
+import { RenderIf } from '@architecturex/components.renderif'
 
 import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
 
 type Props = {
   style?: 'light' | 'dark'
   className?: string
-  slogan: string
   position?: 'below' | 'right'
+  includeText?: boolean
+  alternativeText?: string
 }
 
 const SVNGilroyBold = localFont({ src: '../../fonts/SVNGilroyBold.otf' })
@@ -18,11 +20,16 @@ const SVNGilroyBold = localFont({ src: '../../fonts/SVNGilroyBold.otf' })
 const tw = {
   light: 'text-white',
   dark: 'text-green-950',
-  slogan: '-mt-1 font-normal text-center text-xs uppercase',
   text: 'font-bold text-2xl text-center'
 } as const
 
-const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
+const Logo: FC<Props> = ({
+  className = '',
+  position = 'below',
+  style,
+  includeText = true,
+  alternativeText = ''
+}) => {
   const { darkMode } = useTheme()
   const isDark = style === 'dark' || darkMode
 
@@ -50,19 +57,34 @@ const Logo: FC<Props> = ({ className = '', position = 'below', style }) => {
             <span style={{ marginRight: '1px' }}>
               <img src={isotype.url} alt="hosgu.com" style={{ width: '30px' }} />
             </span>
-            <span
-              className={cx.join(
-                SVNGilroyBold.className,
-                `bg-gradient-to-r ${isotype.from} ${isotype.to} text-transparent bg-clip-text`,
-                'text-3xl'
-              )}
-              style={{
-                marginLeft: '5px',
-                marginTop: '0px'
-              }}
-            >
-              hosgu
-            </span>
+
+            <RenderIf isTrue={includeText}>
+              <span
+                className={cx.join(
+                  SVNGilroyBold.className,
+                  `bg-gradient-to-r ${isotype.from} ${isotype.to} text-transparent bg-clip-text`,
+                  'text-3xl'
+                )}
+                style={{
+                  marginLeft: '5px',
+                  marginTop: '0px'
+                }}
+              >
+                hosgu
+              </span>
+            </RenderIf>
+
+            <RenderIf isTrue={!includeText && !!alternativeText}>
+              <span
+                className={cx.join(SVNGilroyBold.className, 'text-black text-lg')}
+                style={{
+                  marginLeft: '5px',
+                  marginTop: '5px'
+                }}
+              >
+                {alternativeText}
+              </span>
+            </RenderIf>
           </span>
         </div>
       </div>
