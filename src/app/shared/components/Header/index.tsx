@@ -14,7 +14,6 @@ import Avatar from '~/components/Avatar'
 
 import HamburgerMenu from './HamburgerMenu'
 import ThemeSwitcher from './ThemeSwitcher'
-import { max } from 'drizzle-orm'
 
 type Props = {
   connectedUser?: any
@@ -63,7 +62,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
         'z-50'
       )}
     >
-      <Logo slogan={t('slogan')} key={darkMode.toString()} />
+      <Logo key={darkMode.toString()} />
 
       <div className="flex justify-between">
         {showSecondaryNav && !isLogged && (

@@ -67,6 +67,7 @@
     "@architecturex/utils.is": "1.0.8",
     "@architecturex/utils.security": "^1.0.11",
     "@architecturex/utils.slug": "^1.0.4",
+    "@architecturex/utils.string": "^1.0.1",
     "autoprefixer": "10.4.19",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

@@ -1,8 +1,10 @@
 'use client'
 import React, { FC, useState } from 'react'
 import SVG from '@architecturex/components.svg'
+import str from '@architecturex/utils.string'
 import { RenderIf } from '@architecturex/components.renderif'
 
+import ThemeSwitcher from '~/app/shared/components/Header/ThemeSwitcher'
 import Logo from '~/app/shared/components/Logo'
 import Input from '~/components/Input'
 
@@ -33,11 +35,11 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
 
   return (
     <>
-      <header className="flex justify-between items-center bg-white h-14">
+      <header className="flex justify-between items-center bg-white h-14 shadow-md">
         <div className="flex w-auto justify-between min-w-max">
           <HambugerMenu toggleSidebar={() => setShowSidebar(!showSidebar)} />
 
-          <Logo includeText={false} alternativeText="Cabañas San Pancho" />
+          <Logo includeText={false} alternativeText={str.ellipsis('Cabañas San Pancho', 20)} />
         </div>
 
         <div className="ml-10 xl:ml-60 w-full m-auto items-center hidden md:block">
@@ -65,6 +67,10 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
           </div>
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
             <SVG.User />
+          </div>
+
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+            <ThemeSwitcher locale={locale} />
           </div>
         </div>
       </header>
