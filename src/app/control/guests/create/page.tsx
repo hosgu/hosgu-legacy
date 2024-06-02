@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
 import * as UserActions from '~/app/shared/actions/user'
-import CreateGuestForm from '~/app/dashboard/components/Guests/Form'
+import CreateGuestForm from '~/app/control/components/Guests/Form'
 
 const GuestsCreatePage: NextPage = async () => {
   const cookieStore = cookies()

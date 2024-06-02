@@ -80,6 +80,7 @@ const ResultsTable: FC<Props> = ({
             + Create
           </Button>
         }
+        striped
         headers={headers}
         rows={rows}
         hoverHighlight

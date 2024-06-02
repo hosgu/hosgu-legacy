@@ -1,9 +1,10 @@
 'use client'
 import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
+import SVG from '@architecturex/components.svg'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import UserForm from '~/app/dashboard/components/Users/Form'
+import UserForm from '~/app/control/components/Users/Form'
 import ResultsTable from '../components/ResultsTable'
 
 type Props = {
@@ -60,11 +61,11 @@ const Results: FC<Props> = ({
     item.birthday,
     <>
       <a key={`edit-${item.id}`} onClick={() => handleEdit(item)}>
-        Edit
+        <SVG.Edit />
       </a>{' '}
       <RenderIf isTrue={connectedUser.email !== item.email}>
         <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
-          Delete
+          <SVG.Trash />
         </a>
       </RenderIf>
     </>

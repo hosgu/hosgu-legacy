@@ -6,10 +6,10 @@ import { RenderIf } from '@architecturex/components.renderif'
 const Reports: FC = () => {
   return (
     <div className="flex-1 p-6">
-      <h1 className="text-2xl font-semibold mb-4 text-dark dark:text-light" id="user-greeting">
+      <h1 className="text-2xl mb-4 text-black dark:text-white" id="user-greeting">
         Hi, Carlos.
       </h1>
-      <p className="mb-6 text-dark dark:text-light" id="dashboard-details">
+      <p className="mb-6 text-black dark:text-white" id="dashboard-details">
         Here are the details about your Dashboard
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

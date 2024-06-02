@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import Header from '~/app/shared/components/Header'
-import Sidebar from './components/Sidebar'
+import Sidebar from '../control/components/Sidebar'
 
 import * as UserActions from '~/app/shared/actions/user'
 

@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import core from '@architecturex/utils.core'
 
-import ReservationsTable from '~/app/dashboard/components/Guests/ReservationsTable'
+import ReservationsTable from '~/app/control/components/Guests/ReservationsTable'
 import * as GuestActions from '~/app/shared/actions/guest'
 import * as ReservationActions from '~/app/shared/actions/reservations'
 

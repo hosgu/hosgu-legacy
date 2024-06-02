@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 
 import * as GuestActions from '~/app/shared/actions/guest'
 import * as UserActions from '~/app/shared/actions/user'
-import EditGuestForm from '~/app/dashboard/components/Guests/Form'
+import EditGuestForm from '~/app/control/components/Guests/Form'
 
 type Props = {
   params: {

@@ -21,7 +21,7 @@ const HambugerMenu: FC<HambugerMenuProps> = ({ toggleSidebar }) => {
   return (
     <div className="flex items-center justify-center ml-3 mr-3">
       <div
-        className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 cursor-pointer"
+        className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer"
         onClick={toggleSidebar}
       >
         <SVG.Hamburger label="Open Menu" />
@@ -35,11 +35,15 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
 
   return (
     <>
-      <header className="flex justify-between items-center bg-white h-14 shadow-md">
+      <header className="flex justify-between items-center bg-white dark:bg-gray-950 h-14 shadow-md">
         <div className="flex w-auto justify-between min-w-max">
           <HambugerMenu toggleSidebar={() => setShowSidebar(!showSidebar)} />
 
-          <Logo includeText={false} alternativeText={str.ellipsis('Cabañas San Pancho', 20)} />
+          <Logo
+            includeText={false}
+            alternativeText={str.ellipsis('Cabañas San Pancho', 20)}
+            initials={str.initials('Cabañas San Pancho')}
+          />
         </div>
 
         <div className="ml-10 xl:ml-60 w-full m-auto items-center hidden md:block">
@@ -53,39 +57,39 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
         </div>
 
         <div className="flex items-center justify-end w-2/4">
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Plus />
           </div>
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Calendar />
           </div>
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Bed />
           </div>
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Bell />
           </div>
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.User />
           </div>
 
-          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 cursor-pointer">
+          <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <ThemeSwitcher locale={locale} />
           </div>
         </div>
       </header>
 
       <RenderIf isTrue={showSidebar}>
-        <aside className="fixed top-14 left-0 h-full w-96 bg-white shadow-lg z-50">
+        <aside className="fixed top-14 left-0 h-full w-96 bg-white dark:bg-gray-950 shadow-lg z-50">
           <div className="flex flex-col justify-between items-center p-4">
             <nav className="flex flex-col mt-4">
               <ul>
                 <li className="mb-4 h-12 w-96">
                   <a
                     href="#"
-                    className="flex w-full h-12 pl-4 items-center text-gray-800 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 hover:text-white hover:no-underline"
+                    className="flex w-full h-12 pl-4 items-center text-gray-800 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 dark:text-white hover:text-white hover:no-underline"
                   >
-                    <SVG.Chart color="#222" />
+                    <SVG.Chart color="#666" />
                     &nbsp;&nbsp;
                     <span className="font-semibold">Reports</span>
                   </a>
@@ -93,21 +97,31 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
                 <li className="mb-4 h-12 w-96">
                   <a
                     href="#"
-                    className="flex w-full h-12 pl-4 items-center text-gray-800 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 hover:text-white hover:no-underline"
+                    className="flex w-full h-12 pl-4 items-center text-gray-800 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 dark:text-white hover:text-white hover:no-underline"
                   >
-                    <SVG.Calendar color="#222" />
+                    <SVG.Calendar color="#666" />
                     &nbsp;&nbsp;
                     <span className="font-semibold">Calendario</span>
                   </a>
                 </li>
                 <li className="mb-4 h-12 w-96">
                   <a
-                    href="#"
-                    className="flex w-full h-12 pl-4 items-center text-gray-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 hover:text-white hover:no-underline"
+                    href="/control/guests"
+                    className="flex w-full h-12 pl-4 items-center text-gray-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 dark:text-white hover:text-white hover:no-underline"
                   >
-                    <SVG.Bed color="#222" />
+                    <SVG.Guests color="#666" />
                     &nbsp;&nbsp;
-                    <span className="font-semibold">Bookings</span>
+                    <span className="font-semibold">Guests</span>
+                  </a>
+                </li>
+                <li className="mb-4 h-12 w-96">
+                  <a
+                    href="/control/users"
+                    className="flex w-full h-12 pl-4 items-center text-gray-900 hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 dark:text-white hover:text-white hover:no-underline"
+                  >
+                    <SVG.User color="#666" />
+                    &nbsp;&nbsp;
+                    <span className="font-semibold">Users</span>
                   </a>
                 </li>
               </ul>

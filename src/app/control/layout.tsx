@@ -3,7 +3,6 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import Header from './components/Header'
-import Reports from './components/Reports'
 import * as UserActions from '~/app/shared/actions/user'
 
 type Props = {
@@ -21,11 +20,9 @@ const Layout: FC<Props> = async ({ children }) => {
 
   return (
     <main>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen dark:bg-gray-950">
         <Header locale={locale} page="dashboard" />
-        <div className="flex-1 overflow-y-auto">
-          <Reports />
-        </div>
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </main>
   )

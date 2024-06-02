@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState } from 'react'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
+
 interface TableProps {
   headers: string[]
   rows: any[][]
@@ -18,8 +19,8 @@ interface TableProps {
 
 const defaultColors = {
   headerBgColor: 'bg-gray-50 h-16 text-black',
-  rowColor: 'bg-white h-14 text-sm',
-  altRowColor: 'bg-gray-100 h-14 text-sm'
+  rowColor: 'bg-gray-100 dark:bg-gray-600 h-14 text-sm dark:text-white',
+  altRowColor: 'bg-white dark:bg-gray-500 h-14 text-sm dark:text-white'
 }
 
 const alignmentClasses = {
@@ -75,7 +76,7 @@ const Table: FC<TableProps> = ({
     <>
       {label && (
         <div className="w-[95%] m-auto mt-4 mb-0 flex justify-between items-center">
-          <div className="text-xl font-semibold">{label}</div>
+          <div className="text-xl font-semibold dark:text-white">{label}</div>
           {createButton && <div className="text-sm text-gray-600">{createButton}</div>}
         </div>
       )}
@@ -89,8 +90,9 @@ const Table: FC<TableProps> = ({
                   <th
                     key={idx}
                     className={cx.join(
-                      'py-2 px-4 border-b border-gray-100 text-sm font-semibold text-black tracking-wider cursor-pointer',
-                      alignmentClasses[columnAlignments[idx] || 'left']
+                      'py-2 px-4 border-b border-gray-100 dark:border-gray-600 text-sm font-semibold text-black tracking-wider cursor-pointer dark:bg-gray-800 dark:text-white',
+                      alignmentClasses[columnAlignments[idx] || 'left'],
+                      idx > 1 && idx !== headers.length - 1 ? 'hidden md:table-cell' : ''
                     )}
                     onClick={() => onHeaderClick(idx)}
                   >
@@ -104,7 +106,7 @@ const Table: FC<TableProps> = ({
                 <tr>
                   <td
                     colSpan={headers.length}
-                    className="py-2 px-4 border-b border-gray-200 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white"
+                    className="py-2 px-4 border-b border-gray-200 dark:border-gray-600 text-sm font-semibold text-black tracking-wider text-center h-40 bg-white dark:bg-gray-800"
                   >
                     <div className="flex items-center justify-center">
                       <SVG.NoData />
@@ -129,8 +131,9 @@ const Table: FC<TableProps> = ({
                     <td
                       key={cellIndex}
                       className={cx.join(
-                        'py-2 px-4 border-b border-gray-200',
-                        alignmentClasses[columnAlignments[cellIndex] || 'left']
+                        'py-2 px-4 border-b border-gray-200 dark:border-gray-600',
+                        alignmentClasses[columnAlignments[cellIndex] || 'left'],
+                        cellIndex > 1 && cellIndex !== row.length - 1 ? 'hidden md:table-cell' : ''
                       )}
                     >
                       {cell}

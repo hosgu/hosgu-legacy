@@ -1,5 +1,5 @@
 'use client'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'

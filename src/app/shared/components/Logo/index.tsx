@@ -13,6 +13,7 @@ type Props = {
   position?: 'below' | 'right'
   includeText?: boolean
   alternativeText?: string
+  initials?: string
 }
 
 const SVNGilroyBold = localFont({ src: '../../fonts/SVNGilroyBold.otf' })
@@ -28,7 +29,8 @@ const Logo: FC<Props> = ({
   position = 'below',
   style,
   includeText = true,
-  alternativeText = ''
+  alternativeText = '',
+  initials = ''
 }) => {
   const { darkMode } = useTheme()
   const isDark = style === 'dark' || darkMode
@@ -76,13 +78,18 @@ const Logo: FC<Props> = ({
 
             <RenderIf isTrue={!includeText && !!alternativeText}>
               <span
-                className={cx.join(SVNGilroyBold.className, 'text-black text-lg')}
+                className={cx.join(
+                  SVNGilroyBold.className,
+                  'text-black text-lg',
+                  'dark:text-white'
+                )}
                 style={{
                   marginLeft: '5px',
                   marginTop: '5px'
                 }}
               >
-                {alternativeText}
+                <span className="hidden md:inline-block">{alternativeText}</span>
+                <span className="md:hidden">{initials}</span>
               </span>
             </RenderIf>
           </span>

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import Home from './components/Home'
+import Home from '../control/components/Home'
 
 const DashboardPage: FC = async () => {
   return (

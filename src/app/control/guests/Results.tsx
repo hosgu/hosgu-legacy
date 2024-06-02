@@ -1,9 +1,10 @@
 'use client'
 import { FC, useState } from 'react'
 import core from '@architecturex/utils.core'
+import SVG from '@architecturex/components.svg'
 import files from '@architecturex/utils.files'
 
-import GuestForm from '~/app/dashboard/components/Guests/Form'
+import GuestForm from '~/app/control/components/Guests/Form'
 import ResultsTable from '../components/ResultsTable'
 
 type Props = {
@@ -63,14 +64,14 @@ const Results: FC<Props> = ({
     item.website,
     item.gender,
     item.birthday,
-    <>
+    <div className="flex" key={`Actions-${item.id}`}>
       <a key={`edit-${item.id}`} onClick={() => handleEdit(item)}>
-        Edit
+        <SVG.Edit color="#333" />
       </a>{' '}
       <a key={`delete-${item.id}`} href="#" onClick={() => handleDelete(item.id)}>
-        Delete
+        <SVG.Trash color="#333" />
       </a>
-    </>
+    </div>
   ]
 
   return (
@@ -84,10 +85,13 @@ const Results: FC<Props> = ({
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
-          <GuestForm action="save" data={{ businessId: connectedUser.businessId }} />
+          <GuestForm action="save" data={{ businessId: connectedUser?.businessId }} />
         }
         EditFormComponent={
-          <GuestForm action="edit" data={{ businessId: connectedUser.businessId, ...itemToEdit }} />
+          <GuestForm
+            action="edit"
+            data={{ businessId: connectedUser?.businessId, ...itemToEdit }}
+          />
         }
         isEditModalOpen={isEditModalOpen}
         onCloseModal={onCloseModal}
