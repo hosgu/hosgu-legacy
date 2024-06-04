@@ -387,7 +387,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       </div>
 
       <div className="fixed bottom-4 left-0  w-full flex justify-center items-center">
-        <div className="w-[90%]">
+        <div className="w-[90%] bg-white dark:bg-gray-900">
           <StepIndicator
             enableNext={enableNext}
             steps={6}
