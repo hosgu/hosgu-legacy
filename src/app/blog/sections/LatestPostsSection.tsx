@@ -11,11 +11,12 @@ const LatestSection = ({ category }: Props) => {
       let posts = []
       console.log('category 👉🏼', category)
       if (category === '') {
+        console.log('fetch all')
         const response = await getAll()
         posts = response.response.items
-        console.log('posts 👉🏼', posts)
       } else {
         // TODO: Fetch by category
+        console.log('fetch by category')
         const response = await getAll()
         posts = response.response.items
         posts = posts.filter((post: any) => post.category === category)
