@@ -1,99 +1,95 @@
 'use client'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import Counter from '~/components/Counter'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
+  values: any
+  setValues: any
+  enableNext: boolean
+  setEnableNext: any
 }
 
-const Step: FC<Props> = ({ locale }) => {
+const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
+  const { guests, bathrooms, bedrooms, beds } = values
+
+  useEffect(() => {
+    if (guests === 0 || bathrooms === 0 || bedrooms === 0 || beds === 0) {
+      setEnableNext(false)
+      return
+    }
+    setEnableNext(true)
+  }, [guests, bathrooms, bedrooms, beds, setEnableNext])
+
   const t = i18n(locale)
-  const [personCount, setPersonCount] = useState(1)
-  const [roomCount, setRoomCount] = useState(0)
-  const [bathroomCount, setBathroomCount] = useState(1)
-  const [selectedBeds, setSelectedBeds] = useState(new Map())
-
-  const renderRoomDropdown = (roomNumber: number) => {
-    return (
-      <div className="flex items-center mt-10 bg-slate-500 w-96 p-2 rounded-lg text-white">
-        <label className="w-36 text-sm">{`Camas en Cuarto ${roomNumber}`}:</label>&nbsp;
-        <div>
-          <Counter
-            label="King"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={12}
-            style={{ width: '139px', fontSize: '14px' }}
-          />
-
-          <Counter
-            label="Queen"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={9}
-            style={{ width: '140px', fontSize: '14px' }}
-          />
-
-          <Counter
-            label="Full"
-            onChange={(count: number) => {
-              setSelectedBeds(selectedBeds.set(roomNumber, count))
-            }}
-            max={5}
-            spaces={14}
-            style={{ width: '139px', fontSize: '14px' }}
-          />
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="flex flex-col space-y-4 w-96">
-      <div className="bg-slate-700 p-2 rounded-xl text-white">
-        <div className="flex flex-col items-center space-x-2">
+      <div className="bg-white p-2 rounded-xl text-black">
+        <div className="flex flex-row justify-between  items-center space-x-2 my-6">
+          <p>Guests</p>
+
           <Counter
-            label="Capacidad"
+            label=""
             onChange={(count: number) => {
-              setPersonCount(count)
+              setValues({ ...values, guests: count })
             }}
+            defaultValue={guests}
             max={25}
-            style={{ width: '165px' }}
+            spaces={5}
+            style={{ width: '120px' }}
           />
         </div>
+        <hr className="border-solid	" />
 
-        <div className="flex flex-col items-center space-x-2">
+        <div className="flex flex-row justify-between items-center space-x-2 my-6">
+          <p>Bathrooms</p>
+
           <Counter
-            label="Baños"
+            label=""
             onChange={(count: number) => {
-              setBathroomCount(count)
+              setValues({ ...values, bathrooms: count })
             }}
             max={10}
-            spaces={8}
-            style={{ width: '165px' }}
+            defaultValue={bathrooms}
+            spaces={5}
+            style={{ width: '120px' }}
+          />
+        </div>
+        <hr className="border-solid	" />
+
+        <div className="flex flex-row justify-between items-center space-x-2 my-6">
+          <p>Bedrooms</p>
+          <Counter
+            label=""
+            onChange={(count: number) => {
+              setValues({ ...values, bedrooms: count })
+            }}
+            defaultValue={bedrooms}
+            max={6}
+            spaces={5}
+            style={{ width: '120px' }}
           />
         </div>
 
-        <div className="flex flex-col items-center space-x-2">
+        <hr className="border-solid	" />
+
+        <div className="flex flex-row justify-between  items-center space-x-2 my-6">
+          <p>Beds</p>
           <Counter
-            label="Cuartos"
+            label=""
             onChange={(count: number) => {
-              setRoomCount(count)
+              setValues({ ...values, beds: count })
             }}
+            defaultValue={beds}
             max={6}
             spaces={5}
-            style={{ width: '165px' }}
+            style={{ width: '120px' }}
           />
         </div>
       </div>
-
-      <div>{[...Array(roomCount)].map((_, index) => renderRoomDropdown(index + 1))}</div>
     </div>
   )
 }

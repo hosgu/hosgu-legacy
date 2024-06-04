@@ -1,33 +1,54 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
+import cx from '@architecturex/utils.cx'
+import Button from '~/components/Button'
+import { RenderIf } from '@architecturex/components.renderif'
 
-type Props = {
-  totalSteps: number
+interface StepIndicatorProps {
+  steps: number
   currentStep: number
+  onBack: () => void
+  onNext: () => void
+  enableNext: boolean
 }
 
-const StepIndicator: FC<Props> = ({ totalSteps, currentStep }) => {
-  const stepDots = []
-
-  for (let i = 1; i <= totalSteps; i++) {
-    const isActive = i <= currentStep
-
-    stepDots.push(
-      <Fragment key={i}>
-        <div
-          className={`w-6 h-6 ${isActive ? 'bg-green-500' : 'bg-gray-300'} rounded-full mr-1`}
-        ></div>
-        {i < totalSteps && (
-          <div
-            className={`w-8 h-1 ${isActive ? 'bg-green-500' : 'bg-gray-300'} rounded mr-1`}
-          ></div>
-        )}
-      </Fragment>
-    )
-  }
-
+const StepIndicator: FC<StepIndicatorProps> = ({
+  steps,
+  currentStep,
+  onBack,
+  onNext,
+  enableNext
+}) => {
   return (
-    <div className="flex justify-center items-center mb-4">
-      <div className="flex items-center">{stepDots}</div>
+    <div className="flex flex-col items-center w-full bg-auto bg-white dark:bg-gray-900">
+      <div className="flex justify-between w-full mb-4">
+        {Array.from({ length: steps }, (_, index) => (
+          <div
+            key={index}
+            className={`flex-1 h-1 ${index < currentStep ? 'bg-forest' : 'bg-gray-300'} ${
+              index !== 0 ? 'ml-2' : ''
+            } ${index !== steps - 1 ? 'mr-2' : ''}`}
+          ></div>
+        ))}
+      </div>
+      <div className="flex w-full justify-between">
+        <a
+          onClick={onBack}
+          className={cx.join('py-2 px-4 cursor-pointer', {
+            invisible: currentStep === 0
+          })}
+        >
+          Back
+        </a>
+        <RenderIf isTrue={currentStep !== 1}>
+          <Button
+            color="secondary"
+            onClick={onNext}
+            disabled={currentStep === steps || !enableNext}
+          >
+            {currentStep === steps - 1 ? 'Submit' : 'Next'}
+          </Button>
+        </RenderIf>
+      </div>
     </div>
   )
 }

@@ -6,12 +6,20 @@ type Props = {
   spaces?: number
   style?: CSSProperties
   max?: number
+  defaultValue?: number
 }
 
 const nbsp = ' '
 
-const Counter: FC<Props> = ({ label, spaces = 0, onChange, max = 99, style = { width: '135px' } }) => {
-  const [count, setCount] = useState<number>(0)
+const Counter: FC<Props> = ({
+  label,
+  spaces = 0,
+  onChange,
+  max = 99,
+  defaultValue = 0,
+  style = { width: '135px' }
+}) => {
+  const [count, setCount] = useState<number>(defaultValue)
 
   const increment = () => {
     if (count < max) {
@@ -39,7 +47,7 @@ const Counter: FC<Props> = ({ label, spaces = 0, onChange, max = 99, style = { w
         </button>
         <input
           type="number"
-          className="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-base cursor-default flex items-center text-gray-700 outline-none"
+          className="focus:outline-none text-center w-full rounded-none bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-base cursor-default flex items-center text-gray-700 outline-none"
           name="custom-input-number"
           value={count}
           readOnly

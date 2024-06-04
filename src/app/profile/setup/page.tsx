@@ -1,10 +1,10 @@
 import { NextPage } from 'next'
-import { redirect } from 'next/navigation'
 
 import * as UserActions from '~/app/shared/actions/user'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import ProfileSetupForm from './components/Form'
+import NotFound from '~/app/shared/components/NotFound'
 
 type Props = {
   params: {
@@ -21,14 +21,12 @@ const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const user = await UserActions.getUserByCode(code)
 
   if (!user) {
-    redirect('/404')
+    return <NotFound />
   }
 
   return (
-    <div className="min-h-screen flex justify-center bg-gray-100 dark:bg-gray-900">
-      <div className="p-6 dark:text-white">
-        <h1 className="text-2xl font-bold mb-4 text-center dark:text-white">{t('signUp')}</h1>
-
+    <div className="min-h-screen flex justify-center bg-white dark:bg-gray-900 w-full">
+      <div className="p-6 dark:text-white w-full" style={{ border: '1px solid red' }}>
         <ProfileSetupForm locale="en-us" user={user} />
       </div>
     </div>

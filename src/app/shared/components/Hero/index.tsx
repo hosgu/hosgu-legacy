@@ -126,6 +126,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+
     const formData = new FormData(e.target)
     formData.append('country', selectedCountry)
 
