@@ -24,7 +24,7 @@ const LatestSection = ({ category }: Props) => {
       setPosts(posts)
     }
     fetchPosts()
-  }, [])
+  }, [category])
 
   return (
     <>
