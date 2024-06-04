@@ -31,7 +31,7 @@ const LatestSection = ({ category }: Props) => {
       <div className="bg-gray-100 grid gap-5 md:grid-cols-2 px-4">
         {posts.map((item: any) => {
           return (
-            <div key={item.title}>
+            <div key={item.id}>
               <h2 className="pb-0">{item.title}</h2>
               <p className="pb-2">{item.summary}</p>
               <p className="pb-2">{item.category}</p>
