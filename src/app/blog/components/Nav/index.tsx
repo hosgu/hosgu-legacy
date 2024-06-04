@@ -1,14 +1,19 @@
 'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import { useRef } from 'react'
+
 import menuIcon from '../../../../../public/icons/blog/menu.svg'
 import searchIcon from '../../../../../public/icons/blog/search.svg'
 import xIcon from '../../../../../public/icons/blog/x.svg'
-import { useRef } from 'react'
 
 const Nav = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuListRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  console.log('🔗 Pathname:', pathname)
 
   return (
     <div className="flex items-center h-20 px-4 bg-gray-100 border-b-2 border-slate-500 ">
@@ -43,43 +48,35 @@ const Nav = () => {
             />
           </div>
         </div>
-        <ul className="flex gap-1 flex-col md:flex-row">
-          <li className="flex items-center h-8 px-2 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
+        <ul className="flex gap-4 flex-col md:flex-row">
+          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/[category]"
-              as="/blog"
-              onClick={underlineActiveLink}
-              className="hover:no-underline"
+              href="/blog"
+              className={`w-full hover:no-underline ${pathname == '/blog' ? getActiveLinkStyle() : ''}`}
             >
               All posts
             </Link>
           </li>
-          <li className="flex items-center h-8 px-2 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
+          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/[category]"
-              as="/blog/A"
-              onClick={underlineActiveLink}
-              className="hover:no-underline"
+              href="/blog/category/A"
+              className={`hover:no-underline ${pathname == '/blog/category/A' ? getActiveLinkStyle() : ''}`}
             >
               Engineering
             </Link>
           </li>
-          <li className="flex items-center h-8 px-2 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
+          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/[category]"
-              as="/blog/B"
-              onClick={underlineActiveLink}
-              className="hover:no-underline"
+              href="/blog/category/B"
+              className={`hover:no-underline ${pathname == '/blog/category/B' ? getActiveLinkStyle() : ''}`}
             >
               Community
             </Link>
           </li>
-          <li className="flex items-center h-8 px-2 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
+          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/[category]"
-              as="/blog/C"
-              onClick={underlineActiveLink}
-              className="hover:no-underline"
+              href="/blog/category/C"
+              className={`hover:no-underline ${pathname == '/blog/category/C' ? getActiveLinkStyle() : ''}`}
             >
               Company news
             </Link>
@@ -89,14 +86,8 @@ const Nav = () => {
     </div>
   )
 
-  function underlineActiveLink(event: React.MouseEvent<HTMLAnchorElement>) {
-    const target = event.target as HTMLAnchorElement
-    const links = menuListRef.current?.querySelectorAll('a')
-
-    if (!links) return
-
-    links.forEach((link) => link.classList.remove('underline'))
-    target.classList.add('underline')
+  function getActiveLinkStyle() {
+    return 'before:w-full before:h-[2px] before:bg-black before:absolute before:top-full'
   }
 
   function toggleMenu() {
