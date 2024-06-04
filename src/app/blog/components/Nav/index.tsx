@@ -59,24 +59,24 @@ const Nav = () => {
           </li>
           <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/category/A"
-              className={`hover:no-underline ${pathname == '/blog/category/A' ? getActiveLinkStyle() : ''}`}
+              href="/blog/category/Engineering"
+              className={`hover:no-underline ${pathname == '/blog/category/Engineering' ? getActiveLinkStyle() : ''}`}
             >
               Engineering
             </Link>
           </li>
           <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/category/B"
-              className={`hover:no-underline ${pathname == '/blog/category/B' ? getActiveLinkStyle() : ''}`}
+              href="/blog/category/Community"
+              className={`hover:no-underline ${pathname == '/blog/category/Community' ? getActiveLinkStyle() : ''}`}
             >
               Community
             </Link>
           </li>
           <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
             <Link
-              href="/blog/category/C"
-              className={`hover:no-underline ${pathname == '/blog/category/C' ? getActiveLinkStyle() : ''}`}
+              href="/blog/category/Company-news"
+              className={`hover:no-underline ${pathname == '/blog/category/Company-news' ? getActiveLinkStyle() : ''}`}
             >
               Company news
             </Link>
