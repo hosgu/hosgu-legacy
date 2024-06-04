@@ -20,7 +20,11 @@ const LatestSection = ({ category }: Props) => {
         console.log('fetch by category')
         const response = await getAll()
         posts = response.response.items
-        posts = posts.filter((post: any) => post.category === category)
+        posts = posts.filter((post: any) => {
+          // TODO: Fix the company news category
+          if (category === 'Company-news') return true
+          return post.category === category
+        })
       }
 
       setPosts(posts)
