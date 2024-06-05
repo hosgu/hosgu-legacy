@@ -5,5 +5,8 @@
   "prettier.requireConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
   }
 }
