@@ -1,0 +1,22 @@
+{
+  "response": {
+    "items": [
+      {
+        "name": "All",
+        "slug": "all"
+      },
+      {
+        "name": "Company News",
+        "slug": "company-news"
+      },
+      {
+        "name": "Community",
+        "slug": "community"
+      },
+      {
+        "name": "Engineering",
+        "slug": "engineering"
+      }
+    ]
+  }
+}
