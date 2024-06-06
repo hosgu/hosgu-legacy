@@ -1,37 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { getAll } from '../../shared/actions/blog'
 import PostCard from '../components/PostCard/index'
 
-const LatestSection = ({ category }: Props) => {
-  const [posts, setPosts] = useState([])
+type Props = {
+  posts: any
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      let posts = []
-      console.log('category 👉🏼', category)
-      if (category === '') {
-        console.log('fetch all')
-        const response = await getAll()
-        posts = response.response.items
-      } else {
-        // TODO: Fetch by category
-        console.log('fetch by category')
-        const response = await getAll()
-        posts = response.response.items
-        posts = posts.filter((post: any) => {
-          // TODO: Fix the company news category
-          if (category === 'Company-news') return true
-          return post.category === category
-        })
-      }
-
-      setPosts(posts)
-    }
-    fetchPosts()
-  }, [category])
-
+const LatestSection = ({ posts }: Props) => {
   return (
     <>
       <div className="flex flex-col justify-start items-stretch gap-10 md:py-16 bg-gray-100 p-4 md:px-28 ">
@@ -65,10 +40,6 @@ const LatestSection = ({ category }: Props) => {
       </div>
     </>
   )
-}
-
-interface Props {
-  category: string
 }
 
 export default LatestSection
