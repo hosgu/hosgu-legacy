@@ -1,9 +1,10 @@
 'use client'
 import React, { FC, useState, ChangeEvent } from 'react'
-import cx from '@architecturex/utils.cx'
+import { RenderIf } from '@architecturex/components.renderif'
 import is from '@architecturex/utils.is'
-import core from '@architecturex/utils.core'
+import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
+import core from '@architecturex/utils.core'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
@@ -36,7 +37,6 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     country: ''
   }
   const [isRegistered, setIsRegistered] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState('')
 
   const [errors, setErrors] = useState({
     fullName: '',
@@ -52,6 +52,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       if (!value) {
         return t('required')
       }
+
       if (value.length < 2) {
         return t('required')
       }
@@ -62,6 +63,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       if (!value) {
         return t('required')
       }
+
       if (value.length < 2) {
         return t('required')
       }
@@ -72,33 +74,40 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       if (!value) {
         return t('required')
       }
+
       if (!is(value).email()) {
         return t('invalidEmail')
       }
+
       return ''
     },
     businessPhone: (value: string) => {
       if (!value) {
         return t('required')
       }
+
       if (!is(value).phone()) {
         return t('invalidPhone')
       }
+
       return ''
     },
     businessWebsite: (value: string) => {
       if (!value) {
         return t('required')
       }
+
       if (!is(value).url) {
         return t('invalidUrl')
       }
+
       return ''
     },
-    country: () => {
-      if (selectedCountry === '') {
+    country: (value: string) => {
+      if (!value) {
         return t('required')
       }
+
       return ''
     }
   }
@@ -111,9 +120,11 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       businessEmail: validations.businessEmail(values.businessEmail),
       businessPhone: validations.businessPhone(values.businessPhone),
       businessWebsite: validations.businessWebsite(values.businessWebsite),
-      country: validations.country()
+      country: validations.country(values.country)
     }
+
     setErrors(newErrors)
+
     return (
       !newErrors.fullName &&
       !newErrors.businessEmail &&
@@ -128,7 +139,6 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     e.preventDefault()
 
     const formData = new FormData(e.target)
-    formData.append('country', selectedCountry)
 
     const values = core.formData.get(formData)
     const isValidForm = validate(values)
@@ -137,7 +147,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
       const response = await UserActions.initialSignup(formData)
 
       if (!response.ok && response.error?.code === 'EMAIL_ALREADY_EXISTS') {
-        initialValues.businessEmail = t(response.error.message as keyof typeof t)
+        setErrors({ ...errors, businessEmail: t(response.error.message as keyof typeof t) })
       } else if (response.ok) {
         setIsRegistered(true)
       }
@@ -145,7 +155,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
   }
 
   const SuccessMessage = () => (
-    <div className="flex min-h-[519px] flex-col text-black dark:text-white justify-center m-auto p-1">
+    <div className="flex min-h-[519px] flex-col text-black dark:text-white justify-center m-auto p-1 text-center">
       <h2 className="text-black dark:text-white">{t('justOneMoreStep')}</h2>
       <p className="w-11/12" style={{ margin: '0 auto' }}>
         {t('thankYouForRegistering')}
@@ -176,87 +186,98 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
         </div>
 
         <div className="w-[90%] md:w-1/2 bg-white dark:bg-black p-8 rounded-md shadow-md mb-20">
-          <form>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.User />}
-                    label="Full Name *"
-                    name="fullname"
-                    placeholder="e.g. John Smith"
-                    className="pl-10"
-                    required
-                  />
+          <RenderIf isTrue={isRegistered}>
+            <SuccessMessage />
+          </RenderIf>
+
+          <RenderIf isFalse={isRegistered}>
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      id="fullName"
+                      leftIcon={<SVG.User />}
+                      label="Full Name *"
+                      name="fullName"
+                      placeholder="e.g. John Smith"
+                      className="pl-10"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      id="businessName"
+                      leftIcon={<SVG.Cabin />}
+                      label="Business Name *"
+                      name="businessName"
+                      placeholder="e.g. Meta Logics"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      leftIcon={<SVG.Email />}
+                      label="Email Address *"
+                      name="businessEmail"
+                      className={errors.businessEmail ? 'border-red-500 dark:border-red-500' : ''}
+                      placeholder="e.g. mail@example.com"
+                      required
+                      errorText={errors.businessEmail}
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      leftIcon={<SVG.Phone />}
+                      label="Business Phone *"
+                      name="businessPhone"
+                      placeholder="e.g. +1 234 5677"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      leftIcon={<SVG.Link />}
+                      label="Business Website *"
+                      name="businessWebsite"
+                      placeholder="e.g. yourdomain.com"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-4 relative">
+                  <div className="relative mt-1">
+                    <Input
+                      leftIcon={<SVG.World />}
+                      label="Country *"
+                      name="country"
+                      placeholder="e.g. United States"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.Cabin />}
-                    label="Business Name *"
-                    name="company"
-                    placeholder="e.g. Meta Logics"
-                    required
-                  />
-                </div>
+              <div className="flex justify-center mb-6 mt-6">
+                <Button color="primary" type="submit" fullWidth>
+                  {t('getStarted')}
+                </Button>
               </div>
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.Email />}
-                    label="Email Address *"
-                    name="email"
-                    placeholder="e.g. mail@example.com"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.Phone />}
-                    label="Business Phone *"
-                    name="business"
-                    placeholder="e.g. +1 234 5677"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.Link />}
-                    label="Business Website *"
-                    name="website"
-                    placeholder="e.g. yourdomain.com"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="mb-4 relative">
-                <div className="relative mt-1">
-                  <Input
-                    leftIcon={<SVG.World />}
-                    label="Country *"
-                    name="country"
-                    placeholder="e.g. United States"
-                    required
-                  />
-                </div>
-              </div>
+            </form>
+            <div
+              className="flex justify-center mb-6 text-center dark:text-white p-2"
+              style={{ fontSize: '10px' }}
+            >
+              {t('weAreCommitted')}
             </div>
-            <Button color="primary" fullWidth>
-              Get Started
-            </Button>
-          </form>
-          <div className="mt-4 text-gray-500 dark:text-gray-300 text-sm text-center md:text-left">
-            <p>
-              We are committed to your privacy. The hosgu.com uses the information you provide to us
-              to contact you about our relevant content, products, and services. You may unsubscribe
-              at any time.
-            </p>
-          </div>
+          </RenderIf>
         </div>
       </div>
     </div>
