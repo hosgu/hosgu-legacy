@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS "agent" (
 	"businessId" uuid NOT NULL,
 	"userId" uuid NOT NULL,
 	"isCompany" boolean DEFAULT false,
-	"comissionType" varchar(100) DEFAULT 'fixed',
-	"highestCommissionWihoutOffer" integer DEFAULT 0,
+	"commissionType" varchar(100) DEFAULT 'fixed',
+	"highestCommissionWithoutOffer" integer DEFAULT 0,
 	"highestCommissionWithOffer" integer DEFAULT 0,
-	"lowestCommissionWihoutOffer" integer DEFAULT 0,
+	"lowestCommissionWithoutOffer" integer DEFAULT 0,
 	"lowestCommissionWithOffer" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
@@ -22,11 +22,11 @@ CREATE TABLE IF NOT EXISTS "amenity" (
 	"bikes" boolean DEFAULT false,
 	"childcareFacilities" boolean DEFAULT false,
 	"cinemaRoom" boolean DEFAULT false,
-	"convinienceStore" boolean DEFAULT false,
+	"convenienceStore" boolean DEFAULT false,
 	"dedicatedWorkspace" boolean DEFAULT false,
 	"dryer" boolean DEFAULT false,
 	"elevator" boolean DEFAULT false,
-	"excerciseEquipment" boolean DEFAULT false,
+	"exerciseEquipment" boolean DEFAULT false,
 	"fireExtinguisher" boolean DEFAULT false,
 	"firePit" boolean DEFAULT false,
 	"firstAidKit" boolean DEFAULT false,
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS "cancellation" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "comission" (
+CREATE TABLE IF NOT EXISTS "commission" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"agentId" uuid NOT NULL,
 	"reservationId" uuid NOT NULL,
@@ -393,163 +393,163 @@ CREATE TABLE IF NOT EXISTS "user" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "agent" ADD CONSTRAINT "agent_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "agent" ADD CONSTRAINT "agent_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "agent" ADD CONSTRAINT "agent_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "agent" ADD CONSTRAINT "agent_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "asset" ADD CONSTRAINT "asset_roomId_room_id_fk" FOREIGN KEY ("roomId") REFERENCES "room"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "asset" ADD CONSTRAINT "asset_roomId_room_id_fk" FOREIGN KEY ("roomId") REFERENCES "public"."room"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "asset" ADD CONSTRAINT "asset_unitId_unit_id_fk" FOREIGN KEY ("unitId") REFERENCES "unit"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "asset" ADD CONSTRAINT "asset_unitId_unit_id_fk" FOREIGN KEY ("unitId") REFERENCES "public"."unit"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "business" ADD CONSTRAINT "business_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "business" ADD CONSTRAINT "business_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "cancellation" ADD CONSTRAINT "cancellation_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "cancellation" ADD CONSTRAINT "cancellation_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "public"."reservation"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "comission" ADD CONSTRAINT "comission_agentId_agent_id_fk" FOREIGN KEY ("agentId") REFERENCES "agent"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "commission" ADD CONSTRAINT "commission_agentId_agent_id_fk" FOREIGN KEY ("agentId") REFERENCES "public"."agent"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "comission" ADD CONSTRAINT "comission_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "commission" ADD CONSTRAINT "commission_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "public"."reservation"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "employee" ADD CONSTRAINT "employee_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "employee" ADD CONSTRAINT "employee_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "guest" ADD CONSTRAINT "guest_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "guest" ADD CONSTRAINT "guest_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_employeeId_employee_id_fk" FOREIGN KEY ("employeeId") REFERENCES "employee"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_employeeId_employee_id_fk" FOREIGN KEY ("employeeId") REFERENCES "public"."employee"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "housekeeping" ADD CONSTRAINT "housekeeping_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "public"."reservation"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "invoice" ADD CONSTRAINT "invoice_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "invoice" ADD CONSTRAINT "invoice_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "invoice" ADD CONSTRAINT "invoice_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "reservation"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "invoice" ADD CONSTRAINT "invoice_reservationId_reservation_id_fk" FOREIGN KEY ("reservationId") REFERENCES "public"."reservation"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "photo" ADD CONSTRAINT "photo_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "photo" ADD CONSTRAINT "photo_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "public"."property"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "business"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "property" ADD CONSTRAINT "property_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "amenity"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "property" ADD CONSTRAINT "property_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_serviceId_service_id_fk" FOREIGN KEY ("serviceId") REFERENCES "service"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "property" ADD CONSTRAINT "property_serviceId_service_id_fk" FOREIGN KEY ("serviceId") REFERENCES "public"."service"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_arrangementId_arrangement_id_fk" FOREIGN KEY ("arrangementId") REFERENCES "arrangement"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "property" ADD CONSTRAINT "property_arrangementId_arrangement_id_fk" FOREIGN KEY ("arrangementId") REFERENCES "public"."arrangement"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "reservation" ADD CONSTRAINT "reservation_guestId_guest_id_fk" FOREIGN KEY ("guestId") REFERENCES "guest"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "reservation" ADD CONSTRAINT "reservation_guestId_guest_id_fk" FOREIGN KEY ("guestId") REFERENCES "public"."guest"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "reservation" ADD CONSTRAINT "reservation_assetId_asset_id_fk" FOREIGN KEY ("assetId") REFERENCES "asset"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "reservation" ADD CONSTRAINT "reservation_assetId_asset_id_fk" FOREIGN KEY ("assetId") REFERENCES "public"."asset"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "room" ADD CONSTRAINT "room_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "room" ADD CONSTRAINT "room_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "public"."property"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "room" ADD CONSTRAINT "room_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "fee"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "room" ADD CONSTRAINT "room_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "public"."fee"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "setting" ADD CONSTRAINT "setting_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "setting" ADD CONSTRAINT "setting_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "unit" ADD CONSTRAINT "unit_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "property"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_propertyId_property_id_fk" FOREIGN KEY ("propertyId") REFERENCES "public"."property"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "unit" ADD CONSTRAINT "unit_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "fee"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "public"."fee"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

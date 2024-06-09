@@ -1,10 +1,10 @@
 {
-  "id": "cd72bd9a-a928-4b75-8181-808cbe881d3e",
+  "id": "905239a1-5794-4e65-ac6e-a2b56ac6a346",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "agent": {
+    "public.agent": {
       "name": "agent",
       "schema": "",
       "columns": {
@@ -34,15 +34,15 @@
           "notNull": false,
           "default": false
         },
-        "comissionType": {
-          "name": "comissionType",
+        "commissionType": {
+          "name": "commissionType",
           "type": "varchar(100)",
           "primaryKey": false,
           "notNull": false,
           "default": "'fixed'"
         },
-        "highestCommissionWihoutOffer": {
-          "name": "highestCommissionWihoutOffer",
+        "highestCommissionWithoutOffer": {
+          "name": "highestCommissionWithoutOffer",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -55,8 +55,8 @@
           "notNull": false,
           "default": 0
         },
-        "lowestCommissionWihoutOffer": {
-          "name": "lowestCommissionWihoutOffer",
+        "lowestCommissionWithoutOffer": {
+          "name": "lowestCommissionWithoutOffer",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -116,7 +116,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "amenity": {
+    "public.amenity": {
       "name": "amenity",
       "schema": "",
       "columns": {
@@ -183,8 +183,8 @@
           "notNull": false,
           "default": false
         },
-        "convinienceStore": {
-          "name": "convinienceStore",
+        "convenienceStore": {
+          "name": "convenienceStore",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -211,8 +211,8 @@
           "notNull": false,
           "default": false
         },
-        "excerciseEquipment": {
-          "name": "excerciseEquipment",
+        "exerciseEquipment": {
+          "name": "exerciseEquipment",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
@@ -476,7 +476,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "arrangement": {
+    "public.arrangement": {
       "name": "arrangement",
       "schema": "",
       "columns": {
@@ -576,7 +576,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "asset": {
+    "public.asset": {
       "name": "asset",
       "schema": "",
       "columns": {
@@ -652,7 +652,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "business": {
+    "public.business": {
       "name": "business",
       "schema": "",
       "columns": {
@@ -806,7 +806,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "cancellation": {
+    "public.cancellation": {
       "name": "cancellation",
       "schema": "",
       "columns": {
@@ -890,8 +890,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "comission": {
-      "name": "comission",
+    "public.commission": {
+      "name": "commission",
       "schema": "",
       "columns": {
         "id": {
@@ -976,9 +976,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "comission_agentId_agent_id_fk": {
-          "name": "comission_agentId_agent_id_fk",
-          "tableFrom": "comission",
+        "commission_agentId_agent_id_fk": {
+          "name": "commission_agentId_agent_id_fk",
+          "tableFrom": "commission",
           "tableTo": "agent",
           "columnsFrom": [
             "agentId"
@@ -989,9 +989,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "comission_reservationId_reservation_id_fk": {
-          "name": "comission_reservationId_reservation_id_fk",
-          "tableFrom": "comission",
+        "commission_reservationId_reservation_id_fk": {
+          "name": "commission_reservationId_reservation_id_fk",
+          "tableFrom": "commission",
           "tableTo": "reservation",
           "columnsFrom": [
             "reservationId"
@@ -1006,7 +1006,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "employee": {
+    "public.employee": {
       "name": "employee",
       "schema": "",
       "columns": {
@@ -1136,7 +1136,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "fee": {
+    "public.fee": {
       "name": "fee",
       "schema": "",
       "columns": {
@@ -1244,7 +1244,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "guest": {
+    "public.guest": {
       "name": "guest",
       "schema": "",
       "columns": {
@@ -1367,7 +1367,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "housekeeping": {
+    "public.housekeeping": {
       "name": "housekeeping",
       "schema": "",
       "columns": {
@@ -1475,7 +1475,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "invoice": {
+    "public.invoice": {
       "name": "invoice",
       "schema": "",
       "columns": {
@@ -1658,7 +1658,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "photo": {
+    "public.photo": {
       "name": "photo",
       "schema": "",
       "columns": {
@@ -1739,7 +1739,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "property": {
+    "public.property": {
       "name": "property",
       "schema": "",
       "columns": {
@@ -1926,7 +1926,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "reservation": {
+    "public.reservation": {
       "name": "reservation",
       "schema": "",
       "columns": {
@@ -2161,7 +2161,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "room": {
+    "public.room": {
       "name": "room",
       "schema": "",
       "columns": {
@@ -2279,7 +2279,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "service": {
+    "public.service": {
       "name": "service",
       "schema": "",
       "columns": {
@@ -2401,7 +2401,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "setting": {
+    "public.setting": {
       "name": "setting",
       "schema": "",
       "columns": {
@@ -2494,7 +2494,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "tier": {
+    "public.tier": {
       "name": "tier",
       "schema": "",
       "columns": {
@@ -2573,7 +2573,7 @@
         }
       }
     },
-    "unit": {
+    "public.unit": {
       "name": "unit",
       "schema": "",
       "columns": {
@@ -2671,7 +2671,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {

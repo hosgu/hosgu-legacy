@@ -12,7 +12,7 @@ import arrangementApiV1 from './api/v1/arrangement'
 import assetApiV1 from './api/v1/asset'
 import businessApiV1 from './api/v1/business'
 import cancellationApiV1 from './api/v1/cancellation'
-import comissionApiV1 from './api/v1/comission'
+import commissionApiV1 from './api/v1/commission'
 import employeeApiV1 from './api/v1/employee'
 import feeApiV1 from './api/v1/fee'
 import guestApiV1 from './api/v1/guest'
@@ -64,7 +64,7 @@ nextApp.prepare().then(() => {
   app.use('/api/v1/asset', assetApiV1)
   app.use('/api/v1/business', businessApiV1)
   app.use('/api/v1/cancellation', cancellationApiV1)
-  app.use('/api/v1/comission', comissionApiV1)
+  app.use('/api/v1/commission', commissionApiV1)
   app.use('/api/v1/employee', employeeApiV1)
   app.use('/api/v1/fee', feeApiV1)
   app.use('/api/v1/guest', guestApiV1)

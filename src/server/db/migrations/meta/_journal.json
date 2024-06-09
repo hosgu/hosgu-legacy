@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1716873498354,
-      "tag": "0000_groovy_trish_tilby",
+      "version": "7",
+      "when": 1717918081180,
+      "tag": "0000_sturdy_thor_girl",
       "breakpoints": true
     }
   ]
