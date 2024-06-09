@@ -18,9 +18,9 @@ const ThemeSwitcher: FC<Props> = ({ locale }) => {
   return (
     <div data-component="ThemeSwitcher" className="flex focus:outline-none items-center space-x-2">
       {darkMode ? (
-        <SVG.Moon stroke={stroke} label={t('changeToLightMode')} onClick={toggleDarkMode} />
+        <SVG.Moon color={stroke} label={t('changeToLightMode')} onClick={toggleDarkMode} />
       ) : (
-        <SVG.Sun stroke={stroke} label={t('changeToDarkMode')} onClick={toggleDarkMode} />
+        <SVG.Sun color={stroke} label={t('changeToDarkMode')} onClick={toggleDarkMode} />
       )}
     </div>
   )

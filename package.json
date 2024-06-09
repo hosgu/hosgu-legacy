@@ -57,7 +57,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@architecturex/components.svg": "^1.0.18",
+    "@architecturex/components.svg": "^1.0.21",
     "@architecturex/utils.api": "^1.1.13",
     "@architecturex/utils.cookies": "1.0.8",
     "@architecturex/utils.core": "^1.0.2",

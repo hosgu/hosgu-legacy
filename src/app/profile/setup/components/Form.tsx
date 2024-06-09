@@ -1,12 +1,13 @@
 'use client'
 import React, { FC, useState, ChangeEvent, useEffect } from 'react'
 import security from '@architecturex/utils.security'
-import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
-import Notification from '~/components/Notification'
 import fileUtils from '@architecturex/utils.files'
-import { setupProfile } from '~/app/shared/actions/profile'
+import { RenderIf } from '@architecturex/components.renderif'
 
+import { setupProfile } from '~/app/shared/actions/profile'
+import Button from '~/components/Button'
+import Notification from '~/components/Notification'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
@@ -19,7 +20,6 @@ import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
-import { RenderIf } from '@architecturex/components.renderif'
 
 type Props = {
   user: UserFields & {
@@ -103,20 +103,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
         setShowNotification(true)
         return
       }
+
       const uploadFilesResponse = await fileUtils.uploadFiles(
         uploadedFiles,
         `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
       )
+
       if (uploadFilesResponse.ok) {
         setValues({
           ...values,
           images: uploadFilesResponse.data.map((data: any) => data.path)
         })
       }
+
       let amenitiesValues: { i18n: string; name: string; exists: boolean }[] = []
+
       values.amenities.forEach((value: boolean, key: string) => {
         amenitiesValues.push({ i18n: key, name: key, exists: value })
       })
+
       let propertyData = { ...values, amenitiesValues }
 
       const formData = core.formData.set(new FormData(), {
@@ -219,6 +224,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       if (!value) {
         return t('pleaseEnterYourPrice')
       }
+
       return ''
     }
   }
@@ -383,18 +389,24 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
           </h2>
 
           {steps[currentStep]}
+
+          <div className="relative">
+            <StepIndicator steps={6} currentStep={currentStep + 1} />
+          </div>
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-0  w-full flex justify-center items-center">
-        <div className="w-[90%] bg-white dark:bg-gray-900">
-          <StepIndicator
-            enableNext={enableNext}
-            steps={6}
-            currentStep={currentStep}
-            onBack={goBack}
-            onNext={goNext}
-          />
+      <div className="sticky bottom-0 bg-white h-36 dark:bg-gray-900 z-50 p-4 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex">
+          <div className="flex w-full justify-between">
+            <Button color="dark" onClick={goBack} className="mr-4">
+              Back
+            </Button>
+
+            <Button color="primary" onClick={goNext} disabled={!enableNext}>
+              Next
+            </Button>
+          </div>
         </div>
       </div>
     </>

@@ -6,49 +6,25 @@ import { RenderIf } from '@architecturex/components.renderif'
 interface StepIndicatorProps {
   steps: number
   currentStep: number
-  onBack: () => void
-  onNext: () => void
-  enableNext: boolean
 }
 
-const StepIndicator: FC<StepIndicatorProps> = ({
-  steps,
-  currentStep,
-  onBack,
-  onNext,
-  enableNext
-}) => {
+const StepIndicator: FC<StepIndicatorProps> = ({ steps, currentStep }) => {
   return (
-    <div className="flex flex-col items-center w-full bg-auto bg-white dark:bg-gray-900">
-      <div className="flex justify-between w-full mb-4">
+    <div className="flex justify-center items-center w-full flex-col mt-10">
+      <div className="flex space-x-1">
         {Array.from({ length: steps }, (_, index) => (
           <div
             key={index}
-            className={`flex-1 h-1 ${index < currentStep ? 'bg-forest' : 'bg-gray-300'} ${
-              index !== 0 ? 'ml-2' : ''
-            } ${index !== steps - 1 ? 'mr-2' : ''}`}
+            className={`${
+              index < currentStep ? 'bg-gradient-to-r from-blue-500 to-green-500' : 'bg-gray-500'
+            } rounded-sm w-3 h-3`}
           ></div>
         ))}
       </div>
-      <div className="flex w-full justify-between">
-        <a
-          onClick={onBack}
-          className={cx.join('py-2 px-4 cursor-pointer', {
-            invisible: currentStep === 0
-          })}
-        >
-          Back
-        </a>
-        <RenderIf isTrue={currentStep !== 1}>
-          <Button
-            color="secondary"
-            onClick={onNext}
-            disabled={currentStep === steps || !enableNext}
-          >
-            {currentStep === steps - 1 ? 'Submit' : 'Next'}
-          </Button>
-        </RenderIf>
-      </div>
+
+      <p id="step-text" className="mt-2 text-gray-600 dark:text-gray-300">
+        Step {currentStep} of {steps}
+      </p>
     </div>
   )
 }

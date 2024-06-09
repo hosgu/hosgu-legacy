@@ -1,25 +1,26 @@
-import React, { FC, ChangeEvent } from 'react'
-import Image from 'next/image'
+import React, { FC, ReactElement } from 'react'
+import cx from '@architecturex/utils.cx'
 
 type Props = {
   checked: boolean
-  icon: string
+  icon: ReactElement
   onChange: () => void
-  label?: string
-  helpText?: string
-  disabled?: boolean
+  label: string
 }
 
-const CheckCard: FC<Props> = ({ checked, onChange, label, helpText, disabled = false, icon }) => {
+const CheckCard: FC<Props> = ({ checked, onChange, label, icon }) => {
   return (
     <div
-      className={`w-1/4 cursor-pointer ${checked ? 'bg-green-600 border-white text-white' : 'bg-transparent'} m-5 py-2 px-2  border-solid border-2 border-gray-400	 rounded-md  text-left
-        hover:bg-green-600 hover:border-blue-50 active:bg-slate-50
-      `}
+      className={cx.join(
+        'relative cursor-pointer transition-colors duration-300 flex flex-col items-center justify-center p-6 pb-4 border border-gray-300 rounded-lg text-center',
+        {
+          'bg-gradient-to-r from-blue-500 to-green-500': checked
+        }
+      )}
       onClick={onChange}
     >
-      <Image src={icon} className=" w-[3vw] " alt={`${helpText}`} width={80} height={64} />
-      {label}
+      {icon}
+      <p className={cx.join('font-semibold', checked ? 'text-white' : '')}>{label}</p>
     </div>
   )
 }
