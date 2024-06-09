@@ -1,12 +1,6 @@
 import { db } from '../db'
 import { user } from './schemas/user'
 import { business } from './schemas/business'
-import { amenity } from './schemas/amenity'
-import { service } from './schemas/service'
-import { fee } from './schemas/fee'
-import { arrangement } from './schemas/arrangement'
-import { property } from './schemas/property'
-import { unit } from './schemas/unit'
 
 async function seed() {
   const users = await db.select().from(user)

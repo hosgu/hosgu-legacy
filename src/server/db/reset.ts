@@ -5,7 +5,7 @@ const clearDb = async (): Promise<void> => {
   await db.execute(sql.raw(`TRUNCATE TABLE "agent" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "business" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "cancellation" CASCADE;`))
-  await db.execute(sql.raw(`TRUNCATE TABLE "comission" CASCADE;`))
+  await db.execute(sql.raw(`TRUNCATE TABLE "commission" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "employee" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "estate" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "guest" CASCADE;`))

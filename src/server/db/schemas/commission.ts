@@ -2,7 +2,7 @@ import { pgTable, boolean, integer, varchar, uuid, timestamp } from 'drizzle-orm
 import { agent } from './agent'
 import { reservation } from './reservation'
 
-export const comission = pgTable('comission', {
+export const commission = pgTable('commission', {
   id: uuid('id').primaryKey().defaultRandom(),
   agentId: uuid('agentId')
     .references(() => agent.id)
@@ -21,5 +21,5 @@ export const comission = pgTable('comission', {
   updatedAt: timestamp('updatedAt').defaultNow()
 })
 
-export type Comission = typeof comission
-export type ComissionFields = typeof comission.$inferSelect
+export type Commission = typeof commission
+export type CommissionFields = typeof commission.$inferSelect
