@@ -37,6 +37,16 @@ a:hover {
   @apply underline;
 }
 
+.inner-scroll-content {
+  height: calc(100% - 60px);
+  overflow-y: auto;
+}
+
+.inner-scroll-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

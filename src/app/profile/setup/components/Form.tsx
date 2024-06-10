@@ -375,23 +375,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
         <Notification message="Error on saving profile data" type="error" />
       </RenderIf>
 
-      <div className="flex justify-center w-full h-[75vh]">
-        <div className="p-0 rounded-lg">
-          <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-            {currentStep === 0 && t('letsStart')}
-            {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
-            {currentStep === 2 &&
-              `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
-            {currentStep === 3 && 'Tell guests what are the amenities!'}
-            {currentStep === 4 && 'Set your prices'}
-            {currentStep === 5 && 'Add some photos of your place'}
-            {currentStep === 6 && 'Finish'}
-          </h2>
+      <div className="flex justify-center w-full h-[75vh] overflow-hidden">
+        <div className="p-0 rounded-lg w-full h-full overflow-hidden">
+          <div className="inner-scroll-content">
+            <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+              {currentStep === 0 && t('letsStart')}
+              {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
+              {currentStep === 2 &&
+                `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
+              {currentStep === 3 && 'Tell guests what are the amenities!'}
+              {currentStep === 4 && 'Set your prices'}
+              {currentStep === 5 && 'Add some photos of your place'}
+              {currentStep === 6 && 'Finish'}
+            </h2>
 
-          {steps[currentStep]}
+            {steps[currentStep]}
 
-          <div className="relative">
-            <StepIndicator steps={6} currentStep={currentStep + 1} />
+            <div className="relative">
+              <StepIndicator steps={6} currentStep={currentStep + 1} />
+            </div>
           </div>
         </div>
       </div>

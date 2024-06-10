@@ -198,18 +198,25 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         }
         onChange={() => onChangeCheck('laundry')}
       />
-      {/* <CheckCard
+      <CheckCard
         label="Pet friendly"
         checked={amenities.get('petFriendly')}
-        icon="/images/icons/pet.svg"
+        icon={
+          <SVG.Pet size="32px" alternativeColor={darkMode || amenities.get('pet') ? '#fff' : ''} />
+        }
         onChange={() => onChangeCheck('petFriendly')}
-      /> */}
-      {/* <CheckCard
+      />
+      <CheckCard
         label="Smoking area"
         checked={amenities.get('smoking')}
-        icon="/images/icons/smoking.svg"
+        icon={
+          <SVG.Smoke
+            size="32px"
+            alternativeColor={darkMode || amenities.get('smoking') ? '#fff' : ''}
+          />
+        }
         onChange={() => onChangeCheck('smoking')}
-      /> */}
+      />
     </div>
   )
 }
