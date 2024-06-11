@@ -27,7 +27,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
 
   return (
     <div className="flex flex-col space-y-4 w-96">
-      <div className="bg-white p-2 rounded-xl text-black">
+      <div className="bg-white dark:bg-gray-900 p-2 rounded-xl text-black dark:text-white">
         <div className="flex flex-row justify-between  items-center space-x-2 my-6">
           <p>Guests</p>
 
