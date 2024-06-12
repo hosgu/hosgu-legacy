@@ -53,7 +53,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         label="Tv"
         checked={amenities.get('tv')}
         icon={
-          <SVG.TV size="32px" alternativeColor={darkMode || amenities.get('wifi') ? '#fff' : ''} />
+          <SVG.TV size="32px" alternativeColor={darkMode || amenities.get('tv') ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('tv')}
       />
@@ -62,8 +62,8 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         checked={amenities.get('kitchen')}
         icon={
           <SVG.Kitchen
-            size="32px"
-            alternativeColor={darkMode || amenities.get('wifi') ? '#fff' : ''}
+            size="42px"
+            alternativeColor={darkMode || amenities.get('kitchen') ? '#fff' : ''}
           />
         }
         onChange={() => onChangeCheck('kitchen')}

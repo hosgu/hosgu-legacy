@@ -27,8 +27,8 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
 
   return (
     <div className="flex flex-col space-y-4 w-96">
-      <div className="bg-white p-2 rounded-xl text-black">
-        <div className="flex flex-row justify-between  items-center space-x-2 my-6">
+      <div className="bg-white dark:bg-gray-900 p-2 rounded-xl text-black dark:text-white">
+        <div className="flex flex-row justify-between items-center space-x-2 my-6">
           <p>Guests</p>
 
           <Counter
@@ -42,7 +42,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             style={{ width: '120px' }}
           />
         </div>
-        <hr className="border-solid	" />
+        <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
           <p>Bathrooms</p>
@@ -58,7 +58,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             style={{ width: '120px' }}
           />
         </div>
-        <hr className="border-solid	" />
+        <hr className="border-solid	dark:border-gray-700" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
           <p>Bedrooms</p>
@@ -74,7 +74,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
           />
         </div>
 
-        <hr className="border-solid	" />
+        <hr className="border-solid	dark:border-gray-700" />
 
         <div className="flex flex-row justify-between  items-center space-x-2 my-6">
           <p>Beds</p>

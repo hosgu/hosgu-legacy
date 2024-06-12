@@ -1,6 +1,6 @@
 'use client'
 import { RenderIf } from '@architecturex/components.renderif'
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
@@ -31,22 +31,15 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
     return fileName ? fileName : ''
   }
 
+  useEffect(() => {
+    setIsUploadPhotosOpen(false)
+  }, [uploadedFiles])
+
   return (
     <div
       style={{ scrollbarWidth: 'none' }}
       className="flex flex-col  space items-center text-center w-full  h-full overflow-y-auto "
     >
-      <RenderIf isFalse={isUploadPhotosOpen}>
-        <div className="w-auto">
-          <Button
-            onClick={() => {
-              setIsUploadPhotosOpen(true)
-            }}
-          >
-            Add more photos
-          </Button>
-        </div>
-      </RenderIf>
       <div className="w-[50vw] flex justify-center flex-col items-center h-auto ">
         <div className="w-full mt-3 h-auto">
           <Modal
@@ -70,6 +63,18 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
         <div>
           <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
         </div>
+
+        <RenderIf isFalse={isUploadPhotosOpen}>
+          <div className="dark:border-gray-200 border-gray-300 p-24 border-2 border-dashed rounded">
+            <Button
+              onClick={() => {
+                setIsUploadPhotosOpen(true)
+              }}
+            >
+              Add more photos
+            </Button>
+          </div>
+        </RenderIf>
       </div>
     </div>
   )

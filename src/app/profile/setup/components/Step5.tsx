@@ -1,12 +1,6 @@
 'use client'
-import React, { FC, useEffect } from 'react'
-import { NumericFormat } from 'react-number-format'
-import cx from '@architecturex/utils.cx'
-
-import Link from '~/app/shared/components/Link'
-import Checkbox from '~/components/Checkbox'
-import Input from '~/components/Input'
-import NumericInput from '~/components/NumericInput'
+import { ne } from 'drizzle-orm'
+import React, { FC, useState, useEffect } from 'react'
 
 type Props = {
   locale: string
@@ -18,125 +12,109 @@ type Props = {
 }
 
 const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) => {
-  const { priceNights, cleaningFee, extraPersonPrice, checkIn, checkOut } = values
+  const { cabinPrice, hotelPrice, currency: originalCurrency, propertyType } = values
+
+  const [price, setPrice] = useState<number>(propertyType === 'cabin' ? cabinPrice : hotelPrice)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [inputValue, setInputValue] = useState<string>(price.toString())
+  const [error, setError] = useState<string | null>(null)
+  const [currency, setCurrency] = useState<string>(originalCurrency)
 
   useEffect(() => {
-    if (
-      priceNights === 0 ||
-      cleaningFee === 0 ||
-      extraPersonPrice === 0 ||
-      checkIn === '' ||
-      checkOut === ''
-    ) {
-      setEnableNext(false)
-      return
+    setInputValue(price.toString())
+  }, [price])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+
+    if (/^\d*$/.test(value)) {
+      setInputValue(value)
+
+      if (parseInt(value, 10) > 100000) {
+        setError('Value cannot exceed 100,000')
+      } else {
+        setError(null)
+      }
     }
-    setEnableNext(true)
-  }, [priceNights, setEnableNext, cleaningFee, extraPersonPrice, checkIn, checkOut])
+  }
+
+  const handleBlur = () => {
+    const newValue = parseInt(inputValue, 10)
+    if (!isNaN(newValue) && newValue <= 100000) {
+      setPrice(newValue)
+      setValues({
+        ...values,
+        [`${propertyType}Price`]: newValue
+      })
+    } else {
+      setInputValue(price.toString()) // Reset to current price if invalid input
+    }
+    setIsEditing(false)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleBlur()
+    }
+  }
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat('en-US').format(num)
+  }
+
+  const getCurrencySymbol = () => {
+    switch (currency) {
+      case 'USD':
+        return '$'
+      case 'MXN':
+        return 'MX$'
+      default:
+        return '$'
+    }
+  }
+
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrency(e.target.value)
+  }
 
   return (
-    <div className="flex flex-col justify-between space items-center text-center w-full max-w-[500px] ">
-      <div className="flex flex-row">
-        <NumericInput
-          value={priceNights}
-          label="price per night"
-          prefix="$"
-          thousandSeparator=","
-          allowLeadingZeros={false}
-          onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
-        />
-        <NumericInput
-          value={cleaningFee}
-          label="cleaning fee"
-          prefix="$"
-          thousandSeparator=","
-          allowLeadingZeros={false}
-          onChange={(e: any) => setValues({ ...values, cleaningFee: e.target.value })}
-        />
+    <div className="text-center mt-10">
+      <div className="text-8xl font-bold flex justify-center items-center">
+        <span className="mr-2">{getCurrencySymbol()}</span>
+        {isEditing ? (
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            autoFocus
+            className={`text-8xl text-center border-none focus:ring-0 outline-none w-48 ${error ? 'text-red-500' : ''}`}
+          />
+        ) : (
+          <span onClick={() => setIsEditing(true)} className={`${error ? 'text-red-500' : ''}`}>
+            {formatNumber(price)}
+          </span>
+        )}
       </div>
-      <div className="flex flex-row">
-        <NumericInput
-          value={extraPersonPrice}
-          label="price per extra person"
-          prefix="$"
-          thousandSeparator=","
-          allowLeadingZeros={false}
-          onChange={(e: any) => setValues({ ...values, extraPersonPrice: e.target.value })}
-        />
-        <div className="flex flex-row w-9/12">
-          <Input
-            value={checkIn}
-            label="Check-In"
-            type="time"
-            className="rounded-lg w-lg"
-            onChange={(e: any) => setValues({ ...values, checkIn: e.target.value })}
-          />
-          <Input
-            value={checkOut}
-            label="Check-Out"
-            type="time"
-            className="rounded-lg w-lg"
-            onChange={(e: any) => setValues({ ...values, checkOut: e.target.value })}
-          />
-        </div>
+      {error && <div className="text-red-500 text-xl mt-2">{error}</div>}
+
+      <div className="mt-4">
+        <label htmlFor="currency" className="mr-2">
+          Currency:
+        </label>
+        <select
+          id="currency"
+          value={currency}
+          onChange={handleCurrencyChange}
+          className="border p-1 rounded"
+        >
+          <option value="USD">USD</option>
+          <option value="MXN">MXN</option>
+        </select>
       </div>
     </div>
   )
 }
 
 export default Step
-
-/*
- <div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300 ">
-            price per night
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={priceNights}
-            allowLeadingZeros={false}
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, priceNights: e.target.value })}
-          />
-        </div>
-*/
-
-/*
- <div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
-            cleaning fee
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={cleaningFee}
-            allowLeadingZeros
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, cleaningFee: e.target.value })}
-          />
-        </div>
-*/
-
-/*
-<div className={cx.join('p-4 text-left')}>
-          <label className="block text-gray-700 text-sm font-bold mb-2 text-left dark:text-gray-300">
-            price per extra person
-          </label>
-          <NumericFormat
-            prefix={'$'}
-            className={cx.join(
-              'w-full border p-2 border-gray-300 bg-white rounded text-black dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg w-lg'
-            )}
-            value={extraPersonPrice}
-            allowLeadingZeros
-            thousandSeparator=","
-            onChange={(e: any) => setValues({ ...values, extraPersonPrice: e.target.value })}
-          />
-        </div>
-
-*/

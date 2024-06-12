@@ -24,7 +24,7 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
     return (
       <div
         key={file.file.name}
-        className={`h-auto w-full relative ${index === 0 && 'col-span-full h-fit'}`}
+        className={`h-auto w-full relative ${index === 0 && 'col-span-full'}`}
       >
         <div
           title="Remove photo"
@@ -53,11 +53,13 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
     <div
       className={cx.join({
         grid: true,
+        'w-[130%] lg:w-[600px]': true,
+        'h-[130%] lg:h-[600px]': true,
         'justify-items-center': true,
         'grid-cols-1': imageFiles.length == 1,
         'grid-cols-2': imageFiles.length > 1,
         'gap-3': true,
-        'lg:grid-cols-3': true
+        'lg:grid-cols-2': true
       })}
     >
       {gridImages}

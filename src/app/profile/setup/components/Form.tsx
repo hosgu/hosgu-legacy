@@ -42,13 +42,13 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     city: '',
     state: '',
     zipCode: '',
-    guests: 0,
-    bathrooms: 0,
-    bedrooms: 0,
-    beds: 0,
-    priceNights: 0,
-    cleaningFee: 0,
-    extraPersonPrice: 0,
+    guests: 1,
+    bathrooms: 1,
+    bedrooms: 1,
+    beds: 1,
+    cabinPrice: 150,
+    hotelPrice: 50,
+    currency: 'USD',
     checkIn: '',
     checkOut: '',
     images: [],
@@ -71,7 +71,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       ['glassesPlates', false],
       ['laundry', false],
       ['petFriendly', false],
-      ['smokin', false]
+      ['smoking', false]
     ])
   })
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
@@ -86,7 +86,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     businessPhone: '',
     businessWebsite: '',
     country: '',
-    priceNights: ''
+    cabinPrice: '',
+    hotelPrice: ''
   })
 
   const goBack = () => {
@@ -145,25 +146,6 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     }))
   }
 
-  /*   const verifyProperties = (
-    value: string | number,
-    minLength: number = 3,
-    maxLength: number = 20,
-    acceptNegative: boolean = false
-  ) => {
-    if (!value) return t(`pleaseEnterYourProperty${value}`)
-    if (is(value).number()) {
-      if (!acceptNegative && (value as number) < 0) return t(`pleaseAValidProperty${value}`)
-    }
-
-    if (is(value).string()) {
-      if ((value as string).length < minLength || (value as string).length > maxLength) {
-        return t(`pleaseAValidProperty${value}`)
-      }
-    }
-    return ''
-  }
- */
   const validations = {
     propertyName: (value: string) => {
       if (!value) {
@@ -220,7 +202,14 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
       return ''
     },
-    propertyPrice: (value: number) => {
+    propertyCabinPrice: (value: number) => {
+      if (!value) {
+        return t('pleaseEnterYourPrice')
+      }
+
+      return ''
+    },
+    propertyHotelPrice: (value: number) => {
       if (!value) {
         return t('pleaseEnterYourPrice')
       }
@@ -280,7 +269,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
-        priceNights: validations.propertyPrice(values.priceNights)
+        cabinPrice: validations.propertyCabinPrice(values.cabinPrice),
+        hotelPrice: validations.propertyHotelPrice(values.hotelPrice)
       }
 
       setErrors(newErrors)
@@ -376,7 +366,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       </RenderIf>
 
       <div className="flex justify-center w-full h-[75vh] overflow-hidden">
-        <div className="p-0 rounded-lg w-full h-full overflow-hidden">
+        <div className="p-0 rounded-lg h-full overflow-hidden">
           <div className="inner-scroll-content">
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('letsStart')}
@@ -384,7 +374,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
               {currentStep === 2 &&
                 `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
               {currentStep === 3 && 'Tell guests what are the amenities!'}
-              {currentStep === 4 && 'Set your prices'}
+              {currentStep === 4 && 'Set your price'}
               {currentStep === 5 && 'Add some photos of your place'}
               {currentStep === 6 && 'Finish'}
             </h2>

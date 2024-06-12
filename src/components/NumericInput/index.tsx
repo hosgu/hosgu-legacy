@@ -8,7 +8,7 @@ type Props = {
   allowLeadingZeros: boolean
   prefix: string
   label: string
-  onChange: () => {}
+  onChange: any
 }
 
 const NumericInput: FC<Props> = ({
