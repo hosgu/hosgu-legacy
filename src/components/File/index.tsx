@@ -152,7 +152,7 @@ const File: FC<Props> = ({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cx.join(
-        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer hover:border-blue-500 h-auto ',
+        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer dark:hover:border-gray-900 hover:border-blue-500 h-auto ',
         {
           'border-blue-500': isDragging,
           'border-gray-300': !isDragging
@@ -160,9 +160,12 @@ const File: FC<Props> = ({
       )}
     >
       <div
-        className={cx.join('m-3 p-4 rounded transition-all group-hover:bg-blue-50 h-[95%] w-auto', {
-          'bg-blue-50': isDragging
-        })}
+        className={cx.join(
+          'm-3 p-4 rounded transition-all group-hover:bg-blue-50  dark:group-hover:bg-gray-400 h-[95%] w-auto',
+          {
+            'bg-blue-50': isDragging
+          }
+        )}
       >
         <div className="mb-6 text-center">
           <Image
@@ -183,7 +186,7 @@ const File: FC<Props> = ({
           <label
             htmlFor="file"
             className={cx.join(
-              'underline text-xs font-medium transition-all hover:cursor-pointer group-hover:text-blue-500',
+              'underline text-xs font-medium transition-all hover:cursor-pointer dark:group-hover:text-gray-700 group-hover:text-blue-500',
               {
                 'text-blue-500': isDragging
               }

@@ -7,6 +7,7 @@ interface ModalProps {
   title: string
   children: ReactNode
   isfullScreen: boolean
+  disableBackground?: boolean
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -14,14 +15,17 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   isfullScreen,
-  children
+  children,
+  disableBackground = false
 }) => {
   if (!isOpen) return null
   return (
-    <div className="fixed inset-0 z-50 w-full overflow-auto bg-black bg-opacity-40 flex dark:bg-gray">
+    <div
+      className={`fixed inset-0 z-50 w-full overflow-auto ${disableBackground ? 'bg-transparent	' : 'bg-black bg-opacity-40 '} flex  dark:bg-gray `}
+    >
       <div
         className={cx.join(
-          'relative p-4 bg-white dark:bg-gray-900 max-w-md m-auto  flex-col flex',
+          'relative p-4 bg-white dark:bg-gray-700 max-w-md m-auto  border-2 border-red flex-col flex',
           {
             'w-full': isfullScreen,
             'rounded w-1/3': !isfullScreen

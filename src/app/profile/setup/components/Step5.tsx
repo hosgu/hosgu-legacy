@@ -107,7 +107,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
           id="currency"
           value={currency}
           onChange={handleCurrencyChange}
-          className="border p-1 rounded"
+          className="border p-1 rounded dark:text-black"
         >
           <option value="USD">USD</option>
           <option value="MXN">MXN</option>

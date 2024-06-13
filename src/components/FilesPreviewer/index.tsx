@@ -1,13 +1,24 @@
 import React, { FC } from 'react'
+import { RenderIf } from '@architecturex/components.renderif'
+import Button from '~/components/Button'
+import SVG from '@architecturex/components.svg'
+
 import cx from '@architecturex/utils.cx'
 
 type Props = {
   files: any[]
   setFiles: React.Dispatch<React.SetStateAction<string[]>>
   showUploader?: boolean
+  isUploadPhotosOpen: boolean
+  setIsUploadPhotosOpen: (event: any) => any
 }
 
-const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
+const FilesPreviewer: FC<Props> = ({
+  files,
+  setFiles,
+  isUploadPhotosOpen,
+  setIsUploadPhotosOpen
+}) => {
   const handleRemoveImage = async (e: any) => {
     const fileName = e.target.dataset.filename
 
@@ -19,6 +30,21 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
   }
 
   const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
+
+  const button = (
+    <RenderIf isFalse={isUploadPhotosOpen}>
+      <div className="dark:border-gray-200 p-15 border-gray-300  border-2 border-dashed rounded h-[196px] md:w-[80%] w-full">
+        <div className="flex inline-flex mt-4">
+          <SVG.Plus
+            size="150px"
+            onClick={() => {
+              setIsUploadPhotosOpen(true)
+            }}
+          />
+        </div>
+      </div>
+    </RenderIf>
+  )
 
   const gridImages = imageFiles.map((file: any, index: number) => {
     return (
@@ -49,6 +75,8 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
     )
   })
 
+  gridImages.push(button)
+
   return (
     <div
       className={cx.join({
@@ -58,8 +86,8 @@ const FilesPreviewer: FC<Props> = ({ files, setFiles }) => {
         'justify-items-center': true,
         'grid-cols-1': imageFiles.length == 1,
         'grid-cols-2': imageFiles.length > 1,
-        'gap-3': true,
-        'lg:grid-cols-2': true
+        'sm:gap-1 gap-3': true,
+        'sm:grid-cols-1 lg:grid-cols-2': true
       })}
     >
       {gridImages}

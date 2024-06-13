@@ -1,10 +1,8 @@
 'use client'
-import { RenderIf } from '@architecturex/components.renderif'
 import React, { FC, useState, useEffect } from 'react'
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
-import Button from '~/components/Button'
 import config from '~/config'
 
 type Props = {
@@ -32,7 +30,9 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
   }
 
   useEffect(() => {
-    setIsUploadPhotosOpen(false)
+    if (uploadedFiles.length > 0) {
+      setIsUploadPhotosOpen(false)
+    }
   }, [uploadedFiles])
 
   return (
@@ -49,6 +49,7 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
             }}
             title="Upload your Photos"
             isfullScreen={false}
+            disableBackground={true}
           >
             <File
               name="fileName"
@@ -61,20 +62,13 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
           </Modal>
         </div>
         <div>
-          <FilesPreviewer files={uploadedFiles} setFiles={setUploadedFiles} />
+          <FilesPreviewer
+            files={uploadedFiles}
+            setFiles={setUploadedFiles}
+            isUploadPhotosOpen={isUploadPhotosOpen}
+            setIsUploadPhotosOpen={setIsUploadPhotosOpen}
+          />
         </div>
-
-        <RenderIf isFalse={isUploadPhotosOpen}>
-          <div className="dark:border-gray-200 border-gray-300 p-24 border-2 border-dashed rounded">
-            <Button
-              onClick={() => {
-                setIsUploadPhotosOpen(true)
-              }}
-            >
-              Add more photos
-            </Button>
-          </div>
-        </RenderIf>
       </div>
     </div>
   )
