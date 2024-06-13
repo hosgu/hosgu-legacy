@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
-import Button from '~/components/Button'
 import SVG from '@architecturex/components.svg'
-
 import cx from '@architecturex/utils.cx'
 
 type Props = {
@@ -23,24 +21,27 @@ const FilesPreviewer: FC<Props> = ({
     const fileName = e.target.dataset.filename
 
     const fileList = files.filter((file: any) => {
-      return file.file.name != fileName
+      return file.file.name !== fileName
     })
 
     setFiles(fileList)
+  }
+
+  const handleAddPhotos = () => {
+    setIsUploadPhotosOpen(true)
   }
 
   const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
 
   const button = (
     <RenderIf isFalse={isUploadPhotosOpen}>
-      <div className="dark:border-gray-200 p-15 border-gray-300 border-2 border-dashed rounded h-[196px] md:w-[80%] w-full">
-        <div className="flex mt-4">
-          <SVG.Plus
-            size="150px"
-            onClick={() => {
-              setIsUploadPhotosOpen(true)
-            }}
-          />
+      <div
+        onClick={handleAddPhotos}
+        className="dark:border-gray-200 p-4 border-gray-300 border-2 border-dashed rounded w-full flex flex-col items-center justify-center h-48 sm:h-48 md:h-56 lg:h-64 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <div className="flex flex-col items-center">
+          <SVG.Plus size="50px" className="cursor-pointer" />
+          <span className="mt-2 text-sm">Add more photos</span>
         </div>
       </div>
     </RenderIf>
@@ -48,10 +49,7 @@ const FilesPreviewer: FC<Props> = ({
 
   const gridImages = imageFiles.map((file: any, index: number) => {
     return (
-      <div
-        key={file.file.name}
-        className={`h-auto w-full relative ${index === 0 && 'col-span-full'}`}
-      >
+      <div key={file.file.name} className="w-full relative h-48 sm:h-48 md:h-56 lg:h-64">
         <div
           title="Remove photo"
           onClick={handleRemoveImage}
@@ -63,13 +61,7 @@ const FilesPreviewer: FC<Props> = ({
         <img
           src={file.url || file.base64}
           alt={file.file?.name}
-          className={cx.join({
-            'object-cover': true,
-            'w-full': true,
-            'h-[196px]': true,
-            'col-span-full h-full': index === 0,
-            'rounded-md': true
-          })}
+          className="w-full h-full object-cover rounded-md"
         />
       </div>
     )
@@ -79,16 +71,9 @@ const FilesPreviewer: FC<Props> = ({
 
   return (
     <div
-      className={cx.join({
-        grid: true,
-        'w-[130%] lg:w-[600px]': true,
-        'h-[130%] lg:h-[600px]': true,
-        'justify-items-center': true,
-        'grid-cols-1': imageFiles.length == 1,
-        'grid-cols-2': imageFiles.length > 1,
-        'sm:gap-1 gap-3': true,
-        'sm:grid-cols-1 lg:grid-cols-2': true
-      })}
+      className={cx.join(
+        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 mt-8 w-full mx-auto'
+      )}
     >
       {gridImages}
     </div>

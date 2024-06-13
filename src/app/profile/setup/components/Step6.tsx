@@ -13,7 +13,6 @@ type Props = {
   uploadedFiles: any
   setUploadedFiles: any
 }
-type Image = File // Define an interface for Image type
 
 const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues }) => {
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
@@ -48,8 +47,8 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
               setIsUploadPhotosOpen(false)
             }}
             title="Upload your Photos"
-            isfullScreen={false}
-            disableBackground={true}
+            isFullScreen={false}
+            removeBackground={true}
           >
             <File
               name="fileName"
@@ -61,14 +60,13 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
             />
           </Modal>
         </div>
-        <div>
-          <FilesPreviewer
-            files={uploadedFiles}
-            setFiles={setUploadedFiles}
-            isUploadPhotosOpen={isUploadPhotosOpen}
-            setIsUploadPhotosOpen={setIsUploadPhotosOpen}
-          />
-        </div>
+
+        <FilesPreviewer
+          files={uploadedFiles}
+          setFiles={setUploadedFiles}
+          isUploadPhotosOpen={isUploadPhotosOpen}
+          setIsUploadPhotosOpen={setIsUploadPhotosOpen}
+        />
       </div>
     </div>
   )
