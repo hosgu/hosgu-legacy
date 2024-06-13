@@ -33,8 +33,8 @@ const FilesPreviewer: FC<Props> = ({
 
   const button = (
     <RenderIf isFalse={isUploadPhotosOpen}>
-      <div className="dark:border-gray-200 p-15 border-gray-300  border-2 border-dashed rounded h-[196px] md:w-[80%] w-full">
-        <div className="flex inline-flex mt-4">
+      <div className="dark:border-gray-200 p-15 border-gray-300 border-2 border-dashed rounded h-[196px] md:w-[80%] w-full">
+        <div className="flex mt-4">
           <SVG.Plus
             size="150px"
             onClick={() => {

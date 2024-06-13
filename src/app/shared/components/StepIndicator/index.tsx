@@ -10,7 +10,7 @@ interface StepIndicatorProps {
 
 const StepIndicator: FC<StepIndicatorProps> = ({ steps, currentStep }) => {
   return (
-    <div className="flex justify-center items-center w-full flex-col mt-10">
+    <div className="flex justify-center items-center w-full flex-col mt-3">
       <div className="flex space-x-1">
         {Array.from({ length: steps }, (_, index) => (
           <div
@@ -22,7 +22,7 @@ const StepIndicator: FC<StepIndicatorProps> = ({ steps, currentStep }) => {
         ))}
       </div>
 
-      <p id="step-text" className="mt-2 text-gray-600 dark:text-gray-300">
+      <p id="step-text" className="mt-2 text-gray-600 dark:text-gray-300 text-sm">
         Step {currentStep} of {steps}
       </p>
     </div>

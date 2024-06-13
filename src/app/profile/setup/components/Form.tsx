@@ -380,22 +380,20 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
             </h2>
 
             {steps[currentStep]}
-
-            <div className="relative">
-              <StepIndicator steps={6} currentStep={currentStep + 1} />
-            </div>
           </div>
         </div>
       </div>
 
-      <div className="sticky bottom-0 bg-white h-36 dark:bg-gray-900 z-50 p-4 border-t border-gray-100 dark:border-gray-800">
-        <div className="flex">
-          <div className="flex w-full justify-between">
-            <Button color="dark" onClick={goBack} className="mr-4">
+      <div className="sticky h-20 mt-10 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex items-center h-full">
+          <div className="flex w-full justify-between items-center">
+            <Button color="dark" onClick={goBack} className="mr-4 h-12">
               Back
             </Button>
 
-            <Button color="primary" onClick={goNext} disabled={!enableNext}>
+            <StepIndicator steps={7} currentStep={currentStep + 1} />
+
+            <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
               Next
             </Button>
           </div>
