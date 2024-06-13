@@ -14,6 +14,7 @@
           "link": "https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
         },
         "category": "Company News",
+        "categorySlug": "company-news",
         "postDate": "May. 26th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -31,6 +32,7 @@
           "link": "https://dev.to/chocoscoding/editing-react-quilljs-markdown-styling-3c4h"
         },
         "category": "Community",
+        "categorySlug": "community",
         "postDate": "May. 25th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -49,6 +51,7 @@
           "link": ""
         },
         "category": "Engineering",
+        "categorySlug": "engineering",
         "postDate": "May. 22nd 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -67,6 +70,7 @@
           "link": ""
         },
         "category": "Company News",
+        "categorySlug": "company-news",
         "postDate": "May. 14th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -84,6 +88,7 @@
           "link": ""
         },
         "category": "Company News",
+        "categorySlug": "company-news",
         "postDate": "May. 12th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -101,6 +106,7 @@
           "link": ""
         },
         "category": "Community",
+        "categorySlug": "community",
         "postDate": "May. 9th 2024",
         "locale": ""
       },
@@ -117,6 +123,7 @@
           "link": ""
         },
         "category": "Engineering",
+        "categorySlug": "engineering",
         "postDate": "Apr. 27th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -134,6 +141,7 @@
           "link": ""
         },
         "category": "Engineering",
+        "categorySlug": "engineering",
         "postDate": "Apr. 22nd 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -151,6 +159,7 @@
           "link": ""
         },
         "category": "Engineering",
+        "categorySlug": "engineering",
         "postDate": "Apr. 19th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -169,6 +178,7 @@
           "link": ""
         },
         "category": "Company News",
+        "categorySlug": "company-news",
         "postDate": "Apr. 15th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -187,6 +197,7 @@
           "link": ""
         },
         "category": "Community",
+        "categorySlug": "community",
         "postDate": "Apr. 12th 2024",
         "content": "<p>Content</p>",
         "locale": ""
@@ -205,6 +216,7 @@
           "link": ""
         },
         "category": "Company News",
+        "categorySlug": "company-news",
         "postDate": "Mar. 18th 2024",
         "content": "<p>Content</p>",
         "locale": ""

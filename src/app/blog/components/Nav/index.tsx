@@ -4,16 +4,36 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { useRef } from 'react'
+import SVG from '@architecturex/components.svg'
 
-import menuIcon from '../../../../../public/icons/blog/menu.svg'
+// TODO: Move to architectureX
 import searchIcon from '../../../../../public/icons/blog/search.svg'
-import xIcon from '../../../../../public/icons/blog/x.svg'
 
-const Nav = () => {
+type Props = {
+  categories: string[]
+}
+
+const Nav = ({ categories }: Props) => {
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuListRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  console.log('🔗 Pathname:', pathname)
+
+  const links = categories.map((category: any) => {
+    const href = category.slug === 'all' ? '/blog' : `/blog/category/${category.slug}`
+    return (
+      <li
+        key={category}
+        className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400"
+      >
+        <Link
+          href={href}
+          className={`w-full hover:no-underline ${pathname == '/blog' ? getActiveLinkStyle() : ''}`}
+        >
+          {category.name}
+        </Link>
+      </li>
+    )
+  })
 
   return (
     <div className="flex items-center h-20 px-4 bg-gray-100 border-b-2 border-slate-500 ">
@@ -22,7 +42,7 @@ const Nav = () => {
         onClick={toggleMenu}
         className="flex items-center gap-2 hover:bg-slate-200 hover:rounded-md px-3 h-8 md:hidden"
       >
-        <Image src={menuIcon} alt="menu icon" height={16}></Image>
+        <SVG.Hamburger />
         <p>Categories</p>
       </button>
 
@@ -39,49 +59,10 @@ const Nav = () => {
         <div className="flex items-center mb-4 md:hidden">
           <p className="font-bold">Categories</p>
           <div className="flex items-center justify-center w-8 h-8 hover:bg-slate-200 hover:rounded-md ml-auto">
-            <Image
-              src={xIcon}
-              alt="close menu icon"
-              height={14}
-              onClick={toggleMenu}
-              className="cursor-pointer"
-            />
+            <SVG.X onClick={toggleMenu} />
           </div>
         </div>
-        <ul className="flex gap-4 flex-col md:flex-row">
-          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
-            <Link
-              href="/blog"
-              className={`w-full hover:no-underline ${pathname == '/blog' ? getActiveLinkStyle() : ''}`}
-            >
-              All posts
-            </Link>
-          </li>
-          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
-            <Link
-              href="/blog/category/Engineering"
-              className={`hover:no-underline ${pathname == '/blog/category/Engineering' ? getActiveLinkStyle() : ''}`}
-            >
-              Engineering
-            </Link>
-          </li>
-          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
-            <Link
-              href="/blog/category/Community"
-              className={`hover:no-underline ${pathname == '/blog/category/Community' ? getActiveLinkStyle() : ''}`}
-            >
-              Community
-            </Link>
-          </li>
-          <li className="relative flex items-center h-8 rounded-md hover:bg-slate-300 md:hover:bg-transparent md:hover:text-slate-400">
-            <Link
-              href="/blog/category/Company-news"
-              className={`hover:no-underline ${pathname == '/blog/category/Company-news' ? getActiveLinkStyle() : ''}`}
-            >
-              Company news
-            </Link>
-          </li>
-        </ul>
+        <ul className="flex gap-4 flex-col md:flex-row">{links}</ul>
       </div>
     </div>
   )
