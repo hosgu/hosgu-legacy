@@ -384,7 +384,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
         </div>
       </div>
 
-      <div className="sticky h-20 mt-10 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
+      <div className="sticky h-20 mt-12 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
         <div className="flex items-center h-full">
           <div className="flex w-full justify-between items-center">
             <Button color="dark" onClick={goBack} className="mr-4 h-12">
