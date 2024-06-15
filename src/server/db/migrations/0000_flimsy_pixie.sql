@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS "business" (
 	"state" varchar(255),
 	"country" varchar(255),
 	"zipCode" varchar(20),
+	"googleMapsUrl" text,
 	"active" boolean DEFAULT false,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()

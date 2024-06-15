@@ -13,7 +13,7 @@
     "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts",
     "db:push": "drizzle-kit push --config=drizzle.config.ts",
     "db:seed": "node -r ts-node/register --env-file .env ./src/server/db/seed.ts",
-    "db:reset": "node -r ts-node/register --env-file .env ./src/server/db/reset.ts",
+    "db:truncate": "node -r ts-node/register --env-file .env ./src/server/db/truncate.ts",
     "studio": "drizzle-kit studio",
     "import": "ts-node scripts/import.ts"
   },

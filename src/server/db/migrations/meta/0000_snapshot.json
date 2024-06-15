@@ -1,5 +1,5 @@
 {
-  "id": "905239a1-5794-4e65-ac6e-a2b56ac6a346",
+  "id": "a4b75d09-f5ee-4cd9-9826-5df2862d3275",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -762,6 +762,12 @@
         "zipCode": {
           "name": "zipCode",
           "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "googleMapsUrl": {
+          "name": "googleMapsUrl",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },

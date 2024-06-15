@@ -1,4 +1,4 @@
-import { pgTable, boolean, integer, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, boolean, text, integer, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { user } from './user'
 
 export const business = pgTable('business', {
@@ -22,6 +22,7 @@ export const business = pgTable('business', {
   state: varchar('state', { length: 255 }),
   country: varchar('country', { length: 255 }),
   zipCode: varchar('zipCode', { length: 20 }),
+  googleMapsUrl: text('googleMapsUrl'),
   active: boolean('active').default(false),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
