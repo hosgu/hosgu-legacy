@@ -1,9 +1,9 @@
 const common = {
-  'common.business.email': 'Email de la Empresa',
-  'common.business.name': 'Nombre de la Empresa',
-  'common.business.phone': 'Teléfono de la Empresa',
+  'common.business.email': 'Email',
+  'common.business.name': 'Negocio',
+  'common.business.phone': 'Teléfono',
   'common.business.tryNow': 'Pruébalo Ahora',
-  'common.business.website': 'Sitio Web de la Empresa',
+  'common.business.website': 'Sitio Web',
   'common.general.country': 'País',
   'common.general.login': 'Iniciar Sesión',
   'common.general.logout': 'Cerrar Sesión',
