@@ -17,12 +17,6 @@ type Props = {
 const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues }) => {
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
 
-  const onUploadFile = async (currentFile: any, url: string) => {
-    console.log('📦 onUploadFile', { currentFile, url })
-    const fileName = getFileNameFromUrl(url)
-    const apiEndPoint = `/api/v1/uploader/${fileName}`
-  }
-
   const getFileNameFromUrl = (url: string) => {
     const fileName = url.split('/').pop()
     return fileName ? fileName : ''
@@ -31,8 +25,13 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
   useEffect(() => {
     if (uploadedFiles.length > 0) {
       setIsUploadPhotosOpen(false)
+
+      setValues({
+        ...values,
+        images: uploadedFiles
+      })
     }
-  }, [uploadedFiles])
+  }, [uploadedFiles, values, setValues])
 
   return (
     <div
@@ -47,7 +46,6 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
               setIsUploadPhotosOpen(false)
             }}
             title="Upload your Photos"
-            isFullScreen={false}
             removeBackground={true}
           >
             <File

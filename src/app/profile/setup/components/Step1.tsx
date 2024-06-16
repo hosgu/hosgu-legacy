@@ -1,5 +1,6 @@
 'use client'
 import React, { FC, ChangeEvent } from 'react'
+import cx from '@architecturex/utils.cx'
 
 import Input from '~/components/Input'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -35,6 +36,99 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
           {errors.password}
         </p>
       </div>
+
+      <h2 className="p-0 text-lg font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+        Property Location
+      </h2>
+
+      <Input
+        label="Country"
+        value={values.country}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.country,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        label="City"
+        value={values.city}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.city,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        label="State"
+        value={values.state}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.state,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        label="Address"
+        value={values.address1}
+        onChange={handleChange}
+        placeholder="Street address"
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.address1,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        value={values.address2}
+        onChange={handleChange}
+        placeholder="Apt, suite, building, floor, etc."
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.address2,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        label="Zip Code"
+        value={values.zipCode}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.zipCode,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
+        label="Google Maps Link"
+        value={values.zipCode}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={errors.zipCode ? 'border-red-500 dark:border-red-500' : ''}
+        style={{ width: '300px' }}
+      />
     </>
   )
 }

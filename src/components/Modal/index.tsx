@@ -6,7 +6,7 @@ interface ModalProps {
   onClose: () => void
   title: string
   children: ReactNode
-  isFullScreen: boolean
+  isFullScreen?: boolean
   removeBackground?: boolean
 }
 
@@ -18,18 +18,17 @@ const Modal: React.FC<ModalProps> = ({
   children,
   removeBackground = false
 }) => {
-  if (!isOpen) return null
+  if (!isOpen) {
+    return null
+  }
+
   return (
     <div
-      className={`fixed inset-0 z-50 w-full overflow-auto ${removeBackground ? 'bg-transparent	' : 'bg-black bg-opacity-40 '} flex  dark:bg-gray `}
+      className={`fixed lg:mt-10 inset-0 z-50 w-full overflow-auto ${removeBackground ? 'bg-transparent	' : 'bg-black bg-opacity-40 '} flex  dark:bg-gray `}
     >
       <div
         className={cx.join(
-          'relative p-4 bg-white dark:bg-gray-700 max-w-md m-auto  border-2 border-red flex-col flex',
-          {
-            'w-full': isFullScreen,
-            'rounded w-1/3': !isFullScreen
-          }
+          'relative p-4 bg-white dark:bg-gray-700 w-3/4 lg:max-w-md lg:rounded lg:w-1/3 m-auto border-2 border-red flex-col flex'
         )}
       >
         <div className="flex justify-between items-center">

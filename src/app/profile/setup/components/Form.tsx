@@ -14,9 +14,9 @@ import Step3 from './Step3'
 import Step4 from './Step4'
 import Step5 from './Step5'
 import Step6 from './Step6'
-import Step7 from './FinalStep'
+import Step7 from './Step7'
+import Step8 from './FinalStep'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
@@ -25,11 +25,10 @@ type Props = {
   user: UserFields & {
     businessSlug: string
   }
-  locale: string
+  t: any
 }
 
-const Form: FC<Props> = ({ locale = 'en-us', user }) => {
-  const t = i18n(locale)
+const Form: FC<Props> = ({ t, user }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [values, setValues] = useState({
     userId: user?.id || '',
@@ -53,25 +52,25 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     checkOut: '',
     images: [],
     amenities: new Map<string, boolean>([
-      ['wifi', false],
-      ['tv', false],
-      ['kitchen', false],
-      ['extraBed', false],
-      ['refrigerator', false],
-      ['bedSheets', false],
-      ['freeParking', false],
-      ['kitchenBasics', false],
-      ['towels', false],
-      ['pool', false],
-      ['coffeeMachine', false],
-      ['hotWater', false],
-      ['oven', false],
       ['ac', false],
+      ['bedSheets', false],
+      ['coffeeMachine', false],
+      ['extraBed', false],
+      ['freeParking', false],
       ['garden', false],
       ['glassesPlates', false],
+      ['hotWater', false],
+      ['kitchen', false],
+      ['kitchenBasics', false],
       ['laundry', false],
+      ['oven', false],
       ['petFriendly', false],
-      ['smoking', false]
+      ['pool', false],
+      ['refrigerator', false],
+      ['smoking', false],
+      ['towels', false],
+      ['tv', false],
+      ['wifi', false]
     ])
   })
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
@@ -86,6 +85,12 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
     businessPhone: '',
     businessWebsite: '',
     country: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    address1: '',
+    address2: '',
+    googleMaps: '',
     cabinPrice: '',
     hotelPrice: ''
   })
@@ -345,7 +350,8 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
     />,
-    <Step7 key="step6" />
+    <Step7 key="step6" values={values} setValues={setValues} locale="en-US" />,
+    <Step8 key="step8" />
   ]
 
   useEffect(() => {
@@ -367,7 +373,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
 
       <div className="flex justify-center w-full h-[75vh] overflow-hidden">
         <div className="p-0 rounded-lg h-full overflow-hidden">
-          <div className="inner-scroll-content">
+          <div className="inner-scroll-content px-1">
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('letsStart')}
               {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
@@ -391,7 +397,7 @@ const Form: FC<Props> = ({ locale = 'en-us', user }) => {
               Back
             </Button>
 
-            <StepIndicator steps={7} currentStep={currentStep + 1} />
+            <StepIndicator steps={8} currentStep={currentStep + 1} />
 
             <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
               Next
