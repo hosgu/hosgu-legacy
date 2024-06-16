@@ -50,62 +50,62 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
   const validations = {
     fullName: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       if (value.length < 2) {
-        return t('required')
+        return t('common.input.required')
       }
 
       return ''
     },
     businessName: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       if (value.length < 2) {
-        return t('required')
+        return t('common.input.required')
       }
 
       return ''
     },
     businessEmail: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       if (!is(value).email()) {
-        return t('invalidEmail')
+        return t('common.input.invalidEmail')
       }
 
       return ''
     },
     businessPhone: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       if (!is(value).phone()) {
-        return t('invalidPhone')
+        return t('common.input.invalidPhone')
       }
 
       return ''
     },
     businessWebsite: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       if (!is(value).url) {
-        return t('invalidUrl')
+        return t('common.input.invalidUrl')
       }
 
       return ''
     },
     country: (value: string) => {
       if (!value) {
-        return t('required')
+        return t('common.input.required')
       }
 
       return ''
@@ -156,9 +156,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
 
   const SuccessMessage = () => (
     <div className="flex min-h-[519px] flex-col text-black dark:text-white justify-center m-auto p-1 text-center">
-      <h2 className="text-black dark:text-white">{t('justOneMoreStep')}</h2>
+      <h2 className="text-black dark:text-white">{t('home.hero.success.justOneMoreStep')}</h2>
       <p className="w-11/12" style={{ margin: '0 auto' }}>
-        {t('thankYouForRegistering')}
+        {t('home.hero.success.thankYouForRegistering')}
       </p>
     </div>
   )
@@ -173,15 +173,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
     >
       <div className="container mx-auto mt-10 mb-40 flex flex-col md:flex-row items-center">
         <div className="md:w-1/2 text-center md:text-left md:pr-10 mb-10 md:mb-0">
-          <h1 className="text-5xl text-white font-bold">
-            Boost Your Business Revenue by +30% <br />
-            in just 6 months
-          </h1>
+          <h1 className="text-5xl text-white font-bold">{t('home.hero.information.headline')}</h1>
           <p className="text-white mt-4 p-6 text-center md:p-0 md:text-left">
-            Elevate your bookings by +30% in just six months. Our intelligent platform streamlines
-            your workflow, slashing operational expenses and freeing up to 80% of your time-
-            empowering you to focus on other areas of your business. Transform your booking
-            experience and leverage cutting-edge tools for effortless expansion with hosgu.com.
+            {t('home.hero.information.text')}
           </p>
         </div>
 
@@ -198,7 +192,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                     <Input
                       id="fullName"
                       leftIcon={<SVG.User />}
-                      label="Full Name *"
+                      label={`${t('home.hero.form.input.fullName')} *`}
                       name="fullName"
                       placeholder="e.g. John Smith"
                       className="pl-10"
@@ -211,9 +205,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                     <Input
                       id="businessName"
                       leftIcon={<SVG.Cabin />}
-                      label="Business Name *"
+                      label={`${t('home.hero.form.input.businessName')} *`}
                       name="businessName"
-                      placeholder="e.g. Meta Logics"
+                      placeholder="e.g. Cabañas San Pancho"
                       required
                     />
                   </div>
@@ -222,7 +216,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   <div className="relative mt-1">
                     <Input
                       leftIcon={<SVG.Email />}
-                      label="Email Address *"
+                      label={`${t('home.hero.form.input.businessEmail')} *`}
                       name="businessEmail"
                       className={errors.businessEmail ? 'border-red-500 dark:border-red-500' : ''}
                       placeholder="e.g. mail@example.com"
@@ -235,7 +229,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   <div className="relative mt-1">
                     <Input
                       leftIcon={<SVG.Phone />}
-                      label="Business Phone *"
+                      label={`${t('home.hero.form.input.businessPhone')} *`}
                       name="businessPhone"
                       placeholder="e.g. +1 234 5677"
                       required
@@ -246,7 +240,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   <div className="relative mt-1">
                     <Input
                       leftIcon={<SVG.Link />}
-                      label="Business Website *"
+                      label={`${t('home.hero.form.input.businessWebsite')} *`}
                       name="businessWebsite"
                       placeholder="e.g. yourdomain.com"
                       required
@@ -257,9 +251,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                   <div className="relative mt-1">
                     <Input
                       leftIcon={<SVG.World />}
-                      label="Country *"
+                      label={`${t('home.hero.form.input.country')} *`}
                       name="country"
-                      placeholder="e.g. United States"
+                      placeholder="e.g. México"
                       required
                     />
                   </div>
@@ -267,7 +261,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               </div>
               <div className="flex justify-center mb-6 mt-6">
                 <Button color="primary" type="submit" fullWidth>
-                  {t('getStarted')}
+                  {t('home.hero.form.button.getStarted')}
                 </Button>
               </div>
             </form>
@@ -275,7 +269,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
               className="flex justify-center mb-6 text-center dark:text-white p-2"
               style={{ fontSize: '10px' }}
             >
-              {t('weAreCommitted')}
+              {t('home.hero.form.privacyPolicy.text')}
             </div>
           </RenderIf>
         </div>

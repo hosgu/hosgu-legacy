@@ -1,6 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { cookies } from 'next/headers'
 
+import config from '~/app/config'
 import Header from '~/app/shared/components/Header'
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 
 const Layout: FC<Props> = async ({ children }) => {
   const cookieStore = cookies()
-  const locale = cookieStore.get('language')?.value || 'en-us'
+  const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
 
   return (
     <main>

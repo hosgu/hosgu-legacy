@@ -1,13 +1,12 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import config from '~/app/config'
 import LoginForm from './components/Form'
 
 const Page: NextPage = async () => {
   const cookieStore = cookies()
-  const locale = cookieStore.get('language')?.value || 'en-us'
-  const t = i18n(locale)
+  const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
 
   return (
     <div className="min-h-screen flex justify-center">

@@ -39,17 +39,17 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
     }
   }
 
-  const loginLink = showLogin ? <Link href="/login">{t('login')}</Link> : ''
+  const loginLink = showLogin ? <Link href="/login">{t('home.header.button.login')}</Link> : ''
 
   const tryForFreeButton = showTryForFree ? (
     <Button bold shape="circle" onClick={handleTryFree}>
-      {t('tryForFree')}
+      {t('home.header.button.tryNow')}
     </Button>
   ) : (
     ''
   )
 
-  const fullName = connectedUser?.fullName ? connectedUser?.fullName : 'Guest User'
+  const fullName = connectedUser?.fullName ? connectedUser?.fullName : t('common.user.guestUser')
   const name = fullName.split(' ')[0]
   const lastName = fullName.split(' ')[1]
 
@@ -84,19 +84,19 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 hover:no-underline dark:hover:bg-gray-600 focus:outline-none user-select-none"
               >
-                Profile
+                {t('home.header.links.profile')}
               </Link>
               <Link
                 href="/dashboard"
                 className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 hover:no-underline dark:hover:bg-gray-600 focus:outline-none user-select-none"
               >
-                Dashboard
+                {t('home.header.links.dashboard')}
               </Link>
               <a
                 href="/logout"
                 className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 hover:no-underline dark:hover:bg-gray-600 focus:outline-none user-select-none"
               >
-                {t('logout')}
+                {t('home.header.links.logout')}
               </a>
             </Dropdown>
           </div>

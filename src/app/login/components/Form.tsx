@@ -46,7 +46,7 @@ const Form: FC<Props> = ({ locale }) => {
     )
 
     if (!email || !password) {
-      return setErrors({ invalidLogin: t('invalidLogin') })
+      return setErrors({ invalidLogin: t('login.invalidLogin') })
     }
 
     const response = await UserActions.login(formData)
@@ -55,7 +55,7 @@ const Form: FC<Props> = ({ locale }) => {
       window.location.href = '/'
     } else {
       setErrors({
-        invalidLogin: t(response?.error?.message as string)
+        invalidLogin: t('login.invalidLogin')
       })
     }
   }
@@ -71,15 +71,15 @@ const Form: FC<Props> = ({ locale }) => {
             <img src="/images/isotype.svg" alt="Logo" className="w-16 h-16" />
           </div>
           <h2 className="text-2xl font-medium text-center mb-4 text-gray-800 dark:text-white toggle-text-dark-mode">
-            Login to your account
+            {t('login.headline')}
           </h2>
           <div className="relative mb-4">
             <div className="relative">
               <Input
                 leftIcon={<SVG.Email />}
-                label="Email:"
+                label={t('common.user.email')}
                 type="email"
-                placeholder="Please enter your email"
+                placeholder={t('login.input.email.placeholder')}
                 id="email"
                 required
               />
@@ -89,35 +89,35 @@ const Form: FC<Props> = ({ locale }) => {
             <div className="relative">
               <Input
                 leftIcon={<SVG.Lock />}
-                label="Password:"
+                label={t('common.input.password')}
                 type="password"
-                placeholder="Please enter your password"
+                placeholder={t('login.input.password.placeholder')}
                 required
               />
             </div>
           </div>
           <div className="flex justify-end mb-4 mt-4 m-auto">
             <a href="#" className="text-sm text-green-500 dark:text-green-500 hover:underline">
-              Forgot Password?
+              {t('login.forgotPassword')}
             </a>
           </div>
 
           <div className="m-auto">
             <Button color="primary" fullWidth>
-              Login
+              {t('common.general.login')}
             </Button>
           </div>
 
           <div className="text-gray-500 dark:text-gray-300 mt-6 flex items-center justify-center">
             <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-            <span className="mx-4 toggle-text-dark-mode">Or</span>
+            <span className="mx-4 toggle-text-dark-mode">{t('login.or')}</span>
             <hr className="flex-grow border-gray-300 dark:border-gray-600" />
           </div>
 
           <div className="text-center mt-4 text-gray-500 dark:text-gray-300 toggle-text-dark-mode">
-            You’re new here?{' '}
+            {t('login.newHere')}{' '}
             <a href="#" className="text-green-500 dark:text-green-500 font-medium hover:underline">
-              Create Account
+              {t('login.createAccount')}
             </a>
           </div>
         </div>

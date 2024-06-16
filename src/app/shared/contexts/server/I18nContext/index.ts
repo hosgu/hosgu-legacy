@@ -9,7 +9,7 @@ type EsMxTranslations = typeof esMx
 
 export type Locale = 'de-de' | 'en-us' | 'es-mx' | 'fr-fr' | 'it-it' | 'pt-br' | string
 
-export type Translations = EnUsTranslations | EsMxTranslations
+export type Translations = keyof EnUsTranslations | EsMxTranslations
 
 const i18n = (currentLocale: Locale = defaultLocale) => {
   const getI18n = () => {
@@ -23,7 +23,7 @@ const i18n = (currentLocale: Locale = defaultLocale) => {
   const translations = getI18n()
 
   return {
-    t: (key: Translations | string, replacements?: any) => {
+    t: (key: Translations, replacements?: any) => {
       // @ts-ignore
       const translation = translations[key]
       let text = translation || (key as Translations)
