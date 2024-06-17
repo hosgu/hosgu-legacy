@@ -17,13 +17,19 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
 
   return (
     <>
-      <Input label={t('email')} value={values.email} disabled required style={{ width: '300px' }} />
+      <Input
+        label={t('common.user.email')}
+        value={values.email}
+        disabled
+        required
+        style={{ width: '300px' }}
+      />
 
       <div className="flex flex-col justify-center">
         <Input
           name="password"
           type="password"
-          label={t('password')}
+          label={t('common.input.password')}
           value={values.password}
           onChange={handleChange}
           onBlur={validate}
@@ -42,7 +48,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       </h2>
 
       <Input
-        label="Country"
+        label={t('common.general.country')}
         value={values.country}
         onChange={handleChange}
         onBlur={validate}
@@ -55,7 +61,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
-        label="City"
+        label={t('common.general.city')}
         value={values.city}
         onChange={handleChange}
         onBlur={validate}
@@ -68,7 +74,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
-        label="State"
+        label={t('common.general.state')}
         value={values.state}
         onChange={handleChange}
         onBlur={validate}
@@ -81,7 +87,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
-        label="Address"
+        label={t('common.business.address')}
         value={values.address1}
         onChange={handleChange}
         placeholder="Street address"
@@ -108,7 +114,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
-        label="Zip Code"
+        label={t('common.business.zipCode')}
         value={values.zipCode}
         onChange={handleChange}
         onBlur={validate}
@@ -121,7 +127,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
-        label="Google Maps Link"
+        label="Google Maps"
         value={values.zipCode}
         onChange={handleChange}
         onBlur={validate}

@@ -5,6 +5,7 @@ import core from '@architecturex/utils.core'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
+import i18n from '~/app/shared/contexts/server/I18nContext'
 import { setupProfile } from '~/app/shared/actions/profile'
 import Button from '~/components/Button'
 import Notification from '~/components/Notification'
@@ -25,10 +26,12 @@ type Props = {
   user: UserFields & {
     businessSlug: string
   }
-  t: any
+  locale: string
 }
 
-const Form: FC<Props> = ({ t, user }) => {
+const Form: FC<Props> = ({ locale, user }) => {
+  const t = i18n(locale)
+
   const [currentStep, setCurrentStep] = useState(0)
   const [values, setValues] = useState({
     userId: user?.id || '',
@@ -154,69 +157,69 @@ const Form: FC<Props> = ({ t, user }) => {
   const validations = {
     propertyName: (value: string) => {
       if (!value) {
-        return t('pleaseEnterYourPropertyName')
+        return t('profile.setup.error.pleaseEnterYourPropertyName')
       }
 
       if (value.length < 3) {
-        return t('pleaseEnterAValidPropertyName')
+        return t('profile.setup.error.pleaseEnterAValidPropertyName')
       }
 
       return ''
     },
     propertyAddress1: (value: string) => {
       if (!value) {
-        return t('pleaseEnterYourPropertyAddress')
+        return t('profile.setup.error.pleaseEnterYourPropertyAddress')
       }
 
       if (value.length < 3) {
-        return t('pleaseEnterAValidPropertyAddress')
+        return t('profile.setup.error.pleaseEnterAValidPropertyAddress')
       }
 
       return ''
     },
     propertyCity: (value: string) => {
       if (!value) {
-        return t('pleaseEnterYourPropertyCity')
+        return t('profile.setup.error.pleaseEnterYourPropertyCity')
       }
 
       if (value.length < 3) {
-        return t('pleaseEnterAValidPropertyCity')
+        return t('profile.setup.error.pleaseEnterAValidPropertyCity')
       }
 
       return ''
     },
     propertyState: (value: string) => {
       if (!value) {
-        return t('pleaseEnterYourPropertyState')
+        return t('profile.setup.error.pleaseEnterYourPropertyState')
       }
 
       if (value.length < 3) {
-        return t('pleaseEnterAValidPropertyState')
+        return t('profile.setup.error.pleaseEnterAValidPropertyState')
       }
 
       return ''
     },
     propertyZipCode: (value: string) => {
       if (!value) {
-        return t('pleaseEnterYourPropertyPostalCode')
+        return t('profile.setup.error.pleaseEnterYourPropertyPostalCode')
       }
 
       if (value.length < 3) {
-        return t('pleaseEnterAValidPropertyPostalCode')
+        return t('profile.setup.error.pleaseEnterAValidPropertyPostalCode')
       }
 
       return ''
     },
     propertyCabinPrice: (value: number) => {
       if (!value) {
-        return t('pleaseEnterYourPrice')
+        return t('profile.setup.error.pleaseEnterYourNightPrice')
       }
 
       return ''
     },
     propertyHotelPrice: (value: number) => {
       if (!value) {
-        return t('pleaseEnterYourPrice')
+        return t('profile.setup.error.pleaseEnterYourNightPrice')
       }
 
       return ''
@@ -230,31 +233,31 @@ const Form: FC<Props> = ({ t, user }) => {
       if (passwordValidation.reasons?.includes('length')) {
         setErrors({
           ...errors,
-          password: t('passwordLength')
+          password: t('profile.setup.validation.passwordLength')
         })
       } else if (passwordValidation.reasons?.includes('lowercase')) {
         setErrors({
           ...errors,
-          password: t('passwordLowercase')
+          password: t('profile.setup.validation.passwordLowercase')
         })
       } else if (passwordValidation.reasons?.includes('uppercase')) {
         setErrors({
           ...errors,
-          password: t('passwordUppercase')
+          password: t('profile.setup.validation.passwordUppercase')
         })
 
         return ''
       } else if (passwordValidation.reasons?.includes('digit')) {
         setErrors({
           ...errors,
-          password: t('passwordDigit')
+          password: t('profile.setup.validation.passwordDigit')
         })
 
         return ''
       } else if (passwordValidation.reasons?.includes('special')) {
         setErrors({
           ...errors,
-          password: t('passwordSpecial')
+          password: t('profile.setup.validation.passwordSpecial')
         })
 
         return ''
@@ -350,12 +353,13 @@ const Form: FC<Props> = ({ t, user }) => {
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
     />,
-    <Step7 key="step6" values={values} setValues={setValues} locale="en-US" />,
+    <Step7 key="step6" values={values} setValues={setValues} locale={locale} />,
     <Step8 key="step8" />
   ]
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
+
     return () => {
       document.body.style.overflow = ''
     }
@@ -375,14 +379,14 @@ const Form: FC<Props> = ({ t, user }) => {
         <div className="p-0 rounded-lg h-full overflow-hidden">
           <div className="inner-scroll-content px-1">
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-              {currentStep === 0 && t('letsStart')}
-              {currentStep === 1 && t('whatPropertyTypeAreYouListing')}
+              {currentStep === 0 && t('profile.setup.step1.headline')}
+              {currentStep === 1 && t('profile.setup.step2.headline')}
               {currentStep === 2 &&
-                `${t('informationAboutYour')} ${values.propertyType === 'cabin' ? t('cabin') : t('hotel')}`}
-              {currentStep === 3 && 'Tell guests what are the amenities!'}
-              {currentStep === 4 && 'Set your price'}
-              {currentStep === 5 && 'Add some photos of your place'}
-              {currentStep === 6 && 'Finish'}
+                `${t('profile.setup.step3.headline')} ${values.propertyType === 'cabin' ? t('common.general.cabin') : t('common.general.hotel')}`}
+              {currentStep === 3 && t('profile.setup.step4.headline')}
+              {currentStep === 4 && t('profile.setup.step5.headline')}
+              {currentStep === 5 && t('profile.setup.step6.headline')}
+              {currentStep === 6 && t('profile.setup.step7.headline')}
             </h2>
 
             {steps[currentStep]}
@@ -394,13 +398,13 @@ const Form: FC<Props> = ({ t, user }) => {
         <div className="flex items-center h-full">
           <div className="flex w-full justify-between items-center">
             <Button color="dark" onClick={goBack} className="mr-4 h-12">
-              Back
+              {t('common.general.back')}
             </Button>
 
             <StepIndicator steps={8} currentStep={currentStep + 1} />
 
             <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
-              Next
+              {t('common.general.next')}
             </Button>
           </div>
         </div>

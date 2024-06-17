@@ -4,7 +4,6 @@ import { cookies } from 'next/headers'
 import * as UserActions from '~/app/shared/actions/user'
 
 import config from '~/app/config'
-import i18n from '~/app/shared/contexts/server/I18nContext'
 import ProfileSetupForm from './components/Form'
 import NotFound from '~/app/shared/components/NotFound'
 
@@ -20,7 +19,6 @@ type Props = {
 const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const cookieStore = cookies()
   const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
-  const t = i18n(locale)
 
   const user = await UserActions.getUserByCode(code)
 
@@ -31,7 +29,7 @@ const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   return (
     <div className="min-h-screen flex justify-center bg-white dark:bg-gray-900 w-full">
       <div className="p-6 dark:text-white w-full">
-        <ProfileSetupForm t={t} user={user} />
+        <ProfileSetupForm locale={locale} user={user} />
       </div>
     </div>
   )
