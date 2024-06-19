@@ -103,7 +103,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
 
       <div className="mt-4">
         <label htmlFor="currency" className="mr-2">
-          {t('profile.setup.step5.currency')}
+          {t('profile.setup.step5.currency')}:
         </label>
         <select
           id="currency"

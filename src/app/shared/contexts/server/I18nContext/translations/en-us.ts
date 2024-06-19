@@ -127,7 +127,10 @@ const translations = {
   'profile.setup.step4.garden': 'Garden',
   'profile.setup.step4.laundry': 'Laundry',
   'profile.setup.step4.smokingArea': 'Smoking Area',
-  'profile.setup.step5.currency': 'Currency:'
+  'profile.setup.step5.currency': 'Currency',
+  'profile.setup.step6.uploadPhotos': 'Upload your Photos',
+  'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
+  'profile.setup.step6.addMorePhotos': 'Add more photos'
 } as const
 
 // const translations2 = {

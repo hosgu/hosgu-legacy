@@ -4,6 +4,7 @@ import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
 import config from '~/config'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
@@ -12,8 +13,9 @@ type Props = {
   setUploadedFiles: any
 }
 
-const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles }) => {
+const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles }) => {
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
+  const t = i18n(locale)
 
   const getFileNameFromUrl = (url: string) => {
     const fileName = url.split('/').pop()
@@ -38,12 +40,16 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles }) => {
             onClose={() => {
               setIsUploadPhotosOpen(false)
             }}
-            title="Upload your Photos"
+            title={t('profile.setup.step6.uploadPhotos')}
             removeBackground={true}
           >
             <File
               name="fileName"
-              label={uploadedFiles.length === 0 ? 'Drag your photo here' : 'Add more photos'}
+              label={
+                uploadedFiles.length === 0
+                  ? t('profile.setup.step6.dragYourPhoto')
+                  : t('profile.setup.step6.addMorePhotos')
+              }
               maxFileSize={52000000}
               multiple
               allowedFiles={config.files.extensions.images}

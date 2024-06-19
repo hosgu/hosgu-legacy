@@ -132,7 +132,10 @@ const translations = {
   'profile.setup.step4.garden': 'Jardín',
   'profile.setup.step4.laundry': 'Lavandería',
   'profile.setup.step4.smokingArea': 'Área para fumar',
-  'profile.setup.step5.currency': 'Moneda:'
+  'profile.setup.step5.currency': 'Moneda',
+  'profile.setup.step6.dragYourPhoto': 'Arrastre su foto aquí',
+  'profile.setup.step6.uploadPhotos': 'Subir fotos',
+  'profile.setup.step6.addMorePhotos': 'Agregar más fotos'
 } as const
 
 export default translations
