@@ -1,6 +1,5 @@
 'use client'
 import React, { FC, useState, useEffect } from 'react'
-import Link from 'next/link'
 import security from '@architecturex/utils.security'
 import SVG from '@architecturex/components.svg'
 import i18n from '~/app/shared/contexts/server/I18nContext'

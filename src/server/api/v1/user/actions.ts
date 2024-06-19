@@ -26,7 +26,8 @@ export const createToken = async (user: any): Promise<string[] | string> => {
     businessId,
     businessLogo,
     businessName,
-    businessSlug
+    businessSlug,
+    country
   } = user
 
   const token = security.base64.encode(`${security.password.encrypt(secretKey)}${password}`, true)
@@ -98,7 +99,8 @@ export const getUserBy = async (where: any, roles: string[], fields: string): Pr
       businessId: businessResponse[0].id,
       businessLogo: businessResponse[0].logo || '',
       businessName: businessResponse[0].name || '',
-      businessSlug: businessResponse[0].slug || ''
+      businessSlug: businessResponse[0].slug || '',
+      country: businessResponse[0].country || ''
     }
 
     return user

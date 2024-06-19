@@ -25,13 +25,15 @@ const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep }) => {
             }))
             setStep((prevState: any) => prevState + 1)
           }}
-          title={t('cabin')}
+          title={t('common.general.cabin')}
         >
           <div className="w-24 h-24 ml-14 mb-2 bg-gray-300 dark:bg-black rounded-full flex items-center justify-center">
             <Image src="/images/icons/cabin.png" alt="Cabin" width={64} height={64} />
           </div>
-          <div className="text-center text-base font-bold">Entire Place</div>
-          <div className="text-center text-sm">Cabin, House or Apartment.</div>
+          <div className="text-center text-base font-bold">
+            {t('profile.setup.step2.entirePlace')}
+          </div>
+          <div className="text-center text-sm">{t('profile.setup.step2.cabin')}</div>
         </div>
 
         <div
@@ -43,13 +45,13 @@ const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep }) => {
             }))
             setStep((prevState: any) => prevState + 1)
           }}
-          title={t('hotel')}
+          title={t('common.general.hotel')}
         >
           <div className="w-24 h-24 mx-auto mb-2 bg-gray-300 dark:bg-black rounded-full flex items-center justify-center">
             <Image src="/images/icons/hotel.png" alt="Hotel" width={64} height={64} />
           </div>
-          <div className="text-center text-base font-bold">Rooms</div>
-          <div className="text-center text-sm">Hotel, Motel or Hostel.</div>
+          <div className="text-center text-base font-bold">{t('profile.setup.step2.hotel')}</div>
+          <div className="text-center text-sm">{t('profile.setup.step2.hotels')}</div>
         </div>
       </div>
     </>

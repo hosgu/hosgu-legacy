@@ -102,7 +102,32 @@ const translations = {
   'profile.setup.step4.headline': 'Tell guests what are the amenities!',
   'profile.setup.step5.headline': 'Set your night price',
   'profile.setup.step6.headline': 'Add some photos of your place',
-  'profile.setup.step7.headline': 'Almost there!'
+  'profile.setup.step7.headline': 'Almost there!',
+  'profile.setup.step1.propertyLocation': 'Property Location',
+  'profile.setup.step1.streetAddress': 'Street Address',
+  'profile.setup.step2.entirePlace': 'Entire Place',
+  'profile.setup.step2.cabin': 'Cabin, House or Apartment.',
+  'profile.setup.step2.hotel': 'Hotel',
+  'profile.setup.step2.hotels': 'Hotel, Motel or Hostel.',
+  'profile.setup.step3.guests': 'Guests',
+  'profile.setup.step3.bathrooms': 'Bathrooms',
+  'profile.setup.step3.bedrooms': 'Bedrooms',
+  'profile.setup.step3.beds': 'Beds',
+  'profile.setup.step4.kitchen': 'Kitchen',
+  'profile.setup.step4.extraBed': 'Extra bed',
+  'profile.setup.step4.refrigerator': 'Refrigerator',
+  'profile.setup.step4.bedSheets': 'Bed sheets',
+  'profile.setup.step4.freeParking': 'Free Parking',
+  'profile.setup.step4.towels': 'Towels',
+  'profile.setup.step4.pool': 'Pool',
+  'profile.setup.step4.coffeeMachine': 'Coffee machine',
+  'profile.setup.step4.hotWater': 'Hot water',
+  'profile.setup.step4.oven': 'Oven',
+  'profile.setup.step4.ac': 'AC',
+  'profile.setup.step4.garden': 'Garden',
+  'profile.setup.step4.laundry': 'Laundry',
+  'profile.setup.step4.smokingArea': 'Smoking Area',
+  'profile.setup.step5.currency': 'Currency:'
 } as const
 
 // const translations2 = {

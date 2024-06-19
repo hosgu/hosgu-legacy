@@ -3,6 +3,7 @@ import React, { FC, useEffect } from 'react'
 import SVG from '@architecturex/components.svg'
 import CheckCard from '~/components/CheckCard'
 import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
@@ -15,6 +16,7 @@ type Props = {
 const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) => {
   const { amenities } = values
   const { darkMode } = useTheme()
+  const t = i18n(locale)
 
   useEffect(() => {
     const currentValues = Array.from(values.amenities.values())
@@ -58,7 +60,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('tv')}
       />
       <CheckCard
-        label="Kitchen"
+        label={t('profile.setup.step4.kitchen')}
         checked={amenities.get('kitchen')}
         icon={
           <SVG.Kitchen
@@ -69,7 +71,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('kitchen')}
       />
       <CheckCard
-        label="Extra bed"
+        label={t('profile.setup.step4.extraBed')}
         checked={amenities.get('extraBed')}
         icon={
           <SVG.Bed
@@ -80,7 +82,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('extraBed')}
       />
       <CheckCard
-        label="Refrigerator"
+        label={t('profile.setup.step4.refrigerator')}
         checked={amenities.get('refrigerator')}
         icon={
           <SVG.Refrigerator
@@ -91,7 +93,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('refrigerator')}
       />
       <CheckCard
-        label="Bed sheets"
+        label={t('profile.setup.step4.bedSheets')}
         checked={amenities.get('bedSheets')}
         icon={
           <SVG.Bed
@@ -102,7 +104,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('bedSheets')}
       />
       <CheckCard
-        label="Free parking"
+        label={t('profile.setup.step4.freeParking')}
         checked={amenities.get('freeParking')}
         icon={
           <SVG.Parking
@@ -113,7 +115,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('freeParking')}
       />
       <CheckCard
-        label="Towels"
+        label={t('profile.setup.step4.towels')}
         checked={amenities.get('towels')}
         icon={
           <SVG.Towel
@@ -124,7 +126,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('towels')}
       />
       <CheckCard
-        label="Pool"
+        label={t('profile.setup.step4.pool')}
         checked={amenities.get('pool')}
         icon={
           <SVG.Swim
@@ -135,7 +137,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('pool')}
       />
       <CheckCard
-        label="Coffee machine"
+        label={t('profile.setup.step4.coffeeMachine')}
         checked={amenities.get('coffeeMachine')}
         icon={
           <SVG.Coffee
@@ -147,7 +149,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
       />
 
       <CheckCard
-        label="Hot water"
+        label={t('profile.setup.step4.hotWater')}
         checked={amenities.get('hotWater')}
         icon={
           <SVG.HotWater
@@ -158,7 +160,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('hotWater')}
       />
       <CheckCard
-        label="Oven"
+        label={t('profile.setup.step4.oven')}
         checked={amenities.get('oven')}
         icon={
           <SVG.Oven
@@ -169,7 +171,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('oven')}
       />
       <CheckCard
-        label="AC"
+        label={t('profile.setup.step4.ac')}
         checked={amenities.get('ac')}
         icon={
           <SVG.AC size="32px" alternativeColor={darkMode || amenities.get('ac') ? '#fff' : ''} />
@@ -177,7 +179,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('ac')}
       />
       <CheckCard
-        label="Garden"
+        label={t('profile.setup.step4.garden')}
         checked={amenities.get('garden')}
         icon={
           <SVG.Garden
@@ -188,7 +190,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('garden')}
       />
       <CheckCard
-        label="Laundry"
+        label={t('profile.setup.step4.laundry')}
         checked={amenities.get('laundry')}
         icon={
           <SVG.Laundry
@@ -207,7 +209,7 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
         onChange={() => onChangeCheck('petFriendly')}
       />
       <CheckCard
-        label="Smoking area"
+        label={t('profile.setup.step4.smokingArea')}
         checked={amenities.get('smoking')}
         icon={
           <SVG.Smoke

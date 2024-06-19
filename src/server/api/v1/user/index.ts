@@ -2,9 +2,11 @@ import { RequestHandler } from 'express'
 import { createCRUDRoutes } from '../../routerGenerator'
 import { db } from '../../../db'
 import CRUD from './crud'
+import businessCRUD from '../business/crud'
 import { handleErrorResponse } from '../../error'
 
 const CRUDHandler = new CRUD(db)
+const CRUDBusiness = new businessCRUD(db)
 
 const customUserRoutes: Record<string, { method: string; handler: RequestHandler }> = {
   '/code/:code': {
@@ -14,6 +16,10 @@ const customUserRoutes: Record<string, { method: string; handler: RequestHandler
         const response = await CRUDHandler.by({ code: req.params.code, active: false })
 
         if (response) {
+          const businessResponse = await CRUDBusiness.by({ userId: response.items[0].id })
+          const country = businessResponse.items[0].country || null
+          response.items[0].country = country
+
           return res.json({ ok: true, ...response })
         }
       } catch (error) {

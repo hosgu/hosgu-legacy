@@ -37,6 +37,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     userId: user?.id || '',
     email: user?.email || '',
     password: '',
+    country: user?.country || '',
     propertyName: '',
     propertyType: '',
     address1: '',
@@ -107,7 +108,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     setShowNotification(false)
 
     // upload photos
-    if (currentStep === 5) {
+    if (currentStep === 6) {
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
         return
@@ -348,8 +349,6 @@ const Form: FC<Props> = ({ locale, user }) => {
       key="step6"
       locale={locale}
       setStep={setCurrentStep}
-      values={values}
-      setValues={setValues}
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
     />,
@@ -368,6 +367,15 @@ const Form: FC<Props> = ({ locale, user }) => {
   useEffect(() => {
     console.log(values.images)
   }, [values])
+
+  useEffect(() => {
+    if (uploadedFiles.size > 1) {
+      setValues({
+        ...values,
+        images: uploadedFiles
+      })
+    }
+  }, [uploadedFiles, values])
 
   return (
     <>

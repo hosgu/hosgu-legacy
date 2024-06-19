@@ -44,7 +44,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       </div>
 
       <h2 className="p-0 text-lg font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
-        Property Location
+        {t('profile.setup.step1.propertyLocation')}
       </h2>
 
       <Input
@@ -52,22 +52,10 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
         value={values.country}
         onChange={handleChange}
         onBlur={validate}
+        disabled
         required
         className={cx.join({
           'border-red-500 dark:border-red-500': errors.country,
-          'mb-1': true
-        })}
-        style={{ width: '300px' }}
-      />
-
-      <Input
-        label={t('common.general.city')}
-        value={values.city}
-        onChange={handleChange}
-        onBlur={validate}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.city,
           'mb-1': true
         })}
         style={{ width: '300px' }}
@@ -87,10 +75,23 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       />
 
       <Input
+        label={t('common.general.city')}
+        value={values.city}
+        onChange={handleChange}
+        onBlur={validate}
+        required
+        className={cx.join({
+          'border-red-500 dark:border-red-500': errors.city,
+          'mb-1': true
+        })}
+        style={{ width: '300px' }}
+      />
+
+      <Input
         label={t('common.business.address')}
         value={values.address1}
         onChange={handleChange}
-        placeholder="Street address"
+        placeholder={t('profile.setup.step1.streetAddress')}
         onBlur={validate}
         required
         className={cx.join({

@@ -1,6 +1,7 @@
 'use client'
 import { ne } from 'drizzle-orm'
 import React, { FC, useState, useEffect } from 'react'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
@@ -19,6 +20,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
   const [inputValue, setInputValue] = useState<string>(price.toString())
   const [error, setError] = useState<string | null>(null)
   const [currency, setCurrency] = useState<string>(originalCurrency)
+  const t = i18n(locale)
 
   useEffect(() => {
     setInputValue(price.toString())
@@ -101,7 +103,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
 
       <div className="mt-4">
         <label htmlFor="currency" className="mr-2">
-          Currency:
+          {t('profile.setup.step5.currency')}
         </label>
         <select
           id="currency"

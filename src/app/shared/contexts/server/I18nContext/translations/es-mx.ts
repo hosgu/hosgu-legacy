@@ -107,12 +107,32 @@ const translations = {
   'profile.setup.validation.passwordUppercase':
     'La contraseña debe contener al menos una letra mayúscula.',
   'profile.setup.step1.headline': '¡Empecemos!',
+  'profile.setup.step1.propertyLocation': 'Ubicación de la Propiedad',
+  'profile.setup.step1.streetAddress': 'Dirección',
+  'profile.setup.step2.entirePlace': 'Lugar Entero',
+  'profile.setup.step2.hotel': 'Hotel, Motel o Hostel.',
+
   'profile.setup.step2.headline': '¿Qué tipo de propiedad estás listando?',
   'profile.setup.step3.headline': 'Información sobre tu',
   'profile.setup.step4.headline': '¡Diles a los huéspedes cuáles son los servicios!',
   'profile.setup.step5.headline': 'Establece tu precio por noche',
   'profile.setup.step6.headline': 'Agrega algunas fotos de tu lugar',
-  'profile.setup.step7.headline': '¡Casi allí!'
+  'profile.setup.step7.headline': '¡Casi allí!',
+  'profile.setup.step4.kitchen': 'Cocina',
+  'profile.setup.step4.extraBed': 'Cama extra',
+  'profile.setup.step4.refrigerator': 'Refrigerador',
+  'profile.setup.step4.bedSheets': 'Sábanas',
+  'profile.setup.step4.freeParking': 'Estacionamiento',
+  'profile.setup.step4.towels': 'Toallas',
+  'profile.setup.step4.pool': 'Piscina',
+  'profile.setup.step4.coffeeMachine': 'Cafetera',
+  'profile.setup.step4.hotWater': 'Agua caliente',
+  'profile.setup.step4.oven': 'Horno',
+  'profile.setup.step4.ac': 'Aire Acondicionado',
+  'profile.setup.step4.garden': 'Jardín',
+  'profile.setup.step4.laundry': 'Lavandería',
+  'profile.setup.step4.smokingArea': 'Área para fumar',
+  'profile.setup.step5.currency': 'Moneda:'
 } as const
 
 export default translations

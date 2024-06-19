@@ -8,13 +8,11 @@ import config from '~/config'
 type Props = {
   locale: string
   setStep: (prevState: any) => void
-  values: any
-  setValues: any
   uploadedFiles: any
   setUploadedFiles: any
 }
 
-const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues }) => {
+const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles }) => {
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
 
   const getFileNameFromUrl = (url: string) => {
@@ -23,15 +21,10 @@ const Step: FC<Props> = ({ uploadedFiles, setUploadedFiles, values, setValues })
   }
 
   useEffect(() => {
-    if (uploadedFiles.length > 0) {
+    if (uploadedFiles.length > 1) {
       setIsUploadPhotosOpen(false)
-
-      setValues({
-        ...values,
-        images: uploadedFiles
-      })
     }
-  }, [uploadedFiles, values, setValues])
+  }, [uploadedFiles])
 
   return (
     <div
