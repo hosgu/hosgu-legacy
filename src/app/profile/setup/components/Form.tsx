@@ -422,7 +422,7 @@ const Form: FC<Props> = ({ locale, user }) => {
               {t('common.general.back')}
             </Button>
 
-            <StepIndicator steps={8} currentStep={currentStep + 1} />
+            <StepIndicator locale={locale} steps={8} currentStep={currentStep + 1} />
 
             <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
               {t('common.general.next')}

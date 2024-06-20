@@ -2,8 +2,10 @@ import React, { FC } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
 import SVG from '@architecturex/components.svg'
 import cx from '@architecturex/utils.cx'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
+  locale: string
   files: any[]
   setFiles: React.Dispatch<React.SetStateAction<string[]>>
   showUploader?: boolean
@@ -12,11 +14,14 @@ type Props = {
 }
 
 const FilesPreviewer: FC<Props> = ({
+  locale,
   files,
   setFiles,
   isUploadPhotosOpen,
   setIsUploadPhotosOpen
 }) => {
+  const t = i18n(locale)
+
   const handleRemoveImage = async (e: any) => {
     const fileName = e.target.dataset.filename
 
@@ -41,7 +46,7 @@ const FilesPreviewer: FC<Props> = ({
       >
         <div className="flex flex-col items-center">
           <SVG.Plus size="50px" className="cursor-pointer" />
-          <span className="mt-2 text-sm">Add more photos</span>
+          <span className="mt-2 text-sm">{t('profile.setup.step6.addMorePhotos')}</span>
         </div>
       </div>
     </RenderIf>

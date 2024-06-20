@@ -45,6 +45,7 @@ const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles }) => {
           >
             <File
               name="fileName"
+              locale={locale}
               label={
                 uploadedFiles.length === 0
                   ? t('profile.setup.step6.dragYourPhoto')
@@ -59,6 +60,7 @@ const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles }) => {
         </div>
 
         <FilesPreviewer
+          locale={locale}
           files={uploadedFiles}
           setFiles={setUploadedFiles}
           isUploadPhotosOpen={isUploadPhotosOpen}

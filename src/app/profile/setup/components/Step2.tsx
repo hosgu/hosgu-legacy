@@ -51,7 +51,7 @@ const Step: FC<Props> = ({ locale = 'en-us', setValues, setStep }) => {
             <Image src="/images/icons/hotel.png" alt="Hotel" width={64} height={64} />
           </div>
           <div className="text-center text-base font-bold">{t('profile.setup.step2.hotel')}</div>
-          <div className="text-center text-sm">{t('profile.setup.step2.hotels')}</div>
+          <div className="text-center text-sm">{t('profile.setup.step2.hotelplaceholder')}</div>
         </div>
       </div>
     </>

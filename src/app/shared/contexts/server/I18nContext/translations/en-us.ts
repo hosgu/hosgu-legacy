@@ -96,6 +96,8 @@ const translations = {
     'Password must contain at least one special character.',
   'profile.setup.validation.passwordUppercase':
     'Password must contain at least one uppercase letter.',
+  'profile.setup.step.step': 'Step',
+  'profile.setup.step.of': 'of',
   'profile.setup.step1.headline': "Let's start!",
   'profile.setup.step2.headline': 'What property type are you listing?',
   'profile.setup.step3.headline': 'Information about your',
@@ -105,10 +107,11 @@ const translations = {
   'profile.setup.step7.headline': 'Almost there!',
   'profile.setup.step1.propertyLocation': 'Property Location',
   'profile.setup.step1.streetAddress': 'Street Address',
+  'profile.setup.step1.placeholder': 'Apt, suite, building, floor, etc.',
   'profile.setup.step2.entirePlace': 'Entire Place',
   'profile.setup.step2.cabin': 'Cabin, House or Apartment.',
   'profile.setup.step2.hotel': 'Hotel',
-  'profile.setup.step2.hotels': 'Hotel, Motel or Hostel.',
+  'profile.setup.step2.hotelplaceholder': 'Hotel, Motel or Hostel.',
   'profile.setup.step3.guests': 'Guests',
   'profile.setup.step3.bathrooms': 'Bathrooms',
   'profile.setup.step3.bedrooms': 'Bedrooms',
@@ -130,7 +133,8 @@ const translations = {
   'profile.setup.step5.currency': 'Currency',
   'profile.setup.step6.uploadPhotos': 'Upload your Photos',
   'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
-  'profile.setup.step6.addMorePhotos': 'Add more photos'
+  'profile.setup.step6.addMorePhotos': 'Add more photos',
+  'profile.setup.step6.uploadFromDevice': 'Upload from your device'
 } as const
 
 // const translations2 = {

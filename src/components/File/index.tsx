@@ -3,6 +3,7 @@ import files from '@architecturex/utils.files'
 import Image from 'next/image'
 import is from '@architecturex/utils.is'
 import cx from '@architecturex/utils.cx'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 import config from '~/config'
@@ -12,6 +13,7 @@ const allowedFileTypes = {
 }
 
 type Props = {
+  locale: string
   className?: string
   disabled?: boolean
   hasError?: boolean
@@ -33,6 +35,7 @@ type Props = {
 }
 
 const File: FC<Props> = ({
+  locale,
   label,
   name = 'file',
   maxFileSize = 12000000,
@@ -41,6 +44,7 @@ const File: FC<Props> = ({
   setUploadedFiles,
   displayDragArea = true
 }) => {
+  const t = i18n(locale)
   const inputRef = useRef<HTMLInputElement>(null)
   const dropTargetRef = useRef<HTMLDivElement>(null)
 
@@ -192,7 +196,7 @@ const File: FC<Props> = ({
               }
             )}
           >
-            Upload from your device
+            {t('profile.setup.step6.uploadFromDevice')}
           </label>
 
           <input

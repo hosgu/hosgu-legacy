@@ -106,12 +106,20 @@ const translations = {
     'La contraseña debe contener al menos un carácter especial.',
   'profile.setup.validation.passwordUppercase':
     'La contraseña debe contener al menos una letra mayúscula.',
+  'profile.setup.step.step': 'Paso',
+  'profile.setup.step.of': 'de',
   'profile.setup.step1.headline': '¡Empecemos!',
   'profile.setup.step1.propertyLocation': 'Ubicación de la Propiedad',
   'profile.setup.step1.streetAddress': 'Dirección',
+  'profile.setup.step1.placeholder': 'Apto, suite, edificio, piso, etc.',
   'profile.setup.step2.entirePlace': 'Lugar Entero',
-  'profile.setup.step2.hotel': 'Hotel, Motel o Hostel.',
-
+  'profile.setup.step2.hotel': 'Hotel',
+  'profile.setup.step2.hotelplaceholder': 'Hotel, Motel o Hostel.',
+  'profile.setup.step2.cabin': 'Cabaña, Casa o Apartamento.',
+  'profile.setup.step3.guests': 'Invitados',
+  'profile.setup.step3.bathrooms': 'Baños',
+  'profile.setup.step3.bedrooms': 'Dormitorios',
+  'profile.setup.step3.beds': 'Camas',
   'profile.setup.step2.headline': '¿Qué tipo de propiedad estás listando?',
   'profile.setup.step3.headline': 'Información sobre tu',
   'profile.setup.step4.headline': '¡Diles a los huéspedes cuáles son los servicios!',
@@ -135,7 +143,8 @@ const translations = {
   'profile.setup.step5.currency': 'Moneda',
   'profile.setup.step6.dragYourPhoto': 'Arrastre su foto aquí',
   'profile.setup.step6.uploadPhotos': 'Subir fotos',
-  'profile.setup.step6.addMorePhotos': 'Agregar más fotos'
+  'profile.setup.step6.addMorePhotos': 'Agregar más fotos',
+  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo'
 } as const
 
 export default translations

@@ -12,7 +12,7 @@ type Props = {
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   validate: any
 }
-const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, errors }) => {
+const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => {
   const t = i18n(locale)
 
   return (
@@ -104,7 +104,7 @@ const Step: FC<Props> = ({ locale = 'en-us', values, handleChange, validate, err
       <Input
         value={values.address2}
         onChange={handleChange}
-        placeholder="Apt, suite, building, floor, etc."
+        placeholder={t('profile.setup.step1.placeholder')}
         onBlur={validate}
         required
         className={cx.join({
