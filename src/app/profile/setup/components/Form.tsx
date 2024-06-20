@@ -55,6 +55,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     checkIn: '',
     checkOut: '',
     images: [],
+    tmpImages: [],
     amenities: new Map<string, boolean>([
       ['ac', false],
       ['bedSheets', false],
@@ -104,11 +105,23 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const goNext = async () => {
-    const result = await handleSubmit()
+    const isValidStep = await handleSubmit()
     setShowNotification(false)
+
+    console.log(' Step:', currentStep)
+
+    // Store temporary images
+    if (currentStep === 5) {
+      setValues({
+        ...values,
+        tmpImages: uploadedFiles
+      })
+    }
 
     // upload photos
     if (currentStep === 6) {
+      console.log(' Step:', currentStep)
+
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
         return
@@ -141,7 +154,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       await setupProfile(formData)
     }
 
-    if (result) {
+    if (isValidStep) {
       setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
     }
   }
@@ -293,11 +306,11 @@ const Form: FC<Props> = ({ locale, user }) => {
   const handleSubmit = async () => {
     const isValidStep = validate()
 
-    if (isValidStep && currentStep < 7) {
+    if (isValidStep && currentStep < 8) {
       return true
     }
 
-    if (isValidStep && currentStep === 2) {
+    /*if (isValidStep && currentStep === 2) {
       const formData = core.formData.set(new FormData(), values)
 
       const response = await ProfileActions.setupProfile(formData)
@@ -305,7 +318,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
       }
-    }
+    }*/
 
     return false
   }

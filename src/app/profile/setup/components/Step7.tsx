@@ -32,6 +32,7 @@ interface StepProps {
 }
 
 const PropertyPreview: FC<{ values: PropertyValues }> = ({ values }) => {
+  console.log('Values ====>>>', values)
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">{values.propertyName}</h1>
@@ -39,7 +40,7 @@ const PropertyPreview: FC<{ values: PropertyValues }> = ({ values }) => {
         {/* Property Image */}
         <div className="w-1/3">
           <img
-            src="https://via.placeholder.com/150"
+            src="https://via.placeholder.com/150" //{propertyImage.url || propertyImage.base64}
             alt={values.propertyName}
             className="w-full h-auto rounded"
           />
