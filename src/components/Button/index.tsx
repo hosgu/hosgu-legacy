@@ -3,7 +3,7 @@ import cx from '@architecturex/utils.cx'
 
 interface Props extends ComponentPropsWithoutRef<'button'> {
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light' | 'dark'
-  size?: 'small' | 'medium' | 'large' | 'xlarge'
+  size?: 'small' | 'medium' | 'large' | 'xLarge'
   variant?: 'contained' | 'outlined' | 'transparent'
   shape?: 'regular' | 'rounded' | 'circle' | 'square'
   frontColor?: string
@@ -36,12 +36,12 @@ const Button: FC<Props> = ({
   onClick = () => {},
   type = 'button'
 }) => {
-  const baseClasses = 'p-2 text-center transition duration-300'
+  const baseClasses = 'flex items-center justify-center p-2 transition duration-300'
   const sizeClasses = {
     small: 'px-2 py-1.5 text-xs',
     medium: 'px-6 py-2.5 text-sm',
     large: 'px-6 py-3.5 text-base',
-    xlarge: 'px-8 py-4 text-lg'
+    xLarge: 'px-8 py-4 text-lg'
   }
   const shapeClasses = {
     regular: 'rounded',
