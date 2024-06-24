@@ -1,10 +1,11 @@
 'use client'
-import React, { FC, useState, ChangeEvent, useEffect } from 'react'
+import React, { FC, ChangeEvent, useEffect } from 'react'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
+import useCustomState from '~/app/shared/hooks/useCustomState'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import { setupProfile } from '~/app/shared/actions/profile'
 import Button from '~/components/Button'
@@ -21,6 +22,7 @@ import Step8 from './FinalStep'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
+import e from 'express'
 
 type Props = {
   user: UserFields & {
@@ -32,30 +34,9 @@ type Props = {
 const Form: FC<Props> = ({ locale, user }) => {
   const t = i18n(locale)
 
-  const [currentStep, setCurrentStep] = useState(0)
-  const [values, setValues] = useState({
-    userId: user?.id || '',
-    email: user?.email || '',
-    password: '',
-    country: user?.country || '',
-    propertyName: '',
-    propertyType: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    guests: 1,
-    bathrooms: 1,
-    bedrooms: 1,
-    beds: 1,
-    cabinPrice: 150,
-    hotelPrice: 50,
-    currency: 'USD',
-    checkIn: '',
-    checkOut: '',
-    images: [],
-    tmpImages: [],
+  const [currentStep, setCurrentStep] = useCustomState(0)
+
+  const [values, setValues] = useCustomState({
     amenities: new Map<string, boolean>([
       ['ac', false],
       ['bedSheets', false],
@@ -76,28 +57,52 @@ const Form: FC<Props> = ({ locale, user }) => {
       ['towels', false],
       ['tv', false],
       ['wifi', false]
-    ])
-  })
-  const [uploadedFiles, setUploadedFiles] = useState<any>([])
-  const [showNotification, setShowNotification] = useState(false)
-  const [enableNext, setEnableNext] = useState(true)
-
-  const [errors, setErrors] = useState({
-    password: '',
-    fullName: '',
-    businessName: '',
-    businessEmail: '',
-    businessPhone: '',
-    businessWebsite: '',
-    country: '',
-    city: '',
-    state: '',
-    zipCode: '',
+    ]),
     address1: '',
     address2: '',
+    bathrooms: 1,
+    bedrooms: 1,
+    beds: 1,
+    cabinPrice: 150,
+    checkIn: '',
+    checkOut: '',
+    city: '',
+    // @ts-ignore
+    country: user?.country || '',
+    currency: 'USD',
+    email: user?.email || '',
     googleMaps: '',
+    guests: 1,
+    hotelPrice: 50,
+    images: [],
+    password: '',
+    propertyName: '',
+    propertyType: '',
+    state: '',
+    tmpImages: [],
+    userId: user?.id || '',
+    zipCode: ''
+  })
+  const [uploadedFiles, setUploadedFiles] = useCustomState<any>([])
+  const [showNotification, setShowNotification] = useCustomState(false)
+  const [enableNext, setEnableNext] = useCustomState(true)
+
+  const [errors, setErrors] = useCustomState({
+    address1: '',
+    address2: '',
+    businessEmail: '',
+    businessName: '',
+    businessPhone: '',
+    businessWebsite: '',
     cabinPrice: '',
-    hotelPrice: ''
+    city: '',
+    country: '',
+    fullName: '',
+    googleMaps: '',
+    hotelPrice: '',
+    password: '',
+    state: '',
+    zipCode: ''
   })
 
   const goBack = () => {
@@ -112,10 +117,7 @@ const Form: FC<Props> = ({ locale, user }) => {
 
     // Store temporary images
     if (currentStep === 5) {
-      setValues({
-        ...values,
-        tmpImages: uploadedFiles
-      })
+      setValues('tmpImages', uploadedFiles)
     }
 
     // upload photos
@@ -133,10 +135,10 @@ const Form: FC<Props> = ({ locale, user }) => {
       )
 
       if (uploadFilesResponse.ok) {
-        setValues({
-          ...values,
-          images: uploadFilesResponse.data.map((data: any) => data.path)
-        })
+        setValues(
+          'images',
+          uploadFilesResponse.data.map((data: any) => data.path)
+        )
       }
 
       let amenitiesValues: { i18n: string; name: string; exists: boolean }[] = []
@@ -169,24 +171,10 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const validations = {
-    propertyName: (value: string) => {
+    propertyState: (value: string) => {
       if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyName')
-      }
-
-      if (value.length < 3) {
-        return t('profile.setup.error.pleaseEnterAValidPropertyName')
-      }
-
-      return ''
-    },
-    propertyAddress1: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyAddress')
-      }
-
-      if (value.length < 3) {
-        return t('profile.setup.error.pleaseEnterAValidPropertyAddress')
+        console.log('entra 1 --- value', value)
+        return t('profile.setup.error.pleaseEnterYourPropertyState')
       }
 
       return ''
@@ -202,13 +190,13 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       return ''
     },
-    propertyState: (value: string) => {
+    propertyAddress1: (value: string) => {
       if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyState')
+        return t('profile.setup.error.pleaseEnterYourPropertyAddress')
       }
 
       if (value.length < 3) {
-        return t('profile.setup.error.pleaseEnterAValidPropertyState')
+        return t('profile.setup.error.pleaseEnterAValidPropertyAddress')
       }
 
       return ''
@@ -220,6 +208,13 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       if (value.length < 3) {
         return t('profile.setup.error.pleaseEnterAValidPropertyPostalCode')
+      }
+
+      return ''
+    },
+    googleMaps: (value: string) => {
+      if (!value) {
+        return t('profile.setup.error.pleaseEnterYourGoogleMaps')
       }
 
       return ''
@@ -240,50 +235,80 @@ const Form: FC<Props> = ({ locale, user }) => {
     }
   }
 
-  const validate = () => {
+  const validate = (validation = '') => {
     if (currentStep === 0) {
-      const passwordValidation = security.password.validation(values.password)
+      if (validation === 'password') {
+        const passwordValidation = security.password.validation(values.password)
 
-      if (passwordValidation.reasons?.includes('length')) {
-        setErrors({
-          ...errors,
-          password: t('profile.setup.validation.passwordLength')
-        })
-      } else if (passwordValidation.reasons?.includes('lowercase')) {
-        setErrors({
-          ...errors,
-          password: t('profile.setup.validation.passwordLowercase')
-        })
-      } else if (passwordValidation.reasons?.includes('uppercase')) {
-        setErrors({
-          ...errors,
-          password: t('profile.setup.validation.passwordUppercase')
-        })
+        if (passwordValidation.reasons?.includes('length')) {
+          setErrors('password', t('profile.setup.validation.passwordLength'))
+          return ''
+        } else if (passwordValidation.reasons?.includes('lowercase')) {
+          setErrors('password', t('profile.setup.validation.passwordLowercase'))
+          return ''
+        } else if (passwordValidation.reasons?.includes('uppercase')) {
+          setErrors('password', t('profile.setup.validation.passwordUppercase'))
+          return ''
+        } else if (passwordValidation.reasons?.includes('digit')) {
+          setErrors('password', t('profile.setup.validation.passwordDigit'))
+          return ''
+        } else if (passwordValidation.reasons?.includes('special')) {
+          setErrors('password', t('profile.setup.validation.passwordSpecial'))
+          return ''
+        }
 
+        setErrors('password', '')
+
+        return passwordValidation.isValid
+      }
+
+      if (validations.propertyState(values.state)) {
+        console.log('ENTRA STATE====')
+        setErrors('state', validations.propertyState(values.state))
         return ''
-      } else if (passwordValidation.reasons?.includes('digit')) {
-        setErrors({
-          ...errors,
-          password: t('profile.setup.validation.passwordDigit')
-        })
-
-        return ''
-      } else if (passwordValidation.reasons?.includes('special')) {
-        setErrors({
-          ...errors,
-          password: t('profile.setup.validation.passwordSpecial')
-        })
-
+      } else if (errors.state) {
+        setErrors('state', '')
         return ''
       }
 
-      return passwordValidation.isValid
+      if (validations.propertyCity(values.city)) {
+        setErrors('city', validations.propertyCity(values.city))
+        return ''
+      } else if (errors.city) {
+        setErrors('city', '')
+        return ''
+      }
+
+      if (validations.propertyAddress1(values.address1)) {
+        setErrors('address1', validations.propertyAddress1(values.address1))
+        return ''
+      } else if (errors.address1) {
+        setErrors('address1', '')
+        return ''
+      }
+
+      if (validations.propertyZipCode(values.zipCode)) {
+        setErrors('zipCode', validations.propertyZipCode(values.zipCode))
+        return ''
+      } else if (errors.zipCode) {
+        setErrors('zipCode', '')
+        return ''
+      }
+
+      if (validations.googleMaps(values.googleMaps)) {
+        setErrors('googleMaps', validations.googleMaps(values.googleMaps))
+        return ''
+      } else if (errors.googleMaps) {
+        setErrors('googleMaps', '')
+        return ''
+      }
     }
 
     if (currentStep === 3) {
       const currentValues = Array.from(values.amenities.values())
       return currentValues.includes(true)
     }
+
     if (currentStep === 6) {
       const newErrors = {
         ...errors,
@@ -295,7 +320,12 @@ const Form: FC<Props> = ({ locale, user }) => {
         hotelPrice: validations.propertyHotelPrice(values.hotelPrice)
       }
 
-      setErrors(newErrors)
+      setErrors('address1', newErrors.address1)
+      setErrors('city', newErrors.city)
+      setErrors('state', newErrors.state)
+      setErrors('zipCode', newErrors.zipCode)
+      setErrors('cabinPrice', newErrors.cabinPrice)
+      setErrors('hotelPrice', newErrors.hotelPrice)
 
       return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
     }
@@ -377,16 +407,13 @@ const Form: FC<Props> = ({ locale, user }) => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(values.images)
-  }, [values])
+  // useEffect(() => {
+  //   console.log(values.images)
+  // }, [values])
 
   useEffect(() => {
     if (uploadedFiles.size > 1) {
-      setValues({
-        ...values,
-        images: uploadedFiles
-      })
+      setValues('images', uploadedFiles)
     }
   }, [uploadedFiles, values])
 
@@ -396,9 +423,12 @@ const Form: FC<Props> = ({ locale, user }) => {
         <Notification message="Error on saving profile data" type="error" />
       </RenderIf>
 
-      <div className="flex justify-center w-full h-[75vh] overflow-hidden">
+      <div className="flex justify-center w-full h-[78vh] overflow-hidden">
         <div className="p-0 rounded-lg h-full overflow-hidden">
-          <div className="inner-scroll-content px-1">
+          <div
+            className="inner-scroll-content px-1"
+            style={{ overflowY: currentStep === 0 ? 'hidden' : 'auto' }}
+          >
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('profile.setup.step1.headline')}
               {currentStep === 1 && t('profile.setup.step2.headline')}
@@ -415,7 +445,7 @@ const Form: FC<Props> = ({ locale, user }) => {
         </div>
       </div>
 
-      <div className="sticky h-20 mt-12 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
+      <div className="sticky h-20 mt-7 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
         <div className="flex items-center h-full">
           <div className="flex w-full justify-between items-center">
             <Button color="dark" onClick={goBack} className="mr-4 h-12">

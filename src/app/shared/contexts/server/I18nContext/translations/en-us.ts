@@ -88,6 +88,7 @@ const translations = {
     'Please enter a valid property postal code.',
   'profile.setup.error.pleaseEnterYourPropertyCountry': 'Please enter your property country.',
   'profile.setup.error.pleaseEnterYourNightPrice': 'Please enter your night price.',
+  'profile.setup.error.pleaseEnterYourGoogleMaps': 'Please enter your Google Maps URL.',
   'profile.setup.validation.passwordDigit': 'Password must contain at least one digit.',
   'profile.setup.validation.passwordLength': 'Password must be at least 8 characters long.',
   'profile.setup.validation.passwordLowercase':

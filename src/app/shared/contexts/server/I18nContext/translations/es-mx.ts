@@ -98,6 +98,7 @@ const translations = {
   'profile.setup.error.pleaseEnterYourPropertyCountry':
     'Por favor, introduce el país de tu propiedad.',
   'profile.setup.error.pleaseEnterYourNightPrice': 'Por favor, introduce tu precio por noche.',
+  'profile.setup.error.pleaseEnterYourGoogleMaps': 'Por favor, introduce tu enlace de Google Maps.',
   'profile.setup.validation.passwordDigit': 'La contraseña debe contener al menos un dígito.',
   'profile.setup.validation.passwordLength': 'La contraseña debe tener al menos 8 caracteres.',
   'profile.setup.validation.passwordLowercase':

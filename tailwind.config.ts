@@ -50,6 +50,9 @@ const config: Config = {
         sans: ['Inter', 'sans-serif'],
         monserrat: ['Montserrat', 'sans-serif']
       },
+      fontSize: {
+        xxs: '0.65rem'
+      },
       screens: {
         '3xl': '1793px'
       }

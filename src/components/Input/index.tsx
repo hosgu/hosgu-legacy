@@ -96,7 +96,7 @@ const Input: FC<Props> = ({
         )}
 
         <input
-          autoComplete="new-password"
+          autoComplete={name === 'password' ? 'new-password' : 'off'}
           name={name}
           className={cx.join(
             'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border border-gray-300 dark:border-gray-600 shadow-sm sm:text-sm',
@@ -112,7 +112,7 @@ const Input: FC<Props> = ({
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
           onChange={onChange}
-          value={value || undefined}
+          value={value}
           disabled={disabled}
           style={hasError ? { border: '1px solid red' } : restProps.style}
           {...restProps}
