@@ -36,6 +36,8 @@ const Form: FC<Props> = ({ locale, user }) => {
 
   const [currentStep, setCurrentStep] = useCustomState(0)
 
+  console.log(' Step:', currentStep)
+
   const [values, setValues] = useCustomState({
     amenities: new Map<string, boolean>([
       ['ac', false],
@@ -113,8 +115,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     const isValidStep = await handleSubmit()
     setShowNotification(false)
 
-    console.log(' Step:', currentStep)
-
     // Store temporary images
     if (currentStep === 5) {
       setValues('tmpImages', uploadedFiles)
@@ -173,7 +173,6 @@ const Form: FC<Props> = ({ locale, user }) => {
   const validations = {
     propertyState: (value: string) => {
       if (!value) {
-        console.log('entra 1 --- value', value)
         return t('profile.setup.error.pleaseEnterYourPropertyState')
       }
 
@@ -217,7 +216,14 @@ const Form: FC<Props> = ({ locale, user }) => {
         return t('profile.setup.error.pleaseEnterYourGoogleMaps')
       }
 
-      return ''
+      if (
+        value.startsWith('https://www.google.com/maps') ||
+        value.startsWith('https://maps.app.goo.gl')
+      ) {
+        return ''
+      }
+
+      return t('profile.setup.error.pleaseEnterAValidGoogleMaps')
     },
     propertyCabinPrice: (value: number) => {
       if (!value) {
@@ -235,35 +241,30 @@ const Form: FC<Props> = ({ locale, user }) => {
     }
   }
 
-  const validate = (validation = '') => {
+  const validate = () => {
     if (currentStep === 0) {
-      if (validation === 'password') {
-        const passwordValidation = security.password.validation(values.password)
+      const passwordValidation = security.password.validation(values.password)
 
-        if (passwordValidation.reasons?.includes('length')) {
-          setErrors('password', t('profile.setup.validation.passwordLength'))
-          return ''
-        } else if (passwordValidation.reasons?.includes('lowercase')) {
-          setErrors('password', t('profile.setup.validation.passwordLowercase'))
-          return ''
-        } else if (passwordValidation.reasons?.includes('uppercase')) {
-          setErrors('password', t('profile.setup.validation.passwordUppercase'))
-          return ''
-        } else if (passwordValidation.reasons?.includes('digit')) {
-          setErrors('password', t('profile.setup.validation.passwordDigit'))
-          return ''
-        } else if (passwordValidation.reasons?.includes('special')) {
-          setErrors('password', t('profile.setup.validation.passwordSpecial'))
-          return ''
-        }
-
-        setErrors('password', '')
-
-        return passwordValidation.isValid
+      if (passwordValidation.reasons?.includes('length')) {
+        setErrors('password', t('profile.setup.validation.passwordLength'))
+        return ''
+      } else if (passwordValidation.reasons?.includes('lowercase')) {
+        setErrors('password', t('profile.setup.validation.passwordLowercase'))
+        return ''
+      } else if (passwordValidation.reasons?.includes('uppercase')) {
+        setErrors('password', t('profile.setup.validation.passwordUppercase'))
+        return ''
+      } else if (passwordValidation.reasons?.includes('digit')) {
+        setErrors('password', t('profile.setup.validation.passwordDigit'))
+        return ''
+      } else if (passwordValidation.reasons?.includes('special')) {
+        setErrors('password', t('profile.setup.validation.passwordSpecial'))
+        return ''
       }
 
+      setErrors('password', '')
+
       if (validations.propertyState(values.state)) {
-        console.log('ENTRA STATE====')
         setErrors('state', validations.propertyState(values.state))
         return ''
       } else if (errors.state) {
@@ -302,6 +303,8 @@ const Form: FC<Props> = ({ locale, user }) => {
         setErrors('googleMaps', '')
         return ''
       }
+
+      return passwordValidation.isValid
     }
 
     if (currentStep === 3) {

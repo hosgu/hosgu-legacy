@@ -32,7 +32,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           label={t('common.input.password')}
           value={values.password}
           onChange={handleChange}
-          onBlur={() => validate('password')}
+          onBlur={validate}
           required
           className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
           style={{ width: '300px' }}
@@ -139,6 +139,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         label="Google Maps"
         value={values.googleMaps}
         onChange={handleChange}
+        placeholder="https://www.google.com/maps/place/..."
         onBlur={validate}
         required
         className={errors.zipCode ? 'border-red-500 dark:border-red-500' : ''}
