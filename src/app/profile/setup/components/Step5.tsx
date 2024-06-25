@@ -1,5 +1,4 @@
 'use client'
-import { ne } from 'drizzle-orm'
 import React, { FC, useState, useEffect } from 'react'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
@@ -7,12 +6,12 @@ type Props = {
   locale: string
   setStep: (prevState: any) => void
   values: any
-  setValues: any
+  setValues: (values: any) => void
   enableNext: boolean
-  setEnableNext: any
+  setEnableNext: (enableNext: boolean) => void
 }
 
-const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) => {
+const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
   const { cabinPrice, hotelPrice, currency: originalCurrency, propertyType } = values
 
   const [price, setPrice] = useState<number>(propertyType === 'cabin' ? cabinPrice : hotelPrice)
@@ -20,11 +19,40 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
   const [inputValue, setInputValue] = useState<string>(price.toString())
   const [error, setError] = useState<string | null>(null)
   const [currency, setCurrency] = useState<string>(originalCurrency)
+
+  const [checkInHour, setCheckInHour] = useState(values.checkInHour || '03')
+  const [checkInMinute, setCheckInMinute] = useState(values.checkInMinute || '00')
+  const [checkInPeriod, setCheckInPeriod] = useState(values.checkInPeriod || 'PM')
+  const [checkOutHour, setCheckOutHour] = useState(values.checkOutHour || '12')
+  const [checkOutMinute, setCheckOutMinute] = useState(values.checkOutMinute || '00')
+  const [checkOutPeriod, setCheckOutPeriod] = useState(values.checkOutPeriod || 'PM')
+
   const t = i18n(locale)
 
   useEffect(() => {
     setInputValue(price.toString())
   }, [price])
+
+  useEffect(() => {
+    if (
+      values.checkInHour !== checkInHour ||
+      values.checkInMinute !== checkInMinute ||
+      values.checkInPeriod !== checkInPeriod ||
+      values.checkOutHour !== checkOutHour ||
+      values.checkOutMinute !== checkOutMinute ||
+      values.checkOutPeriod !== checkOutPeriod
+    ) {
+      setValues((prevValues: any) => ({
+        ...prevValues,
+        checkInHour,
+        checkInMinute,
+        checkInPeriod,
+        checkOutHour,
+        checkOutMinute,
+        checkOutPeriod
+      }))
+    }
+  }, [checkInHour, checkInMinute, checkInPeriod, checkOutHour, checkOutMinute, checkOutPeriod])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -42,6 +70,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
 
   const handleBlur = () => {
     const newValue = parseInt(inputValue, 10)
+
     if (!isNaN(newValue) && newValue <= 100000) {
       setPrice(newValue)
       setValues({
@@ -51,6 +80,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
     } else {
       setInputValue(price.toString()) // Reset to current price if invalid input
     }
+
     setIsEditing(false)
   }
 
@@ -114,6 +144,91 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values, setEnableNext }) 
           <option value="USD">USD</option>
           <option value="MXN">MXN</option>
         </select>
+      </div>
+
+      <div className="mt-8 space-y-4 flex flex-col items-center">
+        <div className="flex flex-col items-center">
+          <label htmlFor="checkIn" className="text-lg font-semibold mb-2">
+            Check In:
+          </label>
+          <div className="flex space-x-2">
+            <select
+              id="checkInHour"
+              value={checkInHour}
+              onChange={(e) => setCheckInHour(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {Array.from({ length: 12 }, (_, i) => (
+                <option key={i + 1} value={String(i + 1).padStart(2, '0')}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
+            <span className="self-center">:</span>
+            <select
+              id="checkInMinute"
+              value={checkInMinute}
+              onChange={(e) => setCheckInMinute(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {['00', '15', '30', '45'].map((min) => (
+                <option key={min} value={min}>
+                  {min}
+                </option>
+              ))}
+            </select>
+            <select
+              id="checkInPeriod"
+              value={checkInPeriod}
+              onChange={(e) => setCheckInPeriod(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-col items-center">
+          <label htmlFor="checkOut" className="text-lg font-semibold mb-2">
+            Check Out:
+          </label>
+          <div className="flex space-x-2">
+            <select
+              id="checkOutHour"
+              value={checkOutHour}
+              onChange={(e) => setCheckOutHour(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {Array.from({ length: 12 }, (_, i) => (
+                <option key={i + 1} value={String(i + 1).padStart(2, '0')}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
+            <span className="self-center">:</span>
+            <select
+              id="checkOutMinute"
+              value={checkOutMinute}
+              onChange={(e) => setCheckOutMinute(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {['00', '15', '30', '45'].map((min) => (
+                <option key={min} value={min}>
+                  {min}
+                </option>
+              ))}
+            </select>
+            <select
+              id="checkOutPeriod"
+              value={checkOutPeriod}
+              onChange={(e) => setCheckOutPeriod(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   )

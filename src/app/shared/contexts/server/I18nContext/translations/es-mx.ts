@@ -125,7 +125,7 @@ const translations = {
   'profile.setup.step2.headline': '¿Qué tipo de propiedad estás listando?',
   'profile.setup.step3.headline': 'Información sobre tu',
   'profile.setup.step4.headline': '¡Diles a los huéspedes cuáles son los servicios!',
-  'profile.setup.step5.headline': 'Establece tu precio por noche',
+  'profile.setup.step5.headline': 'Establece tu precio por noche y tiempos',
   'profile.setup.step6.headline': 'Agrega algunas fotos de tu lugar',
   'profile.setup.step7.headline': '¡Casi allí!',
   'profile.setup.step4.kitchen': 'Cocina',

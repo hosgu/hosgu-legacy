@@ -67,7 +67,13 @@ const Form: FC<Props> = ({ locale, user }) => {
     beds: 1,
     cabinPrice: 150,
     checkIn: '',
+    checkInHour: '03',
+    checkInMinute: '00',
+    checkInPeriod: 'PM',
     checkOut: '',
+    checkOutHour: '12',
+    checkOutMinute: '00',
+    checkOutPeriod: 'PM',
     city: '',
     // @ts-ignore
     country: user?.country || '',
@@ -85,6 +91,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     userId: user?.id || '',
     zipCode: ''
   })
+  console.log('VALUES===>', values)
   const [uploadedFiles, setUploadedFiles] = useCustomState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
