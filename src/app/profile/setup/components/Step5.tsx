@@ -139,7 +139,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
           id="currency"
           value={currency}
           onChange={handleCurrencyChange}
-          className="border p-1 rounded dark:text-black"
+          className="border p-1 rounded dark:text-white dark:bg-gray-800 dark:border-gray-600"
         >
           <option value="USD">USD</option>
           <option value="MXN">MXN</option>
@@ -156,7 +156,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkInHour"
               value={checkInHour}
               onChange={(e) => setCheckInHour(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               {Array.from({ length: 12 }, (_, i) => (
                 <option key={i + 1} value={String(i + 1).padStart(2, '0')}>
@@ -169,7 +169,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkInMinute"
               value={checkInMinute}
               onChange={(e) => setCheckInMinute(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               {['00', '15', '30', '45'].map((min) => (
                 <option key={min} value={min}>
@@ -181,7 +181,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkInPeriod"
               value={checkInPeriod}
               onChange={(e) => setCheckInPeriod(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               <option value="AM">AM</option>
               <option value="PM">PM</option>
@@ -197,7 +197,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkOutHour"
               value={checkOutHour}
               onChange={(e) => setCheckOutHour(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               {Array.from({ length: 12 }, (_, i) => (
                 <option key={i + 1} value={String(i + 1).padStart(2, '0')}>
@@ -210,7 +210,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkOutMinute"
               value={checkOutMinute}
               onChange={(e) => setCheckOutMinute(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               {['00', '15', '30', '45'].map((min) => (
                 <option key={min} value={min}>
@@ -222,7 +222,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
               id="checkOutPeriod"
               value={checkOutPeriod}
               onChange={(e) => setCheckOutPeriod(e.target.value)}
-              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-gray-800 dark:border-gray-600"
             >
               <option value="AM">AM</option>
               <option value="PM">PM</option>
