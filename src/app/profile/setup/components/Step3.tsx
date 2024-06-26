@@ -15,11 +15,17 @@ type Props = {
 const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   const { guests, bathrooms, bedrooms, beds } = values
 
+  const [newGuests, setNewGuests] = useState<number>(0)
+  const [newBathrooms, setNewBathrooms] = useState<number>(0)
+  const [newBedrooms, setNewBedrooms] = useState<number>(0)
+  const [newBeds, setNewBeds] = useState<number>(0)
+
   useEffect(() => {
     if (guests === 0 || bathrooms === 0 || bedrooms === 0 || beds === 0) {
       setEnableNext(false)
       return
     }
+
     setEnableNext(true)
   }, [guests, bathrooms, bedrooms, beds, setEnableNext])
 
@@ -34,7 +40,8 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
           <Counter
             label=""
             onChange={(count: number) => {
-              setValues({ ...values, guests: count })
+              console.log('COUNTER===>', count)
+              setNewGuests(count)
             }}
             defaultValue={guests}
             max={25}
