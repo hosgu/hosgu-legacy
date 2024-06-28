@@ -112,7 +112,7 @@ const Input: FC<Props> = ({
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
           onChange={onChange}
-          value={value}
+          value={value || undefined}
           disabled={disabled}
           style={hasError ? { border: '1px solid red' } : restProps.style}
           {...restProps}

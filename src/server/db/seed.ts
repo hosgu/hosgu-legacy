@@ -16,7 +16,7 @@ async function seed() {
       avatar: '',
       birthday: '12/12/1989',
       website: 'https://ranchosanpancho.com',
-      code: '123456890',
+      code: '1234567890',
       active: false
     })
 
