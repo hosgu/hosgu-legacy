@@ -34,12 +34,12 @@ interface StepProps {
 
 const Step: FC<{ values: PropertyValues }> = ({ values }) => {
   return (
-    <div className="mx-auto p-6 bg-white w-full flex">
+    <div className="mx-auto p-6 bg-white w-full flex flex-col">
       <div className="w-full m-auto">
-        <h1 className="text-2xl font-semibold mb-4">{values.propertyName}</h1>
+        <h1 className="text-2xl font-semibold mb-2">{values.propertyName}</h1>
         <div className="flex flex-wrap md:flex-nowrap">
           {/* Property Image */}
-          <div className="w-full md:w-1/2 lg:w-1/3 p-2">
+          <div className="w-full md:w-1/2 lg:w-1/3 p-2 lg:ml-64">
             <img
               src={values.tmpImages[0].base64}
               alt={values.propertyName}
@@ -47,7 +47,7 @@ const Step: FC<{ values: PropertyValues }> = ({ values }) => {
             />
           </div>
           {/* Property Details */}
-          <div className="w-full md:w-1/2 lg:w-2/3 p-4 mx-auto">
+          <div className="w-full md:w-1/2 lg:w-1/3 p-4 lg:mr-2">
             <p className="text-lg font-semibold">
               Price: ${values.cabinPrice} {values.currency} per night
             </p>
