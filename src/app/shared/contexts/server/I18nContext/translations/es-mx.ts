@@ -129,6 +129,7 @@ const translations = {
   'profile.setup.step5.headline': 'Establece tu precio por noche y tiempos',
   'profile.setup.step6.headline': 'Agrega algunas fotos de tu lugar',
   'profile.setup.step7.headline': '¡Casi allí, verifica la información primero!',
+  'profile.setup.step8.headline': '¡Felicidades, su propiedad ya está listada!',
   'profile.setup.step4.kitchen': 'Cocina',
   'profile.setup.step4.extraBed': 'Cama extra',
   'profile.setup.step4.refrigerator': 'Refrigerador',

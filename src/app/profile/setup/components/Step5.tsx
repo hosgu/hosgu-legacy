@@ -41,7 +41,8 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
       values.checkOutHour !== checkOutHour ||
       values.checkOutMinute !== checkOutMinute ||
       values.checkOutPeriod !== checkOutPeriod ||
-      values.price !== price
+      values.price !== price ||
+      values.currency !== currency
     ) {
       setValues((prevValues: any) => ({
         ...prevValues,
@@ -51,7 +52,8 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
         checkOutHour,
         checkOutMinute,
         checkOutPeriod,
-        price
+        price,
+        currency
       }))
     }
   }, [

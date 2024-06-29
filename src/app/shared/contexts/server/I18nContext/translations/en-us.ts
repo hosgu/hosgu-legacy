@@ -108,6 +108,7 @@ const translations = {
   'profile.setup.step5.headline': 'Set your night price and times!',
   'profile.setup.step6.headline': 'Add some photos of your place',
   'profile.setup.step7.headline': 'Almost there, please validate the information first!',
+  'profile.setup.step8.headline': 'Congratulations! Your property is now listed!',
   'profile.setup.step1.propertyDetails': 'Property Details',
   'profile.setup.step1.streetAddress': 'Street Address',
   'profile.setup.step1.placeholder': 'Apt, suite, building, floor, etc.',

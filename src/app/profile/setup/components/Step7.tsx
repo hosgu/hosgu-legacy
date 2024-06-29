@@ -40,21 +40,25 @@ const Step: FC<Props> = ({ values }) => {
           </div>
           {/* Property Details */}
           <div className="w-full md:w-1/2 lg:w-1/3 p-4 lg:mr-2">
-            <p className="text-lg font-semibold">
-              Price: ${values.price} {values.currency} per night
+            <p>
+              <h3 className="font-semibold text-xl">Price:</h3>${values.price} {values.currency} per
+              night
             </p>
             <p className="mt-2">
-              <b>Location:</b> <br />
+              <h3 className="font-semibold text-xl">Location:</h3>
               {values.address1} {values.address2} <br />
               {values.city}, {values.state}, {values.zipCode} <br />
               {values.country}
             </p>
             <p className="mt-2">
-              Guests: {values.guests} | Bedrooms: {values.bedrooms} | Bathrooms: {values.bathrooms}{' '}
-              | Beds: {values.beds}
+              <h3 className="font-semibold text-xl">Information:</h3>
+              Guests: {values.guests} <br />
+              Bedrooms: {values.bedrooms} <br />
+              Bathrooms: {values.bathrooms} <br />
+              Beds: {values.beds}
             </p>
             <div className="mt-4">
-              <h2 className="font-semibold">Amenities:</h2>
+              <h3 className="font-semibold text-xl">Amenities:</h3>
               <div className="grid grid-cols-2 gap-2 mt-2">
                 {Array.from(values.amenities.entries()).map(
                   ([amenity, available]: any) =>

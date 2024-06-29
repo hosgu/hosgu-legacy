@@ -441,6 +441,7 @@ const Form: FC<Props> = ({ locale, user }) => {
               {currentStep === 4 && t('profile.setup.step5.headline')}
               {currentStep === 5 && t('profile.setup.step6.headline')}
               {currentStep === 6 && t('profile.setup.step7.headline')}
+              {currentStep === 7 && t('profile.setup.step8.headline')}
             </h2>
 
             {steps[currentStep]}
@@ -448,21 +449,23 @@ const Form: FC<Props> = ({ locale, user }) => {
         </div>
       </div>
 
-      <div className="sticky h-20 mt-3 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
-        <div className="flex items-center h-full">
-          <div className="flex w-full justify-between items-center">
-            <Button color="dark" onClick={goBack} className="mr-4 h-12">
-              {t('common.general.back')}
-            </Button>
+      <RenderIf isTrue={currentStep < 7}>
+        <div className="sticky h-20 mt-3 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex items-center h-full">
+            <div className="flex w-full justify-between items-center">
+              <Button color="dark" onClick={goBack} className="mr-4 h-12">
+                {t('common.general.back')}
+              </Button>
 
-            <StepIndicator locale={locale} steps={8} currentStep={currentStep + 1} />
+              <StepIndicator locale={locale} steps={8} currentStep={currentStep + 1} />
 
-            <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
-              {t('common.general.next')}
-            </Button>
+              <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
+                {currentStep < 6 ? t('common.general.next') : 'Finish'}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </RenderIf>
     </>
   )
 }
