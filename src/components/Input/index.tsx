@@ -56,7 +56,7 @@ const Input: FC<Props> = ({
   name = '',
   label = '',
   type = 'text',
-  value = '',
+  value = undefined,
   onChange,
   leftIcon = null,
   shape = 'rounded',
@@ -112,7 +112,7 @@ const Input: FC<Props> = ({
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
           onChange={onChange}
-          value={value || undefined}
+          value={value}
           disabled={disabled}
           style={hasError ? { border: '1px solid red' } : restProps.style}
           {...restProps}
