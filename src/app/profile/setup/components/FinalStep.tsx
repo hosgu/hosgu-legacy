@@ -8,7 +8,7 @@ const Step: FC = () => (
       Su negocio ha sido registrado exitosamente.
       <br />
       Acceda al{' '}
-      <Link href="/dashboard">
+      <Link href="/control">
         <b>dashboard</b>
       </Link>{' '}
       para comenzar a utilizar la plataforma.
