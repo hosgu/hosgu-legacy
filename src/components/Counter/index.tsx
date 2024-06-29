@@ -1,7 +1,7 @@
 import React, { FC, useState, CSSProperties } from 'react'
 
 type Props = {
-  label: string
+  label?: string
   onChange?: (value: number) => void
   spaces?: number
   style?: CSSProperties

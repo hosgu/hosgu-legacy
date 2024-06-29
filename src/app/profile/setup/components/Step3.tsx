@@ -1,5 +1,4 @@
-'use client'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, useCallback } from 'react'
 
 import Counter from '~/components/Counter'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -15,21 +14,45 @@ type Props = {
 const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   const { guests, bathrooms, bedrooms, beds } = values
 
-  const [newGuests, setNewGuests] = useState<number>(0)
-  const [newBathrooms, setNewBathrooms] = useState<number>(0)
-  const [newBedrooms, setNewBedrooms] = useState<number>(0)
-  const [newBeds, setNewBeds] = useState<number>(0)
+  const t = i18n(locale)
+
+  // Handlers for setting new values
+  const handleGuestsChange = (count: number) => {
+    setValues((prevValues: any) => ({
+      ...prevValues,
+      guests: count
+    }))
+  }
+
+  const handleBathroomsChange = (count: number) => {
+    setValues((prevValues: any) => ({
+      ...prevValues,
+      bathrooms: count
+    }))
+  }
+
+  const handleBedroomsChange = (count: number) => {
+    setValues((prevValues: any) => ({
+      ...prevValues,
+      bedrooms: count
+    }))
+  }
+
+  const handleBedsChange = (count: number) => {
+    setValues((prevValues: any) => ({
+      ...prevValues,
+      beds: count
+    }))
+  }
 
   useEffect(() => {
+    // Validation logic if needed
     if (guests === 0 || bathrooms === 0 || bedrooms === 0 || beds === 0) {
       setEnableNext(false)
-      return
+    } else {
+      setEnableNext(true)
     }
-
-    setEnableNext(true)
   }, [guests, bathrooms, bedrooms, beds, setEnableNext])
-
-  const t = i18n(locale)
 
   return (
     <div className="flex flex-col space-y-4 w-96">
@@ -38,11 +61,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
           <p>{t('profile.setup.step3.guests')}</p>
 
           <Counter
-            label=""
-            onChange={(count: number) => {
-              console.log('COUNTER===>', count)
-              setNewGuests(count)
-            }}
+            onChange={handleGuestsChange}
             defaultValue={guests}
             max={25}
             spaces={5}
@@ -55,25 +74,19 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
           <p>{t('profile.setup.step3.bathrooms')}</p>
 
           <Counter
-            label=""
-            onChange={(count: number) => {
-              setValues({ ...values, bathrooms: count })
-            }}
+            onChange={handleBathroomsChange}
             max={10}
             defaultValue={bathrooms}
             spaces={5}
             style={{ width: '120px' }}
           />
         </div>
-        <hr className="border-solid	dark:border-gray-700" />
+        <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
           <p>{t('profile.setup.step3.bedrooms')}</p>
           <Counter
-            label=""
-            onChange={(count: number) => {
-              setValues({ ...values, bedrooms: count })
-            }}
+            onChange={handleBedroomsChange}
             defaultValue={bedrooms}
             max={6}
             spaces={5}
@@ -81,15 +94,12 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
           />
         </div>
 
-        <hr className="border-solid	dark:border-gray-700" />
+        <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between  items-center space-x-2 my-6">
           <p>{t('profile.setup.step3.beds')}</p>
           <Counter
-            label=""
-            onChange={(count: number) => {
-              setValues({ ...values, beds: count })
-            }}
+            onChange={handleBedsChange}
             defaultValue={beds}
             max={6}
             spaces={5}

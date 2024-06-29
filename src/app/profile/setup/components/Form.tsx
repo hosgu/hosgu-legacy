@@ -2,6 +2,7 @@
 import React, { FC, ChangeEvent, useEffect } from 'react'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
+import cx from '@architecturex/utils.cx'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
@@ -22,7 +23,6 @@ import Step8 from './FinalStep'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
-import e from 'express'
 
 type Props = {
   user: UserFields & {
@@ -433,7 +433,7 @@ const Form: FC<Props> = ({ locale, user }) => {
         <Notification message="Error on saving profile data" type="error" />
       </RenderIf>
 
-      <div className="flex justify-center w-full h-[78vh] overflow-hidden">
+      <div className={cx.join('flex justify-center w-full h-[78vh] overflow-hidden')}>
         <div className="p-0 rounded-lg h-full overflow-hidden">
           <div
             className="inner-scroll-content px-1"
