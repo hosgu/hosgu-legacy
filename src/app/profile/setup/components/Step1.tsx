@@ -1,4 +1,3 @@
-'use client'
 import React, { FC, ChangeEvent } from 'react'
 import cx from '@architecturex/utils.cx'
 
@@ -12,20 +11,21 @@ type Props = {
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   validate: any
 }
+
 const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => {
   const t = i18n(locale)
 
   return (
-    <>
-      <Input
-        label={t('common.user.email')}
-        value={values.email}
-        disabled
-        required
-        style={{ width: '300px' }}
-      />
+    <div className="mx-auto p-6 bg-white w-full lg:w-[600px] flex flex-col md:flex-row md:flex-wrap">
+      <div className="w-full md:w-1/2 md:pr-4">
+        <Input
+          label={t('common.user.email')}
+          value={values.email}
+          disabled
+          required
+          style={{ width: '100%' }}
+        />
 
-      <div className="flex flex-col justify-center">
         <Input
           name="password"
           type="password"
@@ -35,120 +35,140 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onBlur={validate}
           required
           className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
-          style={{ width: '300px' }}
+          style={{ width: '100%' }}
         />
 
         <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">
           {errors.password}
         </p>
+
+        <Input
+          name="propertyName"
+          label={t('common.property.name')}
+          value={values.propertyName}
+          onChange={handleChange}
+          onBlur={validate}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.propertyName
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
+
+        <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">
+          {errors.propertyName}
+        </p>
+
+        <Input
+          name="googleMaps"
+          label="Google Maps"
+          value={values.googleMaps}
+          onChange={handleChange}
+          placeholder="https://www.google.com/maps/place/..."
+          onBlur={validate}
+          required
+          className={errors.zipCode ? 'border-red-500 dark:border-red-500' : ''}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
+
+        <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">
+          {errors.googleMaps}
+        </p>
       </div>
 
-      <h2 className="p-0 text-lg font-bold mb-2 text-gray-800 dark:text-gray-300">
-        {t('profile.setup.step1.propertyLocation')}
-      </h2>
+      <div className="w-full md:w-1/2 md:pl-4">
+        <Input
+          name="country"
+          label={t('common.general.country')}
+          value={values.country}
+          onChange={handleChange}
+          disabled
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.country
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="country"
-        label={t('common.general.country')}
-        value={values.country}
-        onChange={handleChange}
-        disabled
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.country
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
+        <Input
+          name="state"
+          label={t('common.general.state')}
+          value={values.state}
+          onChange={handleChange}
+          onBlur={validate}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.state
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="state"
-        label={t('common.general.state')}
-        value={values.state}
-        onChange={handleChange}
-        onBlur={validate}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.state
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
+        <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.state}</p>
 
-      <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.state}</p>
+        <Input
+          name="city"
+          label={t('common.general.city')}
+          value={values.city}
+          onChange={handleChange}
+          onBlur={validate}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.city
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="city"
-        label={t('common.general.city')}
-        value={values.city}
-        onChange={handleChange}
-        onBlur={validate}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.city
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
+        <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.city}</p>
 
-      <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.city}</p>
+        <Input
+          name="address1"
+          label={t('common.business.address')}
+          value={values.address1}
+          onChange={handleChange}
+          onBlur={validate}
+          placeholder={t('profile.setup.step1.streetAddress')}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.address1
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="address1"
-        label={t('common.business.address')}
-        value={values.address1}
-        onChange={handleChange}
-        onBlur={validate}
-        placeholder={t('profile.setup.step1.streetAddress')}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.address1
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
+        <Input
+          name="address2"
+          value={values.address2}
+          onChange={handleChange}
+          onBlur={validate}
+          placeholder={t('profile.setup.step1.placeholder')}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.address1
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="address2"
-        value={values.address2}
-        onChange={handleChange}
-        onBlur={validate}
-        placeholder={t('profile.setup.step1.placeholder')}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.address1
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
+        <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">
+          {errors.address1}
+        </p>
 
-      <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">{errors.address1}</p>
+        <Input
+          name="zipCode"
+          label={t('common.business.zipCode')}
+          value={values.zipCode}
+          onChange={handleChange}
+          onBlur={validate}
+          required
+          className={cx.join({
+            'border-red-500 dark:border-red-500': errors.zipCode
+          })}
+          style={{ width: '100%', marginBottom: '2px' }}
+        />
 
-      <Input
-        name="zipCode"
-        label={t('common.business.zipCode')}
-        value={values.zipCode}
-        onChange={handleChange}
-        onBlur={validate}
-        required
-        className={cx.join({
-          'border-red-500 dark:border-red-500': errors.zipCode
-        })}
-        style={{ width: '300px', marginBottom: '2px' }}
-      />
-
-      <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">{errors.zipCode}</p>
-
-      <Input
-        name="googleMaps"
-        label="Google Maps"
-        value={values.googleMaps}
-        onChange={handleChange}
-        placeholder="https://www.google.com/maps/place/..."
-        onBlur={validate}
-        required
-        className={errors.zipCode ? 'border-red-500 dark:border-red-500' : ''}
-      />
-
-      <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">
-        {errors.googleMaps}
-      </p>
-    </>
+        <p className="text-red-500 mb-3 text-xxs ml-1 break-words max-w-[300px]">
+          {errors.zipCode}
+        </p>
+      </div>
+    </div>
   )
 }
 

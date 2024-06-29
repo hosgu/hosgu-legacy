@@ -12,9 +12,9 @@ type Props = {
 }
 
 const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
-  const { cabinPrice, hotelPrice, currency: originalCurrency, propertyType } = values
+  const { price: propertyPrice, currency: originalCurrency } = values
 
-  const [price, setPrice] = useState<number>(propertyType === 'cabin' ? cabinPrice : hotelPrice)
+  const [price, setPrice] = useState<number>(propertyPrice)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>(price.toString())
   const [error, setError] = useState<string | null>(null)
@@ -31,7 +31,7 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
 
   useEffect(() => {
     setInputValue(price.toString())
-  }, [price])
+  }, [price, setValues, values])
 
   useEffect(() => {
     if (
@@ -40,7 +40,8 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
       values.checkInPeriod !== checkInPeriod ||
       values.checkOutHour !== checkOutHour ||
       values.checkOutMinute !== checkOutMinute ||
-      values.checkOutPeriod !== checkOutPeriod
+      values.checkOutPeriod !== checkOutPeriod ||
+      values.price !== price
     ) {
       setValues((prevValues: any) => ({
         ...prevValues,
@@ -49,10 +50,20 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
         checkInPeriod,
         checkOutHour,
         checkOutMinute,
-        checkOutPeriod
+        checkOutPeriod,
+        price
       }))
     }
-  }, [checkInHour, checkInMinute, checkInPeriod, checkOutHour, checkOutMinute, checkOutPeriod])
+  }, [
+    checkInHour,
+    checkInMinute,
+    checkInPeriod,
+    checkOutHour,
+    checkOutMinute,
+    checkOutPeriod,
+    price,
+    setValues
+  ])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -73,10 +84,6 @@ const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
 
     if (!isNaN(newValue) && newValue <= 100000) {
       setPrice(newValue)
-      setValues({
-        ...values,
-        [`${propertyType}Price`]: newValue
-      })
     } else {
       setInputValue(price.toString()) // Reset to current price if invalid input
     }

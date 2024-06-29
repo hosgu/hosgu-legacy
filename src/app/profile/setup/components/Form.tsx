@@ -65,12 +65,10 @@ const Form: FC<Props> = ({ locale, user }) => {
     bathrooms: 1,
     bedrooms: 1,
     beds: 1,
-    cabinPrice: 150,
-    checkIn: '',
+    price: 150,
     checkInHour: '03',
     checkInMinute: '00',
     checkInPeriod: 'PM',
-    checkOut: '',
     checkOutHour: '12',
     checkOutMinute: '00',
     checkOutPeriod: 'PM',
@@ -81,7 +79,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     email: user?.email || '',
     googleMaps: '',
     guests: 1,
-    hotelPrice: 50,
     images: [],
     password: '',
     propertyName: '',
@@ -405,7 +402,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
     />,
-    <Step7 key="step6" values={values} setValues={setValues} locale={locale} />,
+    <Step7 key="step6" values={values} />,
     <Step8 key="step8" />
   ]
 
@@ -416,10 +413,6 @@ const Form: FC<Props> = ({ locale, user }) => {
       document.body.style.overflow = ''
     }
   }, [])
-
-  // useEffect(() => {
-  //   console.log(values.images)
-  // }, [values])
 
   useEffect(() => {
     if (uploadedFiles.size > 1) {
@@ -433,7 +426,7 @@ const Form: FC<Props> = ({ locale, user }) => {
         <Notification message="Error on saving profile data" type="error" />
       </RenderIf>
 
-      <div className={cx.join('flex justify-center w-full h-[78vh] overflow-hidden')}>
+      <div className={cx.join('flex justify-center w-full h-[80vh] overflow-hidden')}>
         <div className="p-0 rounded-lg h-full overflow-hidden">
           <div
             className="inner-scroll-content px-1"
@@ -455,7 +448,7 @@ const Form: FC<Props> = ({ locale, user }) => {
         </div>
       </div>
 
-      <div className="sticky h-20 mt-7 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
+      <div className="sticky h-20 mt-3 bg-white dark:bg-gray-900 z-50 pt-4 border-t border-gray-100 dark:border-gray-800">
         <div className="flex items-center h-full">
           <div className="flex w-full justify-between items-center">
             <Button color="dark" onClick={goBack} className="mr-4 h-12">
