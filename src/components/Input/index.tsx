@@ -1,39 +1,16 @@
-import React, { ComponentPropsWithoutRef, FC, useState, ChangeEvent, ReactNode } from 'react'
+import React, {
+  ComponentPropsWithoutRef,
+  FC,
+  useState,
+  ChangeEvent,
+  ReactNode,
+  useEffect
+} from 'react'
 import cx from '@architecturex/utils.cx'
+import SVG from '@architecturex/components.svg'
 
-const EyeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#666"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-)
-
-const EyeOffIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#666"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-    <line x1="1" y1="1" x2="23" y2="23" />
-  </svg>
-)
+const EyeOffIcon = SVG.EyeOff
+const EyeIcon = SVG.Eye
 
 interface Props extends ComponentPropsWithoutRef<'input'> {
   label?: string
@@ -45,6 +22,20 @@ interface Props extends ComponentPropsWithoutRef<'input'> {
   onCountryCodeChange?: (e: ChangeEvent<HTMLSelectElement>) => void
   leftIcon?: ReactNode
   shape?: 'rounded' | 'pill'
+  dropdownItems?: string[]
+}
+
+interface Props extends ComponentPropsWithoutRef<'input'> {
+  label?: string
+  fullWidth?: boolean
+  error?: boolean
+  errorText?: string
+  countryCodes?: { [code: string]: string }
+  countryCodeValue?: string
+  onCountryCodeChange?: (e: ChangeEvent<HTMLSelectElement>) => void
+  leftIcon?: ReactNode
+  shape?: 'rounded' | 'pill'
+  dropdownItems?: string[]
 }
 
 const Input: FC<Props> = ({
@@ -60,11 +51,28 @@ const Input: FC<Props> = ({
   onChange,
   leftIcon = null,
   shape = 'rounded',
+  dropdownItems = [],
   ...restProps
 }) => {
-  const hasError = error || errorText
   const [hasFocus, setHasFocus] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [filteredItems, setFilteredItems] = useState<string[]>([])
+  const [inputValue, setInputValue] = useState<any>(value || '')
+  const [isError, setIsError] = useState<boolean>(false)
+  const [localErrorText, setLocalErrorText] = useState<string>('')
+
+  useEffect(() => {
+    if (dropdownItems.length > 0 && inputValue) {
+      const filtered = dropdownItems.filter((item) =>
+        item.toLowerCase().includes(inputValue.toLowerCase())
+      )
+      setFilteredItems(filtered)
+    } else if (inputValue === '') {
+      setFilteredItems(dropdownItems)
+    } else {
+      setFilteredItems([])
+    }
+  }, [inputValue, dropdownItems])
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -72,6 +80,45 @@ const Input: FC<Props> = ({
 
   const isPasswordType = type === 'password'
   const inputType = isPasswordType && showPassword ? 'text' : type
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+    setIsError(false)
+    setLocalErrorText('')
+    if (onChange) {
+      onChange(e)
+    }
+  }
+
+  const handleItemClick = (item: string) => {
+    setInputValue(item)
+    setFilteredItems([])
+    setIsError(false)
+    setLocalErrorText('')
+    if (onChange) {
+      onChange({ target: { value: item } } as ChangeEvent<HTMLInputElement>)
+    }
+  }
+
+  const handleFocus = () => {
+    setHasFocus(true)
+    if (!inputValue) {
+      setFilteredItems(dropdownItems)
+    }
+  }
+
+  const handleBlur = () => {
+    // Close dropdown on input blur
+    setTimeout(() => {
+      setFilteredItems([])
+      setHasFocus(false)
+      // Check if the input value is valid only if dropdownItems has items
+      if (dropdownItems.length > 0 && inputValue && !dropdownItems.includes(inputValue)) {
+        setIsError(true)
+        setLocalErrorText('Invalid selection')
+      }
+    }, 100)
+  }
 
   return (
     <div data-component="Input" className={cx.join('text-left', fullWidth ? 'w-full block' : null)}>
@@ -99,22 +146,23 @@ const Input: FC<Props> = ({
           autoComplete={name === 'password' ? 'new-password' : 'off'}
           name={name}
           className={cx.join(
-            'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border border-gray-300 dark:border-gray-600 shadow-sm sm:text-sm',
+            'mt-1 block w-full px-3 py-2 bg-white dark:bg-black border shadow-sm sm:text-sm',
             'text-black dark:text-white',
             shape === 'rounded' ? 'rounded-md' : 'rounded-full',
             disabled ? 'opacity-50 cursor-not-allowed' : null,
             fullWidth ? 'w-full block' : null,
             hasFocus ? 'focus:outline-none focus:ring focus:ring-pacific' : null,
             leftIcon ? 'pl-10' : '',
-            className
+            className,
+            isError ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
           )}
           type={inputType}
-          onFocus={() => setHasFocus(true)}
-          onBlur={() => setHasFocus(false)}
-          onChange={onChange}
-          value={value}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onChange={handleInputChange}
+          value={inputValue}
           disabled={disabled}
-          style={hasError ? { border: '1px solid red' } : restProps.style}
+          style={isError ? { border: '1px solid red' } : restProps.style}
           {...restProps}
         />
         {isPasswordType && (
@@ -131,7 +179,23 @@ const Input: FC<Props> = ({
         )}
       </div>
 
-      {errorText && <div className="text-red-500 text-xs">{errorText}</div>}
+      {filteredItems.length > 0 && (
+        <ul className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute w-full z-10">
+          {filteredItems.map((item, index) => (
+            <li
+              key={index}
+              className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+              onMouseDown={() => handleItemClick(item)}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {(errorText || localErrorText) && (
+        <div className="text-red-500 text-xs">{errorText || localErrorText}</div>
+      )}
     </div>
   )
 }

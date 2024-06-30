@@ -23,7 +23,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           value={values.email}
           disabled
           required
-          style={{ width: '100%' }}
+          style={{ width: '100%', marginBottom: '2px' }}
         />
 
         <Input
@@ -35,7 +35,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onBlur={validate}
           required
           className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
-          style={{ width: '100%' }}
+          style={{ width: '100%', marginBottom: '2px' }}
         />
 
         <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">

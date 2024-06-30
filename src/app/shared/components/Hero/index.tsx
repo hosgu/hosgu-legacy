@@ -255,6 +255,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                       name="country"
                       placeholder="e.g. México"
                       required
+                      dropdownItems={['México', 'USA', 'Canada']}
                     />
                   </div>
                 </div>
