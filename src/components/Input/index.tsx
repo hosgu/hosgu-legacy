@@ -50,19 +50,12 @@ const Input: FC<Props> = ({
   const [isError, setIsError] = useState<boolean>(false)
   const [localErrorText, setLocalErrorText] = useState<string>('')
 
-  const didMount = useRef(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const filteredItems = useMemo(() => {
     if (!dropdownItems.length) return []
     if (!inputValue) return dropdownItems
     return dropdownItems.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
-  }, [inputValue, dropdownItems])
-
-  useEffect(() => {
-    if (!didMount.current) {
-      didMount.current = true
-      return
-    }
   }, [inputValue, dropdownItems])
 
   const togglePasswordVisibility = () => {
@@ -86,6 +79,7 @@ const Input: FC<Props> = ({
 
   const handleItemClick = (item: string) => {
     setInputValue(item)
+    setHasFocus(false)
     setIsError(false)
     setLocalErrorText('')
     if (onChange) {
@@ -130,6 +124,7 @@ const Input: FC<Props> = ({
         )}
 
         <input
+          ref={inputRef}
           autoComplete={name === 'password' ? 'new-password' : 'off'}
           name={name}
           className={cx.join(
@@ -168,14 +163,17 @@ const Input: FC<Props> = ({
 
       {hasFocus && filteredItems.length > 0 && (
         <ul
-          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute w-full z-10"
-          style={{ maxHeight: '150px', overflowY: 'scroll' }}
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute z-10"
+          style={{ width: inputRef.current?.offsetWidth, maxHeight: '150px', overflowY: 'scroll' }}
         >
           {filteredItems.map((item, index) => (
             <li
               key={index}
               className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
-              onMouseDown={() => handleItemClick(item)}
+              onMouseDown={(e) => {
+                e.preventDefault()
+                handleItemClick(item)
+              }}
             >
               {item}
             </li>

@@ -102,7 +102,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onChange={handleChange}
           onBlur={validate}
           required
-          dropdownItems={['Mexico', 'USA']}
+          dropdownItems={states}
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.state
           })}
