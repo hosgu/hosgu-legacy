@@ -1,5 +1,6 @@
 import React, { FC, ChangeEvent } from 'react'
 import cx from '@architecturex/utils.cx'
+import constants from '@architecturex/constants'
 
 import Input from '~/components/Input'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -14,6 +15,9 @@ type Props = {
 
 const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => {
   const t = i18n(locale)
+
+  const states = constants.states[values.country] || []
+  console.log('states', states)
 
   return (
     <div className="mx-auto p-6 bg-white w-full lg:w-[600px] flex flex-col md:flex-row md:flex-wrap">
@@ -84,6 +88,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onChange={handleChange}
           disabled
           required
+          dropdownItems={states}
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.country
           })}
@@ -97,6 +102,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onChange={handleChange}
           onBlur={validate}
           required
+          dropdownItems={['Mexico', 'USA']}
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.state
           })}

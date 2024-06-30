@@ -4,26 +4,16 @@ import React, {
   useState,
   ChangeEvent,
   ReactNode,
-  useEffect
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback
 } from 'react'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
 
 const EyeOffIcon = SVG.EyeOff
 const EyeIcon = SVG.Eye
-
-interface Props extends ComponentPropsWithoutRef<'input'> {
-  label?: string
-  fullWidth?: boolean
-  error?: boolean
-  errorText?: string
-  countryCodes?: { [code: string]: string }
-  countryCodeValue?: string
-  onCountryCodeChange?: (e: ChangeEvent<HTMLSelectElement>) => void
-  leftIcon?: ReactNode
-  shape?: 'rounded' | 'pill'
-  dropdownItems?: string[]
-}
 
 interface Props extends ComponentPropsWithoutRef<'input'> {
   label?: string
@@ -47,7 +37,7 @@ const Input: FC<Props> = ({
   name = '',
   label = '',
   type = 'text',
-  value = undefined,
+  value,
   onChange,
   leftIcon = null,
   shape = 'rounded',
@@ -56,21 +46,22 @@ const Input: FC<Props> = ({
 }) => {
   const [hasFocus, setHasFocus] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [filteredItems, setFilteredItems] = useState<string[]>([])
   const [inputValue, setInputValue] = useState<any>(value || '')
   const [isError, setIsError] = useState<boolean>(false)
   const [localErrorText, setLocalErrorText] = useState<string>('')
 
+  const didMount = useRef(false)
+
+  const filteredItems = useMemo(() => {
+    if (!dropdownItems.length) return []
+    if (!inputValue) return dropdownItems
+    return dropdownItems.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
+  }, [inputValue, dropdownItems])
+
   useEffect(() => {
-    if (dropdownItems.length > 0 && inputValue) {
-      const filtered = dropdownItems.filter((item) =>
-        item.toLowerCase().includes(inputValue.toLowerCase())
-      )
-      setFilteredItems(filtered)
-    } else if (inputValue === '') {
-      setFilteredItems(dropdownItems)
-    } else {
-      setFilteredItems([])
+    if (!didMount.current) {
+      didMount.current = true
+      return
     }
   }, [inputValue, dropdownItems])
 
@@ -81,18 +72,20 @@ const Input: FC<Props> = ({
   const isPasswordType = type === 'password'
   const inputType = isPasswordType && showPassword ? 'text' : type
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    setIsError(false)
-    setLocalErrorText('')
-    if (onChange) {
-      onChange(e)
-    }
-  }
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value)
+      setIsError(false)
+      setLocalErrorText('')
+      if (onChange) {
+        onChange(e)
+      }
+    },
+    [onChange]
+  )
 
   const handleItemClick = (item: string) => {
     setInputValue(item)
-    setFilteredItems([])
     setIsError(false)
     setLocalErrorText('')
     if (onChange) {
@@ -102,17 +95,11 @@ const Input: FC<Props> = ({
 
   const handleFocus = () => {
     setHasFocus(true)
-    if (!inputValue) {
-      setFilteredItems(dropdownItems)
-    }
   }
 
   const handleBlur = () => {
-    // Close dropdown on input blur
     setTimeout(() => {
-      setFilteredItems([])
       setHasFocus(false)
-      // Check if the input value is valid only if dropdownItems has items
       if (dropdownItems.length > 0 && inputValue && !dropdownItems.includes(inputValue)) {
         setIsError(true)
         setLocalErrorText('Invalid selection')

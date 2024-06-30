@@ -5,6 +5,7 @@ import is from '@architecturex/utils.is'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
 import core from '@architecturex/utils.core'
+import constants from '@architecturex/constants'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 import Input from '~/components/Input'
@@ -255,7 +256,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                       name="country"
                       placeholder="e.g. Mexico"
                       required
-                      dropdownItems={['Mexico', 'USA', 'Canada']}
+                      dropdownItems={constants.countries}
                     />
                   </div>
                 </div>
