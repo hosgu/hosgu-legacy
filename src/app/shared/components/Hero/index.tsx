@@ -253,9 +253,9 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                       leftIcon={<SVG.World />}
                       label={`${t('home.hero.form.input.country')} *`}
                       name="country"
-                      placeholder="e.g. México"
+                      placeholder="e.g. Mexico"
                       required
-                      dropdownItems={['México', 'USA', 'Canada']}
+                      dropdownItems={['Mexico', 'USA', 'Canada']}
                     />
                   </div>
                 </div>

@@ -18,7 +18,7 @@ import Step4 from './Step4'
 import Step5 from './Step5'
 import Step6 from './Step6'
 import Step7 from './Step7'
-import Step8 from './FinalStep'
+import Step8 from './Step8'
 
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import * as ProfileActions from '~/app/shared/actions/profile'
@@ -100,12 +100,11 @@ const Form: FC<Props> = ({ locale, user }) => {
     businessName: '',
     businessPhone: '',
     businessWebsite: '',
-    cabinPrice: '',
+    price: '',
     city: '',
     country: '',
     fullName: '',
     googleMaps: '',
-    hotelPrice: '',
     password: '',
     state: '',
     zipCode: ''
@@ -124,7 +123,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       setValues('tmpImages', uploadedFiles)
     }
 
-    // upload photos
+    // Upload photos
     if (currentStep === 6) {
       console.log(' Step:', currentStep)
 
@@ -229,14 +228,7 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       return t('profile.setup.error.pleaseEnterAValidGoogleMaps')
     },
-    propertyCabinPrice: (value: number) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourNightPrice')
-      }
-
-      return ''
-    },
-    propertyHotelPrice: (value: number) => {
+    propertyPrice: (value: number) => {
       if (!value) {
         return t('profile.setup.error.pleaseEnterYourNightPrice')
       }
@@ -323,16 +315,14 @@ const Form: FC<Props> = ({ locale, user }) => {
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
-        cabinPrice: validations.propertyCabinPrice(values.cabinPrice),
-        hotelPrice: validations.propertyHotelPrice(values.hotelPrice)
+        price: validations.propertyPrice(values.price)
       }
 
       setErrors('address1', newErrors.address1)
       setErrors('city', newErrors.city)
       setErrors('state', newErrors.state)
       setErrors('zipCode', newErrors.zipCode)
-      setErrors('cabinPrice', newErrors.cabinPrice)
-      setErrors('hotelPrice', newErrors.hotelPrice)
+      setErrors('price', newErrors.price)
 
       return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
     }

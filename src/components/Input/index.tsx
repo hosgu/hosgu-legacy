@@ -179,8 +179,11 @@ const Input: FC<Props> = ({
         )}
       </div>
 
-      {filteredItems.length > 0 && (
-        <ul className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute w-full z-10">
+      {hasFocus && filteredItems.length > 0 && (
+        <ul
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute w-full z-10"
+          style={{ maxHeight: '150px', overflowY: 'scroll' }}
+        >
           {filteredItems.map((item, index) => (
             <li
               key={index}
