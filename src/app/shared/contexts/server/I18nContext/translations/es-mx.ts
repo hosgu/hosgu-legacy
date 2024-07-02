@@ -157,7 +157,10 @@ const translations = {
   'profile.setup.step7.bedrooms': 'Dormitorios',
   'profile.setup.step7.bathrooms': 'Baños',
   'profile.setup.step7.beds': 'Camas',
-  'profile.setup.step7.amenities': 'Servicios'
+  'profile.setup.step7.amenities': 'Servicios',
+  'profile.setup.step8.successNote': 'Su negocio ha sido registrado exitosamente.',
+  'profile.setup.step8.acessThe': 'Acceda al',
+  'profile.setup.step8.startUsingPlatform': 'para comenzar a utilizar la plataforma.'
 } as const
 
 export default translations

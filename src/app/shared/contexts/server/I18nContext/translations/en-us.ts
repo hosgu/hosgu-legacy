@@ -147,7 +147,10 @@ const translations = {
   'profile.setup.step7.bedrooms': 'Bedrooms',
   'profile.setup.step7.bathrooms': 'Bathrooms',
   'profile.setup.step7.beds': 'Beds',
-  'profile.setup.step7.amenities': 'Amenities'
+  'profile.setup.step7.amenities': 'Amenities',
+  'profile.setup.step8.successNote': 'Your business has been successfully registered.',
+  'profile.setup.step8.acessThe': 'Access the',
+  'profile.setup.step8.startUsingPlatform': 'to start using the platform.'
 } as const
 
 // const translations2 = {
