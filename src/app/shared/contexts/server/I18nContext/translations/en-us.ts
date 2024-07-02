@@ -138,7 +138,16 @@ const translations = {
   'profile.setup.step6.uploadPhotos': 'Upload your Photos',
   'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
   'profile.setup.step6.addMorePhotos': 'Add more photos',
-  'profile.setup.step6.uploadFromDevice': 'Upload from your device'
+  'profile.setup.step6.uploadFromDevice': 'Upload from your device',
+  'profile.setup.step7.price': 'Price',
+  'profile.setup.step7.location': 'Location',
+  'profile.setup.step7.information': 'Information',
+  'profile.setup.step7.perNight': 'per night',
+  'profile.setup.step7.guests': 'Guests',
+  'profile.setup.step7.bedrooms': 'Bedrooms',
+  'profile.setup.step7.bathrooms': 'Bathrooms',
+  'profile.setup.step7.beds': 'Beds',
+  'profile.setup.step7.amenities': 'Amenities'
 } as const
 
 // const translations2 = {

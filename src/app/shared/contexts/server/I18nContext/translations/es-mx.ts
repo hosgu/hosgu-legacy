@@ -148,7 +148,16 @@ const translations = {
   'profile.setup.step6.dragYourPhoto': 'Arrastre su foto aquí',
   'profile.setup.step6.uploadPhotos': 'Subir fotos',
   'profile.setup.step6.addMorePhotos': 'Agregar más fotos',
-  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo'
+  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo',
+  'profile.setup.step7.price': 'Precio',
+  'profile.setup.step7.location': 'Ubicación',
+  'profile.setup.step7.information': 'Información',
+  'profile.setup.step7.perNight': 'por noche',
+  'profile.setup.step7.guests': 'Invitados',
+  'profile.setup.step7.bedrooms': 'Dormitorios',
+  'profile.setup.step7.bathrooms': 'Baños',
+  'profile.setup.step7.beds': 'Camas',
+  'profile.setup.step7.amenities': 'Servicios'
 } as const
 
 export default translations
