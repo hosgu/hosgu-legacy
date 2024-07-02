@@ -418,10 +418,7 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       <div className={cx.join('flex justify-center w-full h-[80vh] overflow-hidden')}>
         <div className="p-0 rounded-lg h-full overflow-hidden">
-          <div
-            className="inner-scroll-content px-1"
-            style={{ overflowY: currentStep === 0 ? 'hidden' : 'auto' }}
-          >
+          <div className="inner-scroll-content px-1" style={{ overflowY: 'auto' }}>
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('profile.setup.step1.headline')}
               {currentStep === 1 && t('profile.setup.step2.headline')}

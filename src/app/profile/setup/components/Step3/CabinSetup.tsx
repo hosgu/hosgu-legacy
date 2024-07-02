@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useCallback } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import Counter from '~/components/Counter'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -7,7 +7,6 @@ type Props = {
   locale: string
   values: any
   setValues: any
-  enableNext: boolean
   setEnableNext: any
 }
 
