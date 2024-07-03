@@ -97,6 +97,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     address2: '',
     businessEmail: '',
     businessName: '',
+    propertyName: '',
     businessPhone: '',
     businessWebsite: '',
     city: '',
@@ -174,6 +175,11 @@ const Form: FC<Props> = ({ locale, user }) => {
     propertyName: (value: string) => {
       return !value ? t('profile.setup.error.pleaseEnterYourPropertyName') : ''
     },
+    propertyName: (value: string) => {
+      if (!value) {
+        return t('profile.setup.error.pleaseEnterYourPropertyName')
+      }
+    },
     propertyCity: (value: string) => {
       if (value.length < 3) {
         return t('profile.setup.error.pleaseEnterAValidPropertyCity')
@@ -246,6 +252,14 @@ const Form: FC<Props> = ({ locale, user }) => {
         return ''
       }
 
+      if (validations.propertyName(values.propertyName)) {
+        setErrors('propertyName', validations.propertyName(values.propertyName))
+        return ''
+      } else if (errors.propertyName) {
+        setErrors('propertyName', '')
+        return ''
+      }
+
       if (validations.propertyCity(values.city)) {
         setErrors('city', validations.propertyCity(values.city))
         return ''
@@ -290,6 +304,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       const newErrors = {
         ...errors,
         address1: validations.propertyAddress1(values.address1),
+        propertyName: validations.propertyName(values.propertyName),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
@@ -297,12 +312,19 @@ const Form: FC<Props> = ({ locale, user }) => {
       }
 
       setErrors('address1', newErrors.address1)
+      setErrors('propertyName', newErrors.propertyName)
       setErrors('city', newErrors.city)
       setErrors('state', newErrors.state)
       setErrors('zipCode', newErrors.zipCode)
       setErrors('price', newErrors.price)
 
-      return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
+      return (
+        !newErrors.address1 &&
+        !newErrors.city &&
+        !newErrors.state &&
+        !newErrors.zipCode &&
+        !newErrors.propertyName
+      )
     }
 
     return true

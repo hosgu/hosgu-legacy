@@ -8,21 +8,34 @@ import { APIResponse, CreatedItem } from '~/types'
 import ServiceHandler from './Service'
 
 type ProfileSetupPayload = {
-  userId: string
-  fullName: string
+  amenities: Map<string, boolean>
+  address1: string
+  address2: string
+  bathrooms: number
+  bedrooms: number
+  beds: number
+  businessId: string
+  price: number
+  checkInHour: string
+  checkInMinute: string
+  checkInPeriod: string
+  checkOutHour: string
+  checkOutMinute: string
+  checkOutPeriod: string
+  city: string
+  country: string
+  currency: string
   email: string
-  countryCode: string
-  phoneNumber: string
-  businessName: string
+  googleMaps: string
+  guests: number
+  images: []
+  password: string
   propertyName: string
-  propertyAddress1: string
-  propertyAddress2: string
-  propertyCity: string
-  propertyState: string
-  propertyCountry: string
-  propertyZipCode: string
   propertyType: string
-  propertyWebsite: string
+  state: string
+  tmpImages: []
+  userId: string
+  zipCode: string
 }
 
 class Service extends ServiceHandler {
@@ -30,23 +43,7 @@ class Service extends ServiceHandler {
     super('reservation')
   }
 
-  async setup({
-    userId,
-    fullName,
-    email,
-    countryCode,
-    phoneNumber,
-    businessName,
-    propertyName,
-    propertyAddress1,
-    propertyAddress2,
-    propertyCity,
-    propertyState,
-    propertyCountry,
-    propertyZipCode,
-    propertyType,
-    propertyWebsite
-  }: ProfileSetupPayload): Promise<APIResponse<CreatedItem>> {
+  async setup(values: ProfileSetupPayload): Promise<APIResponse<CreatedItem>> {
     await api.fetch<APIResponse<UserFields>>(`/api/v1/user/${userId}`, {
       method: 'PUT',
       body: {
