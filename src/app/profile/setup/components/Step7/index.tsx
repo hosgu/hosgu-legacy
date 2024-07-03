@@ -59,7 +59,7 @@ const Step: FC<Props> = ({ values, locale }) => {
               <h3 className="font-semibold text-xl">{t('profile.setup.step7.information')}:</h3>
               {t('common.profile.setup.guests')}: {values.guests} <br />
               {t('common.profile.setup.bedrooms')}: {values.bedrooms} <br />
-              {t('profile.setup.step7.bathrooms')}: {values.bathrooms} <br />
+              {t('profile')}: {values.bathrooms} <br />
               {t('profile.setup.step7.beds')}: {values.beds}
             </p>
             <div className="mt-4">
