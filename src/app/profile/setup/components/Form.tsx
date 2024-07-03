@@ -65,6 +65,8 @@ const Form: FC<Props> = ({ locale, user }) => {
     bathrooms: 1,
     bedrooms: 1,
     beds: 1,
+    // @ts-ignore
+    businessId: user?.businessId || '',
     price: 150,
     checkInHour: '03',
     checkInMinute: '00',
@@ -98,6 +100,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     address2: '',
     businessEmail: '',
     businessName: '',
+    propertyName: '',
     businessPhone: '',
     businessWebsite: '',
     price: '',
@@ -156,7 +159,7 @@ const Form: FC<Props> = ({ locale, user }) => {
         ...propertyData
       })
 
-      await setupProfile(formData)
+      //await setupProfile(formData)
     }
 
     if (isValidStep) {
@@ -180,6 +183,11 @@ const Form: FC<Props> = ({ locale, user }) => {
       }
 
       return ''
+    },
+    propertyName: (value: string) => {
+      if (!value) {
+        return t('profile.setup.error.pleaseEnterYourPropertyName')
+      }
     },
     propertyCity: (value: string) => {
       if (!value) {
@@ -268,6 +276,14 @@ const Form: FC<Props> = ({ locale, user }) => {
         return ''
       }
 
+      if (validations.propertyName(values.propertyName)) {
+        setErrors('propertyName', validations.propertyName(values.propertyName))
+        return ''
+      } else if (errors.propertyName) {
+        setErrors('propertyName', '')
+        return ''
+      }
+
       if (validations.propertyCity(values.city)) {
         setErrors('city', validations.propertyCity(values.city))
         return ''
@@ -312,6 +328,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       const newErrors = {
         ...errors,
         address1: validations.propertyAddress1(values.address1),
+        propertyName: validations.propertyName(values.propertyName),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
@@ -319,12 +336,19 @@ const Form: FC<Props> = ({ locale, user }) => {
       }
 
       setErrors('address1', newErrors.address1)
+      setErrors('propertyName', newErrors.propertyName)
       setErrors('city', newErrors.city)
       setErrors('state', newErrors.state)
       setErrors('zipCode', newErrors.zipCode)
       setErrors('price', newErrors.price)
 
-      return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
+      return (
+        !newErrors.address1 &&
+        !newErrors.city &&
+        !newErrors.state &&
+        !newErrors.zipCode &&
+        !newErrors.propertyName
+      )
     }
 
     return true
@@ -337,15 +361,15 @@ const Form: FC<Props> = ({ locale, user }) => {
       return true
     }
 
-    /*if (isValidStep && currentStep === 2) {
+    if (isValidStep && currentStep === 7) {
       const formData = core.formData.set(new FormData(), values)
 
-      const response = await ProfileActions.setupProfile(formData)
+      const response = await ProfileActions.setupProfile(values)
 
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
       }
-    }*/
+    }
 
     return false
   }
@@ -392,7 +416,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
     />,
-    <Step7 key="step6" values={values} />,
+    <Step7 key="step6" values={values} locale={locale} />,
     <Step8 key="step8" />
   ]
 

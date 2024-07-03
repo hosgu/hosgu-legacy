@@ -1,10 +1,15 @@
 import React, { FC } from 'react'
 
+import i18n from '~/app/shared/contexts/server/I18nContext'
+
 type Props = {
+  locale: string
   values: any
 }
 
-const Step: FC<Props> = ({ values }) => {
+const Step: FC<Props> = ({ values, locale }) => {
+  const t = i18n(locale)
+
   const amenitiesMap: any = {
     ac: 'Air Conditioning',
     bedSheets: 'Bed Sheets',
@@ -51,11 +56,11 @@ const Step: FC<Props> = ({ values }) => {
               {values.country}
             </p>
             <p className="mt-2">
-              <h3 className="font-semibold text-xl">Information:</h3>
-              Guests: {values.guests} <br />
-              Bedrooms: {values.bedrooms} <br />
-              Bathrooms: {values.bathrooms} <br />
-              Beds: {values.beds}
+              <h3 className="font-semibold text-xl">{t('profile.setup.step7.information')}:</h3>
+              {t('common.profile.setup.guests')}: {values.guests} <br />
+              {t('common.profile.setup.bedrooms')}: {values.bedrooms} <br />
+              {t('profile.setup.step7.bathrooms')}: {values.bathrooms} <br />
+              {t('profile.setup.step7.beds')}: {values.beds}
             </p>
             <div className="mt-4">
               <h3 className="font-semibold text-xl">Amenities:</h3>

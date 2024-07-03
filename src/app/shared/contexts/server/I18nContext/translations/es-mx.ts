@@ -23,7 +23,10 @@ const common = {
   'common.input.invalidEmail': 'Correo Electrónico Inválido',
   'common.input.invalidPhone': 'Teléfono Inválido (ej. +1 123 456 7890)',
   'common.input.invalidUrl': 'URL Inválido (ej. https://ejemplo.com)',
-  'common.input.password': 'Contraseña'
+  'common.input.password': 'Contraseña',
+  'common.profile.setup.beds': 'Camas',
+  'common.profile.setup.guests': 'Invitados',
+  'common.profile.setup.bedrooms': 'Dormitorios'
 } as const
 
 const translations = {
@@ -148,7 +151,9 @@ const translations = {
   'profile.setup.step6.dragYourPhoto': 'Arrastre su foto aquí',
   'profile.setup.step6.uploadPhotos': 'Subir fotos',
   'profile.setup.step6.addMorePhotos': 'Agregar más fotos',
-  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo'
+  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo',
+  'profile.setup.step7.information': 'Información',
+  'profile.setup.step7.bathroom': 'Baño'
 } as const
 
 export default translations

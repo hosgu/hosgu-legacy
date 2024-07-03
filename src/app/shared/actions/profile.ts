@@ -2,8 +2,72 @@
 import { APIResponse } from '~/types'
 import ProfileService from '../services/profile'
 
+interface ProfileSetupPayload {
+  amenities: Map<string, boolean>
+  address1: string
+  address2: string
+  bathrooms: number
+  bedrooms: number
+  beds: number
+  businessId: string
+  price: number
+  checkInHour: string
+  checkInMinute: string
+  checkInPeriod: string
+  checkOutHour: string
+  checkOutMinute: string
+  checkOutPeriod: string
+  city: string
+  country: string
+  currency: string
+  email: string
+  googleMaps: string
+  guests: number
+  images: []
+  password: string
+  propertyName: string
+  propertyType: string
+  state: string
+  tmpImages: []
+  userId: string
+  zipCode: string
+}
+class ProfilePayload implements ProfileSetupPayload {
+  amenities: Map<string, boolean>
+  address1: string
+  address2: string
+  bathrooms: number
+  bedrooms: number
+  beds: number
+  businessId: string
+  price: number
+  checkInHour: string
+  checkInMinute: string
+  checkInPeriod: string
+  checkOutHour: string
+  checkOutMinute: string
+  checkOutPeriod: string
+  city: string
+  country: string
+  currency: string
+  email: string
+  googleMaps: string
+  guests: number
+  images
+  password: string
+  propertyName: string
+  propertyType: string
+  state: string
+  tmpImages
+  userId: string
+  zipCode: string
+
+}
+
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
+  const profileData = new ProfileSetupPayload();
   const userId = e.get('userId')?.toString() as string
+  const businessId = e.get('businessId')?.toString() as string
   const email = e.get('email')?.toString() as string
   const fullName = e.get('fullName')?.toString() as string
   const countryCode = e.get('countryCode')?.toString() as string
@@ -35,7 +99,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
     propertyZipCode,
     propertyType,
     propertyWebsite
-  })
+  }:ProfileSetupPayload)
 
   return response
 }

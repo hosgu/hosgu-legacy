@@ -23,7 +23,10 @@ const common = {
   'common.input.invalidEmail': 'Invalid email',
   'common.input.invalidPhone': 'Invalid phone (e.g. +1 123 456 7890)',
   'common.input.invalidUrl': 'Invalid url (e.g. https://example.com)',
-  'common.input.password': 'Password'
+  'common.input.password': 'Password',
+  'common.profile.setup.beds': 'Beds',
+  'common.profile.setup.guests': 'Guests',
+  'common.profile.setup.bathroom': 'Bathroom'
 } as const
 
 const translations = {
@@ -138,7 +141,8 @@ const translations = {
   'profile.setup.step6.uploadPhotos': 'Upload your Photos',
   'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
   'profile.setup.step6.addMorePhotos': 'Add more photos',
-  'profile.setup.step6.uploadFromDevice': 'Upload from your device'
+  'profile.setup.step6.uploadFromDevice': 'Upload from your device',
+  'profile.setup.step7.information': 'Information'
 } as const
 
 // const translations2 = {
