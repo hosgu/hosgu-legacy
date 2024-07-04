@@ -3,9 +3,9 @@ import slug from '@architecturex/utils.slug'
 
 import { BusinessFields } from '~/server/db/schemas/business'
 import { PropertyFields } from '~/server/db/schemas/property'
-import { UserFields } from '~/server/db/schemas/user'
 import { APIResponse, CreatedItem } from '~/types'
 import ServiceHandler from './Service'
+import e from 'express'
 
 type ProfileSetupPayload = {
   amenities: Map<string, boolean>
@@ -43,17 +43,8 @@ class Service extends ServiceHandler {
     super('reservation')
   }
 
-  async setup(values: ProfileSetupPayload): Promise<APIResponse<CreatedItem>> {
-    await api.fetch<APIResponse<UserFields>>(`/api/v1/user/${userId}`, {
-      method: 'PUT',
-      body: {
-        website: propertyWebsite,
-        fullName,
-        phone: `${countryCode} ${phoneNumber}`,
-        active: true
-      },
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+  async setup(values: any): Promise<APIResponse<CreatedItem>> {
+    const businessId = values.businessId
 
     // const updateBusinessData = await api.fetch<APIResponse<BusinessFields>>(
     //   `/api/v1/business/update/${businessId}`,

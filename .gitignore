@@ -58,3 +58,5 @@ secrets.env
 # package-lock
 package-lock.json
 
+# Images
+/public/files/**

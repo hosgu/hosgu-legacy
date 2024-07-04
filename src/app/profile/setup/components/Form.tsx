@@ -87,7 +87,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     userId: user?.id || '',
     zipCode: ''
   })
-  console.log('VALUES===>', values)
+
   const [uploadedFiles, setUploadedFiles] = useCustomState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
@@ -116,7 +116,9 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const goNext = async () => {
+    console.log('Before HandleSubmit', currentStep)
     const isValidStep = await handleSubmit()
+    console.log('After  HandleSubmit', currentStep)
     setShowNotification(false)
 
     // Store temporary images
@@ -331,6 +333,7 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const handleSubmit = async () => {
+    console.log('VALUES===>', values)
     const isValidStep = validate()
 
     if (isValidStep && currentStep < 6) {
