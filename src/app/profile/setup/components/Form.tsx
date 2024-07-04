@@ -188,6 +188,8 @@ const Form: FC<Props> = ({ locale, user }) => {
       if (!value) {
         return t('profile.setup.error.pleaseEnterYourPropertyName')
       }
+
+      return ''
     },
     propertyCity: (value: string) => {
       if (!value) {
@@ -344,10 +346,10 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       return (
         !newErrors.address1 &&
+        !newErrors.propertyName &&
         !newErrors.city &&
         !newErrors.state &&
-        !newErrors.zipCode &&
-        !newErrors.propertyName
+        !newErrors.zipCode
       )
     }
 
