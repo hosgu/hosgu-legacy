@@ -116,17 +116,17 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const goNext = async () => {
-    console.log('Before HandleSubmit', currentStep)
+    console.log('Before HandleSubmit ====', currentStep)
     const isValidStep = await handleSubmit()
-    console.log('After  HandleSubmit', currentStep)
+    console.log('After  HandleSubmit ===', currentStep)
     setShowNotification(false)
 
-    // Store temporary images
+    // Store temporary images (5 = 6)
     if (currentStep === 5) {
       setValues('tmpImages', uploadedFiles)
     }
 
-    // Upload photos
+    // Upload photos (6 = 7)
     if (currentStep === 6) {
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
@@ -374,7 +374,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step4
       key="step4"
       locale={locale}
-      setStep={setCurrentStep}
       values={values}
       setValues={setValues}
       setEnableNext={setEnableNext}
@@ -382,7 +381,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step5
       key="step5"
       locale={locale}
-      setStep={setCurrentStep}
       values={values}
       setValues={setValues}
       enableNext={enableNext}
@@ -391,7 +389,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step6
       key="step6"
       locale={locale}
-      setStep={setCurrentStep}
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
       setEnableNext={setEnableNext}

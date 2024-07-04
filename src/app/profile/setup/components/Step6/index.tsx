@@ -8,7 +8,6 @@ import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
-  setStep: (prevState: any) => void
   uploadedFiles: any
   setUploadedFiles: any
   setEnableNext: (enableNext: boolean) => void

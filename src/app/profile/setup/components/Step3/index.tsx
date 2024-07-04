@@ -13,35 +13,6 @@ type Props = {
 const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   const { guests, bathrooms, bedrooms, beds } = values
 
-  // Handlers for setting new values
-  const handleGuestsChange = (count: number) => {
-    setValues((prevValues: any) => ({
-      ...prevValues,
-      guests: count
-    }))
-  }
-
-  const handleBathroomsChange = (count: number) => {
-    setValues((prevValues: any) => ({
-      ...prevValues,
-      bathrooms: count
-    }))
-  }
-
-  const handleBedroomsChange = (count: number) => {
-    setValues((prevValues: any) => ({
-      ...prevValues,
-      bedrooms: count
-    }))
-  }
-
-  const handleBedsChange = (count: number) => {
-    setValues((prevValues: any) => ({
-      ...prevValues,
-      beds: count
-    }))
-  }
-
   useEffect(() => {
     // Validation logic if needed
     if (guests === 0 || bathrooms === 0 || bedrooms === 0 || beds === 0) {

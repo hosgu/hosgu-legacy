@@ -9,11 +9,10 @@ type Props = {
   locale: string
   values: any
   setValues: any
-  setStep: (prevState: any) => void
   setEnableNext: any
 }
 
-const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) => {
+const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   const { amenities } = values
   const { darkMode } = useTheme()
   const t = i18n(locale)
