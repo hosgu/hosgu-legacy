@@ -70,7 +70,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
         <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
-          <p>{t('profile.setup.step3.bathrooms')}</p>
+          <p>{t('common.profile.setup.bathrooms')}</p>
 
           <Counter
             onChange={handleBathroomsChange}
@@ -83,7 +83,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
         <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between items-center space-x-2 my-6">
-          <p>{t('profile.setup.step3.bedrooms')}</p>
+          <p>{t('common.profile.setup.bedrooms')}</p>
           <Counter
             onChange={handleBedroomsChange}
             defaultValue={bedrooms}

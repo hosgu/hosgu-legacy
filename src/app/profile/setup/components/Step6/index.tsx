@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, use } from 'react'
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
@@ -11,9 +11,10 @@ type Props = {
   setStep: (prevState: any) => void
   uploadedFiles: any
   setUploadedFiles: any
+  setEnableNext: (enableNext: boolean) => void
 }
 
-const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles }) => {
+const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles, setEnableNext }) => {
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
   const t = i18n(locale)
 
@@ -26,6 +27,8 @@ const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles }) => {
     if (uploadedFiles.length > 1) {
       setIsUploadPhotosOpen(false)
     }
+
+    setEnableNext(uploadedFiles.length > 0)
   }, [uploadedFiles])
 
   return (

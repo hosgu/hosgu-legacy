@@ -1,29 +1,33 @@
 const common = {
+  'common.business.address': 'Dirección',
   'common.business.email': 'Email',
   'common.business.name': 'Negocio',
   'common.business.phone': 'Teléfono',
   'common.business.tryNow': 'Pruébalo Ahora',
   'common.business.website': 'Sitio Web',
-  'common.business.address': 'Dirección',
   'common.business.zipCode': 'Código Postal',
-  'common.property.name': 'Nombre de la Propiedad',
-  'common.general.country': 'País',
-  'common.general.state': 'Estado',
+  'common.general.back': 'Atrás',
+  'common.general.cabin': 'Cabaña',
   'common.general.city': 'Ciudad',
+  'common.general.country': 'País',
+  'common.general.hotel': 'Hotel',
   'common.general.login': 'Iniciar Sesión',
   'common.general.logout': 'Cerrar Sesión',
-  'common.general.cabin': 'Cabaña',
-  'common.general.hotel': 'Hotel',
-  'common.general.back': 'Atrás',
   'common.general.next': 'Siguiente',
-  'common.user.email': 'Correo Electrónico',
-  'common.user.fullName': 'Nombre Completo',
-  'common.user.guestUser': 'Usuario Invitado',
-  'common.input.required': 'Requerido',
+  'common.general.state': 'Estado',
   'common.input.invalidEmail': 'Correo Electrónico Inválido',
   'common.input.invalidPhone': 'Teléfono Inválido (ej. +1 123 456 7890)',
   'common.input.invalidUrl': 'URL Inválido (ej. https://ejemplo.com)',
-  'common.input.password': 'Contraseña'
+  'common.input.password': 'Contraseña',
+  'common.input.required': 'Requerido',
+  'common.profile.setup.bathrooms': 'Baños',
+  'common.profile.setup.bedrooms': 'Dormitorios',
+  'common.profile.setup.beds': 'Camas',
+  'common.profile.setup.guests': 'Invitados',
+  'common.property.name': 'Nombre de la Propiedad',
+  'common.user.email': 'Correo Electrónico',
+  'common.user.fullName': 'Nombre Completo',
+  'common.user.guestUser': 'Usuario Invitado'
 } as const
 
 const translations = {
@@ -120,9 +124,6 @@ const translations = {
   'profile.setup.step2.hotelPlaceholder': 'Hotel, Motel o Hostel.',
   'profile.setup.step2.cabin': 'Cabaña, Casa o Apartamento.',
   'profile.setup.step3.guests': 'Invitados',
-  'profile.setup.step3.bathrooms': 'Baños',
-  'profile.setup.step3.bedrooms': 'Dormitorios',
-  'profile.setup.step3.beds': 'Camas',
   'profile.setup.step2.headline': '¿Qué tipo de propiedad estás listando?',
   'profile.setup.step3.headline': 'Información sobre tu',
   'profile.setup.step4.headline': '¡Diles a los huéspedes cuáles son los servicios!',
@@ -148,7 +149,8 @@ const translations = {
   'profile.setup.step6.dragYourPhoto': 'Arrastre su foto aquí',
   'profile.setup.step6.uploadPhotos': 'Subir fotos',
   'profile.setup.step6.addMorePhotos': 'Agregar más fotos',
-  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo'
+  'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo',
+  'profile.setup.step7.information': 'Información'
 } as const
 
 export default translations

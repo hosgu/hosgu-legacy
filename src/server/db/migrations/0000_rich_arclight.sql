@@ -14,53 +14,7 @@ CREATE TABLE IF NOT EXISTS "agent" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "amenity" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"ac" boolean DEFAULT false,
-	"barberShop" boolean DEFAULT false,
-	"bbqGrill" boolean DEFAULT false,
-	"beachAccess" boolean DEFAULT false,
-	"beautySalon" boolean DEFAULT false,
-	"bikes" boolean DEFAULT false,
-	"childcareFacilities" boolean DEFAULT false,
-	"cinemaRoom" boolean DEFAULT false,
-	"convenienceStore" boolean DEFAULT false,
-	"dedicatedWorkspace" boolean DEFAULT false,
-	"dryer" boolean DEFAULT false,
-	"elevator" boolean DEFAULT false,
-	"exerciseEquipment" boolean DEFAULT false,
-	"fireExtinguisher" boolean DEFAULT false,
-	"firePit" boolean DEFAULT false,
-	"firstAidKit" boolean DEFAULT false,
-	"fitnessCenter" boolean DEFAULT false,
-	"freeParking" boolean DEFAULT false,
-	"fridge" boolean DEFAULT false,
-	"gamingRoom" boolean DEFAULT false,
-	"hammocks" boolean DEFAULT false,
-	"heating" boolean DEFAULT false,
-	"hotTub" boolean DEFAULT false,
-	"indoorFireplace" boolean DEFAULT false,
-	"kayaks" boolean DEFAULT false,
-	"kitchen" boolean DEFAULT false,
-	"lakeAccess" boolean DEFAULT false,
-	"miniFridge" boolean DEFAULT false,
-	"monoxideAlarm" boolean DEFAULT false,
-	"outdoorDiningArea" boolean DEFAULT false,
-	"outdoorShower" boolean DEFAULT false,
-	"paidParking" boolean DEFAULT false,
-	"patio" boolean DEFAULT false,
-	"petFriendly" boolean DEFAULT false,
-	"piano" boolean DEFAULT false,
-	"pool" boolean DEFAULT false,
-	"poolTable" boolean DEFAULT false,
-	"safeBox" boolean DEFAULT false,
-	"ski" boolean DEFAULT false,
-	"smokeAlarm" boolean DEFAULT false,
-	"smokingAllowed" boolean DEFAULT false,
-	"suitableForEvents" boolean DEFAULT false,
-	"tv" boolean DEFAULT false,
-	"washer" boolean DEFAULT false,
-	"wheelchairAccessible" boolean DEFAULT false,
-	"wifi" boolean DEFAULT false,
-	"yogaSpace" boolean DEFAULT false,
+	"amenities" jsonb DEFAULT '[]'::jsonb,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -250,7 +204,6 @@ CREATE TABLE IF NOT EXISTS "photo" (
 CREATE TABLE IF NOT EXISTS "property" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"businessId" uuid NOT NULL,
-	"amenityId" uuid NOT NULL,
 	"serviceId" uuid NOT NULL,
 	"arrangementId" uuid NOT NULL,
 	"typeOfBuilding" varchar(50),
@@ -306,6 +259,7 @@ CREATE TABLE IF NOT EXISTS "room" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"propertyId" uuid NOT NULL,
 	"feeId" uuid NOT NULL,
+	"amenityId" uuid NOT NULL,
 	"floor" varchar(10) DEFAULT '0',
 	"roomNumber" varchar(10) DEFAULT '0',
 	"roomType" varchar(100),
@@ -366,6 +320,7 @@ CREATE TABLE IF NOT EXISTS "unit" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"propertyId" uuid NOT NULL,
 	"feeId" uuid NOT NULL,
+	"amenityId" uuid NOT NULL,
 	"maxGuests" integer DEFAULT 6,
 	"minGuests" integer DEFAULT 1,
 	"insideBathrooms" integer DEFAULT 1,
@@ -496,12 +451,6 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
  ALTER TABLE "property" ADD CONSTRAINT "property_serviceId_service_id_fk" FOREIGN KEY ("serviceId") REFERENCES "public"."service"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -538,6 +487,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "room" ADD CONSTRAINT "room_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "setting" ADD CONSTRAINT "setting_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -551,6 +506,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "unit" ADD CONSTRAINT "unit_feeId_fee_id_fk" FOREIGN KEY ("feeId") REFERENCES "public"."fee"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

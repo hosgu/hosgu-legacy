@@ -36,36 +36,34 @@ const Form: FC<Props> = ({ locale, user }) => {
 
   const [currentStep, setCurrentStep] = useCustomState(0)
 
-  console.log(' Step:', currentStep)
-
   const [values, setValues] = useCustomState({
-    amenities: new Map<string, boolean>([
-      ['ac', false],
-      ['bedSheets', false],
-      ['coffeeMachine', false],
-      ['extraBed', false],
-      ['freeParking', false],
-      ['garden', false],
-      ['glassesPlates', false],
-      ['hotWater', false],
-      ['kitchen', false],
-      ['kitchenBasics', false],
-      ['laundry', false],
-      ['oven', false],
-      ['petFriendly', false],
-      ['pool', false],
-      ['refrigerator', false],
-      ['smoking', false],
-      ['towels', false],
-      ['tv', false],
-      ['wifi', false]
-    ]),
+    amenities: {
+      ac: false,
+      bedSheets: false,
+      coffeeMachine: false,
+      extraBed: false,
+      freeParking: false,
+      garden: false,
+      glassesPlates: false,
+      hotWater: false,
+      kitchen: false,
+      laundry: false,
+      oven: false,
+      petFriendly: false,
+      pool: false,
+      refrigerator: false,
+      smoking: false,
+      towels: false,
+      tv: false,
+      wifi: false
+    },
     address1: '',
     address2: '',
     bathrooms: 1,
     bedrooms: 1,
     beds: 1,
-    price: 150,
+    // @ts-ignore
+    businessId: user?.businessId || '',
     checkInHour: '03',
     checkInMinute: '00',
     checkInPeriod: 'PM',
@@ -81,6 +79,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     guests: 1,
     images: [],
     password: '',
+    price: 150,
     propertyName: '',
     propertyType: '',
     state: '',
@@ -100,12 +99,13 @@ const Form: FC<Props> = ({ locale, user }) => {
     businessName: '',
     businessPhone: '',
     businessWebsite: '',
-    price: '',
     city: '',
     country: '',
     fullName: '',
     googleMaps: '',
     password: '',
+    price: '',
+    propertyName: '',
     state: '',
     zipCode: ''
   })
@@ -125,8 +125,6 @@ const Form: FC<Props> = ({ locale, user }) => {
 
     // Upload photos
     if (currentStep === 6) {
-      console.log(' Step:', currentStep)
-
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
         return
@@ -143,22 +141,18 @@ const Form: FC<Props> = ({ locale, user }) => {
           uploadFilesResponse.data.map((data: any) => data.path)
         )
       }
+    }
 
-      let amenitiesValues: { i18n: string; name: string; exists: boolean }[] = []
+    const formData = core.formData.set(new FormData(), {
+      ...values
+    })
 
-      values.amenities.forEach((value: boolean, key: string) => {
-        amenitiesValues.push({ i18n: key, name: key, exists: value })
-      })
-
-      let propertyData = { ...values, amenitiesValues }
-
-      const formData = core.formData.set(new FormData(), {
-        ...propertyData
-      })
-
+    // Finish setup
+    if (currentStep === 7) {
       await setupProfile(formData)
     }
 
+    // Go to next step
     if (isValidStep) {
       setCurrentStep((prev: number) => (prev < steps.length - 1 ? prev + 1 : prev))
     }
@@ -175,65 +169,49 @@ const Form: FC<Props> = ({ locale, user }) => {
 
   const validations = {
     propertyState: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyState')
-      }
-
-      return ''
+      return !value ? t('profile.setup.error.pleaseEnterYourPropertyState') : ''
+    },
+    propertyName: (value: string) => {
+      return !value ? t('profile.setup.error.pleaseEnterYourPropertyName') : ''
     },
     propertyCity: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyCity')
-      }
-
       if (value.length < 3) {
         return t('profile.setup.error.pleaseEnterAValidPropertyCity')
       }
 
-      return ''
+      return !value ? t('profile.setup.error.pleaseEnterYourPropertyCity') : ''
     },
     propertyAddress1: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyAddress')
-      }
-
       if (value.length < 3) {
         return t('profile.setup.error.pleaseEnterAValidPropertyAddress')
       }
 
-      return ''
+      return !value ? t('profile.setup.error.pleaseEnterYourPropertyAddress') : ''
     },
     propertyZipCode: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyPostalCode')
-      }
-
       if (value.length < 3) {
         return t('profile.setup.error.pleaseEnterAValidPropertyPostalCode')
       }
 
-      return ''
+      return !value ? t('profile.setup.error.pleaseEnterYourPropertyPostalCode') : ''
     },
     googleMaps: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourGoogleMaps')
-      }
-
       if (
         value.startsWith('https://www.google.com/maps') ||
+        value.startsWith('https://www.google.com.mx/maps') ||
+        value.startsWith('https://google.com/maps') ||
+        value.startsWith('https://google.com.mx/maps') ||
         value.startsWith('https://maps.app.goo.gl')
       ) {
         return ''
       }
 
-      return t('profile.setup.error.pleaseEnterAValidGoogleMaps')
+      return !value
+        ? t('profile.setup.error.pleaseEnterYourGoogleMaps')
+        : t('profile.setup.error.pleaseEnterAValidGoogleMaps')
     },
     propertyPrice: (value: number) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourNightPrice')
-      }
-
-      return ''
+      return !value ? t('profile.setup.error.pleaseEnterYourNightPrice') : ''
     }
   }
 
@@ -304,7 +282,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     }
 
     if (currentStep === 3) {
-      const currentValues = Array.from(values.amenities.values())
+      const currentValues = Array.from(Object.values(values.amenities))
       return currentValues.includes(true)
     }
 
@@ -333,19 +311,20 @@ const Form: FC<Props> = ({ locale, user }) => {
   const handleSubmit = async () => {
     const isValidStep = validate()
 
-    if (isValidStep && currentStep < 8) {
+    if (isValidStep && currentStep < 6) {
       return true
     }
 
-    /*if (isValidStep && currentStep === 2) {
-      const formData = core.formData.set(new FormData(), values)
-
+    if (isValidStep && currentStep === 6) {
+      const cleanValues = JSON.parse(JSON.stringify(values))
+      console.log('cleanValues', cleanValues)
+      const formData = core.formData.set(new FormData(), cleanValues)
       const response = await ProfileActions.setupProfile(formData)
 
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
       }
-    }*/
+    }
 
     return false
   }
@@ -365,7 +344,6 @@ const Form: FC<Props> = ({ locale, user }) => {
       locale={locale}
       values={values}
       setValues={setValues}
-      enableNext={enableNext}
       setEnableNext={setEnableNext}
     />,
     <Step4
@@ -391,8 +369,9 @@ const Form: FC<Props> = ({ locale, user }) => {
       setStep={setCurrentStep}
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
+      setEnableNext={setEnableNext}
     />,
-    <Step7 key="step6" values={values} />,
+    <Step7 key="step6" values={values} locale={locale} />,
     <Step8 key="step8" />
   ]
 
@@ -446,9 +425,11 @@ const Form: FC<Props> = ({ locale, user }) => {
 
               <StepIndicator locale={locale} steps={8} currentStep={currentStep + 1} />
 
-              <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
-                {currentStep < 6 ? t('common.general.next') : 'Finish'}
-              </Button>
+              <RenderIf isTrue={currentStep !== 1}>
+                <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
+                  {currentStep < 6 ? t('common.general.next') : 'Finish'}
+                </Button>
+              </RenderIf>
             </div>
           </div>
         </div>

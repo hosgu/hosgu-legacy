@@ -1,5 +1,6 @@
 import { pgTable, integer, varchar, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { property } from './property'
+import { amenity } from './amenity'
 import { fee } from './fee'
 
 export const room = pgTable('room', {
@@ -9,6 +10,9 @@ export const room = pgTable('room', {
     .notNull(),
   feeId: uuid('feeId')
     .references(() => fee.id)
+    .notNull(),
+  amenityId: uuid('amenityId')
+    .references(() => amenity.id)
     .notNull(),
   floor: varchar('floor', { length: 10 }).default('0'),
   roomNumber: varchar('roomNumber', { length: 10 }).default('0'),

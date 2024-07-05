@@ -70,6 +70,7 @@ const Input: FC<Props> = ({
       setInputValue(e.target.value)
       setIsError(false)
       setLocalErrorText('')
+
       if (onChange) {
         onChange(e)
       }
@@ -82,8 +83,9 @@ const Input: FC<Props> = ({
     setHasFocus(false)
     setIsError(false)
     setLocalErrorText('')
+
     if (onChange) {
-      onChange({ target: { value: item } } as ChangeEvent<HTMLInputElement>)
+      onChange({ target: { name, value: item } } as ChangeEvent<HTMLInputElement>)
     }
   }
 
@@ -94,6 +96,7 @@ const Input: FC<Props> = ({
   const handleBlur = () => {
     setTimeout(() => {
       setHasFocus(false)
+
       if (dropdownItems.length > 0 && inputValue && !dropdownItems.includes(inputValue)) {
         setIsError(true)
         setLocalErrorText('Invalid selection')

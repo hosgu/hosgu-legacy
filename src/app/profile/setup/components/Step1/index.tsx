@@ -17,7 +17,6 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
   const t = i18n(locale)
 
   const states = constants.states[values.country] || []
-  console.log('states', states)
 
   return (
     <div className="mx-auto p-6 bg-white w-full lg:w-[600px] flex flex-col md:flex-row md:flex-wrap">
@@ -88,7 +87,6 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onChange={handleChange}
           disabled
           required
-          dropdownItems={states}
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.country
           })}

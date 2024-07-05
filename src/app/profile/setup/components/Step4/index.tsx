@@ -19,17 +19,19 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
   const t = i18n(locale)
 
   useEffect(() => {
-    const currentValues = Array.from(values.amenities.values())
+    const currentValues = Array.from(Object.values(values.amenities))
     setEnableNext(currentValues.includes(true))
   }, [])
 
   const onChangeCheck = (name: string) => {
-    let value = amenities.get(name)
+    let value = amenities[name]
 
-    amenities.set(name, !value)
-    setValues({ ...values, amenities: amenities })
+    amenities[name] = !value
+    console.log('amenities', amenities)
+    console.log('VALUES===>', values)
+    setValues({ ...values, amenities })
 
-    const currentValues = Array.from(values.amenities.values())
+    const currentValues = Array.from(Object.values(values.amenities))
 
     if (currentValues.includes(true)) {
       setEnableNext(true)
@@ -42,107 +44,83 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
       <CheckCard
         label="Wifi"
-        checked={amenities.get('wifi')}
-        icon={
-          <SVG.Wifi
-            size="32px"
-            alternativeColor={darkMode || amenities.get('wifi') ? '#fff' : ''}
-          />
-        }
+        checked={amenities.wifi}
+        icon={<SVG.Wifi size="32px" alternativeColor={darkMode || amenities.wifi ? '#fff' : ''} />}
         onChange={() => onChangeCheck('wifi')}
       />
       <CheckCard
         label="Tv"
-        checked={amenities.get('tv')}
-        icon={
-          <SVG.TV size="32px" alternativeColor={darkMode || amenities.get('tv') ? '#fff' : ''} />
-        }
+        checked={amenities.tv}
+        icon={<SVG.TV size="32px" alternativeColor={darkMode || amenities.tv ? '#fff' : ''} />}
         onChange={() => onChangeCheck('tv')}
       />
       <CheckCard
         label={t('profile.setup.step4.kitchen')}
-        checked={amenities.get('kitchen')}
+        checked={amenities.kitchen}
         icon={
-          <SVG.Kitchen
-            size="42px"
-            alternativeColor={darkMode || amenities.get('kitchen') ? '#fff' : ''}
-          />
+          <SVG.Kitchen size="42px" alternativeColor={darkMode || amenities.kitchen ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('kitchen')}
       />
       <CheckCard
         label={t('profile.setup.step4.extraBed')}
-        checked={amenities.get('extraBed')}
+        checked={amenities.extraBed}
         icon={
-          <SVG.Bed
-            size="32px"
-            alternativeColor={darkMode || amenities.get('extraBed') ? '#fff' : ''}
-          />
+          <SVG.Bed size="32px" alternativeColor={darkMode || amenities.extraBed ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('extraBed')}
       />
       <CheckCard
         label={t('profile.setup.step4.refrigerator')}
-        checked={amenities.get('refrigerator')}
+        checked={amenities.refrigerator}
         icon={
           <SVG.Refrigerator
             size="32px"
-            alternativeColor={darkMode || amenities.get('refrigerator') ? '#fff' : ''}
+            alternativeColor={darkMode || amenities.refrigerator ? '#fff' : ''}
           />
         }
         onChange={() => onChangeCheck('refrigerator')}
       />
       <CheckCard
         label={t('profile.setup.step4.bedSheets')}
-        checked={amenities.get('bedSheets')}
+        checked={amenities.bedSheets}
         icon={
-          <SVG.Bed
-            size="32px"
-            alternativeColor={darkMode || amenities.get('bedSheets') ? '#fff' : ''}
-          />
+          <SVG.Bed size="32px" alternativeColor={darkMode || amenities.bedSheets ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('bedSheets')}
       />
       <CheckCard
         label={t('profile.setup.step4.freeParking')}
-        checked={amenities.get('freeParking')}
+        checked={amenities.freeParking}
         icon={
           <SVG.Parking
             size="32px"
-            alternativeColor={darkMode || amenities.get('freeParking') ? '#fff' : ''}
+            alternativeColor={darkMode || amenities.freeParking ? '#fff' : ''}
           />
         }
         onChange={() => onChangeCheck('freeParking')}
       />
       <CheckCard
         label={t('profile.setup.step4.towels')}
-        checked={amenities.get('towels')}
+        checked={amenities.towels}
         icon={
-          <SVG.Towel
-            size="32px"
-            alternativeColor={darkMode || amenities.get('towels') ? '#fff' : ''}
-          />
+          <SVG.Towel size="32px" alternativeColor={darkMode || amenities.towels ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('towels')}
       />
       <CheckCard
         label={t('profile.setup.step4.pool')}
-        checked={amenities.get('pool')}
-        icon={
-          <SVG.Swim
-            size="32px"
-            alternativeColor={darkMode || amenities.get('pool') ? '#fff' : ''}
-          />
-        }
+        checked={amenities.pool}
+        icon={<SVG.Swim size="32px" alternativeColor={darkMode || amenities.pool ? '#fff' : ''} />}
         onChange={() => onChangeCheck('pool')}
       />
       <CheckCard
         label={t('profile.setup.step4.coffeeMachine')}
-        checked={amenities.get('coffeeMachine')}
+        checked={amenities.coffeeMachine}
         icon={
           <SVG.Coffee
             size="32px"
-            alternativeColor={darkMode || amenities.get('coffeeMachine') ? '#fff' : ''}
+            alternativeColor={darkMode || amenities.coffeeMachine ? '#fff' : ''}
           />
         }
         onChange={() => onChangeCheck('coffeeMachine')}
@@ -150,72 +128,54 @@ const Step: FC<Props> = ({ locale, setStep, values, setValues, setEnableNext }) 
 
       <CheckCard
         label={t('profile.setup.step4.hotWater')}
-        checked={amenities.get('hotWater')}
+        checked={amenities.hotWater}
         icon={
           <SVG.HotWater
             size="32px"
-            alternativeColor={darkMode || amenities.get('hotWater') ? '#fff' : ''}
+            alternativeColor={darkMode || amenities.hotWater ? '#fff' : ''}
           />
         }
         onChange={() => onChangeCheck('hotWater')}
       />
       <CheckCard
         label={t('profile.setup.step4.oven')}
-        checked={amenities.get('oven')}
-        icon={
-          <SVG.Oven
-            size="32px"
-            alternativeColor={darkMode || amenities.get('oven') ? '#fff' : ''}
-          />
-        }
+        checked={amenities.oven}
+        icon={<SVG.Oven size="32px" alternativeColor={darkMode || amenities.oven ? '#fff' : ''} />}
         onChange={() => onChangeCheck('oven')}
       />
       <CheckCard
         label={t('profile.setup.step4.ac')}
-        checked={amenities.get('ac')}
-        icon={
-          <SVG.AC size="32px" alternativeColor={darkMode || amenities.get('ac') ? '#fff' : ''} />
-        }
+        checked={amenities.ac}
+        icon={<SVG.AC size="32px" alternativeColor={darkMode || amenities.ac ? '#fff' : ''} />}
         onChange={() => onChangeCheck('ac')}
       />
       <CheckCard
         label={t('profile.setup.step4.garden')}
-        checked={amenities.get('garden')}
+        checked={amenities.garden}
         icon={
-          <SVG.Garden
-            size="32px"
-            alternativeColor={darkMode || amenities.get('garden') ? '#fff' : ''}
-          />
+          <SVG.Garden size="32px" alternativeColor={darkMode || amenities.garden ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('garden')}
       />
       <CheckCard
         label={t('profile.setup.step4.laundry')}
-        checked={amenities.get('laundry')}
+        checked={amenities.laundry}
         icon={
-          <SVG.Laundry
-            size="32px"
-            alternativeColor={darkMode || amenities.get('laundry') ? '#fff' : ''}
-          />
+          <SVG.Laundry size="32px" alternativeColor={darkMode || amenities.laundry ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('laundry')}
       />
       <CheckCard
         label="Pet friendly"
-        checked={amenities.get('petFriendly')}
-        icon={
-          <SVG.Pet size="32px" alternativeColor={darkMode || amenities.get('pet') ? '#fff' : ''} />
-        }
+        checked={amenities.petFriendly}
+        icon={<SVG.Pet size="32px" alternativeColor={darkMode || amenities.pet ? '#fff' : ''} />}
         onChange={() => onChangeCheck('petFriendly')}
       />
       <CheckCard
         label={t('profile.setup.step4.smokingArea')}
-        checked={amenities.get('smoking')}
+        checked={amenities.smoking}
         icon={
-          <SVG.Smoke
-            size="32px"
-            alternativeColor={darkMode || amenities.get('smoking') ? '#fff' : ''}
-          />
+          <SVG.Smoke size="32px" alternativeColor={darkMode || amenities.smoking ? '#fff' : ''} />
         }
         onChange={() => onChangeCheck('smoking')}
       />

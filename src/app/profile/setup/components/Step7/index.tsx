@@ -1,10 +1,14 @@
 import React, { FC } from 'react'
+import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   values: any
+  locale: string
 }
 
-const Step: FC<Props> = ({ values }) => {
+const Step: FC<Props> = ({ values, locale }) => {
+  const t = i18n(locale)
+
   const amenitiesMap: any = {
     ac: 'Air Conditioning',
     bedSheets: 'Bed Sheets',
@@ -50,17 +54,17 @@ const Step: FC<Props> = ({ values }) => {
               {values.city}, {values.state}, {values.zipCode} <br />
               {values.country}
             </p>
-            <p className="mt-2">
-              <h3 className="font-semibold text-xl">Information:</h3>
-              Guests: {values.guests} <br />
-              Bedrooms: {values.bedrooms} <br />
-              Bathrooms: {values.bathrooms} <br />
-              Beds: {values.beds}
-            </p>
+            <div className="mt-2">
+              <h3 className="font-semibold text-xl">{t('profile.setup.step7.information')}:</h3>
+              {t('common.profile.setup.guests')}: {values.guests} <br />
+              {t('common.profile.setup.bedrooms')}: {values.bedrooms} <br />
+              {t('common.profile.setup.bathrooms')}: {values.bathrooms} <br />
+              {t('common.profile.setup.beds')}: {values.beds}
+            </div>
             <div className="mt-4">
               <h3 className="font-semibold text-xl">Amenities:</h3>
               <div className="grid grid-cols-2 gap-2 mt-2">
-                {Array.from(values.amenities.entries()).map(
+                {Array.from(Object.entries(values.amenities)).map(
                   ([amenity, available]: any) =>
                     available && (
                       <div key={amenity} className="flex items-center">

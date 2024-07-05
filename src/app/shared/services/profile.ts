@@ -58,66 +58,50 @@ class Service extends ServiceHandler {
       addLocalHost: process.env.NODE_ENV === 'development'
     })
 
-    const createdBusiness = await api.fetch<APIResponse<BusinessFields>>(
-      `/api/v1/business/create`,
-      {
-        method: 'POST',
-        body: {
-          userId,
-          type: propertyType,
-          name: businessName,
-          slug: slug(businessName),
-          email,
-          phone: `${countryCode} ${phoneNumber}`,
-          priceRange: '0',
-          website: propertyWebsite,
-          facebook: '',
-          instagram: '',
-          youtube: '',
-          logo: '',
-          raiting: 5,
-          addressLine1: propertyAddress1,
-          addressLine2: propertyAddress2,
-          city: propertyCity,
-          state: propertyState,
-          country: propertyCountry,
-          zipCode: propertyZipCode,
-          active: true
-        },
-        addLocalHost: process.env.NODE_ENV === 'development'
-      }
-    )
+    // const updateBusinessData = await api.fetch<APIResponse<BusinessFields>>(
+    //   `/api/v1/business/update/${businessId}`,
+    //   {
+    //     method: 'PUT',
+    //     body: {
+    //       name: values.propertyName,
+    //       googleMapsUrl: values.googleMaps,
+    //       addressLine1: values.address1,
+    //       addressLine2: values.address2,
+    //       city: values.city,
+    //       state: values.state,
+    //       country: values.country,
+    //       zipCode: values.zipCode,
+    //       email: values.email
+    //     },
+    //     addLocalHost: process.env.NODE_ENV === 'development'
+    //   }
+    // )
 
-    if (createdBusiness.status === 201) {
-      const [business] = createdBusiness.items as BusinessFields[]
-      const businessId = business.id
+    // const createdProperty = await api.fetch<APIResponse<PropertyFields>>(
+    //   `/api/v1/property/create`,
+    //   {
+    //     method: 'POST',
+    //     body: {
+    //       businessId,
+    //       type: values.propertyType,
+    //       name: values.propertyName,
+    //       slug: slug(values.propertyName),
+    //       description: '',
+    //       floors: 1,
+    //       rooms: 1,
+    //       generalRules: '',
+    //       safetyRules: '',
+    //       cancellationPolicy: '',
+    //       checkIn: '',
+    //       checkOut: '',
+    //       active: true
+    //     },
+    //     addLocalHost: process.env.NODE_ENV === 'development'
+    //   }
+    // )
 
-      const createdProperty = await api.fetch<APIResponse<PropertyFields>>(
-        `/api/v1/property/create`,
-        {
-          method: 'POST',
-          body: {
-            businessId,
-            type: propertyType,
-            name: propertyName,
-            slug: slug(propertyName),
-            description: '',
-            floors: 1,
-            rooms: 1,
-            generalRules: '',
-            safetyRules: '',
-            cancellationPolicy: '',
-            checkIn: '',
-            checkOut: '',
-            active: true
-          },
-          addLocalHost: process.env.NODE_ENV === 'development'
-        }
-      )
-
-      if (createdProperty.status === 201) {
-      }
-    }
+    // if (createdProperty.status === 201) {
+    // }
 
     return {
       ok: false,

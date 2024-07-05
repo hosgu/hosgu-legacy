@@ -1,17 +1,12 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
 import { business } from './business'
-import { amenity } from './amenity'
 import { service } from './service'
 import { arrangement } from './arrangement'
-import { photo } from './photo'
 
 export const property = pgTable('property', {
   id: uuid('id').primaryKey().defaultRandom(),
   businessId: uuid('businessId')
     .references(() => business.id)
-    .notNull(),
-  amenityId: uuid('amenityId')
-    .references(() => amenity.id)
     .notNull(),
   serviceId: uuid('serviceId')
     .references(() => service.id)

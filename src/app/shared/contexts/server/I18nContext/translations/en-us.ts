@@ -1,29 +1,33 @@
 const common = {
+  'common.business.address': 'Address',
   'common.business.email': 'Business Email',
   'common.business.name': 'Business Name',
   'common.business.phone': 'Business Phone',
   'common.business.tryNow': 'Try it Now',
   'common.business.website': 'Business Website',
-  'common.business.address': 'Address',
   'common.business.zipCode': 'Zip Code',
-  'common.property.name': 'Property Name',
-  'common.general.country': 'Country',
-  'common.general.state': 'State',
+  'common.general.back': 'Back',
+  'common.general.cabin': 'Cabin',
   'common.general.city': 'City',
+  'common.general.country': 'Country',
+  'common.general.hotel': 'Hotel',
   'common.general.login': 'Login',
   'common.general.logout': 'Logout',
-  'common.general.cabin': 'Cabin',
-  'common.general.hotel': 'Hotel',
-  'common.general.back': 'Back',
   'common.general.next': 'Next',
-  'common.user.email': 'Email',
-  'common.user.fullName': 'Full Name',
-  'common.user.guestUser': 'Guest User',
-  'common.input.required': 'Required',
+  'common.general.state': 'State',
   'common.input.invalidEmail': 'Invalid email',
   'common.input.invalidPhone': 'Invalid phone (e.g. +1 123 456 7890)',
   'common.input.invalidUrl': 'Invalid url (e.g. https://example.com)',
-  'common.input.password': 'Password'
+  'common.input.password': 'Password',
+  'common.input.required': 'Required',
+  'common.profile.setup.bathrooms': 'Bathrooms',
+  'common.profile.setup.bedrooms': 'Bedrooms',
+  'common.profile.setup.beds': 'Beds',
+  'common.profile.setup.guests': 'Guests',
+  'common.property.name': 'Property Name',
+  'common.user.email': 'Email',
+  'common.user.fullName': 'Full Name',
+  'common.user.guestUser': 'Guest User'
 } as const
 
 const translations = {
@@ -117,8 +121,6 @@ const translations = {
   'profile.setup.step2.hotel': 'Hotel',
   'profile.setup.step2.hotelPlaceholder': 'Hotel, Motel or Hostel.',
   'profile.setup.step3.guests': 'Guests',
-  'profile.setup.step3.bathrooms': 'Bathrooms',
-  'profile.setup.step3.bedrooms': 'Bedrooms',
   'profile.setup.step3.beds': 'Beds',
   'profile.setup.step4.kitchen': 'Kitchen',
   'profile.setup.step4.extraBed': 'Extra bed',
@@ -138,7 +140,8 @@ const translations = {
   'profile.setup.step6.uploadPhotos': 'Upload your Photos',
   'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
   'profile.setup.step6.addMorePhotos': 'Add more photos',
-  'profile.setup.step6.uploadFromDevice': 'Upload from your device'
+  'profile.setup.step6.uploadFromDevice': 'Upload from your device',
+  'profile.setup.step7.information': 'Information'
 } as const
 
 // const translations2 = {
