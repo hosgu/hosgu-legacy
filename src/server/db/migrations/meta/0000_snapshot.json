@@ -1,5 +1,5 @@
 {
-  "id": "a372f18c-36b1-4df0-926a-b71f5c51faa7",
+  "id": "b3a5ad3a-7e43-44ca-8b33-df1ecf0be935",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -127,17 +127,12 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "amenityId": {
-          "name": "amenityId",
-          "type": "uuid",
+        "amenities": {
+          "name": "amenities",
+          "type": "jsonb",
           "primaryKey": false,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "default": "'[]'::jsonb"
         },
         "createdAt": {
           "name": "createdAt",
@@ -2045,22 +2040,48 @@
           "notNull": false,
           "default": 6
         },
-        "minGuests": {
-          "name": "minGuests",
+        "bedrooms": {
+          "name": "bedrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bathrooms": {
+          "name": "bathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cribs": {
+          "name": "cribs",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": 1
+          "default": 0
         },
-        "insideBathrooms": {
-          "name": "insideBathrooms",
+        "kingSizeBeds": {
+          "name": "kingSizeBeds",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": 1
+          "default": 0
         },
-        "outsideBathrooms": {
-          "name": "outsideBathrooms",
+        "queenSizeBeds": {
+          "name": "queenSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "singleSizeBeds": {
+          "name": "singleSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "sofaBeds": {
+          "name": "sofaBeds",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,

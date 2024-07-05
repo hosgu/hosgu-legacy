@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS "agent" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "amenity" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"amenityId" uuid NOT NULL,
-	"name" varchar NOT NULL,
+	"amenities" jsonb DEFAULT '[]'::jsonb,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -287,9 +286,13 @@ CREATE TABLE IF NOT EXISTS "unit" (
 	"feeId" uuid NOT NULL,
 	"amenityId" uuid NOT NULL,
 	"maxGuests" integer DEFAULT 6,
-	"minGuests" integer DEFAULT 1,
-	"insideBathrooms" integer DEFAULT 1,
-	"outsideBathrooms" integer DEFAULT 0,
+	"bedrooms" integer,
+	"bathrooms" integer,
+	"cribs" integer DEFAULT 0,
+	"kingSizeBeds" integer DEFAULT 0,
+	"queenSizeBeds" integer DEFAULT 0,
+	"singleSizeBeds" integer DEFAULT 0,
+	"sofaBeds" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
