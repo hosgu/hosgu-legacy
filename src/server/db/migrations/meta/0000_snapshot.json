@@ -1,5 +1,5 @@
 {
-  "id": "40926c8d-9fb1-46cd-986c-ee2883f17d48",
+  "id": "a372f18c-36b1-4df0-926a-b71f5c51faa7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -127,112 +127,17 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "amenities": {
-          "name": "amenities",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[]'::jsonb"
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.arrangement": {
-      "name": "arrangement",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
+        "amenityId": {
+          "name": "amenityId",
           "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "airMattresses": {
-          "name": "airMattresses",
-          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "default": 0
+          "notNull": true
         },
-        "bedrooms": {
-          "name": "bedrooms",
-          "type": "integer",
+        "name": {
+          "name": "name",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": false
-        },
-        "bunkBeds": {
-          "name": "bunkBeds",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "cribs": {
-          "name": "cribs",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "futons": {
-          "name": "futons",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "hammocks": {
-          "name": "hammocks",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "kingSizeBeds": {
-          "name": "kingSizeBeds",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "queenSizeBeds": {
-          "name": "queenSizeBeds",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "singleSizeBeds": {
-          "name": "singleSizeBeds",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "sofaBeds": {
-          "name": "sofaBeds",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
+          "notNull": true
         },
         "createdAt": {
           "name": "createdAt",
@@ -1440,26 +1345,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "serviceId": {
-          "name": "serviceId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "arrangementId": {
-          "name": "arrangementId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
         "typeOfBuilding": {
           "name": "typeOfBuilding",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "typeOfPlace": {
-          "name": "typeOfPlace",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
@@ -1554,32 +1441,6 @@
           "tableTo": "business",
           "columnsFrom": [
             "businessId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "property_serviceId_service_id_fk": {
-          "name": "property_serviceId_service_id_fk",
-          "tableFrom": "property",
-          "tableTo": "service",
-          "columnsFrom": [
-            "serviceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "property_arrangementId_arrangement_id_fk": {
-          "name": "property_arrangementId_arrangement_id_fk",
-          "tableFrom": "property",
-          "tableTo": "arrangement",
-          "columnsFrom": [
-            "arrangementId"
           ],
           "columnsTo": [
             "id"
@@ -1882,22 +1743,35 @@
           "notNull": false,
           "default": 6
         },
-        "minGuests": {
-          "name": "minGuests",
+        "bathrooms": {
+          "name": "bathrooms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cribs": {
+          "name": "cribs",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": 1
+          "default": 0
         },
-        "insideBathrooms": {
-          "name": "insideBathrooms",
+        "kingSizeBeds": {
+          "name": "kingSizeBeds",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": 1
+          "default": 0
         },
-        "outsideBathrooms": {
-          "name": "outsideBathrooms",
+        "queenSizeBeds": {
+          "name": "queenSizeBeds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "singleSizeBeds": {
+          "name": "singleSizeBeds",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -1960,128 +1834,6 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.service": {
-      "name": "service",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "airportShuttle": {
-          "name": "airportShuttle",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "bar": {
-          "name": "bar",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "childcareServices": {
-          "name": "childcareServices",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "concierge": {
-          "name": "concierge",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "eventPlanningServices": {
-          "name": "eventPlanningServices",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "housekeeping": {
-          "name": "housekeeping",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "laundryService": {
-          "name": "laundryService",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "petServices": {
-          "name": "petServices",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "restaurant": {
-          "name": "restaurant",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "roomService": {
-          "name": "roomService",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "spa": {
-          "name": "spa",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "transportationServices": {
-          "name": "transportationServices",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "valetParking": {
-          "name": "valetParking",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },

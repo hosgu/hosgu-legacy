@@ -65,6 +65,34 @@ class Service extends ServiceHandler {
       }
     )
 
+    const createdArrangement = await api.fetch<APIResponse<PropertyFields>>(
+      `/api/v1/arrangement/create`,
+      {
+        method: 'POST',
+        body: {
+          airMattresses: 0,
+          bedrooms: values.bedrooms,
+          bunkBeds: 0,
+          cribs: 0,
+          futons: 0,
+          hammocks: 0,
+          kingSizeBeds: 0,
+          queenSizeBeds: values.beds,
+          singleBeds: 0,
+          sofaBeds: 0
+        },
+        addLocalHost: process.env.NODE_ENV === 'development'
+      }
+    )
+
+    if (createdArrangement.status === 201) {
+      const [arrangement] = createdArrangement.items as any
+
+      console.log('ARRANGEMENT ID===>', arrangement.id)
+    }
+
+    console.log('CREATED ARRANGEMENT===>', createdArrangement)
+
     const createdProperty = await api.fetch<APIResponse<PropertyFields>>(
       `/api/v1/property/create`,
       {
