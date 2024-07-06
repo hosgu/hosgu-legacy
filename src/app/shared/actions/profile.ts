@@ -2,9 +2,10 @@
 import core from '@architecturex/utils.core'
 
 import { APIResponse } from '~/types'
-import ProfileService from '../services/profile'
+import BusinessService from '../services/business'
+import AmenityService from '../services/amenity'
 
-interface ProfileSetupPayload {
+type ProfileSetupPayload = {
   amenities: Map<string, boolean>
   address1: string
   address2: string
@@ -34,10 +35,30 @@ interface ProfileSetupPayload {
   userId: string
   zipCode: string
 }
+
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const data = core.formData.get(e)
-  console.log('Profile Data ===>', data)
-  const response = await ProfileService.setup(data)
+  let generalResponse: APIResponse<any>
+  console.log('From Data ===>', data)
+  const businessId = data.businessId
+  const businessItemData = {
+    name: data.propertyName,
+    googleMapsUrl: data.googleMaps,
+    addressLine1: data.address1,
+    addressLine2: data.address2,
+    city: data.city,
+    state: data.state,
+    country: data.country,
+    zipCode: data.zipCode,
+    email: data.email
+  }
+  /* Updating business data by using business service class */
+  generalResponse = await BusinessService.update(businessId, businessItemData)
 
-  return response
+  if (!generalResponse.ok) {
+    /* Creating new amenity by using ameniry service class*/
+    const createAmenity = await AmenityService.create(data.amenities)
+  }
+
+  return generalResponse
 }
