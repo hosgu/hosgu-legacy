@@ -4,6 +4,10 @@ import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
 import BusinessService from '../services/business'
 import AmenityService from '../services/amenity'
+import PropertyService from '../services/property'
+
+import { AmenityFields } from '~/server/db/schemas/amenity'
+import { PropertyFields } from '~/server/db/schemas/property'
 
 type ProfileSetupPayload = {
   amenities: Map<string, boolean>
@@ -55,9 +59,33 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   /* Updating business data by using business service class */
   generalResponse = await BusinessService.update(businessId, businessItemData)
 
-  if (!generalResponse.ok) {
+  if (generalResponse.ok) {
     /* Creating new amenity by using ameniry service class*/
-    const createAmenity = await AmenityService.create(data.amenities)
+    const createdAmenity = await AmenityService.create(data.amenities)
+    if (createdAmenity.ok) {
+      const amenityData: AmenityFields = createdAmenity.data
+    }
+
+    /* Assembly property data to create new property */
+    const propertyData = {
+      businessId: businessId,
+      name: data.propertyName,
+      slug: '',
+      description: '',
+      floors: 1,
+      rooms: 1,
+      generalRules: '',
+      safetyRules: '',
+      cancellationPolicy: '',
+      checkIn: `${data.checkInHour}:${data.checkInMinute} ${data.checkInPeriod}`,
+      checkOut: `${data.checkOutHour}:${data.checkOutMinute} ${data.checkOutPeriod}`,
+      active: true,
+      createdAt: new Date(),
+      updatedAt: null
+    }
+    const createdProperty = await PropertyService.create(propertyData)
+    if (createdProperty.ok) {
+    }
   }
 
   return generalResponse
