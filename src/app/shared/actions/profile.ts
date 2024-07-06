@@ -73,7 +73,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
       slug: '',
       description: '',
       floors: 1,
-      rooms: 1,
+      rooms: data.bedrooms,
       generalRules: '',
       safetyRules: '',
       cancellationPolicy: '',
