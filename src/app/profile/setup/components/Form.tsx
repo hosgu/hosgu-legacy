@@ -106,7 +106,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     googleMaps: '',
     password: '',
     price: '',
-    propertyName: '',
     state: '',
     zipCode: ''
   })
@@ -176,11 +175,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     },
     propertyName: (value: string) => {
       return !value ? t('profile.setup.error.pleaseEnterYourPropertyName') : ''
-    },
-    propertyName: (value: string) => {
-      if (!value) {
-        return t('profile.setup.error.pleaseEnterYourPropertyName')
-      }
     },
     propertyCity: (value: string) => {
       if (value.length < 3) {

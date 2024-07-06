@@ -46,44 +46,52 @@ class Service extends ServiceHandler {
   async setup(values: any): Promise<APIResponse<CreatedItem>> {
     console.log('VALUES TO SAVE===>', values)
     const businessId = values.businessId
-
+    const businessUpdatePayload = {
+      name: values.propertyName,
+      googleMapsUrl: values.googleMaps,
+      addressLine1: values.address1,
+      addressLine2: values.address2,
+      city: values.city,
+      state: values.state,
+      country: values.country,
+      zipCode: values.zipCode,
+      email: values.email
+    }
+    console.log('Business Update DATA >>>>', businessUpdatePayload)
     const updateBusinessData = await api.fetch<APIResponse<BusinessFields>>(
       `/api/v1/business/${businessId}`,
       {
         method: 'PUT',
-        body: {
-          addressLine1: values.address1,
-          addressLine2: values.address2,
-          city: values.city,
-          state: values.state,
-          country: values.country,
-          zipCode: values.zipCode,
-          googleMapsUrl: values.googleMaps,
-          active: true
-        },
+        body: businessUpdatePayload,
         addLocalHost: process.env.NODE_ENV === 'development'
       }
     )
+    if (updateBusinessData.status !== 200) {
+      console.log(`Error by tring to update business data ${updateBusinessData.error}`)
+    }
+
+    const propertyCreatePayload = {
+      businessId,
+      type: values.propertyType,
+      name: values.propertyName,
+      slug: slug(values.propertyName),
+      description: '',
+      floors: 1,
+      rooms: 1,
+      generalRules: '',
+      safetyRules: '',
+      cancellationPolicy: '',
+      checkIn: '',
+      checkOut: '',
+      active: true
+    }
+    console.log('Property Create DATA >>>>', propertyCreatePayload)
 
     const createdProperty = await api.fetch<APIResponse<PropertyFields>>(
       `/api/v1/property/create`,
       {
         method: 'POST',
-        body: {
-          businessId,
-          typeOfBuilding: values.propertyType,
-          name: values.propertyName,
-          slug: slug(values.propertyName),
-          description: '',
-          floors: 1,
-          rooms: 1,
-          generalRules: '',
-          safetyRules: '',
-          cancellationPolicy: '',
-          checkIn: values.checkInHour + ':' + values.checkInMinute + ' ' + values.checkInPeriod,
-          checkOut: values.checkOutHour + ':' + values.checkOutMinute + ' ' + values.checkOutPeriod,
-          active: true
-        },
+        body: propertyCreatePayload,
         addLocalHost: process.env.NODE_ENV === 'development'
       }
     )
