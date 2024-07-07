@@ -338,6 +338,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       const cleanValues = JSON.parse(JSON.stringify(values))
       console.log('cleanValues', cleanValues)
       const formData = core.formData.set(new FormData(), cleanValues)
+      formData.set('amenities', JSON.stringify(values.amenities))
       const response = await ProfileActions.setupProfile(formData)
 
       if (response.status === 200) {

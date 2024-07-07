@@ -61,30 +61,30 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
 
   if (generalResponse.ok) {
     /* Creating new amenity by using ameniry service class*/
-    const createdAmenity = await AmenityService.create(data.amenities)
+    const amenityData = {
+      amenities: JSON.parse(data.amenities)
+    }
+    const createdAmenity = await AmenityService.create(amenityData)
     if (createdAmenity.ok) {
-      const amenityData: AmenityFields = createdAmenity.data
-    }
-
-    /* Assembly property data to create new property */
-    const propertyData = {
-      businessId: businessId,
-      name: data.propertyName,
-      slug: '',
-      description: '',
-      floors: 1,
-      rooms: data.bedrooms,
-      generalRules: '',
-      safetyRules: '',
-      cancellationPolicy: '',
-      checkIn: `${data.checkInHour}:${data.checkInMinute} ${data.checkInPeriod}`,
-      checkOut: `${data.checkOutHour}:${data.checkOutMinute} ${data.checkOutPeriod}`,
-      active: true,
-      createdAt: new Date(),
-      updatedAt: null
-    }
-    const createdProperty = await PropertyService.create(propertyData)
-    if (createdProperty.ok) {
+      const amenityCreated: AmenityFields = createdAmenity.data
+      /* Assembly property data to create new property */
+      const propertyData = {
+        businessId: businessId,
+        name: data.propertyName,
+        slug: '',
+        description: '',
+        floors: 1,
+        rooms: data.bedrooms,
+        generalRules: '',
+        safetyRules: '',
+        cancellationPolicy: '',
+        checkIn: `${data.checkInHour}:${data.checkInMinute} ${data.checkInPeriod}`,
+        checkOut: `${data.checkOutHour}:${data.checkOutMinute} ${data.checkOutPeriod}`,
+        active: true
+      }
+      const createdProperty = await PropertyService.create(propertyData)
+      if (createdProperty.ok) {
+      }
     }
   }
 
