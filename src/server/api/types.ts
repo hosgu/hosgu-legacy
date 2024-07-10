@@ -20,8 +20,8 @@ export type DataResponse<T> = {
 }
 
 export interface ICRUDHandler {
-  getAll: (page: number, size: number, limit: boolean) => Promise<DataResponse<any>>
-  getOne: (id: string) => Promise<DataResponse<any>>
+  getAll: (page: number, size: number, limit: boolean, cache: boolean) => Promise<DataResponse<any>>
+  getOne: (id: string, cache: boolean) => Promise<DataResponse<any>>
   create: (itemData: any) => Promise<DataResponse<any>>
   update: (id: string, itemData: any) => Promise<DataResponse<any>>
   delete: (id: string) => Promise<DataResponse<any>>

@@ -47,7 +47,7 @@ nextApp.prepare().then(() => {
   app.use(bodyParser.json())
 
   // Sites static directories
-  app.use(express.static(path.join(__dirname, '../public')))
+  app.use(express.static(path.join(__dirname, '../../public')))
 
   app.use((req: any, res: Response, next: NextFunction) => {
     req.cwd = process.cwd()

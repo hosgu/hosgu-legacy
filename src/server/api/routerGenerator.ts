@@ -3,6 +3,13 @@ import { db } from '../db'
 import { handleErrorResponse } from './error'
 import { ICRUDHandler } from './types'
 
+type QueryParams = {
+  page: string
+  size: string
+  limit: string
+  cache: string
+}
+
 export function createCRUDRoutes<T extends ICRUDHandler>(
   CRUDHandler: new (db: any) => T,
   customRoutes?: Record<string, { method: string; handler: RequestHandler }>
@@ -13,12 +20,8 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
   if (!customRoutes || !customRoutes['/'] || customRoutes['/'].method !== 'GET') {
     router.get('/', async (req: Request, res: Response) => {
       try {
-        const {
-          page = 1,
-          size = 10,
-          limit = 0
-        } = req.query as { page: string; size: string; limit: string }
-        const response = await handler.getAll(page as number, size as number, !!limit)
+        const { page = 1, size = 10, limit = 0, cache = '' } = req.query as QueryParams
+        const response = await handler.getAll(page as number, size as number, !!limit, !!cache)
 
         res.json({ ok: true, ...response })
       } catch (error) {
@@ -30,7 +33,8 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
   if (!customRoutes || !customRoutes['/:id'] || customRoutes['/:id'].method !== 'GET') {
     router.get('/:id', async (req: Request, res: Response) => {
       try {
-        const response = await handler.getOne(req.params.id)
+        const { cache = '' } = req.query as QueryParams
+        const response = await handler.getOne(req.params.id, !!cache)
 
         res.json({ ok: true, ...response })
       } catch (error) {
