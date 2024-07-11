@@ -23,7 +23,8 @@ const common = {
   'common.input.invalidEmail': 'Correo Electrónico Inválido',
   'common.input.invalidPhone': 'Teléfono Inválido (ej. +1 123 456 7890)',
   'common.input.invalidUrl': 'URL Inválido (ej. https://ejemplo.com)',
-  'common.input.password': 'Contraseña'
+  'common.input.password': 'Contraseña',
+  'common.profile.setup.guests': 'Invitados'
 } as const
 
 const translations = {
