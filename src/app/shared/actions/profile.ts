@@ -3,7 +3,7 @@ import core from '@architecturex/utils.core'
 
 import { APIResponse } from '~/types'
 import BusinessService from '../services/business'
-import AmenityService from '../services/amenity'
+import AmenityService from '../services/amenityServiceRule'
 import PropertyService from '../services/property'
 
 import { AmenityServiceRuleFields } from '~/server/db/schemas/amenityServiceRule'
