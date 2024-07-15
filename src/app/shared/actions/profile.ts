@@ -6,7 +6,7 @@ import BusinessService from '../services/business'
 import AmenityService from '../services/amenity'
 import PropertyService from '../services/property'
 
-import { AmenityFields } from '~/server/db/schemas/amenity'
+import { AmenityServiceRuleFields } from '~/server/db/schemas/amenityServiceRule'
 import { PropertyFields } from '~/server/db/schemas/property'
 
 type ProfileSetupPayload = {
@@ -66,7 +66,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
     }
     const createdAmenity = await AmenityService.create(amenityData)
     if (createdAmenity.ok) {
-      const amenityCreated: AmenityFields = createdAmenity.data
+      const amenityCreated: AmenityServiceRuleFields = createdAmenity.data
       /* Assembly property data to create new property */
       const propertyData = {
         businessId: businessId,

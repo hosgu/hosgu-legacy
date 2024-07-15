@@ -7,7 +7,7 @@ import path from 'path'
 
 // APIs
 import agentApiV1 from './api/v1/agent'
-import amenityApiV1 from './api/v1/amenity'
+import amenityServicesRulesApiV1 from './api/v1/amenity-services-rules'
 import assetApiV1 from './api/v1/asset'
 import businessApiV1 from './api/v1/business'
 import cancellationApiV1 from './api/v1/cancellation'
@@ -57,7 +57,7 @@ nextApp.prepare().then(() => {
 
   // API
   app.use('/api/v1/agent', agentApiV1)
-  app.use('/api/v1/amenity', amenityApiV1)
+  app.use('/api/v1/amenity-services-rules', amenityServicesRulesApiV1)
   app.use('/api/v1/asset', assetApiV1)
   app.use('/api/v1/business', businessApiV1)
   app.use('/api/v1/cancellation', cancellationApiV1)
