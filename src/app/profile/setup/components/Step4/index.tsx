@@ -26,8 +26,6 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
     let value = amenities[name]
 
     amenities[name] = !value
-    console.log('amenities', amenities)
-    console.log('VALUES===>', values)
     setValues({ ...values, amenities })
 
     const currentValues = Array.from(Object.values(values.amenities))
