@@ -1,7 +1,7 @@
 import { pgTable, integer, uuid, timestamp } from 'drizzle-orm/pg-core'
 import { property } from './property'
 import { fee } from './fee'
-import { amenityServiceRule } from './amenityServiceRule'
+import { asr } from './asr'
 
 export const unit = pgTable('unit', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -11,8 +11,8 @@ export const unit = pgTable('unit', {
   feeId: uuid('feeId')
     .references(() => fee.id)
     .notNull(),
-  amenityId: uuid('amenityId')
-    .references(() => amenityServiceRule.id)
+  asrId: uuid('asrId')
+    .references(() => asr.id)
     .notNull(),
   maxGuests: integer('maxGuests').default(6),
   bedrooms: integer('bedrooms'),

@@ -1,10 +1,10 @@
 import CRUDHandler from '../../CRUD'
-import { AmenityServiceRule, amenityServiceRule } from '../../../db/schemas/amenityServiceRule'
+import { ASR, asr } from '../../../db/schemas/asr'
 import { DB } from '../../../db'
 
-class CRUD extends CRUDHandler<AmenityServiceRule> {
+class CRUD extends CRUDHandler<ASR> {
   constructor(db: DB) {
-    super(db, amenityServiceRule)
+    super(db, asr)
   }
 }
 

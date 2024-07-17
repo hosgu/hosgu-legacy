@@ -1,14 +1,14 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
 import { business } from './business'
-import { amenityServiceRule } from './amenityServiceRule'
+import { asr } from './asr'
 
 export const property = pgTable('property', {
   id: uuid('id').primaryKey().defaultRandom(),
   businessId: uuid('businessId')
     .references(() => business.id)
     .notNull(),
-  amenityServiceRuleId: uuid('amenityServiceRuleId')
-    .references(() => amenityServiceRule.id)
+  asrId: uuid('asrId')
+    .references(() => asr.id)
     .notNull(),
   typeOfBuilding: varchar('typeOfBuilding', { length: 50 }), // cabin, house, apartment, hotel, etc
   name: varchar('name', { length: 255 }),

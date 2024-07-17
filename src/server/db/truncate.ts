@@ -3,7 +3,7 @@ import { db } from '../db'
 
 const clearDb = async (): Promise<void> => {
   await db.execute(sql.raw(`TRUNCATE TABLE "agent" CASCADE;`))
-  await db.execute(sql.raw(`TRUNCATE TABLE "amenity" CASCADE;`))
+  await db.execute(sql.raw(`TRUNCATE TABLE "asr" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "arrangement" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "asset" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "business" CASCADE;`))

@@ -6,8 +6,7 @@ import BusinessService from '../services/business'
 import AmenityService from '../services/amenityServiceRule'
 import PropertyService from '../services/property'
 
-import { AmenityServiceI, RuleI } from '../model/ASRI'
-import { AmenityServiceRuleFields } from '~/server/db/schemas/amenityServiceRule'
+import { ASRFields } from '~/server/db/schemas/asr'
 import { PropertyFields } from '~/server/db/schemas/property'
 import { stringify } from 'querystring'
 
@@ -64,48 +63,48 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   if (generalResponse.ok) {
     /* Creating new amenity by using ameniry service class*/
     const amenityData: Map<string, boolean> = new Map(Object.entries(JSON.parse(data.amenities)))
-    console.log('AmenityData ===>>>:::', amenityData)
-    const amenitiesServices: AmenityServiceI = {
-      amenities: {
-        ac: amenityData.get('ac'),
-        bedSheets: amenityData.get('bedSheets'),
-        coffee_machine: amenityData.get('coffee_machine'),
-        extraBed: amenityData.get('extraBed'),
-        garden: amenityData.get('garden'),
-        hotWater: amenityData.get('hotWater'),
-        glassesPlates: amenityData.get('glassesPlates'),
-        kitchen: amenityData.get('kitchen'),
-        oven: amenityData.get('oven'),
-        refrigerator: amenityData.get('refrigerator'),
-        towels: amenityData.get('towels'),
-        tv: amenityData.get('tv')
-      },
-      services: {
-        freeParking: amenityData.get('freeParking'),
-        laundry: amenityData.get('laundry'),
-        pool: amenityData.get('pool'),
-        wifi: amenityData.get('wifi')
-      }
+
+    const amenities = {
+      ac: amenityData.get('ac'),
+      bedSheets: amenityData.get('bedSheets'),
+      coffeeMachine: amenityData.get('coffeeMachine'),
+      extraBed: amenityData.get('extraBed'),
+      garden: amenityData.get('garden'),
+      hotWater: amenityData.get('hotWater'),
+      glassesPlates: amenityData.get('glassesPlates'),
+      kitchen: amenityData.get('kitchen'),
+      oven: amenityData.get('oven'),
+      refrigerator: amenityData.get('refrigerator'),
+      towels: amenityData.get('towels'),
+      tv: amenityData.get('tv')
     }
 
-    const rules: RuleI = {
+    const services = {
+      freeParking: amenityData.get('freeParking'),
+      laundry: amenityData.get('laundry'),
+      pool: amenityData.get('pool'),
+      wifi: amenityData.get('wifi')
+    }
+
+    const rules = {
       smoking: amenityData.get('smoking'),
-      petFriendly: amenityData.get('petFriendly'),
-      weedFriendly: amenityData.get('weedFriendly')
+      petFriendly: amenityData.get('petFriendly')
     }
 
-    const ASRData = {
-      amenitiesServices,
+    const asr = {
+      amenities,
+      services,
       rules
     }
 
-    const createdAmenity = await AmenityService.create(ASRData)
+    const createdAmenity = await AmenityService.create(asr)
     if (createdAmenity.ok) {
-      const amenityCreated: AmenityServiceRuleFields = createdAmenity.data
+      const amenityCreated: ASRFields = createdAmenity.data
       /* Assembly property data to create new property */
+      console.log('amenityCreated ===>>>:::', amenityCreated)
       const propertyData = {
         businessId: businessId,
-        amenityServiceRuleId: amenityCreated.id,
+        asrId: amenityCreated.id,
         name: data.propertyName,
         slug: '',
         description: '',
