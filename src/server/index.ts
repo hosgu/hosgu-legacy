@@ -9,8 +9,7 @@ import { Server } from 'net'
 
 // APIs
 import agentApiV1 from './api/v1/agent'
-import amenityApiV1 from './api/v1/amenity'
-import arrangementApiV1 from './api/v1/arrangement'
+import amenityServiceRuleApiV1 from './api/v1/amenity-service-rule'
 import assetApiV1 from './api/v1/asset'
 import businessApiV1 from './api/v1/business'
 import cancellationApiV1 from './api/v1/cancellation'
@@ -22,7 +21,6 @@ import photoApiV1 from './api/v1/photo'
 import propertyApiV1 from './api/v1/property'
 import reservationApiV1 from './api/v1/reservation'
 import roomApiV1 from './api/v1/room'
-import serviceApiV1 from './api/v1/service'
 import settingsApiV1 from './api/v1/settings'
 import tierApiV1 from './api/v1/tier'
 import unitApiV1 from './api/v1/unit'
@@ -74,7 +72,7 @@ nextApp.prepare().then(() => {
 
     // API
     app.use('/api/v1/agent', agentApiV1)
-    app.use('/api/v1/amenity', amenityApiV1)
+    app.use('/api/v1/amenity-service-rule', amenityServiceRuleApiV1)
     app.use('/api/v1/arrangement', arrangementApiV1)
     app.use('/api/v1/asset', assetApiV1)
     app.use('/api/v1/business', businessApiV1)
@@ -87,7 +85,6 @@ nextApp.prepare().then(() => {
     app.use('/api/v1/property', propertyApiV1)
     app.use('/api/v1/reservation', reservationApiV1)
     app.use('/api/v1/room', roomApiV1)
-    app.use('/api/v1/service', serviceApiV1)
     app.use('/api/v1/settings', settingsApiV1)
     app.use('/api/v1/tier', tierApiV1)
     app.use('/api/v1/unit', unitApiV1)

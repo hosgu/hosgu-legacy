@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
-  values: any
   locale: string
+  values: any
 }
 
 const Step: FC<Props> = ({ values, locale }) => {

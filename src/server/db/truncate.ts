@@ -3,8 +3,7 @@ import { db } from '../db'
 
 const clearDb = async (): Promise<void> => {
   await db.execute(sql.raw(`TRUNCATE TABLE "agent" CASCADE;`))
-  await db.execute(sql.raw(`TRUNCATE TABLE "amenity" CASCADE;`))
-  await db.execute(sql.raw(`TRUNCATE TABLE "arrangement" CASCADE;`))
+  await db.execute(sql.raw(`TRUNCATE TABLE "asr" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "asset" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "business" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "cancellation" CASCADE;`))
@@ -18,7 +17,6 @@ const clearDb = async (): Promise<void> => {
   await db.execute(sql.raw(`TRUNCATE TABLE "property" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "reservation" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "room" CASCADE;`))
-  await db.execute(sql.raw(`TRUNCATE TABLE "service" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "setting" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "tier" CASCADE;`))
   await db.execute(sql.raw(`TRUNCATE TABLE "unit" CASCADE;`))

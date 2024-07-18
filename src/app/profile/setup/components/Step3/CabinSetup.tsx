@@ -96,7 +96,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
         <hr className="border-solid dark:border-gray-700" />
 
         <div className="flex flex-row justify-between  items-center space-x-2 my-6">
-          <p>{t('profile.setup.step3.beds')}</p>
+          <p>{t('common.profile.setup.beds')}</p>
           <Counter
             onChange={handleBedsChange}
             defaultValue={beds}

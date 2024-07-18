@@ -1,8 +1,8 @@
-import security from '@architecturex/utils.security'
 import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { DB, sql, SQL } from '../db'
 import { DataResponse, ItemData } from './types'
+import is from '@architecturex/utils.is'
 
 type TableColumns = {
   [key: string]: any
@@ -15,6 +15,7 @@ class CRUD<T extends PgTable<TableConfig>> {
   protected fields?: string
   public selectedFields: TableColumns
 
+  // Dependency Injection
   constructor(db: DB, table: T, fields: string = '') {
     this.db = db
     this.sql = sql
@@ -52,7 +53,27 @@ class CRUD<T extends PgTable<TableConfig>> {
     return selectionFields
   }
 
-  async getAll(page: number = 1, size: number = 10, limit = false): Promise<DataResponse<any>> {
+  async getAll(
+    page: number = 1,
+    size: number = 10,
+    limit = false,
+    cache = false
+  ): Promise<DataResponse<any>> {
+    if (cache) {
+      // TODO: Add cache layer with Redis.
+      // const cachedData = redisClient.get(this.table)
+      // return {
+      //   cache: true,
+      //   items: data,
+      //   pagination: {
+      //     totalItems,
+      //     totalPages,
+      //     currentPage: page,
+      //     pageSize: size
+      //   }
+      // }
+    }
+
     const [countData] = await this.db
       .select({ count: this.sql<number>`cast(count(*) as int)` })
       .from(this.table)
@@ -75,12 +96,11 @@ class CRUD<T extends PgTable<TableConfig>> {
       throw {
         type: 'NOT_FOUND_ERROR',
         code: 'NO_ITEMS_FOUND',
-        message: 'noItemsFound'
+        message: 'error.message.noItemsFound'
       }
     }
 
     return {
-      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data,
       pagination: {
         totalItems,
@@ -91,7 +111,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     }
   }
 
-  async getOne(id: string): Promise<DataResponse<ItemData>> {
+  async getOne(id: string, cache = false): Promise<DataResponse<ItemData>> {
     const data = await this.db
       .select()
       .from(this.table)
@@ -111,7 +131,15 @@ class CRUD<T extends PgTable<TableConfig>> {
   }
 
   async create(itemData: any): Promise<DataResponse<ItemData>> {
-    const data = await this.db.insert(this.table).values(itemData).returning()
+    let data: any[] = []
+    if (is(itemData).array()) {
+      itemData.forEach(async (item: any) => {
+        let itemSaved = await this.db.insert(this.table).values(item).returning()
+        data.push(itemSaved)
+      })
+    } else {
+      data = await this.db.insert(this.table).values(itemData).returning()
+    }
 
     return {
       items: data

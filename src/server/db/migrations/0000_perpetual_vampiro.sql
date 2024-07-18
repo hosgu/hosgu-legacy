@@ -19,22 +19,6 @@ CREATE TABLE IF NOT EXISTS "amenity" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "arrangement" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"airMattresses" integer DEFAULT 0,
-	"bedrooms" integer,
-	"bunkBeds" integer DEFAULT 0,
-	"cribs" integer DEFAULT 0,
-	"futons" integer DEFAULT 0,
-	"hammocks" integer DEFAULT 0,
-	"kingSizeBeds" integer DEFAULT 0,
-	"queenSizeBeds" integer DEFAULT 0,
-	"singleSizeBeds" integer DEFAULT 0,
-	"sofaBeds" integer DEFAULT 0,
-	"createdAt" timestamp DEFAULT now(),
-	"updatedAt" timestamp DEFAULT now()
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "asset" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"roomId" uuid,
@@ -204,10 +188,7 @@ CREATE TABLE IF NOT EXISTS "photo" (
 CREATE TABLE IF NOT EXISTS "property" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"businessId" uuid NOT NULL,
-	"serviceId" uuid NOT NULL,
-	"arrangementId" uuid NOT NULL,
 	"typeOfBuilding" varchar(50),
-	"typeOfPlace" varchar(50),
 	"name" varchar(255),
 	"slug" varchar(255),
 	"description" text,
@@ -264,28 +245,11 @@ CREATE TABLE IF NOT EXISTS "room" (
 	"roomNumber" varchar(10) DEFAULT '0',
 	"roomType" varchar(100),
 	"maxGuests" integer DEFAULT 6,
-	"minGuests" integer DEFAULT 1,
-	"insideBathrooms" integer DEFAULT 1,
-	"outsideBathrooms" integer DEFAULT 0,
-	"createdAt" timestamp DEFAULT now(),
-	"updatedAt" timestamp DEFAULT now()
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "service" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"airportShuttle" boolean DEFAULT false,
-	"bar" boolean DEFAULT false,
-	"childcareServices" boolean DEFAULT false,
-	"concierge" boolean DEFAULT false,
-	"eventPlanningServices" boolean DEFAULT false,
-	"housekeeping" boolean DEFAULT false,
-	"laundryService" boolean DEFAULT false,
-	"petServices" boolean DEFAULT false,
-	"restaurant" boolean DEFAULT false,
-	"roomService" boolean DEFAULT false,
-	"spa" boolean DEFAULT false,
-	"transportationServices" boolean DEFAULT false,
-	"valetParking" boolean DEFAULT false,
+	"bathrooms" integer,
+	"cribs" integer DEFAULT 0,
+	"kingSizeBeds" integer DEFAULT 0,
+	"queenSizeBeds" integer DEFAULT 0,
+	"singleSizeBeds" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -322,9 +286,13 @@ CREATE TABLE IF NOT EXISTS "unit" (
 	"feeId" uuid NOT NULL,
 	"amenityId" uuid NOT NULL,
 	"maxGuests" integer DEFAULT 6,
-	"minGuests" integer DEFAULT 1,
-	"insideBathrooms" integer DEFAULT 1,
-	"outsideBathrooms" integer DEFAULT 0,
+	"bedrooms" integer,
+	"bathrooms" integer,
+	"cribs" integer DEFAULT 0,
+	"kingSizeBeds" integer DEFAULT 0,
+	"queenSizeBeds" integer DEFAULT 0,
+	"singleSizeBeds" integer DEFAULT 0,
+	"sofaBeds" integer DEFAULT 0,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -446,18 +414,6 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "property" ADD CONSTRAINT "property_businessId_business_id_fk" FOREIGN KEY ("businessId") REFERENCES "public"."business"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_serviceId_service_id_fk" FOREIGN KEY ("serviceId") REFERENCES "public"."service"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "property" ADD CONSTRAINT "property_arrangementId_arrangement_id_fk" FOREIGN KEY ("arrangementId") REFERENCES "public"."arrangement"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

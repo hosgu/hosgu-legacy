@@ -201,43 +201,47 @@ const HotelSetup: FC<Props> = () => {
       </div>
       <div className="mt-4">
         <h3 className="text-xl font-semibold mb-4">Generated Rooms</h3>
-        {floorNumbers.map((floor) => (
-          <div key={floor} className="mb-4 p-4 border rounded bg-gray-100 dark:bg-gray-800">
-            <h3 className="text-xl font-semibold mb-4">Floor {floor}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {getFloorRooms(floor).map((room, index) => (
-                <div
-                  key={index}
-                  className="p-4 border rounded flex flex-col items-center dark:bg-gray-700 dark:border-gray-600"
-                >
-                  <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-300">
-                    Room {room.roomNumber}
-                  </h4>
-                  <div className="mb-2 w-full">
-                    <label className="block mb-1 text-center text-gray-800 dark:text-gray-300">
-                      Room Type
-                    </label>
-                    <select
-                      value={room.type}
-                      onChange={(e) => {
-                        const newRooms = [...rooms]
-                        newRooms[rooms.indexOf(room)].type = e.target.value
-                        setRooms(newRooms)
-                      }}
-                      className="p-2 border rounded w-full text-center dark:bg-gray-700 dark:border-gray-600"
-                    >
-                      {roomTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
+
+        {floorNumbers
+          .slice()
+          .sort((a, b) => b - a)
+          .map((floor) => (
+            <div key={floor} className="mb-4 p-4 border rounded bg-gray-100 dark:bg-gray-800">
+              <h3 className="text-xl font-semibold mb-4">Floor {floor}</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {getFloorRooms(floor).map((room, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border rounded flex flex-col items-center dark:bg-gray-700 dark:border-gray-600"
+                  >
+                    <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-300">
+                      Room {room.roomNumber}
+                    </h4>
+                    <div className="mb-2 w-full">
+                      <label className="block mb-1 text-center text-gray-800 dark:text-gray-300">
+                        Room Type
+                      </label>
+                      <select
+                        value={room.type}
+                        onChange={(e) => {
+                          const newRooms = [...rooms]
+                          newRooms[rooms.indexOf(room)].type = e.target.value
+                          setRooms(newRooms)
+                        }}
+                        className="p-2 border rounded w-full text-center dark:bg-gray-700 dark:border-gray-600"
+                      >
+                        {roomTypes.map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   )

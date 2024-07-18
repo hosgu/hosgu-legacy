@@ -87,7 +87,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     userId: user?.id || '',
     zipCode: ''
   })
-  console.log('VALUES===>', values)
+
   const [uploadedFiles, setUploadedFiles] = useCustomState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
@@ -97,6 +97,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     address2: '',
     businessEmail: '',
     businessName: '',
+    propertyName: '',
     businessPhone: '',
     businessWebsite: '',
     city: '',
@@ -105,7 +106,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     googleMaps: '',
     password: '',
     price: '',
-    propertyName: '',
     state: '',
     zipCode: ''
   })
@@ -115,42 +115,22 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const goNext = async () => {
-    const isValidStep = await handleSubmit()
     setShowNotification(false)
 
-    // Store temporary images
+    // Store temporary images (5 = 6)
     if (currentStep === 5) {
       setValues('tmpImages', uploadedFiles)
     }
 
-    // Upload photos
+    // Upload photos (6 = 7)
     if (currentStep === 6) {
       if (uploadedFiles.length === 0) {
         setShowNotification(true)
         return
       }
-
-      const uploadFilesResponse = await fileUtils.uploadFiles(
-        uploadedFiles,
-        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
-      )
-
-      if (uploadFilesResponse.ok) {
-        setValues(
-          'images',
-          uploadFilesResponse.data.map((data: any) => data.path)
-        )
-      }
     }
 
-    const formData = core.formData.set(new FormData(), {
-      ...values
-    })
-
-    // Finish setup
-    if (currentStep === 7) {
-      await setupProfile(formData)
-    }
+    const isValidStep = await handleSubmit()
 
     // Go to next step
     if (isValidStep) {
@@ -246,6 +226,14 @@ const Form: FC<Props> = ({ locale, user }) => {
         return ''
       }
 
+      if (validations.propertyName(values.propertyName)) {
+        setErrors('propertyName', validations.propertyName(values.propertyName))
+        return ''
+      } else if (errors.propertyName) {
+        setErrors('propertyName', '')
+        return ''
+      }
+
       if (validations.propertyCity(values.city)) {
         setErrors('city', validations.propertyCity(values.city))
         return ''
@@ -290,6 +278,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       const newErrors = {
         ...errors,
         address1: validations.propertyAddress1(values.address1),
+        propertyName: validations.propertyName(values.propertyName),
         city: validations.propertyCity(values.city),
         state: validations.propertyState(values.state),
         zipCode: validations.propertyZipCode(values.zipCode),
@@ -297,12 +286,19 @@ const Form: FC<Props> = ({ locale, user }) => {
       }
 
       setErrors('address1', newErrors.address1)
+      setErrors('propertyName', newErrors.propertyName)
       setErrors('city', newErrors.city)
       setErrors('state', newErrors.state)
       setErrors('zipCode', newErrors.zipCode)
       setErrors('price', newErrors.price)
 
-      return !newErrors.address1 && !newErrors.city && !newErrors.state && !newErrors.zipCode
+      return (
+        !newErrors.address1 &&
+        !newErrors.city &&
+        !newErrors.state &&
+        !newErrors.zipCode &&
+        !newErrors.propertyName
+      )
     }
 
     return true
@@ -311,19 +307,29 @@ const Form: FC<Props> = ({ locale, user }) => {
   const handleSubmit = async () => {
     const isValidStep = validate()
 
-    if (isValidStep && currentStep < 6) {
-      return true
-    }
-
     if (isValidStep && currentStep === 6) {
+      const uploadFilesResponse = await fileUtils.uploadFiles(
+        uploadedFiles,
+        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
+      )
+      let images = []
+      if (uploadFilesResponse.ok) {
+        images = uploadFilesResponse.data.map((data: any) => data.path)
+      }
+
       const cleanValues = JSON.parse(JSON.stringify(values))
-      console.log('cleanValues', cleanValues)
       const formData = core.formData.set(new FormData(), cleanValues)
-      const response = await ProfileActions.setupProfile(formData)
+      formData.set('amenities', JSON.stringify(values.amenities))
+      formData.set('images', JSON.stringify(images))
+      const response = await setupProfile(formData)
 
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
       }
+    }
+
+    if (isValidStep && currentStep < 6) {
+      return true
     }
 
     return false
@@ -349,7 +355,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step4
       key="step4"
       locale={locale}
-      setStep={setCurrentStep}
       values={values}
       setValues={setValues}
       setEnableNext={setEnableNext}
@@ -357,7 +362,6 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step5
       key="step5"
       locale={locale}
-      setStep={setCurrentStep}
       values={values}
       setValues={setValues}
       enableNext={enableNext}
@@ -366,12 +370,11 @@ const Form: FC<Props> = ({ locale, user }) => {
     <Step6
       key="step6"
       locale={locale}
-      setStep={setCurrentStep}
       setUploadedFiles={setUploadedFiles}
       uploadedFiles={uploadedFiles}
       setEnableNext={setEnableNext}
     />,
-    <Step7 key="step6" values={values} locale={locale} />,
+    <Step7 key="step7" values={values} locale={locale} />,
     <Step8 key="step8" />
   ]
 

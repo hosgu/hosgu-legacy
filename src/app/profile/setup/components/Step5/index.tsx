@@ -4,14 +4,13 @@ import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
   locale: string
-  setStep: (prevState: any) => void
   values: any
   setValues: (values: any) => void
   enableNext: boolean
   setEnableNext: (enableNext: boolean) => void
 }
 
-const Step: FC<Props> = ({ locale, setStep, setValues, values }) => {
+const Step: FC<Props> = ({ locale, setValues, values }) => {
   const { price: propertyPrice, currency: originalCurrency } = values
 
   const [price, setPrice] = useState<number>(propertyPrice)

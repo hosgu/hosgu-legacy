@@ -71,7 +71,7 @@ class Service {
     if (createdItem.status === 201 || createdItem.status === 200) {
       return {
         ok: true,
-        data: itemData,
+        data: createdItem.items ? createdItem.items[0] : {},
         status: 200
       }
     }
