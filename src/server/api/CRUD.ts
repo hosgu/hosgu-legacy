@@ -2,6 +2,7 @@ import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import { DB, sql, SQL } from '../db'
 import { DataResponse, ItemData } from './types'
+import is from '@architecturex/utils.is'
 
 type TableColumns = {
   [key: string]: any
@@ -130,7 +131,15 @@ class CRUD<T extends PgTable<TableConfig>> {
   }
 
   async create(itemData: any): Promise<DataResponse<ItemData>> {
-    const data = await this.db.insert(this.table).values(itemData).returning()
+    let data: any[] = []
+    if (is(itemData).array()) {
+      itemData.forEach(async (item: any) => {
+        let itemSaved = await this.db.insert(this.table).values(item).returning()
+        data.push(itemSaved)
+      })
+    } else {
+      data = await this.db.insert(this.table).values(itemData).returning()
+    }
 
     return {
       items: data

@@ -115,9 +115,6 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const goNext = async () => {
-    console.log('Before HandleSubmit ====', currentStep)
-    const isValidStep = await handleSubmit()
-    console.log('After  HandleSubmit ===', currentStep)
     setShowNotification(false)
 
     // Store temporary images (5 = 6)
@@ -131,28 +128,9 @@ const Form: FC<Props> = ({ locale, user }) => {
         setShowNotification(true)
         return
       }
-
-      const uploadFilesResponse = await fileUtils.uploadFiles(
-        uploadedFiles,
-        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
-      )
-
-      if (uploadFilesResponse.ok) {
-        setValues(
-          'images',
-          uploadFilesResponse.data.map((data: any) => data.path)
-        )
-      }
     }
 
-    const formData = core.formData.set(new FormData(), {
-      ...values
-    })
-
-    // Finish setup
-    if (currentStep === 7) {
-      await setupProfile(formData)
-    }
+    const isValidStep = await handleSubmit()
 
     // Go to next step
     if (isValidStep) {
@@ -327,23 +305,31 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const handleSubmit = async () => {
-    console.log('VALUES===>', values)
     const isValidStep = validate()
 
-    if (isValidStep && currentStep < 6) {
-      return true
-    }
-
     if (isValidStep && currentStep === 6) {
+      const uploadFilesResponse = await fileUtils.uploadFiles(
+        uploadedFiles,
+        `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
+      )
+      let images = []
+      if (uploadFilesResponse.ok) {
+        images = uploadFilesResponse.data.map((data: any) => data.path)
+      }
+
       const cleanValues = JSON.parse(JSON.stringify(values))
-      console.log('cleanValues', cleanValues)
       const formData = core.formData.set(new FormData(), cleanValues)
       formData.set('amenities', JSON.stringify(values.amenities))
-      const response = await ProfileActions.setupProfile(formData)
+      formData.set('images', JSON.stringify(images))
+      const response = await setupProfile(formData)
 
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
       }
+    }
+
+    if (isValidStep && currentStep < 6) {
+      return true
     }
 
     return false
@@ -388,7 +374,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       uploadedFiles={uploadedFiles}
       setEnableNext={setEnableNext}
     />,
-    <Step7 key="step6" values={values} locale={locale} />,
+    <Step7 key="step7" values={values} locale={locale} />,
     <Step8 key="step8" />
   ]
 

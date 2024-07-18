@@ -5,10 +5,10 @@ import { APIResponse } from '~/types'
 import BusinessService from '../services/business'
 import AmenityService from '../services/amenityServiceRule'
 import PropertyService from '../services/property'
+import PhotoService from '../services/photo'
 
 import { ASRFields } from '~/server/db/schemas/asr'
 import { PropertyFields } from '~/server/db/schemas/property'
-import { stringify } from 'querystring'
 
 type ProfileSetupPayload = {
   amenities: Map<string, boolean>
@@ -44,7 +44,8 @@ type ProfileSetupPayload = {
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const data = core.formData.get(e)
   let generalResponse: APIResponse<any>
-  console.log('From Data ===>', data)
+  console.log('From Data Server Action ===>', data)
+  const images: string[] = JSON.parse(data.images)
   const businessId = data.businessId
   const businessItemData = {
     name: data.propertyName,
@@ -120,6 +121,15 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
       const createdProperty = await PropertyService.create(propertyData)
       if (createdProperty.ok) {
         console.log('Property - Data ===>>>', createdProperty.data)
+        const propertyCreated: PropertyFields = createdProperty.data
+        const imagesPayload = images.map((image: string) => {
+          return {
+            url: image,
+            propertyId: propertyCreated.id
+          }
+        })
+        const imagesCreated = await PhotoService.create(imagesPayload)
+        console.log('Images Created at DB ==>', imagesCreated)
       }
     }
   }
