@@ -30,6 +30,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         />
 
         <Input
+          autoComplete="new-password"
           name="password"
           type="password"
           label={t('common.input.password')}
@@ -46,6 +47,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         </p>
 
         <Input
+          autoComplete="new-password"
           name="propertyName"
           label={t('common.property.name')}
           value={values.propertyName}
@@ -63,6 +65,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         </p>
 
         <Input
+          autoComplete="new-password"
           name="googleMaps"
           label="Google Maps"
           value={values.googleMaps}
@@ -94,6 +97,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         />
 
         <Input
+          autoComplete="new-password"
           name="state"
           label={t('common.general.state')}
           value={values.state}
@@ -110,6 +114,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.state}</p>
 
         <Input
+          autoComplete="new-password"
           name="city"
           label={t('common.general.city')}
           value={values.city}
@@ -125,6 +130,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         <p className="text-red-500 mb-4 text-xxs ml-1 break-words max-w-[300px]">{errors.city}</p>
 
         <Input
+          autoComplete="new-password"
           name="address1"
           label={t('common.business.address')}
           value={values.address1}
@@ -139,6 +145,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         />
 
         <Input
+          autoComplete="new-password"
           name="address2"
           value={values.address2}
           onChange={handleChange}
@@ -156,6 +163,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
         </p>
 
         <Input
+          autoComplete="new-password"
           name="zipCode"
           label={t('common.business.zipCode')}
           value={values.zipCode}
