@@ -12,9 +12,11 @@ CREATE TABLE IF NOT EXISTS "agent" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "amenity" (
+CREATE TABLE IF NOT EXISTS "asr" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"amenities" jsonb DEFAULT '[]'::jsonb,
+	"services" jsonb DEFAULT '[]'::jsonb,
+	"rules" jsonb DEFAULT '[]'::jsonb,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -176,11 +178,7 @@ CREATE TABLE IF NOT EXISTS "invoice" (
 CREATE TABLE IF NOT EXISTS "photo" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"propertyId" uuid NOT NULL,
-	"caption" varchar(255),
-	"fileSize" integer,
-	"fileType" varchar(50),
 	"url" varchar(255),
-	"visibility" varchar(50),
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
@@ -188,6 +186,7 @@ CREATE TABLE IF NOT EXISTS "photo" (
 CREATE TABLE IF NOT EXISTS "property" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"businessId" uuid NOT NULL,
+	"asrId" uuid NOT NULL,
 	"typeOfBuilding" varchar(50),
 	"name" varchar(255),
 	"slug" varchar(255),
@@ -240,7 +239,7 @@ CREATE TABLE IF NOT EXISTS "room" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"propertyId" uuid NOT NULL,
 	"feeId" uuid NOT NULL,
-	"amenityId" uuid NOT NULL,
+	"asrId" uuid NOT NULL,
 	"floor" varchar(10) DEFAULT '0',
 	"roomNumber" varchar(10) DEFAULT '0',
 	"roomType" varchar(100),
@@ -284,7 +283,7 @@ CREATE TABLE IF NOT EXISTS "unit" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"propertyId" uuid NOT NULL,
 	"feeId" uuid NOT NULL,
-	"amenityId" uuid NOT NULL,
+	"asrId" uuid NOT NULL,
 	"maxGuests" integer DEFAULT 6,
 	"bedrooms" integer,
 	"bathrooms" integer,
@@ -419,6 +418,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "property" ADD CONSTRAINT "property_asrId_asr_id_fk" FOREIGN KEY ("asrId") REFERENCES "public"."asr"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "reservation" ADD CONSTRAINT "reservation_guestId_guest_id_fk" FOREIGN KEY ("guestId") REFERENCES "public"."guest"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -443,7 +448,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "room" ADD CONSTRAINT "room_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "room" ADD CONSTRAINT "room_asrId_asr_id_fk" FOREIGN KEY ("asrId") REFERENCES "public"."asr"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -467,7 +472,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "unit" ADD CONSTRAINT "unit_amenityId_amenity_id_fk" FOREIGN KEY ("amenityId") REFERENCES "public"."amenity"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "unit" ADD CONSTRAINT "unit_asrId_asr_id_fk" FOREIGN KEY ("asrId") REFERENCES "public"."asr"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

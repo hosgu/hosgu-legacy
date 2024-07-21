@@ -1,5 +1,5 @@
 {
-  "id": "b3a5ad3a-7e43-44ca-8b33-df1ecf0be935",
+  "id": "f4262d48-3e3e-42eb-8af6-69a14af1f89c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -116,8 +116,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.amenity": {
-      "name": "amenity",
+    "public.asr": {
+      "name": "asr",
       "schema": "",
       "columns": {
         "id": {
@@ -129,6 +129,20 @@
         },
         "amenities": {
           "name": "amenities",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::jsonb"
+        },
+        "services": {
+          "name": "services",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::jsonb"
+        },
+        "rules": {
+          "name": "rules",
           "type": "jsonb",
           "primaryKey": false,
           "notNull": false,
@@ -1259,33 +1273,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "caption": {
-          "name": "caption",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "fileSize": {
-          "name": "fileSize",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "fileType": {
-          "name": "fileType",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
         "url": {
           "name": "url",
           "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "visibility": {
-          "name": "visibility",
-          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
@@ -1336,6 +1326,12 @@
         },
         "businessId": {
           "name": "businessId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "asrId": {
+          "name": "asrId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -1436,6 +1432,19 @@
           "tableTo": "business",
           "columnsFrom": [
             "businessId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "property_asrId_asr_id_fk": {
+          "name": "property_asrId_asr_id_fk",
+          "tableFrom": "property",
+          "tableTo": "asr",
+          "columnsFrom": [
+            "asrId"
           ],
           "columnsTo": [
             "id"
@@ -1705,8 +1714,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "amenityId": {
-          "name": "amenityId",
+        "asrId": {
+          "name": "asrId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -1815,12 +1824,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "room_amenityId_amenity_id_fk": {
-          "name": "room_amenityId_amenity_id_fk",
+        "room_asrId_asr_id_fk": {
+          "name": "room_asrId_asr_id_fk",
           "tableFrom": "room",
-          "tableTo": "amenity",
+          "tableTo": "asr",
           "columnsFrom": [
-            "amenityId"
+            "asrId"
           ],
           "columnsTo": [
             "id"
@@ -2027,8 +2036,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "amenityId": {
-          "name": "amenityId",
+        "asrId": {
+          "name": "asrId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -2130,12 +2139,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "unit_amenityId_amenity_id_fk": {
-          "name": "unit_amenityId_amenity_id_fk",
+        "unit_asrId_asr_id_fk": {
+          "name": "unit_asrId_asr_id_fk",
           "tableFrom": "unit",
-          "tableTo": "amenity",
+          "tableTo": "asr",
           "columnsFrom": [
-            "amenityId"
+            "asrId"
           ],
           "columnsTo": [
             "id"
