@@ -1,8 +1,8 @@
 import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
+import is from '@architecturex/utils.is'
 import { DB, sql, SQL } from '../db'
 import { DataResponse, ItemData } from './types'
-import is from '@architecturex/utils.is'
 
 type TableColumns = {
   [key: string]: any

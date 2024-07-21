@@ -22,8 +22,6 @@ const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
 
   const user = await UserActions.getUserByCode(code)
 
-  console.log('USER===>', user)
-
   if (!user) {
     return <NotFound />
   }

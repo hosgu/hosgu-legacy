@@ -44,7 +44,7 @@ type ProfileSetupPayload = {
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const data = core.formData.get(e)
   let generalResponse: APIResponse<any>
-  console.log('From Data Server Action ===>', data)
+
   const images: string[] = JSON.parse(data.images)
   const businessId = data.businessId
   const businessItemData = {
@@ -101,8 +101,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
     const createdAmenity = await AmenityService.create(asr)
     if (createdAmenity.ok) {
       const amenityCreated: ASRFields = createdAmenity.data
-      /* Assembly property data to create new property */
-      console.log('amenityCreated ===>>>:::', amenityCreated)
+
       const propertyData = {
         businessId: businessId,
         asrId: amenityCreated.id,
@@ -118,9 +117,10 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
         checkOut: `${data.checkOutHour}:${data.checkOutMinute} ${data.checkOutPeriod}`,
         active: true
       }
+
       const createdProperty = await PropertyService.create(propertyData)
+
       if (createdProperty.ok) {
-        console.log('Property - Data ===>>>', createdProperty.data)
         const propertyCreated: PropertyFields = createdProperty.data
         const imagesPayload = images.map((image: string) => {
           return {
@@ -128,8 +128,8 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
             propertyId: propertyCreated.id
           }
         })
+
         const imagesCreated = await PhotoService.create(imagesPayload)
-        console.log('Images Created at DB ==>', imagesCreated)
       }
     }
   }

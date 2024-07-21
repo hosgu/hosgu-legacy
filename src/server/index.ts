@@ -5,11 +5,10 @@ import express, { Application, NextFunction, Request, Response } from 'express'
 import nextJS from 'next'
 import path from 'path'
 import { createServer } from 'http'
-import { Server } from 'net'
 
 // APIs
 import agentApiV1 from './api/v1/agent'
-import amenityServiceRuleApiV1 from './api/v1/amenity-service-rule'
+import asrApiV1 from './api/v1/asr'
 import assetApiV1 from './api/v1/asset'
 import businessApiV1 from './api/v1/business'
 import cancellationApiV1 from './api/v1/cancellation'
@@ -72,8 +71,7 @@ nextApp.prepare().then(() => {
 
     // API
     app.use('/api/v1/agent', agentApiV1)
-    app.use('/api/v1/amenity-service-rule', amenityServiceRuleApiV1)
-    app.use('/api/v1/arrangement', arrangementApiV1)
+    app.use('/api/v1/asr', asrApiV1)
     app.use('/api/v1/asset', assetApiV1)
     app.use('/api/v1/business', businessApiV1)
     app.use('/api/v1/cancellation', cancellationApiV1)
