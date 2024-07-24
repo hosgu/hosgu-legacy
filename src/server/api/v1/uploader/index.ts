@@ -11,7 +11,7 @@ router.post('/', multiUpload, (req: any, res) => {
     return res.status(400).json({ ok: false, error: 'No files' })
   }
   const files = req.files.map((file: any) => ({
-    path: file.path.substring(file.path.indexOf('images'), file.path.length)
+    path: '/' + file.path.substring(file.path.indexOf('images'), file.path.length)
   }))
   return res.status(200).json({ ok: true, data: files })
 })
