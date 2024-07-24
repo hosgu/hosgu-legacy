@@ -166,7 +166,7 @@ const Input: FC<Props> = ({
 
       {hasFocus && filteredItems.length > 0 && (
         <ul
-          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black mt-1 max-h-40 overflow-auto absolute z-10"
+          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black dark:text-white mt-1 max-h-40 overflow-auto absolute z-10"
           style={{ width: inputRef.current?.offsetWidth, maxHeight: '150px', overflowY: 'scroll' }}
         >
           {filteredItems.map((item, index) => (
