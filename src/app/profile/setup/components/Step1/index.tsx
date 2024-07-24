@@ -19,7 +19,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
   const states = constants.states[values.country] || []
 
   return (
-    <div className="mx-auto p-6 bg-white w-full lg:w-[600px] flex flex-col md:flex-row md:flex-wrap">
+    <div className="mx-auto p-6 dark:bg-black w-full lg:w-[600px] flex flex-col md:flex-row md:flex-wrap">
       <div className="w-full md:w-1/2 md:pr-4">
         <Input
           label={t('common.user.email')}
