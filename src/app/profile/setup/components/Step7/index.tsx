@@ -30,7 +30,7 @@ const Step: FC<Props> = ({ values, locale }) => {
   }
 
   return (
-    <div className="mx-auto p-6 bg-white w-full flex flex-col">
+    <div className="mx-auto p-6 bg-white dark:bg-gray-900 w-full flex flex-col">
       <div className="w-full m-auto">
         <h1 className="text-2xl font-semibold mb-2 text-center">{values.propertyName}</h1>
         <div className="flex flex-wrap md:flex-nowrap">
