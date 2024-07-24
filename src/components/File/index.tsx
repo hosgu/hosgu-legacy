@@ -165,7 +165,7 @@ const File: FC<Props> = ({
     >
       <div
         className={cx.join(
-          'm-3 p-4 rounded transition-all group-hover:bg-blue-50  dark:group-hover:bg-gray-400 h-[95%] w-auto',
+          'm-3 p-4 rounded transition-all group-hover:bg-blue-50  dark:group-hover:bg-gray-700 h-[95%] w-auto',
           {
             'bg-blue-50': isDragging
           }

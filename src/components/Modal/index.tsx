@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         className={cx.join(
-          'relative p-4 bg-white dark:bg-gray-700 w-3/4 lg:max-w-md lg:rounded lg:w-1/3 m-auto border-2 border-red flex-col flex'
+          'relative p-4 bg-white dark:bg-gray-800 w-3/4 lg:max-w-md lg:rounded lg:w-1/3 m-auto border-2 border-red flex-col flex'
         )}
       >
         <div className="flex justify-between items-center">
