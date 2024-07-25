@@ -36,7 +36,9 @@ const FilesPreviewer: FC<Props> = ({
     setIsUploadPhotosOpen(true)
   }
 
-  const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
+  const imageFiles = files
+    ? files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
+    : []
 
   const button = (
     <RenderIf isFalse={isUploadPhotosOpen}>
