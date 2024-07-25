@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, ChangeEvent, useEffect } from 'react'
+import React, { FC, ChangeEvent, useEffect, useState } from 'react'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 import cx from '@architecturex/utils.cx'
@@ -88,7 +88,7 @@ const Form: FC<Props> = ({ locale, user }) => {
     zipCode: ''
   })
 
-  const [uploadedFiles, setUploadedFiles] = useCustomState<any>([])
+  const [uploadedFiles, setUploadedFiles] = useState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
 
