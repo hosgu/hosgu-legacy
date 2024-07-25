@@ -2,18 +2,28 @@
 import React, { FC } from 'react'
 import Link from '~/app/shared/components/Link'
 
-const Step: FC = () => (
-  <div className="flex flex-col justify-center items-center text-center w-full">
-    <p className="mb-5">
-      Su negocio ha sido registrado exitosamente.
-      <br />
-      Acceda al{' '}
-      <Link href="/control">
-        <b>dashboard</b>
-      </Link>{' '}
-      para comenzar a utilizar la plataforma.
-    </p>
-  </div>
-)
+import i18n from '~/app/shared/contexts/server/I18nContext'
+
+type Props = {
+  locale: string
+}
+
+const Step: FC<Props> = ({ locale }) => {
+  const t = i18n(locale)
+
+  return (
+    <div className="flex flex-col justify-center items-center text-center w-full">
+      <p className="mb-5">
+        {t('profile.setup.step8.subheadline')}
+        <br />
+        {t('profile.setup.step8.subheadline2')}{' '}
+        <Link href="/control">
+          <b>dashboard</b>
+        </Link>{' '}
+        {t('profile.setup.step8.subheadline2cont')}
+      </p>
+    </div>
+  )
+}
 
 export default Step

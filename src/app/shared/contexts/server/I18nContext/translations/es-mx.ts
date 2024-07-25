@@ -131,6 +131,9 @@ const translations = {
   'profile.setup.step6.headline': 'Agrega algunas fotos de tu lugar',
   'profile.setup.step7.headline': '¡Casi allí, verifica la información primero!',
   'profile.setup.step8.headline': '¡Felicidades, su propiedad ya está listada!',
+  'profile.setup.step8.subheadline': 'Su negocio ha sido registrado exitosamente.',
+  'profile.setup.step8.subheadline2': 'Acceda al',
+  'profile.setup.step8.subheadline2cont': 'para comenzar a utilizar la plataforma.',
   'profile.setup.step4.kitchen': 'Cocina',
   'profile.setup.step4.extraBed': 'Cama extra',
   'profile.setup.step4.refrigerator': 'Refrigerador',
@@ -150,7 +153,15 @@ const translations = {
   'profile.setup.step6.uploadPhotos': 'Subir fotos',
   'profile.setup.step6.addMorePhotos': 'Agregar más fotos',
   'profile.setup.step6.uploadFromDevice': 'Subir desde tu dispositivo',
-  'profile.setup.step7.information': 'Información'
+  'profile.setup.step7.information': 'Información',
+  'profile.setup.hotelsetup.roomsetup': 'Configuración de la habitación del hotel',
+  'profile.setup.hotelsetup.roomcount': 'Número de habitaciones',
+  'profile.setup.hotelsetup.roomtype': 'Tipo de habitación',
+  'profile.setup.hotelsetup.addroomtype': 'Agregar tipo de habitación',
+  'profile.setup.hotelsetup.addfloor': 'Agregar piso',
+  'profile.setup.hotelsetup.dontskip13': 'No te saltes el piso 13',
+  'profile.setup.hotelsetup.generatedrooms': 'Habitaciones generadas',
+  'profile.setup.hotelsetup.room': 'Habitación'
 } as const
 
 export default translations

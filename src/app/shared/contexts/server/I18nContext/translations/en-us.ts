@@ -113,6 +113,9 @@ const translations = {
   'profile.setup.step6.headline': 'Add some photos of your place',
   'profile.setup.step7.headline': 'Almost there, please validate the information first!',
   'profile.setup.step8.headline': 'Congratulations! Your property is now listed!',
+  'profile.setup.step8.subheadline': 'Your business has been properly registered.',
+  'profile.setup.step8.subheadline2': 'Proceed to the',
+  'profile.setup.step8.subheadline2cont': 'to start using the platform',
   'profile.setup.step1.propertyDetails': 'Property Details',
   'profile.setup.step1.streetAddress': 'Street Address',
   'profile.setup.step1.placeholder': 'Apt, suite, building, floor, etc.',
@@ -141,7 +144,15 @@ const translations = {
   'profile.setup.step6.dragYourPhoto': 'Drag your photo here',
   'profile.setup.step6.addMorePhotos': 'Add more photos',
   'profile.setup.step6.uploadFromDevice': 'Upload from your device',
-  'profile.setup.step7.information': 'Information'
+  'profile.setup.step7.information': 'Information',
+  'profile.setup.hotelsetup.roomsetup': 'Hotel Room Setup',
+  'profile.setup.hotelsetup.roomcount': 'Room Count',
+  'profile.setup.hotelsetup.roomtype': 'Room Type',
+  'profile.setup.hotelsetup.addroomtype': 'Add Room Type',
+  'profile.setup.hotelsetup.addfloor': 'Add Floor',
+  'profile.setup.hotelsetup.dontskip13': 'Do not skip floor 13',
+  'profile.setup.hotelsetup.generatedrooms': 'Generated Rooms',
+  'profile.setup.hotelsetup.room': 'Room'
 } as const
 
 // const translations2 = {

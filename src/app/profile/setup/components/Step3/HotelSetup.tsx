@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 
+import i18n from '~/app/shared/contexts/server/I18nContext'
+
 interface Room {
   floor: number
   roomNumber: number
@@ -38,7 +40,9 @@ type Props = {
   setEnableNext: any
 }
 
-const HotelSetup: FC<Props> = () => {
+const HotelSetup: FC<Props> = ({ locale }) => {
+  const t = i18n(locale)
+
   const [floors, setFloors] = useState<Floor[]>([
     { floor: 1, rooms: [{ count: 5, type: 'Single' }] }
   ])
@@ -120,7 +124,9 @@ const HotelSetup: FC<Props> = () => {
 
   return (
     <div className="container mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Hotel Room Setup</h2>
+      <h2 className="text-2xl font-semibold mb-4 dark:text-white">
+        {t('profile.setup.hotelsetup.roomsetup')}
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
         {floors.map((floor, floorIndex) => (
           <div
@@ -137,7 +143,7 @@ const HotelSetup: FC<Props> = () => {
             {floor.rooms.map((room, roomIndex) => (
               <div key={roomIndex} className="mb-4 flex relative">
                 <div className="mr-4">
-                  <label className="block mb-1">Room Count</label>
+                  <label className="block mb-1">{t('profile.setup.hotelsetup.roomcount')}</label>
                   <input
                     type="number"
                     value={room.count}
@@ -148,7 +154,7 @@ const HotelSetup: FC<Props> = () => {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1">Room Type</label>
+                  <label className="block mb-1">{t('profile.setup.hotelsetup.roomtype')}</label>
                   <select
                     value={room.type}
                     onChange={(e) =>
@@ -181,14 +187,14 @@ const HotelSetup: FC<Props> = () => {
                 onClick={() => handleAddRoomType(floorIndex)}
                 className="bg-blue-500 text-white py-2 px-4 rounded w-full"
               >
-                Add Room Type
+                {t('profile.setup.hotelsetup.addroomtype')}
               </button>
             )}
           </div>
         ))}
       </div>
       <button onClick={handleAddFloor} className="bg-green-500 text-white py-2 px-4 rounded w-full">
-        Add Floor
+        {t('profile.setup.hotelsetup.addfloor')}
       </button>
       <div className="mt-4 flex items-center">
         <input
@@ -197,10 +203,12 @@ const HotelSetup: FC<Props> = () => {
           onChange={() => setSkipFloor13(!skipFloor13)}
           className="mr-2"
         />
-        <label>Do not skip floor 13</label>
+        <label>{t('profile.setup.hotelsetup.dontskip13')}</label>
       </div>
       <div className="mt-4">
-        <h3 className="text-xl font-semibold mb-4">Generated Rooms</h3>
+        <h3 className="text-xl font-semibold mb-4">
+          {t('profile.setup.hotelsetup.generatedrooms')}
+        </h3>
 
         {floorNumbers
           .slice()
@@ -215,11 +223,11 @@ const HotelSetup: FC<Props> = () => {
                     className="p-4 border rounded flex flex-col items-center dark:bg-gray-700 dark:border-gray-600"
                   >
                     <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-300">
-                      Room {room.roomNumber}
+                      {t('profile.setup.hotelsetup.room')} {room.roomNumber}
                     </h4>
                     <div className="mb-2 w-full">
                       <label className="block mb-1 text-center text-gray-800 dark:text-gray-300">
-                        Room Type
+                        {t('profile.setup.hotelsetup.roomtype')}
                       </label>
                       <select
                         value={room.type}
