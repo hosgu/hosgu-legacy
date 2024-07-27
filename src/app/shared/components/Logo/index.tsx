@@ -72,7 +72,7 @@ const Logo: FC<Props> = ({
                   marginTop: '0px'
                 }}
               >
-                hosgu2
+                hosgu
               </span>
             </RenderIf>
 
