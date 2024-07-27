@@ -271,13 +271,13 @@ const Calendar: FC<Props> = ({ events, dateClick, t, splitter = '-', view = 'des
   return (
     <div className={cx.join('calendar', view)}>
       <header>
-        <SVG.Arrow direction="left" onClick={handlePreviousMonth} size={80} />
+        <SVG.Arrow direction="left" onClick={handlePreviousMonth} size="80" />
         <div className="currentDate">
           <h2>
             {translate(dates.months[currentMonth].toLowerCase())} {currentYear}
           </h2>
         </div>
-        <SVG.Arrow direction="right" onClick={handleNextMonth} size={80} />
+        <SVG.Arrow direction="right" onClick={handleNextMonth} size="80" />
       </header>
 
       <ul className="weekdays">

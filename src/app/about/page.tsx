@@ -17,8 +17,8 @@ const Page: NextPage = async () => {
     return (
       <div className="bg-white py-10 dark:bg-black dark:text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">{t('ourMission')}</h2>
-          <p className="text-lg text-center">{t('missionText')}</p>
+          <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">ourMission</h2>
+          <p className="text-lg text-center">missionText</p>
         </div>
       </div>
     )
@@ -28,8 +28,8 @@ const Page: NextPage = async () => {
     return (
       <div className="bg-white py-10 dark:bg-black dark:text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">{t('ourVision')}</h2>
-          <p className="text-lg text-center">{t('visionText')}</p>
+          <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">ourVision</h2>
+          <p className="text-lg text-center">visionText</p>
         </div>
       </div>
     )

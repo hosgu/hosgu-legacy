@@ -5,12 +5,12 @@ import cx from '@architecturex/utils.cx'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
-  locale: string
+  locale?: string
   files: any[]
   setFiles: React.Dispatch<React.SetStateAction<string[]>>
   showUploader?: boolean
-  isUploadPhotosOpen: boolean
-  setIsUploadPhotosOpen: (event: any) => any
+  isUploadPhotosOpen?: boolean
+  setIsUploadPhotosOpen?: (event: any) => any
 }
 
 const FilesPreviewer: FC<Props> = ({
@@ -33,7 +33,9 @@ const FilesPreviewer: FC<Props> = ({
   }
 
   const handleAddPhotos = () => {
-    setIsUploadPhotosOpen(true)
+    if (setIsUploadPhotosOpen) {
+      setIsUploadPhotosOpen(true)
+    }
   }
 
   const imageFiles = files.filter((file: any) => file.file?.type.split('/').shift() === 'image')
@@ -45,7 +47,7 @@ const FilesPreviewer: FC<Props> = ({
         className="dark:border-gray-200 p-4 border-gray-300 border-2 border-dashed rounded w-full flex flex-col items-center justify-center h-48 sm:h-48 md:h-56 lg:h-64 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
       >
         <div className="flex flex-col items-center">
-          <SVG.Plus size="50px" className="cursor-pointer" />
+          <SVG.Plus size="50px" />
           <span className="mt-2 text-sm">{t('profile.setup.step6.addMorePhotos')}</span>
         </div>
       </div>

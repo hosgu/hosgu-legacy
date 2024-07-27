@@ -20,68 +20,63 @@ const HamburgerMenu: FC<Props> = ({ isLogged, locale, connectedUser }) => {
 
   return (
     <div data-component="HamburgerMenu">
-      <SVG.Hamburger label="Open Menu" stroke={stroke} onClick={() => setIsOpen(true)} />
+      <SVG.Hamburger label="Open Menu" color={stroke} onClick={() => setIsOpen(true)} />
 
       {isOpen && (
         <div className="bg-white fixed h-full left-0 top-0 w-full z-50 dark:bg-black">
-          <SVG.X
-            label="Close"
-            className="absolute focus:outline-none right-4 top-4"
-            onClick={() => setIsOpen(false)}
-            stroke={stroke}
-          />
+          <SVG.X label="Close" onClick={() => setIsOpen(false)} color={stroke} />
 
           {isLogged && (
             <div className="flex flex-col items-center justify-center pt-20 text-black dark:text-white text-xl">
               <div className="mb-10">
-                <b>{t('welcome')},</b> {connectedUser.fullName}!
+                <b>welcome,</b> {connectedUser.fullName}!
               </div>
 
               <Link
                 href="#"
                 className="block mb-2 text-black text-center text-xl dark:text-white font-bold"
               >
-                {t('profile')}
+                profile
               </Link>
               <Link
                 href="/dashboard"
                 className="block mb-2 text-black text-center text-xl dark:text-white font-bold"
               >
-                {t('dashboard')}
+                dashboard
               </Link>
               <a
                 href="/logout"
                 className="block mb-2 text-black text-center text-xl dark:text-white font-bold"
               >
-                {t('logout')}
+                logout
               </a>
             </div>
           )}
 
           <div className={!isLogged ? 'pt-20' : ''}>
             <Link href="#" className="block mb-4 text-black text-center text-xl dark:text-white">
-              {t('reservations')}
+              reservations
             </Link>
             <Link href="#" className="block mb-4 text-black text-center text-xl dark:text-white">
-              {t('features')}
+              features
             </Link>
             <Link href="#" className="block mb-4 text-black text-center text-xl dark:text-white">
-              {t('pricing')}
+              pricing
             </Link>
             <Link href="#" className="block mb-4 text-black text-center text-xl dark:text-white">
-              {t('trustedBy')}
+              trustedBy
             </Link>
             <Link
               href="/login"
               className="block mb-4 text-black text-center text-xl dark:text-white"
             >
-              {t('login')}
+              login
             </Link>
             <Link
               href="/signup"
               className="block mb-4 text-black text-center text-xl dark:text-white"
             >
-              {t('signUp')}
+              signUp
             </Link>
           </div>
         </div>

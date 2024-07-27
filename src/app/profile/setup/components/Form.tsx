@@ -375,7 +375,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       setEnableNext={setEnableNext}
     />,
     <Step7 key="step7" values={values} locale={locale} />,
-    <Step8 key="step8" />
+    <Step8 key="step8" locale={locale} />
   ]
 
   useEffect(() => {

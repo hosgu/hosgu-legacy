@@ -5,7 +5,7 @@ import SVG from '@architecturex/components.svg'
 import files from '@architecturex/utils.files'
 
 import GuestForm from '~/app/control/components/Guests/Form'
-import ResultsTable from '../components/ResultsTable'
+import ResultsTable from '~/app/control/components/ResultsTable'
 
 type Props = {
   data: any

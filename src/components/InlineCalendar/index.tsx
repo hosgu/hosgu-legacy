@@ -147,12 +147,12 @@ const InlineCalendar: FC<Props> = ({ t, locale = 'en-US' }) => {
   return (
     <div className="w-[98%] ml-auto mr-auto">
       <header className="flex justify-center mt-4 mb-4 text-xl items-center">
-        <SVG.Arrow direction="left" size={30} onClick={handleMoveBackTwoWeeks} />
+        <SVG.Arrow direction="left" size="30" onClick={handleMoveBackTwoWeeks} />
         <span className="capitalize">
           {currentDate.getDate()} {translate(dates.months[currentDate.getMonth()].toLowerCase())}{' '}
           {currentDate.getFullYear()}
         </span>
-        <SVG.Arrow direction="right" size={30} onClick={handleMoveNextTwoWeeks} />
+        <SVG.Arrow direction="right" size="30" onClick={handleMoveNextTwoWeeks} />
       </header>
 
       <table className="border border-gray-400 w-full text-xs">

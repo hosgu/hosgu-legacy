@@ -13,7 +13,7 @@ const allowedFileTypes = {
 }
 
 type Props = {
-  locale: string
+  locale?: string
   className?: string
   disabled?: boolean
   hasError?: boolean

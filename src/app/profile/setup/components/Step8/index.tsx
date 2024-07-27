@@ -14,13 +14,13 @@ const Step: FC<Props> = ({ locale }) => {
   return (
     <div className="flex flex-col justify-center items-center text-center w-full">
       <p className="mb-5">
-        {t('profile.setup.step8.subheadline')}
+        profile.setup.step8.subheadline
         <br />
-        {t('profile.setup.step8.subheadline2')}{' '}
+        profile.setup.step8.subheadline2{' '}
         <Link href="/control">
           <b>dashboard</b>
         </Link>{' '}
-        {t('profile.setup.step8.subheadline2cont')}
+        profile.setup.step8.subheadline2cont
       </p>
     </div>
   )
