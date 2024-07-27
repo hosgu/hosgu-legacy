@@ -3,7 +3,7 @@
     {
       "name": "production-frontend",
       "script": "node",
-      "args": "-r ts-node/register src/server",
+      "args": "-r ts-node/register --env-file=.env src/server",
       "env": {
         "NODE_ENV": "production"
       }
