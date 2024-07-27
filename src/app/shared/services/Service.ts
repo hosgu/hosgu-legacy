@@ -19,10 +19,12 @@ class Service {
   }
 
   async getAll(endpoint = ''): Promise<any> {
-    const response = await api.fetch<APIResponse<any>>(`/api/v1/${endpoint || this.endpoint}`, {
-      method: 'GET',
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const response = await api.fetch<APIResponse<any>>(
+      `${process.env.API_URL}/api/v1/${endpoint || this.endpoint}`,
+      {
+        method: 'GET'
+      }
+    )
     return response
   }
 
@@ -38,7 +40,6 @@ class Service {
     const endpointPath = endpoint ? '' : `/${id}`
     const fetchOptions: any = {
       method,
-      addLocalHost: process.env.NODE_ENV === 'development',
       credentials
     }
 
@@ -47,7 +48,7 @@ class Service {
     }
 
     const response = await api.fetch<APIResponse<any>>(
-      `/api/v1/${endpoint || this.endpoint}${endpointPath}`,
+      `${process.env.API_URL}/api/v1/${endpoint || this.endpoint}${endpointPath}`,
       fetchOptions
     )
 
@@ -63,11 +64,13 @@ class Service {
   }
 
   async create(itemData: any): Promise<any> {
-    const createdItem = await api.fetch<APIResponse<any>>(`/api/v1/${this.endpoint}/create`, {
-      method: 'POST',
-      body: itemData,
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const createdItem = await api.fetch<APIResponse<any>>(
+      `${process.env.API_URL}/api/v1/${this.endpoint}/create`,
+      {
+        method: 'POST',
+        body: itemData
+      }
+    )
     if (createdItem.status === 201 || createdItem.status === 200) {
       return {
         ok: true,
@@ -87,11 +90,13 @@ class Service {
   }
 
   async update(id: string, itemData: any): Promise<any> {
-    const editedItem = await api.fetch<APIResponse<any>>(`/api/v1/${this.endpoint}/${id}`, {
-      method: 'PUT',
-      body: itemData,
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const editedItem = await api.fetch<APIResponse<any>>(
+      `${process.env.API_URL}/api/v1/${this.endpoint}/${id}`,
+      {
+        method: 'PUT',
+        body: itemData
+      }
+    )
 
     if (editedItem.status === 200) {
       return {
@@ -112,10 +117,12 @@ class Service {
   }
 
   async delete(id: string): Promise<any> {
-    const response = await api.fetch<APIResponse<any>>(`/api/v1/${this.endpoint}/${id}`, {
-      method: 'DELETE',
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const response = await api.fetch<APIResponse<any>>(
+      `${process.env.API_URL}/api/v1/${this.endpoint}/${id}`,
+      {
+        method: 'DELETE'
+      }
+    )
 
     return {
       ok: true,

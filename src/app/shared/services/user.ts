@@ -20,11 +20,13 @@ class Service extends ServiceHandler {
   }): Promise<APIResponse<Token>> {
     const cookiesStore = cookies()
 
-    const response = await api.fetch<APIResponse<Token>>('/api/v1/user/login', {
-      method: 'POST',
-      body: { emailOrUsername: email, password },
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const response = await api.fetch<APIResponse<Token>>(
+      `${process.env.API_URL}/api/v1/user/login`,
+      {
+        method: 'POST',
+        body: { emailOrUsername: email, password }
+      }
+    )
 
     if (response.ok) {
       const [{ token = '' }] = response.items || []
@@ -60,7 +62,7 @@ class Service extends ServiceHandler {
 
     const requests = [
       {
-        url: '/api/v1/user/create',
+        url: `${process.env.API_URL}/api/v1/user/create`,
         method: 'POST',
         body: {
           tier: 'free',
@@ -81,7 +83,7 @@ class Service extends ServiceHandler {
         }
       },
       ({ items }: any) => ({
-        url: '/api/v1/business/create',
+        url: `${process.env.API_URL}/api/v1/business/create`,
         method: 'POST',
         body: {
           userId: items[0].id,
@@ -112,10 +114,7 @@ class Service extends ServiceHandler {
       })
     ]
 
-    const { responses, errors } = await api.fetchChain(
-      requests,
-      process.env.NODE_ENV === 'development'
-    )
+    const { responses, errors } = await api.fetchChain(requests)
 
     if (errors.length) {
       return {
@@ -137,14 +136,16 @@ class Service extends ServiceHandler {
     email: string
     password: string
   }): Promise<APIResponse<CreatedItem>> {
-    const response = await api.fetch<APIResponse<CreatedItem>>('/api/v1/user/create', {
-      method: 'POST',
-      body: {
-        email,
-        password
-      },
-      addLocalHost: process.env.NODE_ENV === 'development'
-    })
+    const response = await api.fetch<APIResponse<CreatedItem>>(
+      `${process.env.API_URL}/api/v1/user/create`,
+      {
+        method: 'POST',
+        body: {
+          email,
+          password
+        }
+      }
+    )
 
     return response
   }
