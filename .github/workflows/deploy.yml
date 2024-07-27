@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: node
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
@@ -36,9 +37,16 @@ jobs:
           DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
         run: |
           sshpass -p $DROPLET_PASSWORD ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP << EOF
-            cd /home/hosgu &&
-            git pull origin development &&
-            npm stop &&
-            npm run build &&
-            npm run start-app
+            cd /home/hosgu
+            if ! command -v npm &> /dev/null
+            then
+              echo "Node.js and npm not found. Installing..."
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            git pull origin development
+            npm stop
+            npm install
+            npm run build
+            npm start
           EOF
