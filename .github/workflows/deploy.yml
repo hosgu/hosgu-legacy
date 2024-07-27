@@ -1,0 +1,39 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - development # or the branch you want to trigger the action
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Test SSH connection with password
+        env:
+          DROPLET_IP: ${{ secrets.DROPLET_IP }}
+          DROPLET_USER: ${{ secrets.DROPLET_USER }}
+          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
+        run: |
+          sshpass -p $DROPLET_PASSWORD ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP "echo 'SSH connection successful'"
+
+      - name: Deploy to DigitalOcean Droplet
+        env:
+          DROPLET_IP: ${{ secrets.DROPLET_IP }}
+          DROPLET_USER: ${{ secrets.DROPLET_USER }}
+          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
+        run: |
+          sshpass -p $DROPLET_PASSWORD ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP << EOF
+            cd /home/hosgu &&
+            git pull origin development &&
+            npm stop &&
+            npm run build &&
+            npm run start-app
+          EOF
