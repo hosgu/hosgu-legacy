@@ -340,6 +340,7 @@ const Form: FC<Props> = ({ locale, user }) => {
       key="step1"
       locale={locale}
       values={values}
+      setValues={setValues}
       errors={errors}
       handleChange={handleChange}
       validate={validate}

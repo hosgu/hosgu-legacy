@@ -1,6 +1,6 @@
-import React, { FC, ChangeEvent } from 'react'
+import React, { FC, useState, ChangeEvent, useEffect } from 'react'
 import cx from '@architecturex/utils.cx'
-import constants from '@architecturex/constants'
+import { getCitiesByState, getStates } from '@architecturex/constants'
 
 import Input from '~/components/Input'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -10,13 +10,29 @@ type Props = {
   values: any
   errors: any
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  setValues: any
   validate: any
 }
 
-const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => {
+const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, errors }) => {
   const t = i18n(locale)
+  const [cities, setCities] = useState<string[]>([])
 
-  const states = constants.states[values.country] || []
+  useEffect(() => {
+    if (values.state) {
+      const newCities = getCitiesByState(values.country, values.state)
+      setCities(newCities)
+    }
+  }, [values.state, values.country])
+
+  const handleStateChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    handleChange(e)
+    const newCities = getCitiesByState(values.country, e.target.value)
+    setCities(newCities)
+    setValues('city', '') // Reset city when state changes
+  }
+
+  const states = getStates(values.country)
 
   return (
     <div className="mx-auto p-6 lg:w-[600px] flex flex-col md:flex-row md:flex-wrap bg-white dark:bg-gray-900 w-full">
@@ -101,10 +117,10 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           name="state"
           label={t('common.general.state')}
           value={values.state}
-          onChange={handleChange}
+          onChange={handleStateChange}
           onBlur={validate}
           required
-          dropdownItems={states}
+          dropdownItems={states.map((state: any) => state.state)} // Extract the state names for the dropdown
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.state
           })}
@@ -121,6 +137,7 @@ const Step: FC<Props> = ({ locale, values, handleChange, validate, errors }) => 
           onChange={handleChange}
           onBlur={validate}
           required
+          dropdownItems={cities} // Populate cities based on selected state
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.city
           })}
