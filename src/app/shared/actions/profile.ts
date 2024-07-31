@@ -6,6 +6,9 @@ import BusinessService from '../services/business'
 import AmenityService from '../services/asr'
 import PropertyService from '../services/property'
 import PhotoService from '../services/photo'
+import UnitService from '../services/unit'
+import FeeService from '../services/fee'
+import SettingsService from '../services/settings'
 
 import { ASRFields } from '~/server/db/schemas/asr'
 import { PropertyFields } from '~/server/db/schemas/property'
@@ -118,9 +121,15 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
         active: true
       }
 
+      const feeData = {
+        weekdayFee: data.price
+      }
+
+      const createdFeeData = await FeeService.create(feeData)
+
       const createdProperty = await PropertyService.create(propertyData)
 
-      if (createdProperty.ok) {
+      if (createdProperty.ok && createdFeeData.ok) {
         const propertyCreated: PropertyFields = createdProperty.data
         const imagesPayload = images.map((image: string) => {
           return {
@@ -129,7 +138,30 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
           }
         })
 
-        const imagesCreated = await PhotoService.create(imagesPayload)
+        await PhotoService.create(imagesPayload)
+
+        const unitData = {
+          propertyId: createdProperty.data.id,
+          feeId: createdFeeData.data.id,
+          asrId: amenityCreated.id,
+          maxGuests: data.guests,
+          bedrooms: data.bathrooms,
+          bathrooms: data.bathrooms,
+          queenSizeBeds: data.beds
+        }
+
+        await UnitService.create(unitData)
+
+        const timezone =
+          data.country === 'Mexico' ? 'GMT-6' : data.country === 'Canada' ? 'GTM-4' : 'GTM-4'
+
+        const settingsData = {
+          userId: data.userId,
+          currency: data.currency,
+          language: data.country,
+          timezone
+        }
+        await SettingsService.create(settingsData)
       }
     }
   }
