@@ -2,10 +2,10 @@ import React, { FC, useRef, useState, DragEvent } from 'react'
 import files from '@architecturex/utils.files'
 import Image from 'next/image'
 import is from '@architecturex/utils.is'
+import SVG from '@architecturex/components.svg'
 import cx from '@architecturex/utils.cx'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
-import cloudUploadIcon from '../../../public/images/icons/cloud_upload.svg'
 import config from '~/config'
 
 const allowedFileTypes = {
@@ -171,11 +171,9 @@ const File: FC<Props> = ({
           }
         )}
       >
-        <div className="mb-6 text-center">
-          <Image
-            src={cloudUploadIcon}
-            alt="Image icon"
-            width={48}
+        <div className="mb-6 text-center flex flex-col items-center">
+          <SVG.Upload
+            size="48px"
             className={cx.join('mx-auto mb-1 transition-all group-hover:scale-110', {
               'scale-110': isDragging
             })}

@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
 import SVG from '@architecturex/components.svg'
-import cx from '@architecturex/utils.cx'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
 type Props = {
