@@ -1,8 +1,8 @@
 import Property from '../property'
-import { Amenity } from '../property'
+import { ASR } from '../property'
 
 class SingleRoom extends Property {
-  constructor(data: Partial<Amenity>) {
+  constructor(data: Partial<ASR>) {
     super(data)
   }
 }

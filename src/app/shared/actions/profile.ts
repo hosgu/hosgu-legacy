@@ -75,7 +75,6 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
       extraBed: amenityData.get('extraBed'),
       garden: amenityData.get('garden'),
       hotWater: amenityData.get('hotWater'),
-      glassesPlates: amenityData.get('glassesPlates'),
       kitchen: amenityData.get('kitchen'),
       oven: amenityData.get('oven'),
       refrigerator: amenityData.get('refrigerator'),
