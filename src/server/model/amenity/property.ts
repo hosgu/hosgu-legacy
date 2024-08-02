@@ -60,6 +60,38 @@ class Property {
   constructor(data: Partial<ASR>) {
     Object.assign(this, { ...data })
   }
+
+  toJSON() {
+    const amenities = Object.entries(this.asr.amenity)
+    const services = Object.entries(this.asr.service)
+    const rules = Object.entries(this.asr.rule)
+    let amenitiesFalse = {}
+    let servicesFalse = {}
+    let rulesFalse = {}
+    const amenityKeys = Object.keys(amenities)
+    const servicesKeys = Object.keys(services)
+    const rulesKeys = Object.keys(rules)
+    amenityKeys.forEach((element: any) => {
+      if (!amenities[element]) {
+        amenitiesFalse = { [element]: false, ...amenitiesFalse }
+      }
+    })
+    servicesKeys.forEach((element: any) => {
+      if (!amenities[element]) {
+        servicesFalse = { [element]: false, ...servicesFalse }
+      }
+    })
+    rulesKeys.forEach((element: any) => {
+      if (!amenities[element]) {
+        rulesFalse = { [element]: false, ...rulesFalse }
+      }
+    })
+    return {
+      amenity: amenitiesFalse,
+      service: servicesFalse,
+      rules: rulesFalse
+    }
+  }
 }
 
 export default Property
