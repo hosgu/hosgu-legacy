@@ -1,6 +1,6 @@
 import { pgTable, boolean, integer, varchar, uuid, timestamp, text } from 'drizzle-orm/pg-core'
 import { business } from './business'
-import { asr } from './asr'
+import { asrTbl } from './asr'
 
 export const property = pgTable('property', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -8,7 +8,7 @@ export const property = pgTable('property', {
     .references(() => business.id)
     .notNull(),
   asrId: uuid('asrId')
-    .references(() => asr.id)
+    .references(() => asrTbl.id)
     .notNull(),
   typeOfBuilding: varchar('typeOfBuilding', { length: 50 }), // cabin, house, apartment, hotel, etc
   name: varchar('name', { length: 255 }),

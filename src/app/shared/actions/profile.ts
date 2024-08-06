@@ -11,6 +11,7 @@ import FeeService from '../services/fee'
 import SettingsService from '../services/settings'
 
 import { ASRFields } from '~/server/db/schemas/asr'
+import Property, { ASR } from '~/server/model/amenity/property'
 import { PropertyFields } from '~/server/db/schemas/property'
 
 type ProfileSetupPayload = {
@@ -68,39 +69,36 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
     /* Creating new amenity by using ameniry service class*/
     const amenityData: Map<string, boolean> = new Map(Object.entries(JSON.parse(data.amenities)))
 
-    const amenities = {
-      ac: amenityData.get('ac'),
-      bedSheets: amenityData.get('bedSheets'),
-      coffeeMachine: amenityData.get('coffeeMachine'),
-      extraBed: amenityData.get('extraBed'),
-      garden: amenityData.get('garden'),
-      hotWater: amenityData.get('hotWater'),
-      kitchen: amenityData.get('kitchen'),
-      oven: amenityData.get('oven'),
-      refrigerator: amenityData.get('refrigerator'),
-      towels: amenityData.get('towels'),
-      tv: amenityData.get('tv')
+    const asr: ASR = {
+      amenity: {
+        ac: !!amenityData.get('ac'),
+        bedSheets: !!amenityData.get('bedSheets'),
+        coffeeMachine: !!amenityData.get('coffeeMachine'),
+        extraBed: !!amenityData.get('extraBed'),
+        garden: !!amenityData.get('garden'),
+        hotWater: !!amenityData.get('hotWater'),
+        kitchen: !!amenityData.get('kitchen'),
+        oven: !!amenityData.get('oven'),
+        refrigerator: !!amenityData.get('refrigerator'),
+        towels: !!amenityData.get('towels'),
+        tv: !!amenityData.get('tv')
+      },
+      service: {
+        freeParking: !!amenityData.get('freeParking'),
+        laundry: !!amenityData.get('laundry'),
+        pool: !!amenityData.get('pool'),
+        wifi: !!amenityData.get('wifi')
+      },
+      rule: {
+        smoking: !!amenityData.get('smoking'),
+        petFriendly: !!amenityData.get('petFriendly')
+      }
     }
+    const properyObj = new Property(asr)
+    console.log('>>>>> Property Object >>>>', properyObj)
 
-    const services = {
-      freeParking: amenityData.get('freeParking'),
-      laundry: amenityData.get('laundry'),
-      pool: amenityData.get('pool'),
-      wifi: amenityData.get('wifi')
-    }
+    const createdAmenity = await AmenityService.create(properyObj)
 
-    const rules = {
-      smoking: amenityData.get('smoking'),
-      petFriendly: amenityData.get('petFriendly')
-    }
-
-    const asr = {
-      amenities,
-      services,
-      rules
-    }
-
-    const createdAmenity = await AmenityService.create(asr)
     if (createdAmenity.ok) {
       const amenityCreated: ASRFields = createdAmenity.data
 

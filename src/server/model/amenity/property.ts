@@ -1,6 +1,6 @@
 export type Amenity = {
   ac: boolean
-  bedSheet: boolean
+  bedSheets: boolean
   coffeeMachine: boolean
   extraBed: boolean
   garden: boolean
@@ -34,7 +34,7 @@ class Property {
   asr: ASR = {
     amenity: {
       ac: true,
-      bedSheet: true,
+      bedSheets: true,
       coffeeMachine: true,
       extraBed: true,
       garden: true,

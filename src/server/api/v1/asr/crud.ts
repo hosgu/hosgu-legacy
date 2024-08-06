@@ -1,10 +1,10 @@
 import CRUDHandler from '../../CRUD'
-import { ASR, asr } from '../../../db/schemas/asr'
+import { ASR, asrTbl } from '../../../db/schemas/asr'
 import { DB } from '../../../db'
 
 class CRUD extends CRUDHandler<ASR> {
   constructor(db: DB) {
-    super(db, asr)
+    super(db, asrTbl)
   }
 }
 
