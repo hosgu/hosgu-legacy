@@ -31,34 +31,10 @@ export type ASR = {
 }
 
 class Property {
-  asr: ASR = {
-    amenity: {
-      ac: true,
-      bedSheets: true,
-      coffeeMachine: true,
-      extraBed: true,
-      garden: true,
-      hotWater: true,
-      kitchen: true,
-      oven: true,
-      refrigerator: true,
-      towels: true,
-      tv: true
-    },
-    service: {
-      freeParking: true,
-      laundry: true,
-      pool: true,
-      wifi: true
-    },
-    rule: {
-      smoking: true,
-      petFriendly: true
-    }
-  }
+  asr: ASR | any = {}
 
   constructor(data: Partial<ASR>) {
-    Object.assign(this, { ...data })
+    Object.assign(this.asr, { ...data })
   }
 
   toJSON() {
@@ -72,24 +48,26 @@ class Property {
     const servicesKeys = Object.keys(services)
     const rulesKeys = Object.keys(rules)
     amenityKeys.forEach((element: any) => {
-      if (!amenities[element]) {
-        amenitiesFalse = { [element]: false, ...amenitiesFalse }
+      if (!amenities[element][1]) {
+        amenitiesFalse = { [`${amenities[element][0]}`]: false, ...amenitiesFalse }
       }
     })
     servicesKeys.forEach((element: any) => {
-      if (!amenities[element]) {
-        servicesFalse = { [element]: false, ...servicesFalse }
+      if (!services[element][1]) {
+        servicesFalse = { [`${services[element][0]}`]: false, ...servicesFalse }
       }
     })
     rulesKeys.forEach((element: any) => {
-      if (!amenities[element]) {
-        rulesFalse = { [element]: false, ...rulesFalse }
+      if (!rules[element][1]) {
+        rulesFalse = { [`${rules[element][0]}`]: false, ...rulesFalse }
       }
     })
     return {
-      amenity: amenitiesFalse,
-      service: servicesFalse,
-      rules: rulesFalse
+      asr: {
+        amenity: amenitiesFalse,
+        service: servicesFalse,
+        rule: rulesFalse
+      }
     }
   }
 }

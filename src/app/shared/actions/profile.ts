@@ -3,7 +3,7 @@ import core from '@architecturex/utils.core'
 
 import { APIResponse } from '~/types'
 import BusinessService from '../services/business'
-import AmenityService from '../services/asr'
+import ASRService from '../services/asr'
 import PropertyService from '../services/property'
 import PhotoService from '../services/photo'
 import UnitService from '../services/unit'
@@ -97,7 +97,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
     const properyObj = new Property(asr)
     console.log('>>>>> Property Object >>>>', properyObj)
 
-    const createdAmenity = await AmenityService.create(properyObj)
+    const createdAmenity = await ASRService.create(properyObj)
 
     if (createdAmenity.ok) {
       const amenityCreated: ASRFields = createdAmenity.data

@@ -47,7 +47,7 @@ const customJsonbASRs = customJsonb<ASRType>('asr')
 
 export const asrTbl = pgTable('asr', {
   id: uuid('id').primaryKey().defaultRandom(),
-  asr: customJsonbASRs.default({} as ASRType),
+  asr: customJsonbASRs,
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })
