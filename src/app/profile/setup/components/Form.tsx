@@ -431,7 +431,7 @@ const Form: FC<Props> = ({ locale, user }) => {
 
               <RenderIf isTrue={currentStep !== 1}>
                 <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
-                  {currentStep < 6 ? t('common.general.next') : 'Finish'}
+                  {currentStep < 6 ? t('common.general.next') : t('common.general.finish')}
                 </Button>
               </RenderIf>
             </div>

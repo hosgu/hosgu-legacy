@@ -156,7 +156,7 @@ const File: FC<Props> = ({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cx.join(
-        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer dark:hover:border-gray-900 hover:border-blue-500 h-auto ',
+        'group border-2 border-dashed rounded select-none transition-all hover:cursor-pointer dark:hover:border-white hover:border-blue-500 h-auto ',
         {
           'border-blue-500': isDragging,
           'border-gray-300': !isDragging
@@ -188,7 +188,7 @@ const File: FC<Props> = ({
           <label
             htmlFor="file"
             className={cx.join(
-              'underline text-xs font-medium transition-all hover:cursor-pointer dark:group-hover:text-gray-700 group-hover:text-blue-500',
+              'underline text-xs font-medium transition-all hover:cursor-pointer dark:group-hover:text-white group-hover:text-blue-500',
               {
                 'text-blue-500': isDragging
               }

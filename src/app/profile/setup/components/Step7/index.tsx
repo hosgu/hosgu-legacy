@@ -45,11 +45,11 @@ const Step: FC<Props> = ({ values, locale }) => {
           {/* Property Details */}
           <div className="w-full md:w-1/2 lg:w-1/3 p-4 lg:mr-2">
             <p>
-              <h3 className="font-semibold text-xl">Price:</h3>${values.price} {values.currency} per
-              night
+              <h3 className="font-semibold text-xl">{t('profile.setup.step7.price')}</h3>$
+              {values.price} {values.currency} {t('profile.setup.step7.pernight')}
             </p>
             <p className="mt-2">
-              <h3 className="font-semibold text-xl">Location:</h3>
+              <h3 className="font-semibold text-xl">{t('profile.setup.step7.location')}</h3>
               {values.address1} {values.address2} <br />
               {values.city}, {values.state}, {values.zipCode} <br />
               {values.country}
@@ -62,7 +62,7 @@ const Step: FC<Props> = ({ values, locale }) => {
               {t('common.profile.setup.beds')}: {values.beds}
             </div>
             <div className="mt-4">
-              <h3 className="font-semibold text-xl">Amenities:</h3>
+              <h3 className="font-semibold text-xl">{t('profile.setup.step7.amenities')}</h3>
               <div className="grid grid-cols-2 gap-2 mt-2">
                 {Array.from(Object.entries(values.amenities)).map(
                   ([amenity, available]: any) =>
