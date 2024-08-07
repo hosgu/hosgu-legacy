@@ -23,7 +23,7 @@ const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles, setEnableNex
   }
 
   useEffect(() => {
-    if (uploadedFiles.length > 1) {
+    if (uploadedFiles.length > 0) {
       setIsUploadPhotosOpen(false)
     }
 
