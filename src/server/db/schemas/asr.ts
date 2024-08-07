@@ -36,21 +36,24 @@ type Amenities = CustomValueObject[]
 type Services = CustomValueObject[]
 type Rules = CustomValueObject[]
 
-const customJsonbAmenities = customJsonb<Amenities>('amenities')
-const customJsonbServices = customJsonb<Services>('services')
-const customJsonbRules = customJsonb<Rules>('rules')
+type ASRType = {
+  asr: {
+    amenity: Amenities
+    service: Services
+    rule: Rules
+  }
+}
+const customJsonbASRs = customJsonb<ASRType>('asr')
 
-export const asr = pgTable('asr', {
+export const asrTbl = pgTable('asr', {
   id: uuid('id').primaryKey().defaultRandom(),
-  amenities: customJsonbAmenities.default([]),
-  services: customJsonbServices.default([]),
-  rules: customJsonbRules.default([]),
+  asr: customJsonbASRs,
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()
 })
 
-export type ASR = typeof asr
-export type ASRFields = typeof asr.$inferSelect & {
+export type ASR = typeof asrTbl
+export type ASRFields = typeof asrTbl.$inferSelect & {
   amenities: Amenity
   services: Service
   rules: Rule
