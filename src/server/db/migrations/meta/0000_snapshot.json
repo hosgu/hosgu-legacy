@@ -1,5 +1,5 @@
 {
-  "id": "f4262d48-3e3e-42eb-8af6-69a14af1f89c",
+  "id": "46408884-d548-4d06-9dc6-c496dbec530f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -127,26 +127,11 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "amenities": {
-          "name": "amenities",
+        "asr": {
+          "name": "asr",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'[]'::jsonb"
-        },
-        "services": {
-          "name": "services",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[]'::jsonb"
-        },
-        "rules": {
-          "name": "rules",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'[]'::jsonb"
+          "notNull": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -2272,6 +2257,7 @@
   },
   "enums": {},
   "schemas": {},
+  "sequences": {},
   "_meta": {
     "columns": {},
     "schemas": {},

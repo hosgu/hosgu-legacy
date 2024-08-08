@@ -14,9 +14,7 @@ CREATE TABLE IF NOT EXISTS "agent" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "asr" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"amenities" jsonb DEFAULT '[]'::jsonb,
-	"services" jsonb DEFAULT '[]'::jsonb,
-	"rules" jsonb DEFAULT '[]'::jsonb,
+	"asr" jsonb,
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
 );
