@@ -47,6 +47,9 @@ jobs:
             git pull origin development
             npm stop
             npm install
+            npm run db:drop
+            npm run db:push
+            npm run db:seed
             npm run build
             npm start
           EOF

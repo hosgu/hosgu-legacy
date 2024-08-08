@@ -16,6 +16,7 @@
     "db:push": "drizzle-kit push --config=drizzle.config.ts",
     "db:seed": "node -r ts-node/register --env-file .env ./src/server/db/seed.ts",
     "db:truncate": "node -r ts-node/register --env-file .env ./src/server/db/truncate.ts",
+    "db:drop": "node -r ts-node/register --env-file .env ./src/server/db/drop.ts",
     "studio": "drizzle-kit studio",
     "import": "ts-node scripts/import.ts"
   },
