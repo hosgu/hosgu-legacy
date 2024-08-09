@@ -3,6 +3,7 @@ import React, { FC, ChangeEvent, useEffect, useState } from 'react'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 import cx from '@architecturex/utils.cx'
+import device from '@architecturex/utils.device'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
@@ -21,7 +22,6 @@ import Step7 from './Step7'
 import Step8 from './Step8'
 
 import StepIndicator from '~/app/shared/components/StepIndicator'
-import * as ProfileActions from '~/app/shared/actions/profile'
 import { UserFields } from '~/server/db/schemas/user'
 
 type Props = {
@@ -380,10 +380,12 @@ const Form: FC<Props> = ({ locale, user }) => {
   ]
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    if (device.is('desktop')) {
+      document.body.style.overflow = 'hidden'
 
-    return () => {
-      document.body.style.overflow = ''
+      return () => {
+        document.body.style.overflow = ''
+      }
     }
   }, [])
 
@@ -399,9 +401,20 @@ const Form: FC<Props> = ({ locale, user }) => {
         <Notification message="Error on saving profile data" type="error" />
       </RenderIf>
 
-      <div className={cx.join('flex justify-center w-full h-[80vh] overflow-hidden')}>
+      <div
+        className={cx.join(
+          'flex justify-center w-full min-h-screen overflow-hidden',
+          'desktop-height-80vh desktop-overflow-visible'
+        )}
+      >
         <div className="p-0 rounded-lg h-full overflow-hidden">
-          <div className="inner-scroll-content px-1" style={{ overflowY: 'auto' }}>
+          <div
+            className="inner-scroll-content px-1"
+            style={{
+              overflowY: 'auto',
+              height: 'calc(100% - 80px)' // Reserve space for buttons on desktop
+            }}
+          >
             <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('profile.setup.step1.headline')}
               {currentStep === 1 && t('profile.setup.step2.headline')}

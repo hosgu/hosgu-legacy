@@ -4,10 +4,7 @@ import React, {
   useState,
   ChangeEvent,
   ReactNode,
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback
+  useRef
 } from 'react'
 import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
@@ -52,12 +49,6 @@ const Input: FC<Props> = ({
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const filteredItems = useMemo(() => {
-    if (!dropdownItems.length) return []
-    if (!inputValue) return dropdownItems
-    return dropdownItems.filter((item) => item.toLowerCase().includes(inputValue.toLowerCase()))
-  }, [inputValue, dropdownItems])
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
@@ -65,27 +56,13 @@ const Input: FC<Props> = ({
   const isPasswordType = type === 'password'
   const inputType = isPasswordType && showPassword ? 'text' : type
 
-  const handleInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(e.target.value)
-      setIsError(false)
-      setLocalErrorText('')
-
-      if (onChange) {
-        onChange(e)
-      }
-    },
-    [onChange]
-  )
-
-  const handleItemClick = (item: string) => {
-    setInputValue(item)
-    setHasFocus(false)
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
     setIsError(false)
     setLocalErrorText('')
 
     if (onChange) {
-      onChange({ target: { name, value: item } } as ChangeEvent<HTMLInputElement>)
+      onChange(e)
     }
   }
 
@@ -96,11 +73,6 @@ const Input: FC<Props> = ({
   const handleBlur = () => {
     setTimeout(() => {
       setHasFocus(false)
-
-      if (dropdownItems.length > 0 && inputValue && !dropdownItems.includes(inputValue)) {
-        setIsError(true)
-        setLocalErrorText('Invalid selection')
-      }
     }, 100)
   }
 
@@ -147,9 +119,11 @@ const Input: FC<Props> = ({
           onChange={handleInputChange}
           value={inputValue}
           disabled={disabled}
+          list={`${name}-datalist`} // Associate the input with the datalist
           style={isError ? { border: '1px solid red' } : restProps.style}
           {...restProps}
         />
+
         {isPasswordType && (
           <button
             type="button"
@@ -164,24 +138,13 @@ const Input: FC<Props> = ({
         )}
       </div>
 
-      {hasFocus && filteredItems.length > 0 && (
-        <ul
-          className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-black dark:text-white mt-1 max-h-40 overflow-auto absolute z-10"
-          style={{ width: inputRef.current?.offsetWidth, maxHeight: '150px', overflowY: 'scroll' }}
-        >
-          {filteredItems.map((item, index) => (
-            <li
-              key={index}
-              className="px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
-              onMouseDown={(e) => {
-                e.preventDefault()
-                handleItemClick(item)
-              }}
-            >
-              {item}
-            </li>
+      {/* Datalist replacing the dropdown menu */}
+      {dropdownItems.length > 0 && (
+        <datalist id={`${name}-datalist`}>
+          {dropdownItems.map((item, index) => (
+            <option key={index} value={item} />
           ))}
-        </ul>
+        </datalist>
       )}
 
       {(errorText || localErrorText) && (

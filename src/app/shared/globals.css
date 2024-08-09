@@ -235,3 +235,12 @@ html.dark body.bg-login {
     @apply opacity-50;
   }
 }
+
+@media (min-width: 1024px) {
+  .desktop-height-80vh {
+    min-height: 77vh;
+  }
+  .desktop-overflow-visible {
+    overflow: visible;
+  }
+}
