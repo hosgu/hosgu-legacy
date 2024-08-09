@@ -387,6 +387,8 @@ const Form: FC<Props> = ({ locale, user }) => {
         document.body.style.overflow = ''
       }
     }
+
+    return () => {}
   }, [])
 
   useEffect(() => {
