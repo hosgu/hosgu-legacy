@@ -51,5 +51,9 @@ jobs:
             npm run db:push
             npm run db:seed
             npm run build
+            if [ \$? -ne 0 ]; then
+              echo "Build failed. Aborting start."
+              exit 1
+            fi
             npm start
           EOF
