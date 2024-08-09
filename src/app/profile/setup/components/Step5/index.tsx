@@ -129,7 +129,7 @@ const Step: FC<Props> = ({ locale, setValues, values }) => {
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             autoFocus
-            className={`text-8xl text-center border-none focus:ring-0 outline-none w-48 ${error ? 'text-red-500' : ''}`}
+            className={`text-8xl text-center border-none focus:ring-0 outline-none w-48 dark:bg-gray-900 ${error ? 'text-red-500' : ''}`}
           />
         ) : (
           <span onClick={() => setIsEditing(true)} className={`${error ? 'text-red-500' : ''}`}>
