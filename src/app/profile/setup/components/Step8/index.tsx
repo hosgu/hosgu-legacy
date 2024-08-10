@@ -12,16 +12,21 @@ const Step: FC<Props> = ({ locale }) => {
   const t = i18n(locale)
 
   return (
-    <div className="flex flex-col justify-center items-center text-center w-full">
-      <p className="mb-5">
-        {t('profile.setup.step8.subheadline')}
-        <br />
-        {t('profile.setup.step8.subheadline2')} &nbsp;
-        <Link href="/control">
-          <b>dashboard</b>
-        </Link>{' '}
-        {t('profile.setup.step8.subheadline2cont')}
-      </p>
+    <div className="h-screen flex flex-row content-center">
+      <div className="flex flex-col justify-center items-center text-center w-full">
+        <h1 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+          {t('profile.setup.step8.headline')}
+        </h1>
+        <p className="mb-5">
+          {t('profile.setup.step8.subheadline')}
+          <br />
+          {t('profile.setup.step8.subheadline2')} &nbsp;
+          <Link href="/control">
+            <b>dashboard</b>
+          </Link>{' '}
+          {t('profile.setup.step8.subheadline2cont')}
+        </p>
+      </div>
     </div>
   )
 }

@@ -404,14 +404,10 @@ const Form: FC<Props> = ({ locale, user }) => {
       </RenderIf>
 
       <div
-        className={
-          currentStep === 7
-            ? 'flex justify-center w-full h-2/4 min-h-min overflow-hidden'
-            : cx.join(
-                'flex justify-center w-full min-h-screen overflow-hidden',
-                'desktop-height-80vh desktop-overflow-visible'
-              )
-        }
+        className={cx.join(
+          'flex justify-center w-full min-h-screen overflow-hidden',
+          'desktop-height-80vh desktop-overflow-visible'
+        )}
       >
         <div className="p-0 rounded-lg h-full overflow-hidden ">
           <div
@@ -430,7 +426,6 @@ const Form: FC<Props> = ({ locale, user }) => {
               {currentStep === 4 && t('profile.setup.step5.headline')}
               {currentStep === 5 && t('profile.setup.step6.headline')}
               {currentStep === 6 && t('profile.setup.step7.headline')}
-              {currentStep === 7 && t('profile.setup.step8.headline')}
             </h2>
 
             {steps[currentStep]}
