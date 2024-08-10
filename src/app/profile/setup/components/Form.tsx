@@ -404,24 +404,28 @@ const Form: FC<Props> = ({ locale, user }) => {
       </RenderIf>
 
       <div
-        className={
-          currentStep === 7
-            ? 'flex justify-center w-full h-2/4 min-h-min overflow-hidden'
-            : cx.join(
-                'flex justify-center w-full min-h-screen overflow-hidden',
-                'desktop-height-80vh desktop-overflow-visible'
-              )
-        }
+        className={cx.join(
+          'flex justify-center w-full min-h-screen overflow-hidden',
+          'desktop-height-80vh desktop-overflow-visible'
+        )}
       >
         <div className="p-0 rounded-lg h-full overflow-hidden ">
           <div
-            className="inner-scroll-content px-1"
+            className={
+              currentStep === 7 ? 'my-12 inner-scroll-content px-1' : 'inner-scroll-content px-1'
+            }
             style={{
               overflowY: 'auto',
               height: 'calc(100% - 80px)' // Reserve space for buttons on desktop
             }}
           >
-            <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
+            <h2
+              className={
+                currentStep === 7
+                  ? 'p-0 text-2xl font-bold mb-2 my-12 text-gray-800 text-center dark:text-gray-300'
+                  : 'p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300'
+              }
+            >
               {currentStep === 0 && t('profile.setup.step1.headline')}
               {currentStep === 1 && t('profile.setup.step2.headline')}
               {currentStep === 2 &&
