@@ -404,12 +404,16 @@ const Form: FC<Props> = ({ locale, user }) => {
       </RenderIf>
 
       <div
-        className={cx.join(
-          'flex justify-center w-full min-h-screen overflow-hidden',
-          'desktop-height-80vh desktop-overflow-visible'
-        )}
+        className={
+          currentStep === 7
+            ? 'flex justify-center w-full h-2/4 min-h-min overflow-hidden'
+            : cx.join(
+                'flex justify-center w-full min-h-screen overflow-hidden',
+                'desktop-height-80vh desktop-overflow-visible'
+              )
+        }
       >
-        <div className="p-0 rounded-lg h-full overflow-hidden">
+        <div className="p-0 rounded-lg h-full overflow-hidden ">
           <div
             className="inner-scroll-content px-1"
             style={{
