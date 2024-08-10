@@ -411,21 +411,13 @@ const Form: FC<Props> = ({ locale, user }) => {
       >
         <div className="p-0 rounded-lg h-full overflow-hidden ">
           <div
-            className={
-              currentStep === 7 ? 'my-12 inner-scroll-content px-1' : 'inner-scroll-content px-1'
-            }
+            className="inner-scroll-content px-1"
             style={{
               overflowY: 'auto',
               height: 'calc(100% - 80px)' // Reserve space for buttons on desktop
             }}
           >
-            <h2
-              className={
-                currentStep === 7
-                  ? 'p-0 text-2xl font-bold mb-2 my-12 text-gray-800 text-center dark:text-gray-300'
-                  : 'p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300'
-              }
-            >
+            <h2 className="p-0 text-2xl font-bold mb-2 text-gray-800 text-center dark:text-gray-300">
               {currentStep === 0 && t('profile.setup.step1.headline')}
               {currentStep === 1 && t('profile.setup.step2.headline')}
               {currentStep === 2 &&
@@ -434,7 +426,6 @@ const Form: FC<Props> = ({ locale, user }) => {
               {currentStep === 4 && t('profile.setup.step5.headline')}
               {currentStep === 5 && t('profile.setup.step6.headline')}
               {currentStep === 6 && t('profile.setup.step7.headline')}
-              {currentStep === 7 && t('profile.setup.step8.headline')}
             </h2>
 
             {steps[currentStep]}
