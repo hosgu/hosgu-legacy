@@ -165,7 +165,9 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
       <CheckCard
         label="Pet friendly"
         checked={amenities.petFriendly}
-        icon={<SVG.Pet size="32px" alternativeColor={darkMode || amenities.pet ? '#fff' : ''} />}
+        icon={
+          <SVG.Pet size="32px" alternativeColor={darkMode || amenities.petFriendly ? '#fff' : ''} />
+        }
         onChange={() => onChangeCheck('petFriendly')}
       />
       <CheckCard

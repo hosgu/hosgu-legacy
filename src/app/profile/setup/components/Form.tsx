@@ -380,16 +380,18 @@ const Form: FC<Props> = ({ locale, user }) => {
   ]
 
   useEffect(() => {
-    if (device.is('desktop')) {
+    if (device.is('desktop') && currentStep !== 5) {
       document.body.style.overflow = 'hidden'
 
       return () => {
         document.body.style.overflow = ''
       }
+    } else {
+      document.body.style.overflow = ''
     }
 
     return () => {}
-  }, [])
+  }, [currentStep])
 
   useEffect(() => {
     if (uploadedFiles.size > 1) {
