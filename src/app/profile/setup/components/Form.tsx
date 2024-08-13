@@ -380,15 +380,7 @@ const Form: FC<Props> = ({ locale, user }) => {
   ]
 
   useEffect(() => {
-    if (device.is('desktop') && currentStep !== 5) {
-      document.body.style.overflow = 'hidden'
-
-      return () => {
-        document.body.style.overflow = ''
-      }
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.scrollTop = 0
 
     return () => {}
   }, [currentStep])
