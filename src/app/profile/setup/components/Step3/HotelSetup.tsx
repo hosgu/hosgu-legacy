@@ -35,12 +35,17 @@ const generateRooms = (floors: Floor[]): Room[] => {
 
 type Props = {
   locale: string
-  values: any
-  setValues: any
-  setEnableNext: any
+  setParentRooms: any
+  setParentFloors: any
+  setParentSkipFloor13: any
 }
 
-const HotelSetup: FC<Props> = ({ locale }) => {
+const HotelSetup: FC<Props> = ({
+  locale,
+  setParentRooms,
+  setParentFloors,
+  setParentSkipFloor13
+}) => {
   const t = i18n(locale)
 
   const [floors, setFloors] = useState<Floor[]>([
@@ -51,6 +56,7 @@ const HotelSetup: FC<Props> = ({ locale }) => {
 
   const updateFloorNumbers = (newFloors: Floor[]) => {
     let floorNumber = 1
+
     const updatedFloors = newFloors.map((floor) => {
       if (skipFloor13 && floorNumber === 13) {
         floorNumber++
@@ -59,6 +65,9 @@ const HotelSetup: FC<Props> = ({ locale }) => {
     })
     setFloors(updatedFloors)
     setRooms(generateRooms(updatedFloors))
+
+    setParentFloors(updatedFloors)
+    setParentRooms(generateRooms(updatedFloors))
   }
 
   const handleAddFloor = () => {
@@ -66,6 +75,7 @@ const HotelSetup: FC<Props> = ({ locale }) => {
       ...floors,
       { floor: floors.length + 1, rooms: [{ count: 1, type: 'Single' }] }
     ]
+
     updateFloorNumbers(newFloors)
   }
 
@@ -84,6 +94,9 @@ const HotelSetup: FC<Props> = ({ locale }) => {
     ;(newFloors[floorIndex].rooms[roomIndex] as any)[field] = value
     setFloors(newFloors)
     setRooms(generateRooms(newFloors))
+
+    setParentFloors(newFloors)
+    setParentRooms(generateRooms(newFloors))
   }
 
   const handleAddRoomType = (floorIndex: number) => {
@@ -95,6 +108,8 @@ const HotelSetup: FC<Props> = ({ locale }) => {
       if (nextType) {
         floorRooms.push({ count: 1, type: nextType })
         setFloors(newFloors)
+
+        setParentFloors(newFloors)
       }
     }
   }
@@ -106,10 +121,16 @@ const HotelSetup: FC<Props> = ({ locale }) => {
     )
     setFloors(newFloors)
     setRooms(generateRooms(newFloors))
+
+    setParentFloors(newFloors)
+    setParentRooms(generateRooms(newFloors))
   }
 
   useEffect(() => {
-    setRooms(generateRooms(floors))
+    const newRoms = generateRooms(floors)
+    setRooms(newRoms)
+
+    setParentRooms(newRoms)
   }, [floors])
 
   useEffect(() => {
@@ -235,6 +256,7 @@ const HotelSetup: FC<Props> = ({ locale }) => {
                           const newRooms = [...rooms]
                           newRooms[rooms.indexOf(room)].type = e.target.value
                           setRooms(newRooms)
+                          setParentRooms(newRooms)
                         }}
                         className="p-2 border rounded w-full text-center dark:bg-gray-700 dark:border-gray-600"
                       >

@@ -8,9 +8,20 @@ type Props = {
   values: any
   setValues: any
   setEnableNext: any
+  setParentRooms: any
+  setParentFloors: any
+  setParentSkipFloor13: any
 }
 
-const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
+const Step: FC<Props> = ({
+  locale,
+  values,
+  setValues,
+  setEnableNext,
+  setParentFloors,
+  setParentRooms,
+  setParentSkipFloor13
+}) => {
   const { guests, bathrooms, bedrooms, beds } = values
 
   useEffect(() => {
@@ -36,9 +47,9 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
   return (
     <HotelSetup
       locale={locale}
-      values={values}
-      setValues={setValues}
-      setEnableNext={setEnableNext}
+      setParentFloors={setParentFloors}
+      setParentRooms={setParentRooms}
+      setParentSkipFloor13={setParentSkipFloor13}
     />
   )
 }

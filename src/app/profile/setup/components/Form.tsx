@@ -3,7 +3,6 @@ import React, { FC, ChangeEvent, useEffect, useState } from 'react'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 import cx from '@architecturex/utils.cx'
-import device from '@architecturex/utils.device'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
@@ -23,6 +22,8 @@ import Step8 from './Step8'
 
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import { UserFields } from '~/server/db/schemas/user'
+
+import { generateRooms, floors, Floor, Room } from '~/app/shared/utils/hotel'
 
 type Props = {
   user: UserFields & {
@@ -88,6 +89,13 @@ const Form: FC<Props> = ({ locale, user }) => {
     zipCode: ''
   })
 
+  const [parentFloors, setParentFloors] = useState<Floor[]>([])
+  const [parentRooms, setParentRooms] = useState<Room[]>([])
+  const [parentSkipFloor13, setParentSkipFloor13] = useState<boolean>(true)
+
+  console.log('PARENT FLOORS===>', parentFloors)
+  console.log('PARENT ROOMS===>', parentRooms)
+  console.log('PARENT SKIP FLOOR 13===>', parentSkipFloor13)
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
@@ -351,6 +359,9 @@ const Form: FC<Props> = ({ locale, user }) => {
       locale={locale}
       values={values}
       setValues={setValues}
+      setParentFloors={setParentFloors}
+      setParentRooms={setParentRooms}
+      setParentSkipFloor13={setParentSkipFloor13}
       setEnableNext={setEnableNext}
     />,
     <Step4
