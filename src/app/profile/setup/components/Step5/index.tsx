@@ -119,7 +119,7 @@ const Step: FC<Props> = ({ locale, setValues, values }) => {
 
   return (
     <div className="text-center mt-10">
-      <div className="text-8xl font-bold flex justify-center items-center">
+      <div className="text-7xl sm:text-8xl font-bold flex justify-center items-center">
         <span className="mr-2">{getCurrencySymbol()}</span>
         {isEditing ? (
           <input
