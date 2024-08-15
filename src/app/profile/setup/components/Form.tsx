@@ -324,11 +324,13 @@ const Form: FC<Props> = ({ locale, user }) => {
       if (uploadFilesResponse.ok) {
         images = uploadFilesResponse.data.map((data: any) => data.path)
       }
-
       const cleanValues = JSON.parse(JSON.stringify(values))
       const formData = core.formData.set(new FormData(), cleanValues)
       formData.set('amenities', JSON.stringify(values.amenities))
       formData.set('images', JSON.stringify(images))
+      if (parentRooms.length > 0) {
+        formData.set('rooms', JSON.stringify(parentRooms))
+      }
       const response = await setupProfile(formData)
 
       if (response.status === 200) {

@@ -9,6 +9,7 @@ import PhotoService from '../services/photo'
 import UnitService from '../services/unit'
 import FeeService from '../services/fee'
 import SettingsService from '../services/settings'
+import RoomService from '../services/room'
 
 import { ASRFields } from '~/server/db/schemas/asr'
 import Property, { ASR } from '~/server/model/amenity/property'
@@ -48,7 +49,7 @@ type ProfileSetupPayload = {
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const data = core.formData.get(e)
   let generalResponse: APIResponse<any>
-
+  const rooms: any[] = data.rooms ? JSON.parse(data.rooms) : []
   const images: string[] = JSON.parse(data.images)
   const businessId = data.businessId
   const businessItemData = {
@@ -101,6 +102,23 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
 
     if (createdAmenity.ok) {
       const amenityCreated: ASRFields = createdAmenity.data
+      let roomsCount = 0
+      let floorsCount = 0
+      if (rooms.length > 0) {
+        const floorsItems = rooms.reduce((acc, obj) => {
+          const floor = obj.floor
+          acc[floor] = (acc[floor] || 0) + 1
+          return acc
+        }, [])
+        floorsCount = floorsItems.length - 1
+        roomsCount = floorsItems.reduce(
+          (sum: number, num: number) => (num > 0 ? sum + num : sum),
+          0
+        )
+      } else {
+        floorsCount = 1
+        roomsCount = data.bedrooms
+      }
 
       const propertyData = {
         businessId: businessId,
@@ -108,8 +126,8 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
         name: data.propertyName,
         slug: '',
         description: '',
-        floors: 1,
-        rooms: data.bedrooms,
+        floors: floorsCount,
+        rooms: roomsCount,
         generalRules: '',
         safetyRules: '',
         cancellationPolicy: '',
@@ -137,17 +155,32 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
 
         await PhotoService.create(imagesPayload)
 
-        const unitData = {
-          propertyId: createdProperty.data.id,
-          feeId: createdFeeData.data.id,
-          asrId: amenityCreated.id,
-          maxGuests: data.guests,
-          bedrooms: data.bathrooms,
-          bathrooms: data.bathrooms,
-          queenSizeBeds: data.beds
-        }
+        if (rooms.length > 0) {
+          const roomsPayload = rooms.map((room: any) => {
+            return {
+              propertyId: createdProperty.data.id,
+              feeId: createdFeeData.data.id,
+              asrId: amenityCreated.id,
+              floor: room.floor,
+              roomNumber: room.Number,
+              roomType: room.type
+            }
+          })
 
-        await UnitService.create(unitData)
+          await RoomService.create(roomsPayload)
+        } else {
+          const unitData = {
+            propertyId: createdProperty.data.id,
+            feeId: createdFeeData.data.id,
+            asrId: amenityCreated.id,
+            maxGuests: data.guests,
+            bedrooms: data.bathrooms,
+            bathrooms: data.bathrooms,
+            queenSizeBeds: data.beds
+          }
+
+          await UnitService.create(unitData)
+        }
 
         const timezone =
           data.country === 'Mexico' ? 'GMT-6' : data.country === 'Canada' ? 'GTM-4' : 'GTM-4'
