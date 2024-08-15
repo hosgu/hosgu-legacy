@@ -162,7 +162,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
               feeId: createdFeeData.data.id,
               asrId: amenityCreated.id,
               floor: room.floor,
-              roomNumber: room.Number,
+              roomNumber: room.roomNumber,
               roomType: room.type
             }
           })
