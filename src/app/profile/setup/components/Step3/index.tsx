@@ -11,6 +11,9 @@ type Props = {
   setParentRooms: any
   setParentFloors: any
   setParentSkipFloor13: any
+  parentRooms: any
+  parentFloors: any
+  parentSkipFloor13: any
 }
 
 const Step: FC<Props> = ({
@@ -20,7 +23,10 @@ const Step: FC<Props> = ({
   setEnableNext,
   setParentFloors,
   setParentRooms,
-  setParentSkipFloor13
+  setParentSkipFloor13,
+  parentFloors,
+  parentRooms,
+  parentSkipFloor13
 }) => {
   const { guests, bathrooms, bedrooms, beds } = values
 
@@ -50,6 +56,9 @@ const Step: FC<Props> = ({
       setParentFloors={setParentFloors}
       setParentRooms={setParentRooms}
       setParentSkipFloor13={setParentSkipFloor13}
+      parentFloors={parentFloors}
+      parentRooms={parentRooms}
+      parentSkipFloor13={parentSkipFloor13}
     />
   )
 }

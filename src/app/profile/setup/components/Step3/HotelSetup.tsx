@@ -1,57 +1,33 @@
 import React, { FC, useState, useEffect } from 'react'
+import { generateRooms, Floor, Room, groupRoomsByFloor } from '~/app/shared/utils/hotel'
 
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
-interface Room {
-  floor: number
-  roomNumber: number
-  type: string
-}
-
-interface Floor {
-  floor: number
-  rooms: { count: number; type: string }[]
-}
-
 const roomTypes = ['Single', 'Double', 'Penthouse', 'Studio', 'Deluxe']
-
-const generateRooms = (floors: Floor[]): Room[] => {
-  const rooms: Room[] = []
-  floors.forEach(({ floor, rooms: roomDetails }) => {
-    let roomNumberOffset = 1
-    roomDetails.forEach(({ count, type }) => {
-      for (let room = 0; room < count; room++) {
-        rooms.push({
-          floor,
-          roomNumber: floor * 100 + roomNumberOffset,
-          type: type
-        })
-        roomNumberOffset++
-      }
-    })
-  })
-  return rooms
-}
 
 type Props = {
   locale: string
   setParentRooms: any
   setParentFloors: any
   setParentSkipFloor13: any
+  parentRooms: any
+  parentFloors: any
+  parentSkipFloor13: any
 }
 
 const HotelSetup: FC<Props> = ({
   locale,
   setParentRooms,
   setParentFloors,
-  setParentSkipFloor13
+  setParentSkipFloor13,
+  parentRooms,
+  parentFloors,
+  parentSkipFloor13
 }) => {
   const t = i18n(locale)
 
-  const [floors, setFloors] = useState<Floor[]>([
-    { floor: 1, rooms: [{ count: 5, type: 'Single' }] }
-  ])
-  const [rooms, setRooms] = useState<Room[]>(generateRooms(floors))
+  const [floors, setFloors] = useState<Floor[]>(parentFloors)
+  const [rooms, setRooms] = useState<Room[]>(parentRooms)
   const [skipFloor13, setSkipFloor13] = useState<boolean>(true)
 
   const updateFloorNumbers = (newFloors: Floor[]) => {
@@ -75,7 +51,9 @@ const HotelSetup: FC<Props> = ({
       ...floors,
       { floor: floors.length + 1, rooms: [{ count: 1, type: 'Single' }] }
     ]
-
+    console.log('FLOORS -->>>>', floors)
+    console.log('NewFloors --->>>>', newFloors)
+    console.log('ParentFloors -->>>>', parentFloors)
     updateFloorNumbers(newFloors)
   }
 
@@ -120,6 +98,7 @@ const HotelSetup: FC<Props> = ({
       (_, index) => index !== roomIndex
     )
     setFloors(newFloors)
+
     setRooms(generateRooms(newFloors))
 
     setParentFloors(newFloors)
@@ -255,8 +234,10 @@ const HotelSetup: FC<Props> = ({
                         onChange={(e) => {
                           const newRooms = [...rooms]
                           newRooms[rooms.indexOf(room)].type = e.target.value
+                          const roomsByFloor = groupRoomsByFloor(newRooms)
                           setRooms(newRooms)
                           setParentRooms(newRooms)
+                          setParentFloors(roomsByFloor)
                         }}
                         className="p-2 border rounded w-full text-center dark:bg-gray-700 dark:border-gray-600"
                       >

@@ -8,6 +8,7 @@ import { RenderIf } from '@architecturex/components.renderif'
 
 import useCustomState from '~/app/shared/hooks/useCustomState'
 import i18n from '~/app/shared/contexts/server/I18nContext'
+
 import { setupProfile } from '~/app/shared/actions/profile'
 import Button from '~/components/Button'
 import Notification from '~/components/Notification'
@@ -89,13 +90,15 @@ const Form: FC<Props> = ({ locale, user }) => {
     zipCode: ''
   })
 
-  const [parentFloors, setParentFloors] = useState<Floor[]>([])
-  const [parentRooms, setParentRooms] = useState<Room[]>([])
+  const [parentFloors, setParentFloors] = useState<Floor[]>([
+    { floor: 1, rooms: [{ count: 1, type: 'Single' }] }
+  ])
+  const [parentRooms, setParentRooms] = useState<Room[]>(generateRooms(floors))
   const [parentSkipFloor13, setParentSkipFloor13] = useState<boolean>(true)
 
-  console.log('PARENT FLOORS===>', parentFloors)
-  console.log('PARENT ROOMS===>', parentRooms)
-  console.log('PARENT SKIP FLOOR 13===>', parentSkipFloor13)
+  //console.log('PARENT FLOORS===>', JSON.stringify(parentFloors))
+  // console.log('PARENT ROOMS===>', parentRooms)
+  // console.log('PARENT SKIP FLOOR 13===>', parentSkipFloor13)
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
@@ -365,6 +368,9 @@ const Form: FC<Props> = ({ locale, user }) => {
       setParentRooms={setParentRooms}
       setParentSkipFloor13={setParentSkipFloor13}
       setEnableNext={setEnableNext}
+      parentFloors={parentFloors}
+      parentRooms={parentRooms}
+      parentSkipFloor13={parentSkipFloor13}
     />,
     <Step4
       key="step4"
