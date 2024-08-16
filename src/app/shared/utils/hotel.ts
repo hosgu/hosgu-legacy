@@ -34,3 +34,35 @@ export const generateRooms = (floors: Floor[]): Room[] => {
 
   return rooms
 }
+
+type RoomTypeCount = {
+  count: number
+  type: string
+}
+
+type FloorGroup = {
+  floor: number
+  rooms: RoomTypeCount[]
+}
+
+export function groupRoomsByFloor(rooms: Room[]): FloorGroup[] {
+  const result: FloorGroup[] = []
+
+  rooms.forEach((room) => {
+    let floor = result.find((f) => f.floor === room.floor)
+    if (!floor) {
+      floor = { floor: room.floor, rooms: [] }
+      result.push(floor)
+    }
+
+    let roomType = floor.rooms.find((r) => r.type === room.type)
+    if (!roomType) {
+      roomType = { count: 0, type: room.type }
+      floor.rooms.push(roomType)
+    }
+
+    roomType.count++
+  })
+
+  return result
+}
