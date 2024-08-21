@@ -394,7 +394,13 @@ const Form: FC<Props> = ({ locale, user }) => {
       uploadedFiles={uploadedFiles}
       setEnableNext={setEnableNext}
     />,
-    <Step7 key="step7" values={values} locale={locale} />,
+    <Step7
+      key="step7"
+      values={values}
+      locale={locale}
+      parentFloors={parentFloors}
+      parentRooms={parentRooms}
+    />,
     <Step8 key="step8" locale={locale} />
   ]
 

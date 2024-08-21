@@ -10,41 +10,11 @@ import UnitService from '../services/unit'
 import FeeService from '../services/fee'
 import SettingsService from '../services/settings'
 import RoomService from '../services/room'
+import UserService from '~/app/shared/services/user'
 
 import { ASRFields } from '~/server/db/schemas/asr'
 import Property, { ASR } from '~/server/model/amenity/property'
 import { PropertyFields } from '~/server/db/schemas/property'
-
-type ProfileSetupPayload = {
-  amenities: Map<string, boolean>
-  address1: string
-  address2: string
-  bathrooms: number
-  bedrooms: number
-  beds: number
-  businessId: string
-  price: number
-  checkInHour: string
-  checkInMinute: string
-  checkInPeriod: string
-  checkOutHour: string
-  checkOutMinute: string
-  checkOutPeriod: string
-  city: string
-  country: string
-  currency: string
-  email: string
-  googleMaps: string
-  guests: number
-  images: []
-  password: string
-  propertyName: string
-  propertyType: string
-  state: string
-  tmpImages: []
-  userId: string
-  zipCode: string
-}
 
 export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const data = core.formData.get(e)
@@ -192,6 +162,13 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
           timezone
         }
         await SettingsService.create(settingsData)
+
+        const userData = {
+          id: data.userId,
+          active: true
+        }
+
+        await UserService.update(userData.id, userData)
       }
     }
   }
