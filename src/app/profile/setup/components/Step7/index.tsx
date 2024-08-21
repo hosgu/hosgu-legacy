@@ -1,12 +1,16 @@
 import React, { FC } from 'react'
 import i18n from '~/app/shared/contexts/server/I18nContext'
+import { Floor, Room } from '~/app/shared/utils/hotel'
+import { RenderIf } from '@architecturex/components.renderif'
 
 type Props = {
   locale: string
   values: any
+  parentRooms: Room[]
+  parentFloors: Floor[]
 }
 
-const Step: FC<Props> = ({ values, locale }) => {
+const Step: FC<Props> = ({ values, locale, parentRooms, parentFloors }) => {
   const t = i18n(locale)
 
   const amenitiesMap: any = {
@@ -56,10 +60,20 @@ const Step: FC<Props> = ({ values, locale }) => {
             </p>
             <div className="mt-2">
               <h3 className="font-semibold text-xl">{t('profile.setup.step7.information')}:</h3>
-              {t('common.profile.setup.guests')}: {values.guests} <br />
-              {t('common.profile.setup.bedrooms')}: {values.bedrooms} <br />
-              {t('common.profile.setup.bathrooms')}: {values.bathrooms} <br />
-              {t('common.profile.setup.beds')}: {values.beds}
+              <RenderIf isTrue={values.propertyType === 'cabin'}>
+                <div>
+                  {t('common.profile.setup.guests')}: {values.guests} <br />
+                  {t('common.profile.setup.bedrooms')}: {values.bedrooms} <br />
+                  {t('common.profile.setup.bathrooms')}: {values.bathrooms} <br />
+                  {t('common.profile.setup.beds')}: {values.beds}
+                </div>
+              </RenderIf>
+              <RenderIf isTrue={values.propertyType === 'hotel'}>
+                <div>
+                  {t('profile.setup.step7.rooms')}: {parentRooms.length} <br />
+                  {t('profile.setup.step7.floors')}: {parentFloors.length} <br />
+                </div>
+              </RenderIf>
             </div>
             <div className="mt-4">
               <h3 className="font-semibold text-xl">{t('profile.setup.step7.amenities')}</h3>

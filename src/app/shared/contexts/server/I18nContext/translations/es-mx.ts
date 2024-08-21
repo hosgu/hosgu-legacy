@@ -135,6 +135,8 @@ const translations = {
   'profile.setup.step7.pernight': 'por noche',
   'profile.setup.step7.location': 'Ubicación:',
   'profile.setup.step7.amenities': 'Amenidades:',
+  'profile.setup.step7.floors': 'Pisos',
+  'profile.setup.step7.rooms': 'Habitaciones',
 
   'profile.setup.step8.headline': '¡Felicidades, su propiedad ya está listada!',
   'profile.setup.step8.subheadline': 'Su negocio ha sido registrado exitosamente.',
