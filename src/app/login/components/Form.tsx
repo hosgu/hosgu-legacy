@@ -38,6 +38,9 @@ const Form: FC<Props> = ({ locale }) => {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
+    formData.delete('email')
+    formData.delete('password')
+
     formData.append(security.base64.encode('email', true), security.base64.encode(email, true))
     formData.append(
       security.base64.encode('password', true),
@@ -69,12 +72,15 @@ const Form: FC<Props> = ({ locale }) => {
           <div className="flex justify-center mb-4">
             <img src="/images/isotype.svg" alt="Logo" className="w-16 h-16" />
           </div>
+
           <h2 className="text-2xl font-medium text-center mb-4 text-gray-800 dark:text-white toggle-text-dark-mode">
             {t('login.headline')}
           </h2>
+
           <div className="relative mb-4">
             <div className="relative">
               <Input
+                name="email"
                 leftIcon={<SVG.Email />}
                 label={t('common.user.email')}
                 type="email"
@@ -87,6 +93,7 @@ const Form: FC<Props> = ({ locale }) => {
           <div className="relative">
             <div className="relative">
               <Input
+                name="password"
                 leftIcon={<SVG.Lock />}
                 label={t('common.input.password')}
                 type="password"
@@ -102,7 +109,7 @@ const Form: FC<Props> = ({ locale }) => {
           </div>
 
           <div className="m-auto">
-            <Button color="primary" fullWidth>
+            <Button color="primary" fullWidth type="submit">
               {t('common.general.login')}
             </Button>
           </div>

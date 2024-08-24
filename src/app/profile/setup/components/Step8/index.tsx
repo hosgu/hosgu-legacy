@@ -20,7 +20,7 @@ const Step: FC<Props> = ({ locale }) => {
         <p className="mb-5">
           {t('profile.setup.step8.subheadline')}
           <br />
-          {t('profile.setup.step8.subheadline2')} &nbsp;
+          {t('profile.setup.step8.subheadline2')}
           <Link href="/control">
             <b>dashboard</b>
           </Link>{' '}

@@ -99,6 +99,15 @@ const start = async (): Promise<void> => {
     next()
   })
 
+  // Custom Routes
+  app.get('/login', (req: Request, res: Response, next: NextFunction) => {
+    if (req.cookies.at) {
+      return res.redirect('/')
+    }
+
+    next()
+  })
+
   // Next.js build
   if (process.env.NEXT_BUILD) {
     app.listen(basePort, async () => {
