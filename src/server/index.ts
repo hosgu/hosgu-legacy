@@ -102,11 +102,7 @@ const start = async (): Promise<void> => {
   })
 
   // Custom Routes
-  app.get('/login', (req: Request, res: Response, next: NextFunction) => {
-    if (req.cookies.at) {
-      return res.redirect('/')
-    }
-
+  app.get('/login', isConnected(false), (req: Request, res: Response, next: NextFunction) => {
     next()
   })
 

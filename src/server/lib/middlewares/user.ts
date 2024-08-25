@@ -17,8 +17,6 @@ export const isConnected =
       returnFirstItemOnly: true
     })
 
-    console.log('CONNECTED USER XXXX===>', connectedUser)
-
     if (!connectedUser && !isLogged) {
       return next()
     }
