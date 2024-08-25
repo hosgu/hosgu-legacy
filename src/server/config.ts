@@ -11,7 +11,14 @@ export const customConfig: Configuration = {
     version: 'v1'
   },
   user: {
-    roles: ['global.god', 'global.admin', 'business.admin', 'business.editor', 'business.agent']
+    roles: [
+      'global.god',
+      'global.admin',
+      'business.admin',
+      'business.editor',
+      'business.agent',
+      'visitor'
+    ]
   }
 }
 

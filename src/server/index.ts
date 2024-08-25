@@ -26,6 +26,8 @@ import unitApiV1 from './api/v1/unit'
 import uploaderApiV1 from './api/v1/uploader'
 import userApiV1 from './api/v1/user'
 
+import { isConnected } from './lib/middlewares/user'
+
 const basePort = 3000
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -107,6 +109,28 @@ const start = async (): Promise<void> => {
 
     next()
   })
+
+  // Validating if user is logged in and has a valid role to access dashboard
+  app.get(
+    '/dashboard',
+    isConnected(true, ['global.god', 'global.admin'], '/login?redirectTo=/dashboard'),
+    (req: Request, res: Response, next: NextFunction) => {
+      next()
+    }
+  )
+
+  // Validating if user is logged in and has a valid role to access control panel
+  app.get(
+    '/control/:businessId',
+    isConnected(
+      true,
+      ['global.god', 'global.admin', 'business.admin', 'business.editor', 'business.agent'],
+      '/login?redirectTo=/control' // Redirect to login page if user is not logged in
+    ),
+    (req: Request, res: Response, next: NextFunction) => {
+      next()
+    }
+  )
 
   // Next.js build
   if (process.env.NEXT_BUILD) {
