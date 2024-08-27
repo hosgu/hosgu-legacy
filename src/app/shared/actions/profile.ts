@@ -37,7 +37,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   generalResponse = await BusinessService.update(businessId, businessItemData)
 
   if (generalResponse.ok) {
-    /* Creating new amenity by using ameniry service class*/
+    /* Creating new amenity by using amenity service class*/
     const amenityData: Map<string, boolean> = new Map(Object.entries(JSON.parse(data.amenities)))
 
     const asr: ASR = {
@@ -65,21 +65,24 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
         petFriendly: !!amenityData.get('petFriendly')
       }
     }
-    const properyObj = new Property(asr)
-    console.log('>>>>> Property Object >>>>', properyObj)
+    const propertyObj = new Property(asr)
+    console.log('>>>>> Property Object >>>>', propertyObj)
 
-    const createdAmenity = await ASRService.create(properyObj)
+    // Change to createdASR
+    const createdASR = await ASRService.create(propertyObj)
 
-    if (createdAmenity.ok) {
-      const amenityCreated: ASRFields = createdAmenity.data
+    if (createdASR.ok) {
+      const amenityCreated: ASRFields = createdASR.data
       let roomsCount = 0
       let floorsCount = 0
+
       if (rooms.length > 0) {
         const floorsItems = rooms.reduce((acc, obj) => {
           const floor = obj.floor
           acc[floor] = (acc[floor] || 0) + 1
           return acc
         }, [])
+
         floorsCount = floorsItems.length - 1
         roomsCount = floorsItems.reduce(
           (sum: number, num: number) => (num > 0 ? sum + num : sum),
