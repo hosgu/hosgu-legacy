@@ -23,7 +23,6 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
   const images: string[] = JSON.parse(data.images)
   const businessId = data.businessId
   const businessItemData = {
-    name: data.propertyName,
     googleMapsUrl: data.googleMaps,
     addressLine1: data.address1,
     addressLine2: data.address2,
@@ -168,6 +167,7 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
 
         const userData = {
           id: data.userId,
+          password: data.password,
           active: true
         }
 
