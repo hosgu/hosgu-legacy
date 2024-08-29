@@ -180,7 +180,9 @@ const Form: FC<Props> = ({ locale, user }) => {
       return !value ? t('profile.setup.error.pleaseEnterYourPropertyAddress') : ''
     },
     propertyZipCode: (value: string) => {
-      if (value.length < 3) {
+      const zipCodePattern = /^\d{5}$/
+
+      if (!zipCodePattern.test(value)) {
         return t('profile.setup.error.pleaseEnterAValidPropertyPostalCode')
       }
 
