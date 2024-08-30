@@ -52,7 +52,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.input.password')}
           value={values.password}
           onChange={handleChange}
-          onBlur={validate}
           required
           className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
           style={{ width: '100%', marginBottom: '2px' }}
@@ -68,7 +67,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.property.name')}
           value={values.propertyName}
           onChange={handleChange}
-          onBlur={validate}
           required
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.propertyName
@@ -87,9 +85,8 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           value={values.googleMaps}
           onChange={handleChange}
           placeholder="https://www.google.com/maps/place/..."
-          onBlur={validate}
           required
-          className={errors.zipCode ? 'border-red-500 dark:border-red-500' : ''}
+          className={errors.googleMaps ? 'border-red-500 dark:border-red-500' : ''}
           style={{ width: '100%', marginBottom: '2px' }}
         />
 
@@ -118,7 +115,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.general.state')}
           value={values.state}
           onChange={handleStateChange}
-          onBlur={validate}
           required
           dropdownItems={states.map((state: any) => state.state)} // Extract the state names for the dropdown
           className={cx.join({
@@ -135,7 +131,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.general.city')}
           value={values.city}
           onChange={handleChange}
-          onBlur={validate}
           required
           dropdownItems={cities} // Populate cities based on selected state
           className={cx.join({
@@ -152,7 +147,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.business.address')}
           value={values.address1}
           onChange={handleChange}
-          onBlur={validate}
           placeholder={t('profile.setup.step1.streetAddress')}
           required
           className={cx.join({
@@ -166,7 +160,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           name="address2"
           value={values.address2}
           onChange={handleChange}
-          onBlur={validate}
           placeholder={t('profile.setup.step1.placeholder')}
           required
           className={cx.join({
@@ -185,7 +178,6 @@ const Step: FC<Props> = ({ locale, values, setValues, handleChange, validate, er
           label={t('common.business.zipCode')}
           value={values.zipCode}
           onChange={handleChange}
-          onBlur={validate}
           required
           className={cx.join({
             'border-red-500 dark:border-red-500': errors.zipCode

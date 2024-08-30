@@ -65,7 +65,6 @@ export const setupProfile = async (e: FormData): Promise<APIResponse<any>> => {
       }
     }
     const propertyObj = new Property(asr)
-    console.log('>>>>> Property Object >>>>', propertyObj)
 
     // Change to createdASR
     const createdASR = await ASRService.create(propertyObj)

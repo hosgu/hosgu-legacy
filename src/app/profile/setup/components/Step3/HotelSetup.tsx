@@ -51,9 +51,7 @@ const HotelSetup: FC<Props> = ({
       ...floors,
       { floor: floors.length + 1, rooms: [{ count: 1, type: 'Single' }] }
     ]
-    console.log('FLOORS -->>>>', floors)
-    console.log('NewFloors --->>>>', newFloors)
-    console.log('ParentFloors -->>>>', parentFloors)
+
     updateFloorNumbers(newFloors)
   }
 
