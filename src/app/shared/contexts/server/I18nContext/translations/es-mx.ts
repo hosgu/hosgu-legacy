@@ -140,7 +140,7 @@ const translations = {
 
   'profile.setup.step8.headline': '¡Felicidades, su propiedad ya está listada!',
   'profile.setup.step8.subheadline': 'Su negocio ha sido registrado exitosamente.',
-  'profile.setup.step8.subheadline2': 'Acceda al',
+  'profile.setup.step8.subheadline2': 'Acceda al ',
   'profile.setup.step8.subheadline2cont': 'para comenzar a utilizar la plataforma.',
   'profile.setup.step4.kitchen': 'Cocina',
   'profile.setup.step4.extraBed': 'Cama extra',
