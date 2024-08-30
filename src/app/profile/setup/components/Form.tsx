@@ -96,33 +96,34 @@ const Form: FC<Props> = ({ locale, user }) => {
   const [parentRooms, setParentRooms] = useState<Room[]>(generateRooms(floors))
   const [parentSkipFloor13, setParentSkipFloor13] = useState<boolean>(true)
 
-  //console.log('PARENT FLOORS===>', JSON.stringify(parentFloors))
-  // console.log('PARENT ROOMS===>', parentRooms)
-  // console.log('PARENT SKIP FLOOR 13===>', parentSkipFloor13)
   const [uploadedFiles, setUploadedFiles] = useState<any>([])
   const [showNotification, setShowNotification] = useCustomState(false)
   const [enableNext, setEnableNext] = useCustomState(true)
 
   const [errors, setErrors] = useCustomState({
     address1: '',
-    address2: '',
-    businessEmail: '',
-    businessName: '',
     propertyName: '',
-    businessPhone: '',
-    businessWebsite: '',
     city: '',
-    country: '',
-    fullName: '',
     googleMaps: '',
     password: '',
-    price: '',
     state: '',
     zipCode: ''
   })
 
   const goBack = () => {
     setCurrentStep((prev: number) => (prev > 0 ? prev - 1 : 0))
+  }
+
+  const validateBeforeGoNext = async () => {
+    const validationErrors = validate()
+
+    if (currentStep === 0 && validationErrors.length === 0) {
+      return goNext()
+    }
+
+    if (currentStep > 0) {
+      return goNext()
+    }
   }
 
   const goNext = async () => {
@@ -209,77 +210,85 @@ const Form: FC<Props> = ({ locale, user }) => {
   }
 
   const validate = () => {
+    const tmpErrors: any = []
+
     if (currentStep === 0) {
       const passwordValidation = security.password.validation(values.password)
 
       if (passwordValidation.reasons?.includes('length')) {
         setErrors('password', t('profile.setup.validation.passwordLength'))
-        return ''
+        tmpErrors.push('password')
+        return tmpErrors
       } else if (passwordValidation.reasons?.includes('lowercase')) {
         setErrors('password', t('profile.setup.validation.passwordLowercase'))
-        return ''
+        tmpErrors.push('password')
+        return tmpErrors
       } else if (passwordValidation.reasons?.includes('uppercase')) {
         setErrors('password', t('profile.setup.validation.passwordUppercase'))
-        return ''
+        tmpErrors.push('password')
+        return tmpErrors
       } else if (passwordValidation.reasons?.includes('digit')) {
         setErrors('password', t('profile.setup.validation.passwordDigit'))
-        return ''
+        tmpErrors.push('password')
+        return tmpErrors
       } else if (passwordValidation.reasons?.includes('special')) {
         setErrors('password', t('profile.setup.validation.passwordSpecial'))
-        return ''
+        tmpErrors.push('password')
+        return tmpErrors
       }
 
       setErrors('password', '')
 
-      if (validations.propertyState(values.state)) {
-        setErrors('state', validations.propertyState(values.state))
-        return ''
-      } else if (errors.state) {
-        setErrors('state', '')
-        return ''
-      }
-
       if (validations.propertyName(values.propertyName)) {
         setErrors('propertyName', validations.propertyName(values.propertyName))
-        return ''
+        tmpErrors.push('propertyName')
+
+        return tmpErrors
       } else if (errors.propertyName) {
         setErrors('propertyName', '')
-        return ''
-      }
-
-      if (validations.propertyCity(values.city)) {
-        setErrors('city', validations.propertyCity(values.city))
-        return ''
-      } else if (errors.city) {
-        setErrors('city', '')
-        return ''
-      }
-
-      if (validations.propertyAddress1(values.address1)) {
-        setErrors('address1', validations.propertyAddress1(values.address1))
-        return ''
-      } else if (errors.address1) {
-        setErrors('address1', '')
-        return ''
-      }
-
-      if (validations.propertyZipCode(values.zipCode)) {
-        setErrors('zipCode', validations.propertyZipCode(values.zipCode))
-        return ''
-      } else if (errors.zipCode) {
-        setErrors('zipCode', '')
-        return ''
       }
 
       if (validations.googleMaps(values.googleMaps)) {
         setErrors('googleMaps', validations.googleMaps(values.googleMaps))
-        return ''
+        tmpErrors.push('googleMaps')
+        return tmpErrors
       } else if (errors.googleMaps) {
         setErrors('googleMaps', '')
-        return ''
       }
 
-      return passwordValidation.isValid
+      if (validations.propertyState(values.state)) {
+        setErrors('state', validations.propertyState(values.state))
+        tmpErrors.push('propertyState')
+        return tmpErrors
+      } else if (errors.state) {
+        setErrors('state', '')
+      }
+
+      if (validations.propertyCity(values.city)) {
+        setErrors('city', validations.propertyCity(values.city))
+        tmpErrors.push('propertyCity')
+        return tmpErrors
+      } else if (errors.city) {
+        setErrors('city', '')
+      }
+
+      if (validations.propertyAddress1(values.address1)) {
+        setErrors('address1', validations.propertyAddress1(values.address1))
+        tmpErrors.push('propertyAddress1')
+        return tmpErrors
+      } else if (errors.address1) {
+        setErrors('address1', '')
+      }
+
+      if (validations.propertyZipCode(values.zipCode)) {
+        setErrors('zipCode', validations.propertyZipCode(values.zipCode))
+        tmpErrors.push('propertyZipCode')
+        return tmpErrors
+      } else if (errors.zipCode) {
+        setErrors('zipCode', '')
+      }
+
+      return tmpErrors
     }
 
     if (currentStep === 3) {
@@ -303,7 +312,6 @@ const Form: FC<Props> = ({ locale, user }) => {
       setErrors('city', newErrors.city)
       setErrors('state', newErrors.state)
       setErrors('zipCode', newErrors.zipCode)
-      setErrors('price', newErrors.price)
 
       return (
         !newErrors.address1 &&
@@ -325,17 +333,24 @@ const Form: FC<Props> = ({ locale, user }) => {
         uploadedFiles,
         `/api/v1/uploader?setType=image&businessSlug=${user.businessSlug}`
       )
+
       let images = []
+
       if (uploadFilesResponse.ok) {
         images = uploadFilesResponse.data.map((data: any) => data.path)
       }
+
       const cleanValues = JSON.parse(JSON.stringify(values))
       const formData = core.formData.set(new FormData(), cleanValues)
+
       formData.set('amenities', JSON.stringify(values.amenities))
       formData.set('images', JSON.stringify(images))
+      formData.set('password', security.password.encrypt(values.password))
+
       if (parentRooms.length > 0) {
         formData.set('rooms', JSON.stringify(parentRooms))
       }
+
       const response = await setupProfile(formData)
 
       if (response.status === 200) {
@@ -465,7 +480,12 @@ const Form: FC<Props> = ({ locale, user }) => {
               <StepIndicator locale={locale} steps={8} currentStep={currentStep + 1} />
 
               <RenderIf isTrue={currentStep !== 1}>
-                <Button color="primary" onClick={goNext} disabled={!enableNext} className="h-12">
+                <Button
+                  color="primary"
+                  onClick={validateBeforeGoNext}
+                  disabled={!enableNext}
+                  className="h-12"
+                >
                   {currentStep < 6 ? t('common.general.next') : t('common.general.finish')}
                 </Button>
               </RenderIf>
