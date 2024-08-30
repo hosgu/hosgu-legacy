@@ -113,7 +113,7 @@ const translations = {
   'profile.setup.step5.headline': 'Set your night price and times!',
   'profile.setup.step8.headline': 'Congratulations! Your property is now listed!',
   'profile.setup.step8.subheadline': 'Your business has been properly registered.',
-  'profile.setup.step8.subheadline2': 'Proceed to the',
+  'profile.setup.step8.subheadline2': 'Proceed to the ',
   'profile.setup.step8.subheadline2cont': 'to start using the platform',
   'profile.setup.step1.propertyDetails': 'Property Details',
   'profile.setup.step1.streetAddress': 'Street Address',
