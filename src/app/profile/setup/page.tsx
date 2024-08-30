@@ -19,10 +19,12 @@ type Props = {
 const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
   const cookieStore = cookies()
   const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
+  const loggedFromProfileSetup =
+    cookieStore.get('loggedFromProfileSetup')?.value === 'true' || false
 
   const user = await UserActions.getUserByCode(code)
 
-  if (!user || user.active) {
+  if (!user || (user.active && !loggedFromProfileSetup)) {
     return <NotFound />
   }
 

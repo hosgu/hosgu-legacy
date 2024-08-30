@@ -1,5 +1,6 @@
 'use client'
 import React, { FC, ChangeEvent, useEffect, useState } from 'react'
+import cookies from '@architecturex/utils.cookies'
 import security from '@architecturex/utils.security'
 import core from '@architecturex/utils.core'
 import cx from '@architecturex/utils.cx'
@@ -10,6 +11,7 @@ import useCustomState from '~/app/shared/hooks/useCustomState'
 import i18n from '~/app/shared/contexts/server/I18nContext'
 
 import { setupProfile } from '~/app/shared/actions/profile'
+import * as UserActions from '~/app/shared/actions/user'
 import Button from '~/components/Button'
 import Notification from '~/components/Notification'
 import Step1 from './Step1'
@@ -342,10 +344,11 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       const cleanValues = JSON.parse(JSON.stringify(values))
       const formData = core.formData.set(new FormData(), cleanValues)
+      const password = security.password.encrypt(values.password)
 
       formData.set('amenities', JSON.stringify(values.amenities))
       formData.set('images', JSON.stringify(images))
-      formData.set('password', security.password.encrypt(values.password))
+      formData.set('password', password)
 
       if (parentRooms.length > 0) {
         formData.set('rooms', JSON.stringify(parentRooms))
@@ -355,6 +358,26 @@ const Form: FC<Props> = ({ locale, user }) => {
 
       if (response.status === 200) {
         setCurrentStep((prevState) => prevState + 1)
+
+        const formDataForLogin = new FormData()
+        const email = values.email
+        const encryptedPassword = password
+
+        formDataForLogin.append(
+          security.base64.encode('email', true),
+          security.base64.encode(email, true)
+        )
+        formDataForLogin.append(
+          security.base64.encode('password', true),
+          security.base64.encode(encryptedPassword, true)
+        )
+
+        cookies.set({
+          name: 'loggedFromProfileSetup',
+          value: 'true'
+        })
+
+        await UserActions.login(formDataForLogin)
       }
     }
 
