@@ -45,6 +45,7 @@ const Logo: FC<Props> = ({
     <Link href="/" className="hover:no-underline" title="1ST Guest">
       <div
         data-component="Logo"
+        data-testid="logo"
         className={cx.join('flex items-center', className, {
           'flex-col': position === 'below',
           'flex-row': position === 'right'

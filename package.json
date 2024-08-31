@@ -18,7 +18,8 @@
     "db:truncate": "node -r ts-node/register --env-file .env ./src/server/db/truncate.ts",
     "db:drop": "node -r ts-node/register --env-file .env ./src/server/db/drop.ts",
     "studio": "drizzle-kit studio",
-    "import": "ts-node scripts/import.ts"
+    "import": "ts-node scripts/import.ts",
+    "e2e": "cross-env BASE_URL=http://localhost:3000 npx playwright test --ui"
   },
   "author": "Carlos Santana",
   "license": "MIT",
@@ -41,6 +42,7 @@
     "@architecturex/components.textarea": "^1.0.1",
     "@babel/core": "^7.25.2",
     "@babel/node": "^7.25.0",
+    "@playwright/test": "^1.46.1",
     "@types/body-parser": "^1.19.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -61,7 +63,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@architecturex/components.svg": "^1.0.28",
+    "@architecturex/components.svg": "^1.0.30",
     "@architecturex/constants": "^1.0.6",
     "@architecturex/utils.api": "^1.1.13",
     "@architecturex/utils.cookies": "1.0.9",

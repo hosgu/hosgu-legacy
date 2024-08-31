@@ -1,5 +1,6 @@
 import React, { FC, ComponentPropsWithoutRef } from 'react'
 import cx from '@architecturex/utils.cx'
+import test from 'node:test'
 
 interface Props extends ComponentPropsWithoutRef<'button'> {
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'light' | 'dark'
@@ -34,7 +35,8 @@ const Button: FC<Props> = ({
   loadingText = 'Loading...',
   children,
   onClick = () => {},
-  type = 'button'
+  type = 'button',
+  ...btnProps
 }) => {
   const baseClasses = 'flex items-center justify-center p-2 transition duration-300'
   const sizeClasses = {
@@ -134,6 +136,7 @@ const Button: FC<Props> = ({
       disabled={disabled}
       onClick={onClick || undefined}
       type={type}
+      {...btnProps}
     >
       {content}
     </button>
