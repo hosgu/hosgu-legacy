@@ -60,3 +60,7 @@ package-lock.json
 
 # Images
 /public/files/**
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

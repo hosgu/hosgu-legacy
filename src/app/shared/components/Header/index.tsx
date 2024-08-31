@@ -39,10 +39,16 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
     }
   }
 
-  const loginLink = showLogin ? <Link href="/login">{t('home.header.button.login')}</Link> : ''
+  const loginLink = showLogin ? (
+    <Link href="/login" data-testid="login-link">
+      {t('home.header.button.login')}
+    </Link>
+  ) : (
+    ''
+  )
 
   const tryForFreeButton = showTryForFree ? (
-    <Button bold shape="circle" onClick={handleTryFree}>
+    <Button bold shape="circle" onClick={handleTryFree} data-testid="try-now-btn">
       {t('home.header.button.tryNow')}
     </Button>
   ) : (

@@ -16,11 +16,25 @@ const ThemeSwitcher: FC<Props> = ({ locale }) => {
   const stroke = darkMode ? '#eab308' : '#1d4ed8'
 
   return (
-    <div data-component="ThemeSwitcher" className="flex focus:outline-none items-center space-x-2">
+    <div
+      data-component="ThemeSwitcher"
+      data-testid="theme-switcher"
+      className="flex focus:outline-none items-center space-x-2"
+    >
       {darkMode ? (
-        <SVG.Moon color={stroke} label="changeToLightMode" onClick={toggleDarkMode} />
+        <SVG.Moon
+          color={stroke}
+          label="changeToLightMode"
+          onClick={toggleDarkMode}
+          data-testid="svg-moon"
+        />
       ) : (
-        <SVG.Sun color={stroke} label="changeToDarkMode" onClick={toggleDarkMode} />
+        <SVG.Sun
+          color={stroke}
+          label="changeToDarkMode"
+          onClick={toggleDarkMode}
+          data-testid="svg-sun"
+        />
       )}
     </div>
   )

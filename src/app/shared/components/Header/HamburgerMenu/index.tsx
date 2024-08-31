@@ -19,12 +19,22 @@ const HamburgerMenu: FC<Props> = ({ isLogged, locale, connectedUser }) => {
   const stroke = darkMode ? 'white' : 'black'
 
   return (
-    <div data-component="HamburgerMenu">
-      <SVG.Hamburger label="Open Menu" color={stroke} onClick={() => setIsOpen(true)} />
+    <div data-testid="hamburger-menu">
+      <SVG.Hamburger
+        label="Open Menu"
+        color={stroke}
+        onClick={() => setIsOpen(true)}
+        data-testid="svg-hamburger"
+      />
 
       {isOpen && (
         <div className="bg-white fixed h-full left-0 top-0 w-full z-50 dark:bg-black">
-          <SVG.X label="Close" onClick={() => setIsOpen(false)} color={stroke} />
+          <SVG.X
+            label="Close"
+            onClick={() => setIsOpen(false)}
+            color={stroke}
+            data-testid="svg-x"
+          />
 
           {isLogged && (
             <div className="flex flex-col items-center justify-center pt-20 text-black dark:text-white text-xl">
