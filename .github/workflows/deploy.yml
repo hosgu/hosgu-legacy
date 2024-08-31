@@ -64,8 +64,8 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - name: Sleep for 2 minutes
-        run: sleep 120
+      - name: Sleep for 15 seconds
+        run: sleep 15
 
       - name: Checkout code
         uses: actions/checkout@v4
