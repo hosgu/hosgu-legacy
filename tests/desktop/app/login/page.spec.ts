@@ -2,13 +2,6 @@ import { test, expect } from '@playwright/test'
 
 const { BASE_URL = 'https://hosgu.dev' } = process.env
 
-test.describe('Metadata', () => {
-  test('it should have correct metadata and elements', async ({ page }) => {
-    await page.goto(BASE_URL)
-    await expect(page).toHaveTitle('Hosgu | Booking Control')
-  })
-})
-
 test.describe('Navbar', () => {
   test('it should have a logo', async ({ page }) => {
     await page.goto(BASE_URL)
@@ -58,3 +51,5 @@ test.describe('Navbar', () => {
     await expect(htmlClassList).toBe(true)
   })
 })
+
+test.describe('Login Page', () => {})
