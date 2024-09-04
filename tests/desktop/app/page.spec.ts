@@ -14,8 +14,6 @@ test.describe('Metadata', () => {
 test.describe('Navbar', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(BASE_URL)
-
-    await page.getByRole('button', { name: 'Accept All' }).click()
   })
 
   test('it should pass all navbar tests', async ({ page }) => {
