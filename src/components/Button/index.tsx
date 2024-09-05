@@ -17,6 +17,7 @@ interface Props extends ComponentPropsWithoutRef<'button'> {
   isLoading?: boolean
   loadingText?: string
   type?: 'button' | 'submit' | 'reset'
+  testId?: string
 }
 
 const Button: FC<Props> = ({
@@ -36,7 +37,7 @@ const Button: FC<Props> = ({
   children,
   onClick = () => {},
   type = 'button',
-  ...btnProps
+  testId = undefined
 }) => {
   const baseClasses = 'flex items-center justify-center p-2 transition duration-300'
   const sizeClasses = {
@@ -136,7 +137,7 @@ const Button: FC<Props> = ({
       disabled={disabled}
       onClick={onClick || undefined}
       type={type}
-      {...btnProps}
+      data-testid={testId}
     >
       {content}
     </button>

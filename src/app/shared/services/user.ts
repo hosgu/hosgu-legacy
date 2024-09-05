@@ -24,7 +24,7 @@ class Service extends ServiceHandler {
       `${process.env.API_URL}/api/v1/user/login`,
       {
         method: 'POST',
-        body: { emailOrUsername: email, password }
+        body: { emailOrUsername: email.toLowerCase(), password }
       }
     )
 
@@ -59,6 +59,7 @@ class Service extends ServiceHandler {
   }): Promise<any> {
     const code = security.string.code(10)
     const temporalPassword = security.password.encrypt('Abc123456$')
+    const email = businessEmail.toLowerCase()
 
     const requests = [
       {
@@ -67,7 +68,7 @@ class Service extends ServiceHandler {
         body: {
           tier: 'free',
           role: 'business.admin',
-          email: businessEmail,
+          email,
           password: temporalPassword,
           fullName,
           phone: businessPhone,
@@ -90,7 +91,7 @@ class Service extends ServiceHandler {
           type: 'cabin',
           name: businessName,
           slug: slug(businessName),
-          email: businessEmail,
+          email,
           phone: businessPhone,
           priceRange: '0',
           website: businessWebsite,

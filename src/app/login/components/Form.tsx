@@ -77,6 +77,8 @@ const Form: FC<Props> = ({ locale }) => {
             {t('login.headline')}
           </h2>
 
+          <p className="text-red-500 mb-4 text-xs text-center">{errors.invalidLogin}</p>
+
           <div className="relative mb-4">
             <div className="relative">
               <Input

@@ -48,7 +48,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
   )
 
   const tryForFreeButton = showTryForFree ? (
-    <Button bold shape="circle" onClick={handleTryFree} data-testid="try-now-btn">
+    <Button bold shape="circle" onClick={handleTryFree} testId="try-now-btn">
       {t('home.header.button.tryNow')}
     </Button>
   ) : (

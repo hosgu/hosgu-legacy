@@ -29,14 +29,6 @@ type Props = {
 
 const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
   const t = i18n(locale)
-  const initialValues: HeroData = {
-    fullName: '',
-    businessName: '',
-    businessEmail: '',
-    businessPhone: '',
-    businessWebsite: '',
-    country: ''
-  }
   const [isRegistered, setIsRegistered] = useState(false)
 
   const [errors, setErrors] = useState({
