@@ -1,11 +1,16 @@
 import { FC, ReactElement } from 'react'
 import { cookies } from 'next/headers'
+import type { Metadata } from 'next'
 
-import config from '~/app/config'
+import config from '~/config'
 import Header from '~/app/shared/components/Header'
 
 type Props = {
   children: ReactElement
+}
+
+export const metadata: Metadata = {
+  title: `${config.siteTitle} - Login`
 }
 
 const Layout: FC<Props> = async ({ children }) => {

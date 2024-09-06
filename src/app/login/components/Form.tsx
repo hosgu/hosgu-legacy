@@ -1,5 +1,6 @@
 'use client'
 import React, { FC, useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import security from '@architecturex/utils.security'
 import SVG from '@architecturex/components.svg'
 import i18n from '~/app/shared/contexts/server/I18nContext'
@@ -18,6 +19,8 @@ type Errors = {
 
 const Form: FC<Props> = ({ locale }) => {
   const t = i18n(locale)
+  const query = useSearchParams()
+  const redirectTo = query.get('redirectTo') || '/'
 
   const [errors, setErrors] = useState<Errors>({ invalidLogin: '' })
 
@@ -54,7 +57,7 @@ const Form: FC<Props> = ({ locale }) => {
     const response = await UserActions.login(formData)
 
     if (response?.ok) {
-      window.location.href = '/'
+      window.location.href = redirectTo
     } else {
       setErrors({
         invalidLogin: t('login.invalidLogin')
@@ -70,7 +73,7 @@ const Form: FC<Props> = ({ locale }) => {
           className="bg-white dark:bg-black p-8 rounded-lg shadow-lg max-w-md w-[450px]"
         >
           <div className="flex justify-center mb-4">
-            <img src="/images/isotype.svg" alt="Logo" className="w-16 h-16" />
+            <img src="/images/isotype.svg" alt="Logo" className="w-16 h-16" data-testid="isotype" />
           </div>
 
           <h2 className="text-2xl font-medium text-center mb-4 text-gray-800 dark:text-white toggle-text-dark-mode">
@@ -104,6 +107,7 @@ const Form: FC<Props> = ({ locale }) => {
               />
             </div>
           </div>
+
           <div className="flex justify-end mb-4 mt-4 m-auto">
             <a href="#" className="text-sm text-green-500 dark:text-green-500 hover:underline">
               {t('login.forgotPassword')}
@@ -118,13 +122,21 @@ const Form: FC<Props> = ({ locale }) => {
 
           <div className="text-gray-500 dark:text-gray-300 mt-6 flex items-center justify-center">
             <hr className="flex-grow border-gray-300 dark:border-gray-600" />
-            <span className="mx-4 toggle-text-dark-mode">{t('login.or')}</span>
+            <span className="mx-4 toggle-text-dark-mode" data-testid="or-text">
+              {t('login.or')}
+            </span>
             <hr className="flex-grow border-gray-300 dark:border-gray-600" />
           </div>
 
-          <div className="text-center mt-4 text-gray-500 dark:text-gray-300 toggle-text-dark-mode">
+          <div
+            className="text-center mt-4 text-gray-500 dark:text-gray-300 toggle-text-dark-mode"
+            data-testid="create-account"
+          >
             {t('login.newHere')}{' '}
-            <a href="#" className="text-green-500 dark:text-green-500 font-medium hover:underline">
+            <a
+              href="/register"
+              className="text-green-500 dark:text-green-500 font-medium hover:underline"
+            >
               {t('login.createAccount')}
             </a>
           </div>
