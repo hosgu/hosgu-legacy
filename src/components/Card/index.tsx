@@ -10,8 +10,8 @@ interface Props {
 
 const Card: FC<Props> = ({ svg, title, content, footer }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 max-w-sm w-full mr-2">
-      <h2 className="font-semibold text-lg mb-2 flex items-center p-0 pb-3 border-b">
+    <div className="bg-white dark:bg-[#080402] rounded-lg shadow-slate-800 shadow-lg shadow- p-4 max-w-sm w-full mr-2">
+      <h2 className="dark:text-slate-300 font-semibold text-lg mb-2 flex items-center p-0 pb-3 border-b">
         <RenderIf isTrue={!!svg}>
           <span className="mr-2 bg-lime-200 rounded-full p-2">{svg}</span>
         </RenderIf>
