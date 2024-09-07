@@ -63,7 +63,7 @@ const Header: FC<Props> = ({ connectedUser = {}, locale, page }) => {
     <header
       data-component="Header"
       className={cx.join(
-        'sticky top-0 m-auto bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600',
+        'sticky top-0 m-0 bg-white flex items-center justify-between p-6 text-white border-slate-300 dark:bg-black dark:border-slate-600',
         'shadow-md',
         'z-50'
       )}
