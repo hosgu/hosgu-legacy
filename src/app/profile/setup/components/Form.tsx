@@ -113,6 +113,7 @@ const Form: FC<Props> = ({ locale, user }) => {
   })
 
   const goBack = () => {
+    setEnableNext(true)
     setCurrentStep((prev: number) => (prev > 0 ? prev - 1 : 0))
   }
 
