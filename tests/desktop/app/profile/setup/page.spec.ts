@@ -10,7 +10,7 @@ test.describe('Navbar', () => {
 })
 
 test.describe('Profile Setup ', () => {
-  test('is should show first page UI elements', async ({ stepOnePage, page }) => {
+  test('it should show first page UI elements', async ({ stepOnePage, page }) => {
     await expect(page.getByRole('heading', { name: "Let's start!" })).toBeVisible()
     await expect(page.locator('#step-text')).toContainText('Step 1 of 8')
     await expect(page.locator('div > .bg-gradient-to-r').first()).toBeVisible()
