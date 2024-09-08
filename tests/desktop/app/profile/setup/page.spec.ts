@@ -1,5 +1,4 @@
-//import { test, expect } from '@playwright/test'
-import { test, expect } from './fixtures/step-one-test'
+import { test, expect } from './fixtures/profile-setup-test'
 import { navbarTests } from '../../../../common/navbar'
 
 const url = '/profile/setup?code=1234567890'
