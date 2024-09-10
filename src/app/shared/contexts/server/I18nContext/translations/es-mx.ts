@@ -66,7 +66,7 @@ const translations = {
   'home.blocks.features.items.connect.text': 'Mantente Conectado y Procesa Ventas',
   'home.blocks.tryNow.headline.line1':
     '¿Listo para transformar tu experiencia de gestión de propiedades?',
-  'home.blocks.tryNow.headline.line2': '',
+  'home.blocks.tryNow.headline.line2': 'Prueba ahora',
   'home.blocks.tryNow.button': common['common.business.tryNow'],
   'home.footer.links.aboutUs': 'Sobre Nosotros',
   'home.footer.links.pricing': 'Precios',
