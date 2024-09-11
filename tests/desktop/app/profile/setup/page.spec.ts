@@ -128,7 +128,7 @@ test.describe('Profile Setup ', () => {
     await stepOnePage.setState()
     await stepOnePage.setCity()
     await stepOnePage.setAddress()
-    await stepOnePage.setZipcode()
+    await stepOnePage.setZipCode()
     await stepOnePage.clickNext()
     await expect(
       page.getByRole('heading', { name: 'What property type are you listing?' })
