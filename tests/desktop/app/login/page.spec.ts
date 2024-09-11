@@ -128,7 +128,7 @@ test.describe('Login Page', () => {
   })
 
   test('it should login successfully with redirectTo query', async ({ page }) => {
-    page.goto(`${url}?redirectTo=/dashboard`)
+    await page.goto(`${url}?redirectTo=/dashboard`)
 
     const email = 'test2@gmail.com'
     const password = 'Abc123456$'

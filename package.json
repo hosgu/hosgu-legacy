@@ -19,7 +19,8 @@
     "db:drop": "node -r ts-node/register --env-file .env ./src/server/db/drop.ts",
     "studio": "drizzle-kit studio",
     "import": "ts-node scripts/import.ts",
-    "e2e": "cross-env BASE_URL=http://localhost:3000 npx playwright test --ui"
+    "e2e": "cross-env BASE_URL=http://localhost:3000 npx playwright test",
+    "e2e:ui": "cross-env BASE_URL=http://localhost:3000 npx playwright test --ui"
   },
   "author": "Carlos Santana",
   "license": "MIT",
