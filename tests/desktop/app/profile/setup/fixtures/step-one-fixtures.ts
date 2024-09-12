@@ -46,34 +46,39 @@ export class StepOnePage {
   }
 
   async setPassword(text: string) {
+    await this.inputPassword.click()
     await this.inputPassword.fill(text)
   }
 
-  public async setLCPassword() {
-    await this.setPassword(lcPassword)
+  public setLCPassword() {
+    this.setPassword(lcPassword)
   }
 
-  public async setSCPassword() {
-    await this.setPassword(scPassword)
+  public setSCPassword() {
+    this.setPassword(scPassword)
   }
 
-  public async setValidPassword() {
-    await this.setPassword(validPassword)
+  public setValidPassword() {
+    this.setPassword(validPassword)
   }
 
   public async setPropertyName() {
+    await this.inputPropertyName.click()
     await this.inputPropertyName.fill(propertyName)
   }
 
   public async setGoogleMapsUrl() {
+    await this.inputGoogleMapsURL.click()
     await this.inputGoogleMapsURL.fill(googleMapsUlr)
   }
 
   public async setState() {
+    await this.inputPropertyState.click()
     await this.inputPropertyState.fill(propertyState)
   }
 
   public async setCity() {
+    await this.inputPropertyCity.click()
     await this.inputPropertyCity.fill(propertyCity)
   }
 
@@ -83,6 +88,7 @@ export class StepOnePage {
   }
 
   public async setZipCode() {
+    await this.inputZipCode.click()
     await this.inputZipCode.fill(propertyZip)
   }
 }

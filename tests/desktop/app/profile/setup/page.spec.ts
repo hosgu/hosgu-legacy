@@ -36,7 +36,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setLCPassword()
+    stepOnePage.setLCPassword()
     await stepOnePage.clickNext()
     await expect(page.getByText('Password must contain at least one uppercase')).toBeVisible()
   })
@@ -45,7 +45,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setSCPassword()
+    stepOnePage.setSCPassword()
     await stepOnePage.clickNext()
     await expect(
       await page.getByText('Password must contain at least one special character')
@@ -65,7 +65,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.clickNext()
     await expect(await page.getByText('Please enter your Google Maps')).toBeVisible()
@@ -75,7 +75,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.clickNext()
@@ -86,7 +86,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.setState()
@@ -98,7 +98,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.setState()
@@ -111,7 +111,7 @@ test.describe('Profile Setup ', () => {
     stepOnePage,
     page
   }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.setState()
@@ -122,7 +122,7 @@ test.describe('Profile Setup ', () => {
   })
 
   test('after a valid Address introduced it should open step 2', async ({ stepOnePage, page }) => {
-    await stepOnePage.setValidPassword()
+    stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.setState()
