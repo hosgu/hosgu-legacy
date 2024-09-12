@@ -4,9 +4,9 @@ import { defineConfig, devices } from '@playwright/test'
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-//import dotenv from 'dotenv'
-//dotenv.config({ path: path.resolve(__dirname, '.env') })
-
+// import dotenv from 'dotenv'
+// dotenv.config({ path: path.resolve(__dirname, '.env') })
+const url = process.env.TERM_PROGRAM === 'vscode' ? 'http://localhost:3000' : 'https://hosgu.dev'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -25,7 +25,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     ignoreHTTPSErrors: true,
-    baseURL: 'https://hosgu.dev',
+    baseURL: url,
     trace: 'on-first-retry'
   },
 

@@ -40,6 +40,7 @@ export class StepOnePage {
   public async goto() {
     await this.page.goto(url)
   }
+
   public async clickNext() {
     await this.nextButton.click()
   }
@@ -47,24 +48,31 @@ export class StepOnePage {
   async setPassword(text: string) {
     await this.inputPassword.fill(text)
   }
+
   public async setLCPassword() {
     await this.setPassword(lcPassword)
   }
+
   public async setSCPassword() {
     await this.setPassword(scPassword)
   }
+
   public async setValidPassword() {
     await this.setPassword(validPassword)
   }
+
   public async setPropertyName() {
     await this.inputPropertyName.fill(propertyName)
   }
+
   public async setGoogleMapsUrl() {
     await this.inputGoogleMapsURL.fill(googleMapsUlr)
   }
+
   public async setState() {
     await this.inputPropertyState.fill(propertyState)
   }
+
   public async setCity() {
     await this.inputPropertyCity.fill(propertyCity)
   }

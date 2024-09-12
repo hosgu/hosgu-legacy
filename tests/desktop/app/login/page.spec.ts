@@ -23,91 +23,91 @@ test.describe('Login Page', () => {
 
   test('it should have a title', async ({ page }) => {
     const title = await page.title()
-    expect(title).toBe('Hosgu | Booking Control - Login')
+    await expect(title).toBe('Hosgu | Booking Control - Login')
   })
 
   test('it should have a form', async ({ page }) => {
     const form = await page.waitForSelector('form')
-    expect(form).not.toBeNull()
+    await expect(form).not.toBeNull()
   })
 
   test('it should have an isotype logo', async ({ page }) => {
-    const element = page.getByTestId('isotype')
+    const element = await page.getByTestId('isotype')
 
     const src = await element.getAttribute('src')
 
-    expect(src).toBe('/images/isotype.svg')
+    await expect(src).toBe('/images/isotype.svg')
   })
 
   test('it should have a headline', async ({ page }) => {
-    const element = page.locator('h2')
+    const element = await page.locator('h2')
 
-    expect(element).toContainText('Login to your account')
+    await expect(element).toContainText('Login to your account')
   })
 
   test('it should have email and password labels', async ({ page }) => {
-    const emailLabel = page.locator('label[for="email"]')
-    const passwordLabel = page.locator('label[for="password"]')
+    const emailLabel = await page.locator('label[for="email"]')
+    const passwordLabel = await page.locator('label[for="password"]')
 
-    expect(emailLabel).toContainText('Email')
-    expect(passwordLabel).toContainText('Password')
+    await expect(emailLabel).toContainText('Email')
+    await expect(passwordLabel).toContainText('Password')
   })
 
   test('it should have email and password inputs', async ({ page }) => {
-    const emailInput = page.locator('input[name="email"]')
-    const passwordInput = page.locator('input[name="password"]')
+    const emailInput = await page.locator('input[name="email"]')
+    const passwordInput = await page.locator('input[name="password"]')
 
-    expect(emailInput).toBeVisible()
-    expect(passwordInput).toBeVisible()
+    await expect(emailInput).toBeVisible()
+    await expect(passwordInput).toBeVisible()
   })
 
   test('it should find the "Forgot your password?" link by text', async ({ page }) => {
     // Locate the link by its visible text
-    const forgotPasswordLink = page.locator('a', { hasText: 'Forgot your password?' })
+    const forgotPasswordLink = await page.locator('a', { hasText: 'Forgot your password?' })
 
     // Ensure the link is visible
     await expect(forgotPasswordLink).toBeVisible()
   })
 
   test('it should have a submit button', async ({ page }) => {
-    const submitButton = page.locator('button[type="submit"]')
+    const submitButton = await page.locator('button[type="submit"]')
 
-    expect(submitButton).toBeVisible()
+    await expect(submitButton).toBeVisible()
   })
 
   test('it should have a Or text', async ({ page }) => {
-    const element = page.locator('span', { hasText: 'Or' })
+    const element = await page.locator('span', { hasText: 'Or' })
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
   })
 
   test('it should have a You’re new here? Create Account link', async ({ page }) => {
-    const element = page.getByTestId('create-account')
+    const element = await page.getByTestId('create-account')
 
-    expect(element).toHaveText('You’re new here? Create Account')
+    await expect(element).toHaveText('You’re new here? Create Account')
   })
 
   test('it should have create account link', async ({ page }) => {
-    const element = page.locator('a', { hasText: 'Create Account' })
+    const element = await page.locator('a', { hasText: 'Create Account' })
 
     const href = await element.getAttribute('href')
 
-    expect(href).toBe('/register')
+    await expect(href).toBe('/register')
   })
 
   test('it should simulate a login attempt', async ({ page }) => {
     const email = 'test@example.com'
     const password = 'test'
 
-    const emailInput = page.locator('input[name="email"]')
-    const passwordInput = page.locator('input[name="password"]')
-    const submitButton = page.locator('button[type="submit"]')
+    const emailInput = await page.locator('input[name="email"]')
+    const passwordInput = await page.locator('input[name="password"]')
+    const submitButton = await page.locator('button[type="submit"]')
 
     await emailInput.fill(email)
     await passwordInput.fill(password)
     await submitButton.click()
 
-    const element = page.locator('p', { hasText: 'Invalid login' })
+    const element = await page.locator('p', { hasText: 'Invalid login' })
 
     await expect(element).toBeVisible
   })
@@ -116,9 +116,9 @@ test.describe('Login Page', () => {
     const email = 'test2@gmail.com'
     const password = 'Abc123456$'
 
-    const emailInput = page.locator('input[name="email"]')
-    const passwordInput = page.locator('input[name="password"]')
-    const submitButton = page.locator('button[type="submit"]')
+    const emailInput = await page.locator('input[name="email"]')
+    const passwordInput = await page.locator('input[name="password"]')
+    const submitButton = await page.locator('button[type="submit"]')
 
     await emailInput.fill(email)
     await passwordInput.fill(password)
@@ -133,9 +133,9 @@ test.describe('Login Page', () => {
     const email = 'test2@gmail.com'
     const password = 'Abc123456$'
 
-    const emailInput = page.locator('input[name="email"]')
-    const passwordInput = page.locator('input[name="password"]')
-    const submitButton = page.locator('button[type="submit"]')
+    const emailInput = await page.locator('input[name="email"]')
+    const passwordInput = await page.locator('input[name="password"]')
+    const submitButton = await page.locator('button[type="submit"]')
 
     await emailInput.fill(email)
     await passwordInput.fill(password)
