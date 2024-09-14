@@ -38,7 +38,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
             {t('home.hero.information.text')}
           </p>
         </div>
-
+        
         <Registration />
       </div>
     </div>

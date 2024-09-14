@@ -18,29 +18,61 @@ const Features: FC<Props> = ({ locale }) => {
           {t('home.blocks.features.headline.line2')}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-8">
-          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
-            <img src="/images/icon_booking.svg" alt="Booking Icon" className="h-16 w-16 mb-4" />
+          <div
+            className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300"
+            data-testid="bookingdiv"
+          >
+            <img
+              src="/images/icon_booking.svg"
+              alt="Booking Icon"
+              className="h-16 w-16 mb-4"
+              data-testid="booking"
+            />
             <h2 className="text-xl font-semibold mb-2 uppercase">
               {t('home.blocks.features.items.booking.title')}
             </h2>
             <p className="text-gray-600">{t('home.blocks.features.items.booking.text')}</p>
           </div>
-          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
-            <img src="/images/icon_price.svg" alt="Price Icon" className="h-16 w-16 mb-4" />
+          <div
+            className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300"
+            data-testid="pricingdiv"
+          >
+            <img
+              src="/images/icon_price.svg"
+              alt="Price Icon"
+              className="h-16 w-16 mb-4"
+              data-testid="price-icon"
+            />
             <h2 className="text-xl font-semibold mb-2 uppercase">
               {t('home.blocks.features.items.pricing.title')}
             </h2>
             <p className="text-gray-600">{t('home.blocks.features.items.pricing.text')}</p>
           </div>
-          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
-            <img src="/images/icon_business.svg" alt="Business Icon" className="h-16 w-16 mb-4" />
+          <div
+            className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300"
+            data-testid="businessdiv"
+          >
+            <img
+              src="/images/icon_business.svg"
+              alt="Business Icon"
+              className="h-16 w-16 mb-4"
+              data-testid="business-icon"
+            />
             <h2 className="text-xl font-semibold mb-2 uppercase">
               {t('home.blocks.features.items.business.title')}
             </h2>
             <p className="text-gray-600">{t('home.blocks.features.items.business.text')}</p>
           </div>
-          <div className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300">
-            <img src="/images/icon_phone.svg" alt="Phone Icon" className="h-16 w-16 mb-4" />
+          <div
+            className="bg-white dark:bg-gray-300 p-6 rounded-lg shadow-md flex flex-col items-center text-center border border-gray-300"
+            data-testid="phonediv"
+          >
+            <img
+              src="/images/icon_phone.svg"
+              alt="Phone Icon"
+              className="h-16 w-16 mb-4"
+              data-testid="phone-icon"
+            />
             <h2 className="text-xl font-semibold mb-2 uppercase">
               {t('home.blocks.features.items.connect.title')}
             </h2>
