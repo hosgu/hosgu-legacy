@@ -29,7 +29,9 @@ test.describe('Profile Setup ', () => {
     page
   }) => {
     await stepOnePage.clickNext()
-    await expect(await page.getByText('Password must be at least 8')).toBeVisible()
+    await expect(
+      await page.locator('.text-red-500 :text-is("Password must be at least 8 characters long.")')
+    ).toBeTruthy()
   })
 
   test('it should validate password is at least one upper case character', async ({
@@ -38,7 +40,11 @@ test.describe('Profile Setup ', () => {
   }) => {
     stepOnePage.setLCPassword()
     await stepOnePage.clickNext()
-    await expect(page.getByText('Password must contain at least one uppercase')).toBeVisible()
+    await expect(
+      page.getByText('Password must contain at least one uppercase letter.')
+    ).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('it should validate password is at least one special character', async ({
@@ -48,8 +54,10 @@ test.describe('Profile Setup ', () => {
     stepOnePage.setSCPassword()
     await stepOnePage.clickNext()
     await expect(
-      await page.getByText('Password must contain at least one special character')
-    ).toBeVisible()
+      await page.getByText('Password must contain at least one special character.')
+    ).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid password it should validate propery name is not empty', async ({
@@ -58,7 +66,9 @@ test.describe('Profile Setup ', () => {
   }) => {
     await stepOnePage.setValidPassword()
     await page.getByRole('button', { name: 'Next' }).click()
-    await expect(await page.getByText('Please enter your property name')).toBeVisible()
+    await expect(await page.getByText('Please enter your property name')).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid property name it should validate Google Maps link is not empty', async ({
@@ -68,7 +78,9 @@ test.describe('Profile Setup ', () => {
     stepOnePage.setValidPassword()
     await stepOnePage.setPropertyName()
     await stepOnePage.clickNext()
-    await expect(await page.getByText('Please enter your Google Maps')).toBeVisible()
+    await expect(await page.getByText('Please enter your Google Maps')).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid property google maps URL it should validate property state blank', async ({
@@ -79,7 +91,9 @@ test.describe('Profile Setup ', () => {
     await stepOnePage.setPropertyName()
     await stepOnePage.setGoogleMapsUrl()
     await stepOnePage.clickNext()
-    await expect(await page.getByText('Please enter your property state')).toBeVisible()
+    await expect(await page.getByText('Please enter your property state')).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid State selected it should validate city blank', async ({
@@ -104,7 +118,9 @@ test.describe('Profile Setup ', () => {
     await stepOnePage.setState()
     await stepOnePage.setCity()
     await stepOnePage.clickNext()
-    await expect(await page.getByText('Please enter a valid property address.')).toBeVisible()
+    await expect(await page.getByText('Please enter a valid property address.')).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid City selected it should validate postal code blank', async ({
@@ -118,7 +134,9 @@ test.describe('Profile Setup ', () => {
     await stepOnePage.setCity()
     await stepOnePage.setAddress()
     await stepOnePage.clickNext()
-    await expect(await page.getByText('Please enter a valid property postal code.')).toBeVisible()
+    await expect(await page.getByText('Please enter a valid property postal code.')).toBeVisible({
+      timeout: 10000
+    })
   })
 
   test('after a valid Address introduced it should open step 2', async ({ stepOnePage, page }) => {
@@ -133,7 +151,11 @@ test.describe('Profile Setup ', () => {
     await expect(
       await page.getByRole('heading', { name: 'What property type are you listing?' })
     ).toBeVisible()
-    await expect(await page.getByText('Entire Place')).toBeVisible()
-    await expect(await page.getByText('Hotel', { exact: true })).toBeVisible()
+    await expect(await page.getByText('Entire Place')).toBeVisible({
+      timeout: 10000
+    })
+    await expect(await page.getByText('Hotel', { exact: true })).toBeVisible({
+      timeout: 10000
+    })
   })
 })

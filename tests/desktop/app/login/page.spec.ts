@@ -124,7 +124,8 @@ test.describe('Login Page', () => {
     await passwordInput.fill(password)
     await submitButton.click()
 
-    await page.waitForURL(BASE_URL)
+    await expect(page.getByText('Carlos Santana↓')).toBeVisible()
+    await page.getByText('↓').click()
   })
 
   test('it should login successfully with redirectTo query', async ({ page }) => {
@@ -141,6 +142,6 @@ test.describe('Login Page', () => {
     await passwordInput.fill(password)
     await submitButton.click()
 
-    await page.waitForURL(`${BASE_URL}/dashboard`)
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
   })
 })
