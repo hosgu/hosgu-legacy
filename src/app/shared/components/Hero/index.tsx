@@ -190,6 +190,7 @@ const Hero: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
                       placeholder="e.g. John Smith"
                       className="pl-10"
                       required
+                      data-testid="tryinput"
                     />
                   </div>
                 </div>

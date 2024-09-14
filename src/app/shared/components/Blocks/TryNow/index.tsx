@@ -22,8 +22,11 @@ const TryNow: FC<Props> = ({ locale }) => {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <div className="bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl p-10 flex flex-col md:flex-row items-center md:justify-between">
-          <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">
+        <div
+          className="bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl p-10 flex flex-col md:flex-row items-center md:justify-between"
+          data-testid="trynow-container"
+        >
+          <h1 className="text-3xl font-bold text-white mb-4 md:mb-0" data-testid="trynow-headline">
             {t('home.blocks.tryNow.headline.line1')} <br />
             {t('home.blocks.tryNow.headline.line2')}
           </h1>
