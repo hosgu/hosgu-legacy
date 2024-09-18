@@ -91,4 +91,14 @@ export class StepOnePage {
     await this.inputZipCode.click()
     await this.inputZipCode.fill(propertyZip)
   }
+
+  public async jumpToStep2() {
+    await this.setPropertyName()
+    await this.setGoogleMapsUrl()
+    await this.setState()
+    await this.setCity()
+    await this.setAddress()
+    await this.setZipCode()
+    await this.clickNext()
+  }
 }
