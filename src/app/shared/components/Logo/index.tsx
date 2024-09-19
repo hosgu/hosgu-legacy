@@ -89,7 +89,7 @@ const Logo: FC<Props> = ({
                   marginTop: '5px'
                 }}
               >
-                <span className="hidden md:inline-block">{alternativeText}</span>
+                <span className="hidden md:inline-block mt-1">{alternativeText}</span>
                 <span className="md:hidden">{initials}</span>
               </span>
             </RenderIf>
