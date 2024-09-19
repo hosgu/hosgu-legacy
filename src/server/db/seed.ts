@@ -80,6 +80,43 @@ async function seed() {
       zipCode: '63729',
       active: true
     })
+
+    await db.insert(user).values({
+      tier: 'free',
+      role: 'business.admin',
+      email: 'admin@gmail.com',
+      password: '16249809f34c1b88ce1bdeb3d392c7ab86f147bb', // Abc123456$
+      fullName: 'Carlos Santana',
+      phone: '+523123195613',
+      avatar: '',
+      birthday: '12/12/1989',
+      website: 'https://ranchosanpancho.com',
+      code: 'A123456789',
+      active: true
+    })
+
+    const [userData3] = await db.select().from(user).orderBy(desc(user.createdAt)).limit(1)
+
+    await db.insert(business).values({
+      userId: userData3.id,
+      name: 'Cabañas San Pancho',
+      slug: 'cabanas-san-pancho',
+      email: 'admin@gmail.com',
+      phone: '+523123195613',
+      priceRange: '$$',
+      website: 'https://ranchosanpancho.com',
+      facebook: 'https://www.facebook.com/RanchoSanPancho/',
+      instagram: 'https://www.instagram.com/ranchosanpancho/',
+      logo: 'https://ranchosanpancho.com/logo.png',
+      rating: 5,
+      addressLine1: 'Calle Hidalgo 1',
+      addressLine2: 'Centro',
+      city: 'Colima',
+      state: 'Colima',
+      country: 'Mexico',
+      zipCode: '63729',
+      active: true
+    })
   }
 
   console.log('Seed completed')
