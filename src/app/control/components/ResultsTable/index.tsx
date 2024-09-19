@@ -43,6 +43,8 @@ const ResultsTable: FC<Props> = ({
     <>
       <Modal
         isModalOpen={isCreateModalOpen}
+        isFullScreen
+        wrapContent
         onClose={async () => {
           onCloseModal()
           setIsCreateModalOpen(false)

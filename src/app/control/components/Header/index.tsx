@@ -7,10 +7,13 @@ import { RenderIf } from '@architecturex/components.renderif'
 import ThemeSwitcher from '~/app/shared/components/Header/ThemeSwitcher'
 import Logo from '~/app/shared/components/Logo'
 import Input from '~/components/Input'
+import Sidebar from '../Sidebar'
+
+import Config from '~/config'
 
 type HeaderProps = {
   locale: string
-  page: string
+  logoText?: string
 }
 
 type HambugerMenuProps = {
@@ -30,7 +33,7 @@ const HambugerMenu: FC<HambugerMenuProps> = ({ toggleSidebar }) => {
   )
 }
 
-const Header: FC<HeaderProps> = ({ locale, page }) => {
+const Header: FC<HeaderProps> = ({ locale, logoText = Config.siteTitle }) => {
   const [showSidebar, setShowSidebar] = useState(false)
 
   return (
@@ -41,8 +44,8 @@ const Header: FC<HeaderProps> = ({ locale, page }) => {
 
           <Logo
             includeText={false}
-            alternativeText={str.ellipsis('Cabañas San Pancho', 20)}
-            initials={str.initials('Cabañas San Pancho')}
+            alternativeText={str.ellipsis(logoText, 20)}
+            initials={str.initials(logoText)}
           />
         </div>
 

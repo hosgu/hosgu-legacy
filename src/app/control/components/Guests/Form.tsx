@@ -1,5 +1,4 @@
-'use client'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
@@ -200,7 +199,8 @@ const Form: FC<Props> = ({
 
       <input type="hidden" name="businessId" value={initialValues.businessId} />
 
-      <div className="grid grid-cols-2 gap-4">
+      {/* Responsive grid layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Input
             defaultValue={fullName}

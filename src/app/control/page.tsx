@@ -1,11 +1,13 @@
 import { FC } from 'react'
+import { cookies } from 'next/headers'
+
+import * as UserActions from '~/app/shared/actions/user'
 
 const Page: FC = async ({ params }: any) => {
-  console.log('PARAMS===>', params)
+  const cookieStore = cookies()
+  const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
-  // Fetch to get Business Data
-
-  // If business data is not found, return 404
+  console.log('CONNECTED USER===>', connectedUser)
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900">
