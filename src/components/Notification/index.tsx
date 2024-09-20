@@ -28,7 +28,7 @@ const Notification: React.FC<NotificationProps> = ({ message, type, onClose, dur
 
   return show ? (
     <div
-      className={`w-full fixed mt-[-80px] left-0 right-0 space-y-2 z-50 ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 mt-0`}
+      className={`w-full fixed mt-[-82px] left-0 right-0 space-y-2 z-50 ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'} text-white p-2 flex items-center justify-between transform transition-all duration-500 mt-0`}
     >
       <span className="block text-sm text-center w-full">{message}</span>
 
