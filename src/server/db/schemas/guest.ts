@@ -16,7 +16,6 @@ export const guest = pgTable('guest', {
   birthday: varchar('birthday', { length: 20 }),
   organization: varchar('organization', { length: 50 }),
   taxIdentifier: varchar('taxIdentifier', { length: 50 }),
-  notes: text('notes'),
   photo: varchar('photo', { length: 250 }),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').defaultNow()

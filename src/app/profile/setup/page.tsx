@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 import config from '~/app/config'
 import ProfileSetupForm from './components/Form'

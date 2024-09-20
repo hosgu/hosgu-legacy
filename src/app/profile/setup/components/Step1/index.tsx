@@ -3,7 +3,7 @@ import cx from '@architecturex/utils.cx'
 import { getCitiesByState, getStates } from '@architecturex/constants'
 
 import Input from '~/components/Input'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string

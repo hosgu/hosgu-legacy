@@ -5,7 +5,7 @@ import localFont from 'next/font/local'
 import cx from '@architecturex/utils.cx'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
+import { useTheme } from '~/app/core/contexts/client/ThemeContext'
 
 type Props = {
   style?: 'light' | 'dark'

@@ -3,8 +3,8 @@ import core from '@architecturex/utils.core'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
-import * as GuestActions from '~/app/shared/actions/guest'
-import * as UserActions from '~/app/shared/actions/user'
+import * as GuestActions from '~/app/core/actions/guest'
+import * as UserActions from '~/app/core/actions/user'
 import EditGuestForm from '~/app/control/components/Guests/Form'
 
 type Props = {

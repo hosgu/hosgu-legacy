@@ -6,8 +6,8 @@ import { cookies } from 'next/headers'
 import { Inter } from 'next/font/google'
 import cx from '@architecturex/utils.cx'
 
-import { ThemeProvider } from '~/app/shared/contexts/client/ThemeContext'
-import { allowedLocales } from '~/app/shared/contexts/server/I18nContext'
+import { ThemeProvider } from '~/app/core/contexts/client/ThemeContext'
+import { allowedLocales } from '~/app/core/contexts/server/I18nContext'
 
 import config from '~/config'
 

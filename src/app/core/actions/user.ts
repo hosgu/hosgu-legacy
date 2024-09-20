@@ -2,7 +2,7 @@
 import core from '@architecturex/utils.core'
 import security from '@architecturex/utils.security'
 
-import UserService from '~/app/shared/services/user'
+import UserService from '~/app/core/services/user'
 import { APIResponse, Token, CreatedItem } from '~/types'
 
 export const getAll = async () => {

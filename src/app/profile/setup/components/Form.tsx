@@ -7,11 +7,11 @@ import cx from '@architecturex/utils.cx'
 import fileUtils from '@architecturex/utils.files'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import useCustomState from '~/app/shared/hooks/useCustomState'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import useCustomState from '~/app/core/hooks/useCustomState'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
-import { setupProfile } from '~/app/shared/actions/profile'
-import * as UserActions from '~/app/shared/actions/user'
+import { setupProfile } from '~/app/core/actions/profile'
+import * as UserActions from '~/app/core/actions/user'
 import Button from '~/components/Button'
 import Notification from '~/components/Notification'
 import Step1 from './Step1'
@@ -26,7 +26,7 @@ import Step8 from './Step8'
 import StepIndicator from '~/app/shared/components/StepIndicator'
 import { UserFields } from '~/server/db/schemas/user'
 
-import { generateRooms, floors, Floor, Room } from '~/app/shared/utils/hotel'
+import { generateRooms, floors, Floor, Room } from '~/app/core/utils/hotel'
 
 type Props = {
   user: UserFields & {

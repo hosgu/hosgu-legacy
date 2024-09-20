@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 
 import cx from '@architecturex/utils.cx'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 import Registration from '../Registration'
 
 type HeroData = {

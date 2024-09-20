@@ -7,7 +7,7 @@ import { RenderIf } from '@architecturex/components.renderif'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 type Props = {
   action: 'save' | 'edit'

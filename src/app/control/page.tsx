@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { cookies } from 'next/headers'
 
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 const Page: FC = async ({ params }: any) => {
   const cookieStore = cookies()

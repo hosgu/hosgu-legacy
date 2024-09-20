@@ -1,6 +1,6 @@
 'use client'
 import React, { FC, useState, useEffect } from 'react'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string

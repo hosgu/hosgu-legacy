@@ -4,7 +4,7 @@ import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
 import Modal from '~/components/Modal'
 import config from '~/config'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string

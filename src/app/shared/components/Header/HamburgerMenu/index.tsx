@@ -2,9 +2,9 @@
 import React, { FC, useState } from 'react'
 import SVG from '@architecturex/components.svg'
 
-import i18n, { Locale } from '~/app/shared/contexts/server/I18nContext'
+import i18n, { Locale } from '~/app/core/contexts/server/I18nContext'
 import Link from '~/app/shared/components/Link'
-import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
+import { useTheme } from '~/app/core/contexts/client/ThemeContext'
 
 type Props = {
   isLogged: boolean

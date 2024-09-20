@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 
 import Counter from '~/components/Counter'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string

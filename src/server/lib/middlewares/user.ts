@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import api from '@architecturex/utils.api'
 
-import UserService from '../../../app/shared/services/user'
+import UserService from '../../../app/core/services/user'
 import Config from '../../config'
 
 export const isConnected =

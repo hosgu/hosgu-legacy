@@ -1,3 +1,4 @@
+'use client'
 import React, { FC, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
@@ -6,7 +7,7 @@ import fileUtils from '@architecturex/utils.files'
 
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
-import * as GuestActions from '~/app/shared/actions/guest'
+import * as GuestActions from '~/app/core/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'

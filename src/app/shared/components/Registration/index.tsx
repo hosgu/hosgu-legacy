@@ -6,11 +6,11 @@ import SVG from '@architecturex/components.svg'
 import core from '@architecturex/utils.core'
 import constants from '@architecturex/constants'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 type RegistrationData = {
   fullName: string

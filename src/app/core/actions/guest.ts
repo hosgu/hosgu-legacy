@@ -1,7 +1,7 @@
 'use server'
 import core from '@architecturex/utils.core'
 import { APIResponse } from '~/types'
-import GuestService from '~/app/shared/services/guest'
+import GuestService from '~/app/core/services/guest'
 
 export const create = async (e: FormData): Promise<APIResponse<any>> => {
   const {
@@ -16,7 +16,6 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
     birthday,
     organization,
     taxIdentifier,
-    notes,
     photo
   } = core.formData.get(e)
 
@@ -32,7 +31,6 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
     birthday,
     organization,
     taxIdentifier,
-    notes,
     photo
   })
 
@@ -73,7 +71,6 @@ export const update = async (e: FormData): Promise<APIResponse<any>> => {
     birthday,
     organization,
     taxIdentifier,
-    notes,
     photo
   } = core.formData.get(e)
 
@@ -89,7 +86,6 @@ export const update = async (e: FormData): Promise<APIResponse<any>> => {
     birthday,
     organization,
     taxIdentifier,
-    notes,
     photo
   })
 

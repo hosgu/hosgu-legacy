@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import Header from '~/app/shared/components/Header'
 import Sidebar from '../control/components/Sidebar'
 
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 type Props = {
   children: ReactElement
