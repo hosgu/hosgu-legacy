@@ -10,7 +10,6 @@ import * as GuestActions from '~/app/shared/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
-import TextArea from '~/components/TextArea'
 
 import config from '~/config'
 
@@ -252,8 +251,6 @@ const Form: FC<Props> = ({
         />
         <Input defaultValue={organization} label="Organization" name="organization" />
         <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
-
-        <TextArea defaultValue={notes} label="Notes" name="notes" />
 
         <div className="p-4">
           <div>
