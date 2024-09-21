@@ -159,7 +159,7 @@ const Registration: FC<Props> = ({ locale = 'en-us', fromRegisterPage = false })
   let mainClassName = 'w-[90%] md:w-1/2 bg-white dark:bg-black p-8 rounded-md shadow-md mb-20'
 
   if (fromRegisterPage) {
-    mainClassName = 'md:w-1/2 bg-white dark:bg-black p-8 shadow-md mb-20'
+    mainClassName = 'md:w-1/2 h-screen bg-white dark:bg-black p-8 mb-20 mx-auto'
   }
 
   return (
