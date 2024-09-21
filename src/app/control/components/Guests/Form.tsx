@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import is from '@architecturex/utils.is'
 import core from '@architecturex/utils.core'
 import { RenderIf } from '@architecturex/components.renderif'
@@ -7,11 +7,10 @@ import fileUtils from '@architecturex/utils.files'
 
 import File from '~/components/File'
 import FilesPreviewer from '~/components/FilesPreviewer'
-import * as GuestActions from '~/app/shared/actions/guest'
+import * as GuestActions from '~/app/core/actions/guest'
 import Notification from '~/components/Notification'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
-import TextArea from '~/components/TextArea'
 
 import config from '~/config'
 
@@ -200,7 +199,8 @@ const Form: FC<Props> = ({
 
       <input type="hidden" name="businessId" value={initialValues.businessId} />
 
-      <div className="grid grid-cols-2 gap-4">
+      {/* Responsive grid layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Input
             defaultValue={fullName}
@@ -252,8 +252,6 @@ const Form: FC<Props> = ({
         />
         <Input defaultValue={organization} label="Organization" name="organization" />
         <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
-
-        <TextArea defaultValue={notes} label="Notes" name="notes" />
 
         <div className="p-4">
           <div>

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import cx from '@architecturex/utils.cx'
 import Button from '~/components/Button'
 import { RenderIf } from '@architecturex/components.renderif'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 interface StepIndicatorProps {
   locale: string

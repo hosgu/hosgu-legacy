@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import i18n from '~/app/shared/contexts/server/I18nContext'
-import { Floor, Room } from '~/app/shared/utils/hotel'
+import i18n from '~/app/core/contexts/server/I18nContext'
+import { Floor, Room } from '~/app/core/utils/hotel'
 import { RenderIf } from '@architecturex/components.renderif'
 
 type Props = {

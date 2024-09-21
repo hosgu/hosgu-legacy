@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import Reports from '../../components/Reports'
+import Reports from '../components/Reports'
 
 const ControlPage: FC = async () => {
   return (

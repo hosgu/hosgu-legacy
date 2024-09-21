@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 import SVG from '@architecturex/components.svg'
 
 type Props = {

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import is from '@architecturex/utils.is'
 import SVG from '@architecturex/components.svg'
 import cx from '@architecturex/utils.cx'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 import config from '~/config'
 

@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
 import Results from './Results'
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 const UsersPage: NextPage = async () => {
   const cookieStore = cookies()

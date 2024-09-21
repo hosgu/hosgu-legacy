@@ -2,8 +2,8 @@
 import React, { FC, useEffect } from 'react'
 import SVG from '@architecturex/components.svg'
 import CheckCard from '~/components/CheckCard'
-import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import { useTheme } from '~/app/core/contexts/client/ThemeContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string

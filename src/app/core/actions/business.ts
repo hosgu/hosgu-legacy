@@ -1,5 +1,5 @@
 'use server'
-import BusinessService from '~/app/shared/services/business'
+import BusinessService from '~/app/core/services/business'
 import { APIResponse } from '~/types'
 
 export const getOne = async (userId: string): Promise<APIResponse<any>> => {

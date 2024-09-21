@@ -5,7 +5,7 @@ import localFont from 'next/font/local'
 import cx from '@architecturex/utils.cx'
 import { RenderIf } from '@architecturex/components.renderif'
 
-import { useTheme } from '~/app/shared/contexts/client/ThemeContext'
+import { useTheme } from '~/app/core/contexts/client/ThemeContext'
 
 type Props = {
   style?: 'light' | 'dark'
@@ -89,7 +89,7 @@ const Logo: FC<Props> = ({
                   marginTop: '5px'
                 }}
               >
-                <span className="hidden md:inline-block">{alternativeText}</span>
+                <span className="hidden md:inline-block mt-1">{alternativeText}</span>
                 <span className="md:hidden">{initials}</span>
               </span>
             </RenderIf>

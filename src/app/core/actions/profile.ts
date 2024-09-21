@@ -10,7 +10,7 @@ import UnitService from '../services/unit'
 import FeeService from '../services/fee'
 import SettingsService from '../services/settings'
 import RoomService from '../services/room'
-import UserService from '~/app/shared/services/user'
+import UserService from '~/app/core/services/user'
 
 import { ASRFields } from '~/server/db/schemas/asr'
 import Property, { ASR } from '~/server/model/amenity/property'

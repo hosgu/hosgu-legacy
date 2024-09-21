@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
-import { generateRooms, Floor, Room, groupRoomsByFloor } from '~/app/shared/utils/hotel'
+import { generateRooms, Floor, Room, groupRoomsByFloor } from '~/app/core/utils/hotel'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 const roomTypes = ['Single', 'Double', 'Penthouse', 'Studio', 'Deluxe']
 

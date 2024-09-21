@@ -2,16 +2,15 @@
 import React, { FC, useState, ChangeEvent } from 'react'
 import { RenderIf } from '@architecturex/components.renderif'
 import is from '@architecturex/utils.is'
-import cx from '@architecturex/utils.cx'
 import SVG from '@architecturex/components.svg'
 import core from '@architecturex/utils.core'
 import constants from '@architecturex/constants'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 
-import * as UserActions from '~/app/shared/actions/user'
+import * as UserActions from '~/app/core/actions/user'
 
 type RegistrationData = {
   fullName: string
@@ -25,9 +24,10 @@ type Props = {
   action?: 'save' | 'edit'
   data?: RegistrationData
   locale?: string
+  fromRegisterPage?: boolean
 }
 
-const Registration: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' }) => {
+const Registration: FC<Props> = ({ locale = 'en-us', fromRegisterPage = false }) => {
   const t = i18n(locale)
   const [isRegistered, setIsRegistered] = useState(false)
 
@@ -156,8 +156,14 @@ const Registration: FC<Props> = ({ data = {}, action = 'save', locale = 'en-us' 
     </div>
   )
 
+  let mainClassName = 'w-[90%] md:w-1/2 bg-white dark:bg-black p-8 rounded-md shadow-md mb-20'
+
+  if (fromRegisterPage) {
+    mainClassName = 'md:w-1/2 h-screen bg-white dark:bg-black p-8 mb-20 mx-auto'
+  }
+
   return (
-    <div className="w-[90%] md:w-1/2 bg-white dark:bg-black p-8 rounded-md shadow-md mb-20">
+    <div className={mainClassName}>
       <RenderIf isTrue={isRegistered}>
         <SuccessMessage />
       </RenderIf>

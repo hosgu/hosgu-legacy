@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { cookies } from 'next/headers'
 
-import * as UserActions from '~/app/shared/actions/user'
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import * as UserActions from '~/app/core/actions/user'
+import i18n from '~/app/core/contexts/server/I18nContext'
 import Header from '~/app/shared/components/Header'
 import Hero from '~/app/shared/components/Hero'
 import Footer from '~/app/shared/components/Footer'

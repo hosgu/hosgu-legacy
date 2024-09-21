@@ -2,7 +2,7 @@
 import React, { FC } from 'react'
 import Link from '~/app/shared/components/Link'
 
-import i18n from '~/app/shared/contexts/server/I18nContext'
+import i18n from '~/app/core/contexts/server/I18nContext'
 
 type Props = {
   locale: string
