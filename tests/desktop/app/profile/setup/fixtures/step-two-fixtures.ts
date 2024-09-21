@@ -1,11 +1,20 @@
 import type { Page, Locator } from '@playwright/test'
 
-export class StepTwoPage {
-  private readonly nextButton: Locator
+import { BaseStepPage } from './base-step-fixture'
+export class StepTwoPage extends BaseStepPage {
+  private readonly imageCabin: Locator
+  private readonly imageHotel: Locator
+
   constructor(public readonly page: Page) {
-    this.nextButton = this.page.getByRole('button', { name: 'Next' })
+    super(page)
+    this.imageCabin = page.getByRole('img', { name: 'Cabin' })
+    this.imageHotel = page.getByRole('img', { name: 'Hotel' })
   }
-  public async clickNext() {
-    await this.nextButton.click()
+  public async clickCabin() {
+    await this.imageCabin.click()
+  }
+
+  public async clickHotel() {
+    await this.imageHotel.click()
   }
 }

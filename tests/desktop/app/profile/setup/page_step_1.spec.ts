@@ -1,8 +1,6 @@
 import { test, expect } from './fixtures/profile-setup-test'
 import { navbarTests } from '../../../../common/navbar'
 
-const url = '/profile/setup?code=1234567890'
-
 test.describe('Navbar', () => {
   test('it should pass all navbar test', async ({ stepOnePage, page }) => {
     await navbarTests(page)
@@ -140,7 +138,6 @@ test.describe('Profile Setup Step One', () => {
   })
 
   test('after a valid Address introduced it should open step 2', async ({ stepOnePage, page }) => {
-    stepOnePage.setValidPassword()
     await stepOnePage.jumpToStep2()
     await expect(
       await page.getByRole('heading', { name: 'What property type are you listing?' })
