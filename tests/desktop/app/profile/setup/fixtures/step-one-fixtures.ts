@@ -1,8 +1,6 @@
 import type { Page, Locator } from '@playwright/test'
+import { BaseStepPage } from './base-step-fixture'
 
-const { BASE_URL = 'https://hosgu.dev' } = process.env
-
-const url = BASE_URL + '/profile/setup?code=1234567890'
 const lcPassword = 'test12345'
 const scPassword = 'Test12345'
 const validPassword = 'Test#12345'
@@ -14,8 +12,7 @@ const propertyAddress = 'My town'
 const propertyApt = 'Apt 1234'
 const propertyZip = '28017'
 
-export class StepOnePage {
-  private readonly nextButton: Locator
+export class StepOnePage extends BaseStepPage {
   private readonly inputPassword: Locator
   private readonly inputPropertyName: Locator
   private readonly inputGoogleMapsURL: Locator
@@ -26,7 +23,7 @@ export class StepOnePage {
   private readonly inputZipCode: Locator
 
   constructor(public readonly page: Page) {
-    this.nextButton = this.page.getByRole('button', { name: 'Next' })
+    super(page)
     this.inputPassword = this.page.locator('input[name="password"]')
     this.inputPropertyName = this.page.locator('input[name="propertyName"]')
     this.inputGoogleMapsURL = this.page.getByPlaceholder('https://www.google.com/maps/')
@@ -35,14 +32,6 @@ export class StepOnePage {
     this.inputAddress = page.locator('input[name="address1"]')
     this.inputAptNum = page.locator('input[name="address2"]')
     this.inputZipCode = page.locator('input[name="zipCode"]')
-  }
-
-  public async goto() {
-    await this.page.goto(url)
-  }
-
-  public async clickNext() {
-    await this.nextButton.click()
   }
 
   async setPassword(text: string) {
@@ -90,5 +79,16 @@ export class StepOnePage {
   public async setZipCode() {
     await this.inputZipCode.click()
     await this.inputZipCode.fill(propertyZip)
+  }
+
+  public async jumpToStep2() {
+    await this.setValidPassword()
+    await this.setPropertyName()
+    await this.setGoogleMapsUrl()
+    await this.setState()
+    await this.setCity()
+    await this.setAddress()
+    await this.setZipCode()
+    await this.clickNext()
   }
 }
