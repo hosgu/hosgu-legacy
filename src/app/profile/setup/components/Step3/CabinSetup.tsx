@@ -65,6 +65,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             max={25}
             spaces={5}
             style={{ width: '120px' }}
+            data_testid="guests"
           />
         </div>
         <hr className="border-solid dark:border-gray-700" />
@@ -78,6 +79,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             defaultValue={bathrooms}
             spaces={5}
             style={{ width: '120px' }}
+            data_testid="bathrooms"
           />
         </div>
         <hr className="border-solid dark:border-gray-700" />
@@ -90,6 +92,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             max={6}
             spaces={5}
             style={{ width: '120px' }}
+            data_testid="bedrooms"
           />
         </div>
 
@@ -103,6 +106,7 @@ const Step: FC<Props> = ({ locale, values, setValues, setEnableNext }) => {
             max={6}
             spaces={5}
             style={{ width: '120px' }}
+            data_testid="beds"
           />
         </div>
       </div>
