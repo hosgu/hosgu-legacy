@@ -195,7 +195,7 @@ test.describe('Try Now Section', () => {
       .filter({ hasText: 'Ready to transform your' })
       .getByRole('button')
 
-    const input = page.getByTestId('tryinput')
+    const input = await page.locator('input[name="fullName"]')
 
     await button.click()
     await expect(input).toBeFocused()
