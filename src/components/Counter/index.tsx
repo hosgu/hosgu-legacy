@@ -7,6 +7,7 @@ type Props = {
   style?: CSSProperties
   max?: number
   defaultValue?: number
+  data_testid?: string
 }
 
 const nbsp = ' '
@@ -17,7 +18,8 @@ const Counter: FC<Props> = ({
   onChange,
   max = 99,
   defaultValue = 0,
-  style = { width: '135px' }
+  style = { width: '135px' },
+  data_testid
 }) => {
   const [count, setCount] = useState<number>(defaultValue)
 
@@ -52,6 +54,7 @@ const Counter: FC<Props> = ({
           value={count}
           readOnly
           style={{ paddingLeft: '10px' }}
+          data-testid={data_testid}
         />
         <button
           data-action="increment"
