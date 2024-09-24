@@ -130,7 +130,6 @@ CREATE TABLE IF NOT EXISTS "guest" (
 	"birthday" varchar(20),
 	"organization" varchar(50),
 	"taxIdentifier" varchar(50),
-	"notes" text,
 	"photo" varchar(250),
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
