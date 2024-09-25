@@ -1,6 +1,7 @@
 import { TableConfig, Column } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import is from '@architecturex/utils.is'
+import security from '@architecturex/utils.security'
 import { DB, sql, SQL } from '../db'
 import { DataResponse, ItemData } from './types'
 
@@ -82,6 +83,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     const totalPages = Math.ceil(totalItems / size)
 
     let data = []
+
     if (limit) {
       data = await this.db
         .select()
@@ -101,6 +103,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     }
 
     return {
+      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data,
       pagination: {
         totalItems,

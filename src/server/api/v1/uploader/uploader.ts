@@ -32,6 +32,7 @@ const getMulterOptions = (fileTypes: string[], businessSlug: string) => {
   if (!fs.existsSync(destinationDir)) {
     fs.mkdirSync(destinationDir)
   }
+
   return {
     storage: multerStorage(destinationDir),
     limits: {
@@ -67,10 +68,12 @@ const multiUpload = (req: any, res: any, next: any) => {
       console.error('⚠️ Multer error', err)
       return res.status(500).json(err)
     }
+
     if (err) {
       console.error('⚠️ Upload error', err)
       return res.status(400).json(err)
     }
+
     next()
   })
 }

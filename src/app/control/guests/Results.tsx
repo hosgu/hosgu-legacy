@@ -23,6 +23,7 @@ const Results: FC<Props> = ({
   connectedUser
 }) => {
   // Initial states
+  const [key, setKey] = useState<string>(checksum)
   const [data, setData] = useState(rawData)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [itemToEdit, setItemToEdit] = useState({})
@@ -38,6 +39,8 @@ const Results: FC<Props> = ({
 
     if (response.ok) {
       const filteredData = data.filter((item: any) => item.id !== id)
+
+      setKey(Math.random().toString())
 
       setData(filteredData)
     }
@@ -81,16 +84,26 @@ const Results: FC<Props> = ({
         createModalTitle="Add New Guest"
         editModalTitle="Edit Guest"
         headers={['Full Name', 'Email', 'Phone', 'Website', 'Gender', 'Birthday', 'Actions']}
-        data={{ checksum, data }}
+        data={{ checksum: key, data }}
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={
-          <GuestForm action="save" data={{ businessId: connectedUser?.businessId }} />
+          <GuestForm
+            action="save"
+            data={{
+              businessSlug: connectedUser.businessSlug,
+              businessId: connectedUser?.businessId
+            }}
+          />
         }
         EditFormComponent={
           <GuestForm
             action="edit"
-            data={{ businessId: connectedUser?.businessId, ...itemToEdit }}
+            data={{
+              businessSlug: connectedUser.businessSlug,
+              businessId: connectedUser?.businessId,
+              ...itemToEdit
+            }}
           />
         }
         isEditModalOpen={isEditModalOpen}

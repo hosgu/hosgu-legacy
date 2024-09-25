@@ -10,7 +10,10 @@ const GuestsCreatePage: NextPage = async () => {
 
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">
-      <CreateGuestForm action="save" data={{ businessId: connectedUser.businessId }} />
+      <CreateGuestForm
+        action="save"
+        data={{ businessSlug: connectedUser.businessSlug, businessId: connectedUser.businessId }}
+      />
     </div>
   )
 }
