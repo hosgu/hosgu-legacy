@@ -20,9 +20,11 @@ type Props = {
 }
 
 const Form: FC<Props> = ({
+  data,
   data: {
     id = '',
     businessId = '',
+    businessSlug = '',
     fullName = '',
     email = '',
     phone = '',
@@ -136,14 +138,12 @@ const Form: FC<Props> = ({
       const fileList = uploadedFiles.filter((file: any) => !file.url)
 
       if (fileList.length > 0) {
-        const uploadFilesResponse = await fileUtils.uploadFiles(
-          fileList,
-          '/api/v1/uploader?setType=image'
-        )
+        const uploadEndpoint = `/api/v1/uploader?setType=image&businessSlug=${businessSlug}`
+        const uploadFilesResponse = await fileUtils.uploadFiles(fileList, uploadEndpoint)
 
         if (uploadFilesResponse.ok) {
-          const fileName = uploadFilesResponse.data[0].filename
-          const url = `/files/images/${fileName}`
+          const fileName = uploadFilesResponse.data[0].path
+          const url = `/files${fileName}`
 
           formData.append('photo', url)
 

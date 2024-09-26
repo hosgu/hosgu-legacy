@@ -25,6 +25,7 @@ class Service {
         method: 'GET'
       }
     )
+
     return response
   }
 

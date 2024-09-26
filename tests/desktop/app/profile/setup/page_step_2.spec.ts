@@ -12,6 +12,8 @@ test.describe('Profile Setup Step Two', () => {
     await expect(await page.getByText('Hotel', { exact: true })).toBeVisible({
       timeout: 10000
     })
+    await expect(await page.getByRole('button', { name: 'Back' })).toBeVisible()
+    await expect(await page.locator('#step-text')).toContainText('Step 2 of 8')
   })
 
   test('It should go to cabins page ', async ({ stepOnePage, stepTwoPage, page }) => {

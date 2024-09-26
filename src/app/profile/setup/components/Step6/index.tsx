@@ -17,11 +17,6 @@ const Step: FC<Props> = ({ locale, uploadedFiles, setUploadedFiles, setEnableNex
   const [isUploadPhotosOpen, setIsUploadPhotosOpen] = useState(true)
   const t = i18n(locale)
 
-  const getFileNameFromUrl = (url: string) => {
-    const fileName = url.split('/').pop()
-    return fileName ? fileName : ''
-  }
-
   useEffect(() => {
     if (uploadedFiles.length > 0) {
       setIsUploadPhotosOpen(false)

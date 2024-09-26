@@ -1,5 +1,5 @@
 {
-  "id": "46408884-d548-4d06-9dc6-c496dbec530f",
+  "id": "06ad384c-9f1f-456b-8ccd-4e886c7b4c22",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -901,12 +901,6 @@
         "taxIdentifier": {
           "name": "taxIdentifier",
           "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "notes": {
-          "name": "notes",
-          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
