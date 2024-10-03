@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures/profile-setup-test'
+import { test, expect } from './fixtures/profileSetupTest'
 import { navbarTests } from '../../../../common/navbar'
 
 test.describe('Navbar', () => {

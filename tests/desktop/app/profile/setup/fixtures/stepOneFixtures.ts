@@ -1,5 +1,5 @@
 import type { Page, Locator } from '@playwright/test'
-import { BaseStepPage } from './base-step-fixture'
+import { BaseStepPage } from './baseStepFixture'
 
 const lcPassword = 'test12345'
 const scPassword = 'Test12345'

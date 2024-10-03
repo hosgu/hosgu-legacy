@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test'
-import { StepOnePage } from './step-one-fixtures'
-import { StepTwoPage } from './step-two-fixtures'
-import { StepThreePage } from './step-three-fixtures'
+import { StepOnePage } from './stepOneFixtures'
+import { StepTwoPage } from './stepTwoFixtures'
+import { StepThreePage } from './stepThreeFixtures'
 
 type ProfileSetupFixtures = {
   stepOnePage: StepOnePage

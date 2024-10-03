@@ -1,5 +1,5 @@
-import { test, expect } from './fixtures/profile-setup-test'
-import { StepTwoPage } from './fixtures/step-two-fixtures'
+import { test, expect } from './fixtures/profileSetupTest'
+import { StepTwoPage } from './fixtures/stepTwoFixtures'
 
 test.describe('Profile Setup Three Two', () => {
   test('It should open step 3 ', async ({ stepOnePage, stepTwoPage, page }) => {
