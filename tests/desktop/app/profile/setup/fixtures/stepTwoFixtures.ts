@@ -1,6 +1,6 @@
 import type { Page, Locator } from '@playwright/test'
 
-import { BaseStepPage } from './base-step-fixture'
+import { BaseStepPage } from './baseStepFixture'
 export class StepTwoPage extends BaseStepPage {
   private readonly imageCabin: Locator
   private readonly imageHotel: Locator
