@@ -2,11 +2,13 @@ import { test as base } from '@playwright/test'
 import { StepOnePage } from './stepOneFixtures'
 import { StepTwoPage } from './stepTwoFixtures'
 import { StepThreePage } from './stepThreeFixtures'
+import { StepFourPage } from './stepFourFixtures'
 
 type ProfileSetupFixtures = {
   stepOnePage: StepOnePage
   stepTwoPage: StepTwoPage
   stepThreePage: StepThreePage
+  stepFourPage: StepFourPage
 }
 
 export const test = base.extend<ProfileSetupFixtures>({
@@ -27,6 +29,12 @@ export const test = base.extend<ProfileSetupFixtures>({
     await stepThreePage.goto()
 
     await use(stepThreePage)
+  },
+  stepFourPage: async ({ page }, use) => {
+    const stepFourPage = new StepFourPage(page)
+    await stepFourPage.goto()
+
+    await use(stepFourPage)
   }
 })
 

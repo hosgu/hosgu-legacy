@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures/profileSetupTest'
 import { StepTwoPage } from './fixtures/stepTwoFixtures'
 
-test.describe('Profile Setup Three Two', () => {
+test.describe('Profile Setup Three ', () => {
   test('It should open step 3 ', async ({ stepOnePage, stepTwoPage, page }) => {
     await stepOnePage.jumpToStep2()
     await stepTwoPage.clickCabin()
