@@ -4,6 +4,13 @@ import { StepFourPage } from './fixtures/stepFourFixtures'
 import type { Locator } from '@playwright/test'
 
 test.describe('Profile Setup Four ', () => {
+  test('It should land on Page 4 ', async ({ stepOnePage, stepTwoPage, stepThreePage, page }) => {
+    await stepOnePage.jumpToStep2()
+    await stepTwoPage.clickCabin()
+    await stepThreePage.clickNext()
+    await expect(await page.locator('#step-text')).toContainText('Step 4 of 8')
+  })
+
   test('It should click Wifi button', async ({
     stepOnePage,
     stepTwoPage,
