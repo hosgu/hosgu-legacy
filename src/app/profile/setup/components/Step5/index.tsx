@@ -123,6 +123,7 @@ const Step: FC<Props> = ({ locale, setValues, values }) => {
         <span className="mr-2">{getCurrencySymbol()}</span>
         {isEditing ? (
           <input
+            data-testid="price"
             type="text"
             value={inputValue}
             onChange={handleInputChange}
@@ -132,7 +133,11 @@ const Step: FC<Props> = ({ locale, setValues, values }) => {
             className={`text-8xl text-center border-none focus:ring-0 outline-none w-48 dark:bg-gray-900 ${error ? 'text-red-500' : ''}`}
           />
         ) : (
-          <span onClick={() => setIsEditing(true)} className={`${error ? 'text-red-500' : ''}`}>
+          <span
+            data-testid="fixed-price"
+            onClick={() => setIsEditing(true)}
+            className={`${error ? 'text-red-500' : ''}`}
+          >
             {formatNumber(price)}
           </span>
         )}
