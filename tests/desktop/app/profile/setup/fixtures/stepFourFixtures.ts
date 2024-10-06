@@ -65,6 +65,10 @@ export class StepFourPage extends BaseStepPage {
   private async gradientFilter(filter: string) {
     return await this.gradientEnabled.filter({ hasText: filter })
   }
+  public async jumpToPageFive() {
+    await this.clickWifi()
+    await this.clickNext()
+  }
   public async clickWifi() {
     await this.btnWifi.click()
   }
