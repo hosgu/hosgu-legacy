@@ -25,6 +25,7 @@ import tierApiV1 from './api/v1/tier'
 import unitApiV1 from './api/v1/unit'
 import uploaderApiV1 from './api/v1/uploader'
 import userApiV1 from './api/v1/user'
+import contactApiV1 from './api/v1/contact'
 
 import { isConnected } from './lib/middlewares/user'
 
@@ -42,13 +43,12 @@ const corsOptions = {
 // Express application
 const app: Application = express()
 
-const start = async (): Promise<void> => {
+const start = () => {
   app.use(cors(corsOptions))
 
   // Cookies
   app.use(cookieParser())
 
-  app.use(cors(corsOptions))
   app.use(bodyParser.json())
 
   // Sites static directories
@@ -78,6 +78,7 @@ const start = async (): Promise<void> => {
   app.use('/api/v1/unit', unitApiV1)
   app.use('/api/v1/uploader', uploaderApiV1)
   app.use('/api/v1/user', userApiV1)
+  app.use('/api/v1/contact', contactApiV1)
 
   // Logout
   app.get('/logout', (req: Request, res: Response) => {

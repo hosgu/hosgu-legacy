@@ -58,7 +58,8 @@ class CRUD<T extends PgTable<TableConfig>> {
     page: number = 1,
     size: number = 10,
     limit = false,
-    cache = false
+    cache = false,
+    headersParams: any = {}
   ): Promise<DataResponse<any>> {
     if (cache) {
       // TODO: Add cache layer with Redis.
@@ -88,7 +89,7 @@ class CRUD<T extends PgTable<TableConfig>> {
       data = await this.db
         .select()
         .from(this.table)
-        .limit(size)
+        .limit(Number(size))
         .offset((page - 1) * size)
     } else {
       data = await this.db.select().from(this.table)
@@ -103,7 +104,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     }
 
     return {
-      checksum: security.password.encrypt(JSON.stringify(data)),
+      checksum: security.password.encrypt(String(totalItems)),
       items: data,
       pagination: {
         totalItems,
@@ -135,6 +136,7 @@ class CRUD<T extends PgTable<TableConfig>> {
 
   async create(itemData: any): Promise<DataResponse<ItemData>> {
     let data: any[] = []
+
     if (is(itemData).array()) {
       itemData.forEach(async (item: any) => {
         let itemSaved = await this.db.insert(this.table).values(item).returning()

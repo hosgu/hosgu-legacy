@@ -21,7 +21,16 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
     router.get('/', async (req: Request, res: Response) => {
       try {
         const { page = 1, size = 10, limit = 0, cache = '' } = req.query as QueryParams
-        const response = await handler.getAll(page as number, size as number, !!limit, !!cache)
+
+        const headersParams = JSON.parse((req.headers['x-headers-params'] as string) || '{}')
+
+        const response = await handler.getAll(
+          page as number,
+          size as number,
+          !!limit,
+          !!cache,
+          headersParams
+        )
 
         res.json({ ok: true, ...response })
       } catch (error) {

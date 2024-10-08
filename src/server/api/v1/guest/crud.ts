@@ -6,6 +6,43 @@ class CRUD extends CRUDHandler<Guest> {
   constructor(db: DB) {
     super(db, guest)
   }
+
+  async getAll(
+    page: number,
+    size: number,
+    limit: boolean,
+    cache: boolean,
+    headersParams: any
+  ): Promise<any> {
+    const { businessId = '' } = headersParams
+
+    if (!businessId) {
+      throw {
+        type: 'BAD_REQUEST_ERROR',
+        code: 'MISSING_BUSINESS_ID',
+        message: 'missingBusinessId'
+      }
+    }
+
+    const data = await this.db
+      .select()
+      .from(this.table)
+      .where(this.sql`"businessId" = ${businessId}`)
+      .limit(size)
+      .offset((page - 1) * size)
+
+    if (data.length === 0) {
+      throw {
+        type: 'NOT_FOUND_ERROR',
+        code: 'NO_ITEM_FOUND',
+        message: 'noItemFound'
+      }
+    }
+
+    return {
+      items: data
+    }
+  }
 }
 
 export default CRUD
