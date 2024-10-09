@@ -25,7 +25,6 @@ import tierApiV1 from './api/v1/tier'
 import unitApiV1 from './api/v1/unit'
 import uploaderApiV1 from './api/v1/uploader'
 import userApiV1 from './api/v1/user'
-import contactApiV1 from './api/v1/contact'
 
 import { isConnected } from './lib/middlewares/user'
 
@@ -78,7 +77,6 @@ const start = () => {
   app.use('/api/v1/unit', unitApiV1)
   app.use('/api/v1/uploader', uploaderApiV1)
   app.use('/api/v1/user', userApiV1)
-  app.use('/api/v1/contact', contactApiV1)
 
   // Logout
   app.get('/logout', (req: Request, res: Response) => {
