@@ -59,7 +59,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     size: number = 10,
     limit = false,
     cache = false,
-    headersParams: any = {}
+    params: any = {}
   ): Promise<DataResponse<any>> {
     if (cache) {
       // TODO: Add cache layer with Redis.

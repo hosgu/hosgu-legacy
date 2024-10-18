@@ -18,7 +18,7 @@ class Service {
     this.endpoint = endpoint
   }
 
-  async getAll(endpoint = ''): Promise<any> {
+  async getAll({ endpoint = '' }): Promise<any> {
     const response = await api.fetch<APIResponse<any>>(
       `${process.env.API_URL}/api/v1/${endpoint || this.endpoint}`,
       {

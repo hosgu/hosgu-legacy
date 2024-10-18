@@ -1,7 +1,10 @@
 'use server'
 import core from '@architecturex/utils.core'
+import { cookies } from 'next/headers'
+
 import { APIResponse } from '~/types'
 import GuestService from '~/app/core/services/guest'
+import * as UserActions from '~/app/core/actions/user'
 
 export const create = async (e: FormData): Promise<APIResponse<any>> => {
   const {
@@ -38,9 +41,14 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
 }
 
 export const getAll = async (): Promise<APIResponse<any>> => {
-  const response = await GuestService.getAll()
+  const cookieStore = cookies()
+  const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
+  const response = await GuestService.getAll({ businessId: connectedUser?.businessId || '' })
 
-  return response
+  return {
+    ...response,
+    connectedUser
+  }
 }
 
 export const getOne = async (e: FormData): Promise<APIResponse<any>> => {

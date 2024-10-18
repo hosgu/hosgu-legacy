@@ -24,7 +24,7 @@ const Results: FC<Props> = ({
 }) => {
   // Initial states
   const [key, setKey] = useState<string>(checksum)
-  const [data, setData] = useState(rawData)
+  const [parentData, setParentData] = useState(rawData)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [itemToEdit, setItemToEdit] = useState({})
   const [fileStatus, setFileStatus] = useState<any>([])
@@ -38,11 +38,10 @@ const Results: FC<Props> = ({
     const response = await deleteServerAction(formData)
 
     if (response.ok) {
-      const filteredData = data.filter((item: any) => item.id !== id)
+      const filteredData = parentData.filter((item: any) => item.id !== id)
 
       setKey(Math.random().toString())
-
-      setData(filteredData)
+      setParentData(filteredData)
     }
   }
 
@@ -84,7 +83,8 @@ const Results: FC<Props> = ({
         createModalTitle="Add New Guest"
         editModalTitle="Edit Guest"
         headers={['Full Name', 'Email', 'Phone', 'Website', 'Gender', 'Birthday', 'Actions']}
-        data={{ checksum: key, data }}
+        data={{ checksum: key, data: parentData }}
+        setParentData={setParentData}
         refetch={refetch}
         renderRow={renderRow}
         CreateFormComponent={

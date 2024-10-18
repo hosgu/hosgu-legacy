@@ -22,14 +22,14 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
       try {
         const { page = 1, size = 10, limit = 0, cache = '' } = req.query as QueryParams
 
-        const headersParams = JSON.parse((req.headers['x-headers-params'] as string) || '{}')
+        const params = JSON.parse((req.headers['x-params'] as string) || '{}')
 
         const response = await handler.getAll(
           page as number,
           size as number,
           !!limit,
           !!cache,
-          headersParams
+          params
         )
 
         res.json({ ok: true, ...response })

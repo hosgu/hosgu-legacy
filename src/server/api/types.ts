@@ -25,7 +25,7 @@ export interface ICRUDHandler {
     size: number,
     limit: boolean,
     cache: boolean,
-    headerParams: any
+    params: any
   ) => Promise<DataResponse<any>>
   getOne: (id: string, cache: boolean) => Promise<DataResponse<any>>
   create: (itemData: any) => Promise<DataResponse<any>>

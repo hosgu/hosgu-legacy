@@ -9,6 +9,7 @@ type Props = {
   editModalTitle: string
   headers: string[]
   data: { checksum: string; data: any[] }
+  setParentData: any
   refetch: any
   renderRow: (item: any) => ReactNode[]
   CreateFormComponent: ReactNode
@@ -23,6 +24,7 @@ const ResultsTable: FC<Props> = ({
   editModalTitle,
   headers,
   data: { checksum, data },
+  setParentData,
   refetch,
   renderRow,
   CreateFormComponent,
@@ -51,7 +53,7 @@ const ResultsTable: FC<Props> = ({
 
           const { checksum, items: newData } = await refetch()
 
-          setRows(newData.map(renderRow))
+          setParentData(newData)
           setKey(checksum)
         }}
         title={createModalTitle}

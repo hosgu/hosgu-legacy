@@ -1,3 +1,5 @@
+import security from '@architecturex/utils.security'
+
 import CRUDHandler from '../../CRUD'
 import { Guest, guest } from '../../../db/schemas/guest'
 import { DB } from '../../../db'
@@ -12,9 +14,9 @@ class CRUD extends CRUDHandler<Guest> {
     size: number,
     limit: boolean,
     cache: boolean,
-    headersParams: any
+    params: any
   ): Promise<any> {
-    const { businessId = '' } = headersParams
+    const { businessId = '' } = params
 
     if (!businessId) {
       throw {
@@ -40,6 +42,7 @@ class CRUD extends CRUDHandler<Guest> {
     }
 
     return {
+      checksum: security.password.encrypt(String(data.length)),
       items: data
     }
   }

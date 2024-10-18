@@ -55,6 +55,7 @@ const start = () => {
 
   app.use((req: any, res: Response, next: NextFunction) => {
     req.cwd = process.cwd()
+
     next()
   })
 
