@@ -20,7 +20,6 @@ type Props = {
 }
 
 const Form: FC<Props> = ({
-  data,
   data: {
     id = '',
     businessId = '',
@@ -203,7 +202,7 @@ const Form: FC<Props> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Input
-            defaultValue={fullName}
+            value={fullName}
             label="Full name"
             name="fullName"
             className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
@@ -214,7 +213,7 @@ const Form: FC<Props> = ({
 
         <div>
           <Input
-            defaultValue={email}
+            value={email}
             label="Email"
             name="email"
             placeholder="example@gmail.com"
@@ -226,7 +225,7 @@ const Form: FC<Props> = ({
 
         <div>
           <Input
-            defaultValue={phone}
+            value={phone}
             label="Phone"
             name="phone"
             placeholder="+1 999 999 9999"
@@ -236,22 +235,22 @@ const Form: FC<Props> = ({
           <p className="text-red-500 mb-4 text-xs ml-4 break-words">{errors.phone}</p>
         </div>
 
-        <Input defaultValue={website} label="Website" name="website" />
+        <Input value={website} label="Website" name="website" />
 
-        <Input defaultValue={facebook} label="Facebook" name="facebook" />
+        <Input value={facebook} label="Facebook" name="facebook" />
 
-        <Input defaultValue={instagram} label="Instagram" name="instagram" />
+        <Input value={instagram} label="Instagram" name="instagram" />
 
-        <Input defaultValue={gender} label="Gender" name="gender" />
+        <Input value={gender} label="Gender" name="gender" />
         <Input
-          defaultValue={birthday}
+          value={birthday}
           label="Birthday"
           name="birthday"
           placeholder="MM/DD/YYYY"
           required
         />
-        <Input defaultValue={organization} label="Organization" name="organization" />
-        <Input defaultValue={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
+        <Input value={organization} label="Organization" name="organization" />
+        <Input value={taxIdentifier} label="Tax Identifier" name="taxIdentifier" />
 
         <div className="p-4">
           <div>

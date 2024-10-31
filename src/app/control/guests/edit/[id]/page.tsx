@@ -18,7 +18,6 @@ const GuestEditPage: NextPage<Props> = async ({ params: { id = null } }) => {
   const response = await GuestActions.getOne(formData)
   const cookieStore = cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
-
   if (response.ok && response.data.items) {
     const [guest] = response.data.items
 
