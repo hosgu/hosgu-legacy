@@ -63,11 +63,14 @@ const ResultsTable: FC<Props> = ({
 
       <Modal
         isModalOpen={isEditModalOpen}
+        isFullScreen
+        wrapContent
         onClose={async () => {
           onCloseModal()
 
           const { checksum, items: newData } = await refetch()
 
+          setParentData(newData)
           setRows(newData.map(renderRow))
           setKey(checksum)
         }}
