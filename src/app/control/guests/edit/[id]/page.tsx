@@ -7,17 +7,15 @@ import * as GuestActions from '~/app/core/actions/guest'
 import * as UserActions from '~/app/core/actions/user'
 import EditGuestForm from '~/app/control/components/Guests/Form'
 
-type Props = {
-  params: {
-    id: string
-  }
-}
+type Params = Promise<{ id: string }>
 
-const GuestEditPage: NextPage<Props> = async ({ params: { id = null } }) => {
+const GuestEditPage = async ({ params }: { params: Params }) => {
+  const { id } = await params
   const formData = core.formData.set(new FormData(), { id })
   const response = await GuestActions.getOne(formData)
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
+
   if (response.ok && response.data.items) {
     const [guest] = response.data.items
 

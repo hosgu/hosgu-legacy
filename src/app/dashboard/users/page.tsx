@@ -5,7 +5,7 @@ import Results from './Results'
 import * as UserActions from '~/app/core/actions/user'
 
 const UsersPage: NextPage = async () => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
   const { checksum, items: users } = await UserActions.getAll()

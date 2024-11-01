@@ -41,7 +41,7 @@ export const create = async (e: FormData): Promise<APIResponse<any>> => {
 }
 
 export const getAll = async (): Promise<APIResponse<any>> => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
   const response = await GuestService.getAll({ businessId: connectedUser?.businessId || '' })
   return {

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 const Layout: FC<Props> = async ({ children }) => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
 
   return (

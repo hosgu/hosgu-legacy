@@ -18,7 +18,7 @@ class Service extends ServiceHandler {
     email: string
     password: string
   }): Promise<APIResponse<Token>> {
-    const cookiesStore = cookies()
+    const cookiesStore = await cookies()
 
     const response = await api.fetch<APIResponse<Token>>(
       `${process.env.API_URL}/api/v1/user/login`,

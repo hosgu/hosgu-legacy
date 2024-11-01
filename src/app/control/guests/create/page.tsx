@@ -5,7 +5,7 @@ import * as UserActions from '~/app/core/actions/user'
 import CreateGuestForm from '~/app/control/components/Guests/Form'
 
 const GuestsCreatePage: NextPage = async () => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
   return (

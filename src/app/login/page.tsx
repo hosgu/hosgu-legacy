@@ -5,7 +5,7 @@ import config from '~/app/config'
 import LoginForm from './components/Form'
 
 const Page: NextPage = async () => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
 
   return (

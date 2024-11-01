@@ -5,14 +5,11 @@ import ReservationsTable from '~/app/control/components/Guests/ReservationsTable
 import * as GuestActions from '~/app/core/actions/guest'
 import * as ReservationActions from '~/app/core/actions/reservations'
 
-type Props = {
-  params: {
-    id: string
-  }
-}
+type Params = Promise<{ id: string }>
 
 // TODO: Handle fetch failure
-const GuestProfilePage: NextPage<Props> = async ({ params: { id } }) => {
+const GuestProfilePage = async ({ params }: { params: Params }) => {
+  const { id } = await params
   const formData = core.formData.set(new FormData(), { id })
   const {
     data: {

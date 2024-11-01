@@ -35,8 +35,8 @@ type Props = {
   children: ReactElement | ReactElement[]
 }
 
-const RootLayout: FC<Props> = ({ children }) => {
-  const cookieStore = cookies()
+const RootLayout: FC<Props> = async ({ children }) => {
+  const cookieStore = await cookies()
   const darkMode = cookieStore.get('darkMode')
   const theme = darkMode?.value === 'true' ? 'dark' : 'theme'
   let locale = cookieStore.get('locale')?.value || 'en-us'

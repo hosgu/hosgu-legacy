@@ -8,7 +8,7 @@ import Hero from '~/app/shared/components/Hero'
 import Footer from '~/app/shared/components/Footer'
 
 const Page: NextPage = async () => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
   const locale = cookieStore.get('language')?.value || 'en-us'
   const t = i18n(locale)

@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Layout: FC<Props> = async ({ children }) => {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const locale = cookieStore.get('locale')?.value || 'en-us'
   const user = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 

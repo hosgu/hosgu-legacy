@@ -7,17 +7,11 @@ import config from '~/app/config'
 import ProfileSetupForm from './components/Form'
 import NotFound from '~/app/shared/components/NotFound'
 
-type Props = {
-  params: {
-    code: string
-  }
-  searchParams: {
-    code: string
-  }
-}
+type SearchParams = Promise<{ [key: string]: any }>
 
-const Page: NextPage<Props> = async ({ searchParams: { code } }) => {
-  const cookieStore = cookies()
+const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { code } = await searchParams
+  const cookieStore = await cookies()
   const locale = cookieStore.get('locale')?.value || config.i18n.defaultLocale
   const loggedFromProfileSetup =
     cookieStore.get('loggedFromProfileSetup')?.value === 'true' || false
