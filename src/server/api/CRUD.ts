@@ -104,7 +104,7 @@ class CRUD<T extends PgTable<TableConfig>> {
     }
 
     return {
-      checksum: security.password.encrypt(String(totalItems)),
+      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data,
       pagination: {
         totalItems,

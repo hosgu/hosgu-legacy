@@ -186,7 +186,7 @@ const Form: FC<Props> = ({
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Input
-              defaultValue={fullName}
+              value={fullName}
               label="Full name"
               name="fullName"
               className={errors.fullName ? 'border-red-500 dark:border-red-500' : ''}
@@ -196,7 +196,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={tier}
+              value={tier}
               label="Tier"
               name="tier"
               className={errors.tier ? 'border-red-500 dark:border-red-500' : ''}
@@ -206,7 +206,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={role}
+              value={role}
               label="Role"
               name="role"
               className={errors.role ? 'border-red-500 dark:border-red-500' : ''}
@@ -216,7 +216,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={phone}
+              value={phone}
               label="Phone"
               name="phone"
               placeholder="+525534567890"
@@ -226,7 +226,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={avatar}
+              value={avatar}
               label="Avatar"
               name="avatar"
               placeholder="https://"
@@ -236,7 +236,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={birthday}
+              value={birthday}
               label="Birthday"
               name="birthday"
               placeholder="MM/DD/YYYY"
@@ -246,7 +246,7 @@ const Form: FC<Props> = ({
           </div>
           <div>
             <Input
-              defaultValue={website}
+              value={website}
               label="Website"
               name="website"
               placeholder="https://"
@@ -257,7 +257,7 @@ const Form: FC<Props> = ({
           <RenderIf isTrue={action === 'save'}>
             <div>
               <Input
-                defaultValue={email}
+                value={email}
                 label="Email"
                 name="email"
                 className={errors.email ? 'border-red-500 dark:border-red-500' : ''}
@@ -267,7 +267,7 @@ const Form: FC<Props> = ({
             </div>
             <div>
               <Input
-                defaultValue={password}
+                value={password}
                 label="Password"
                 name="password"
                 className={errors.password ? 'border-red-500 dark:border-red-500' : ''}
