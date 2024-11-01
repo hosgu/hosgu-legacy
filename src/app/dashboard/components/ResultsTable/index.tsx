@@ -37,12 +37,15 @@ const ResultsTable: FC<Props> = ({
   useEffect(() => {
     setRows(data.map(renderRow))
     setKey(checksum)
+    console.log('INSIDE useEffect ===>', checksum)
   }, [data, renderRow, checksum])
 
   return (
     <>
       <Modal
         isModalOpen={isCreateModalOpen}
+        isFullScreen
+        wrapContent
         onClose={async () => {
           onCloseModal()
           setIsCreateModalOpen(false)
@@ -59,6 +62,8 @@ const ResultsTable: FC<Props> = ({
 
       <Modal
         isModalOpen={isEditModalOpen}
+        isFullScreen
+        wrapContent
         onClose={async () => {
           onCloseModal()
 
