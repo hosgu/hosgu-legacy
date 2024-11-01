@@ -37,7 +37,6 @@ const ResultsTable: FC<Props> = ({
   useEffect(() => {
     setRows(data.map(renderRow))
     setKey(checksum)
-    console.log('INSIDE useEffect ===>', checksum)
   }, [data, renderRow, checksum])
 
   return (
