@@ -6,7 +6,7 @@ import UserService from '~/app/core/services/user'
 import { APIResponse, Token, CreatedItem } from '~/types'
 
 export const getAll = async () => {
-  const response = await UserService.getAll()
+  const response = await UserService.getAll({ endpoint: 'user/' })
   return response
 }
 

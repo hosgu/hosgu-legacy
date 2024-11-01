@@ -4,7 +4,7 @@ import fs from 'fs'
 
 import multiUpload from './uploader'
 
-const router = express.Router()
+const router: express.Router = express.Router()
 
 router.post('/', multiUpload, (req: any, res) => {
   if (!req.files || req.files.length == 0) {

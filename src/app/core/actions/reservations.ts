@@ -9,7 +9,7 @@ export const create = async (e: FormData) => {
 }
 
 export const getAll = async () => {
-  const response = await ReservationService.getAll()
+  const response = await ReservationService.getAll({ endpoint: 'reservation/' })
   return response
 }
 
@@ -19,6 +19,6 @@ export const getOne = async (id: ReservationFields['id']) => {
 }
 
 export const getOneByGuestId = async (id: ReservationFields['guestId']) => {
-  const response = await ReservationService.getAll(`reservation/guest/${id}`)
+  const response = await ReservationService.getAll({ endpoint: `reservation/guest/${id}` })
   return response
 }
