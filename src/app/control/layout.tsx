@@ -15,8 +15,6 @@ const Layout: FC<Props> = async ({ children }) => {
 
   const { businessName } = connectedUser
 
-  console.log('CONNECTED USER===>', connectedUser)
-
   return (
     <main>
       <div className="flex flex-col h-screen dark:bg-gray-950">

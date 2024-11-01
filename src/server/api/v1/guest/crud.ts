@@ -42,7 +42,7 @@ class CRUD extends CRUDHandler<Guest> {
     }
 
     return {
-      checksum: security.password.encrypt(String(data.length)),
+      checksum: security.password.encrypt(JSON.stringify(data)),
       items: data
     }
   }
