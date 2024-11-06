@@ -1,5 +1,6 @@
 'use client'
 import React, { FC, useState } from 'react'
+import Link from 'next/link'
 import SVG from '@architecturex/components.svg'
 import str from '@architecturex/utils.string'
 import { RenderIf } from '@architecturex/components.renderif'
@@ -7,7 +8,6 @@ import { RenderIf } from '@architecturex/components.renderif'
 import ThemeSwitcher from '~/app/shared/components/Header/ThemeSwitcher'
 import Logo from '~/app/shared/components/Logo'
 import Input from '~/components/Input'
-import Sidebar from '../Sidebar'
 
 import Config from '~/config'
 
@@ -63,18 +63,28 @@ const Header: FC<HeaderProps> = ({ locale, logoText = Config.siteTitle }) => {
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Plus />
           </div>
+
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Calendar />
           </div>
+
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Bed />
           </div>
+
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.Bell />
           </div>
+
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <SVG.User />
           </div>
+
+          <Link href="/control/settings">
+            <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
+              <SVG.Engine />
+            </div>
+          </Link>
 
           <div className="w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer">
             <ThemeSwitcher locale={locale} />
