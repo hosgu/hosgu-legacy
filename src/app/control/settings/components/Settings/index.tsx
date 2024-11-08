@@ -1,5 +1,7 @@
 'use client'
 import React, { FC, useState } from 'react'
+
+import HorizontalMenu from '~/components/HorizontalMenu'
 import GeneralSettings from '../GeneralSettings'
 import BusinessSettings from '../BusinessSettings'
 import PropertySettings from '../PropertySettings'
@@ -21,18 +23,18 @@ const Settings: FC = () => {
 
   const SettingsComponent = SettingsComponents[active]
 
+  const tabs = {
+    General: () => setActive('General'),
+    Business: () => setActive('Business'),
+    Property: () => setActive('Property'),
+    Amenities: () => setActive('Amenities'),
+    Prices: () => setActive('Prices'),
+    Photos: () => setActive('Photos')
+  }
+
   return (
     <div>
-      <h1>Settings:</h1>
-
-      <ul>
-        <li onClick={() => setActive('General')}>General</li>
-        <li onClick={() => setActive('Business')}>Business</li>
-        <li onClick={() => setActive('Property')}>Property</li>
-        <li onClick={() => setActive('Amenities')}>Amenities</li>
-        <li onClick={() => setActive('Prices')}>Prices & Times</li>
-        <li onClick={() => setActive('Photos')}>Photos</li>
-      </ul>
+      <HorizontalMenu tabs={tabs} activeTab={active} />
 
       <div className="flex">
         <SettingsComponent />
