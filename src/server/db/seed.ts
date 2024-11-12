@@ -2,6 +2,7 @@ import { desc } from 'drizzle-orm'
 import { db } from '../db'
 import { user } from './schemas/user'
 import { business } from './schemas/business'
+import { setting } from "./schemas/setting";
 
 async function seed() {
   const users = await db.select().from(user)
@@ -23,6 +24,13 @@ async function seed() {
 
     const [userData] = await db.select().from(user).orderBy(desc(user.createdAt)).limit(1)
 
+    await db.insert(setting).values({
+      userId: userData.id,
+      language: 'es-mx',
+      timezone: 'GMT-6',
+      theme: 'dark'
+    })
+
     await db.insert(business).values({
       userId: userData.id,
       name: 'Cabañas San Test',
@@ -40,6 +48,7 @@ async function seed() {
       city: 'Colima',
       state: 'Colima',
       country: 'Mexico',
+      currency: 'MXN',
       zipCode: '63729',
       active: true
     })
@@ -60,6 +69,14 @@ async function seed() {
 
     const [userData2] = await db.select().from(user).orderBy(desc(user.createdAt)).limit(1)
 
+
+    await db.insert(setting).values({
+      userId: userData2.id,
+      language: 'es-mx',
+      timezone: 'GMT-6',
+      theme: 'light'
+    })
+
     await db.insert(business).values({
       userId: userData2.id,
       name: 'Cabañas San Test 2',
@@ -77,6 +94,7 @@ async function seed() {
       city: 'Colima',
       state: 'Colima',
       country: 'Mexico',
+      currency: 'MXN',
       zipCode: '63729',
       active: true
     })
@@ -97,6 +115,13 @@ async function seed() {
 
     const [userData3] = await db.select().from(user).orderBy(desc(user.createdAt)).limit(1)
 
+    await db.insert(setting).values({
+      userId: userData3.id,
+      language: 'es-mx',
+      timezone: 'GMT-6',
+      theme: 'dark'
+    })
+
     await db.insert(business).values({
       userId: userData3.id,
       name: 'Cabañas San Pancho',
@@ -114,6 +139,7 @@ async function seed() {
       city: 'Colima',
       state: 'Colima',
       country: 'Mexico',
+      currency: 'MXN',
       zipCode: '63729',
       active: true
     })

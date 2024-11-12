@@ -1,5 +1,5 @@
 {
-  "id": "06ad384c-9f1f-456b-8ccd-4e886c7b4c22",
+  "id": "2839ca30-9a61-4651-910d-6d05f5eab15a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -335,6 +335,27 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'USD'"
+        },
+        "taxesPercentage": {
+          "name": "taxesPercentage",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "minimumBooking": {
+          "name": "minimumBooking",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
         },
         "zipCode": {
           "name": "zipCode",
@@ -1837,13 +1858,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "currency": {
-          "name": "currency",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'USD'"
-        },
         "language": {
           "name": "language",
           "type": "varchar(10)",
@@ -1857,20 +1871,6 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'UTC'"
-        },
-        "taxesPercentage": {
-          "name": "taxesPercentage",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 0
-        },
-        "minimumBooking": {
-          "name": "minimumBooking",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 1
         },
         "theme": {
           "name": "theme",

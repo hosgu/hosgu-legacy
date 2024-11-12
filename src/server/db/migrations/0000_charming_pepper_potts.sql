@@ -46,6 +46,9 @@ CREATE TABLE IF NOT EXISTS "business" (
 	"city" varchar(255),
 	"state" varchar(255),
 	"country" varchar(255),
+	"currency" varchar(10) DEFAULT 'USD',
+	"taxesPercentage" integer DEFAULT 0,
+	"minimumBooking" integer DEFAULT 1,
 	"zipCode" varchar(20),
 	"googleMapsUrl" text,
 	"active" boolean DEFAULT false,
@@ -253,11 +256,8 @@ CREATE TABLE IF NOT EXISTS "room" (
 CREATE TABLE IF NOT EXISTS "setting" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"userId" uuid NOT NULL,
-	"currency" varchar(10) DEFAULT 'USD',
 	"language" varchar(10) DEFAULT 'en-us',
 	"timezone" varchar(50) DEFAULT 'UTC',
-	"taxesPercentage" integer DEFAULT 0,
-	"minimumBooking" integer DEFAULT 1,
 	"theme" varchar(20) DEFAULT 'dark',
 	"createdAt" timestamp DEFAULT now(),
 	"updatedAt" timestamp DEFAULT now()
