@@ -2,7 +2,7 @@
 import React, { FC, useState } from 'react'
 
 import HorizontalMenu from '~/components/HorizontalMenu'
-import GeneralSettings from '../GeneralSettings'
+import UserSettings from '../UserSettings'
 import BusinessSettings from '../BusinessSettings'
 import PropertySettings from '../PropertySettings'
 import AmenitiesSettings from '../AmenitiesSettings'
@@ -10,7 +10,7 @@ import PricesSettings from '../PricesSettings'
 import PhotosSettings from '../PhotosSettings'
 
 const SettingsComponents: any = {
-  General: GeneralSettings,
+  User: UserSettings,
   Business: BusinessSettings,
   Property: PropertySettings,
   Amenities: AmenitiesSettings,
@@ -19,12 +19,12 @@ const SettingsComponents: any = {
 }
 
 const Settings: FC = () => {
-  const [active, setActive] = useState('General')
+  const [active, setActive] = useState('User')
 
   const SettingsComponent = SettingsComponents[active]
 
   const tabs = {
-    General: () => setActive('General'),
+    User: () => setActive('User'),
     Business: () => setActive('Business'),
     Property: () => setActive('Property'),
     Amenities: () => setActive('Amenities'),

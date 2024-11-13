@@ -2,10 +2,10 @@ import ServiceHandler from './Service'
 
 class Service extends ServiceHandler {
   constructor() {
-    super('settings')
+    super('setting')
   }
 }
 
-const settingsService = new Service()
+const settingService = new Service()
 
-export default settingsService
+export default settingService

@@ -8,7 +8,7 @@ import PropertyService from '../services/property'
 import PhotoService from '../services/photo'
 import UnitService from '../services/unit'
 import FeeService from '../services/fee'
-import SettingsService from '../services/settings'
+import SettingsService from '../services/setting'
 import RoomService from '../services/room'
 import UserService from '~/app/core/services/user'
 
