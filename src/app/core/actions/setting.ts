@@ -5,7 +5,7 @@ import security from '@architecturex/utils.security'
 import SettingService from '~/app/core/services/setting'
 import { APIResponse, Token, CreatedItem } from '~/types'
 
-export const getOne = async (userId: string) => {
-  const response = await SettingService.getOne({ endpoint: `setting/${userId}` })
+export const getBy = async (userId: string) => {
+  const response = await SettingService.getBy({ endpoint: `setting/by/userId/${userId}` })
   return response
 }

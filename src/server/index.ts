@@ -73,7 +73,7 @@ const start = () => {
   app.use('/api/v1/property', propertyApiV1)
   app.use('/api/v1/reservation', reservationApiV1)
   app.use('/api/v1/room', roomApiV1)
-  app.use('/api/v1/settings', settingsApiV1)
+  app.use('/api/v1/setting', settingsApiV1)
   app.use('/api/v1/tier', tierApiV1)
   app.use('/api/v1/unit', unitApiV1)
   app.use('/api/v1/uploader', uploaderApiV1)

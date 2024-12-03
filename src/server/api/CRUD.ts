@@ -1,4 +1,4 @@
-import { TableConfig, Column } from 'drizzle-orm'
+import { TableConfig, Column, eq } from 'drizzle-orm'
 import { PgTable } from 'drizzle-orm/pg-core'
 import is from '@architecturex/utils.is'
 import security from '@architecturex/utils.security'
@@ -126,6 +126,33 @@ class CRUD<T extends PgTable<TableConfig>> {
         type: 'NOT_FOUND_ERROR',
         code: 'NO_ITEM_FOUND',
         message: 'noItemFound'
+      }
+    }
+
+    return {
+      items: data
+    }
+  }
+
+  async getBy(field: string, value: string): Promise<DataResponse<ItemData>> {
+    const finalSql = this.sql.empty()
+    finalSql.append(this.sql`select * from ${this.table} where `)
+    if (field === 'userId') {
+      finalSql.append(this.sql`${this.table}`)
+      finalSql.append(this.sql`."userId" = ${value}`)
+    }
+    if (field === 'id') {
+      finalSql.append(this.sql`${this.table}`)
+      finalSql.append(this.sql`."id" = ${value}`)
+    }
+
+    const data = await this.db.execute(finalSql)
+
+    if (data && data.length === 0) {
+      throw {
+        type: 'NOT_FOUND_ERROR',
+        code: 'NO_ITEMS_FOUND',
+        message: 'noItemsFound'
       }
     }
 
