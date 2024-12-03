@@ -52,6 +52,19 @@ export function createCRUDRoutes<T extends ICRUDHandler>(
     })
   }
 
+  if (!customRoutes || !customRoutes['/by'] || customRoutes['/by'].method !== 'GET') {
+    router.get('/by/:field/:value', async (req: Request, res: Response) => {
+      console.log('===>> Reached endpoint ')
+      try {
+        const response = await handler.getBy(req.params.field, req.params.value)
+
+        res.json({ ok: true, ...response })
+      } catch (error) {
+        handleErrorResponse(error, res)
+      }
+    })
+  }
+
   if (!customRoutes || !customRoutes['/create'] || customRoutes['/create'].method !== 'POST') {
     router.post('/create', async (req: Request, res: Response) => {
       try {

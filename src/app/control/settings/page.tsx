@@ -10,7 +10,7 @@ const SettingsPage: NextPage = async () => {
   const cookieStore = cookies()
   const connectedUser = await UserActions.getConnectedUser(cookieStore.get('at')?.value || '')
 
-  const settings = await SettingActions.getOne(connectedUser.id)
+  const settings = await SettingActions.getBy(connectedUser.id)
   console.log('SETTINGS ====>', settings)
   return (
     <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 flex-col">

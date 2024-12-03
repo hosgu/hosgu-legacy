@@ -11,6 +11,17 @@ type GetOne = {
   returnFirstItemOnly?: boolean
 }
 
+type GetBy = {
+  field?: string
+  value?: string
+  endpoint?: string
+  method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
+  credentials?: any
+  body?: any
+  returnItemsOnly?: boolean
+  returnFirstItemOnly?: boolean
+}
+
 class Service {
   protected endpoint: string
 
@@ -45,6 +56,38 @@ class Service {
 
     if (method === 'POST') {
       fetchOptions.body = body
+    }
+
+    const response = await api.fetch<APIResponse<any>>(
+      `${process.env.API_URL}/api/v1/${endpoint || this.endpoint}${endpointPath}`,
+      fetchOptions
+    )
+
+    if (returnItemsOnly) {
+      return response.items
+    }
+
+    if (returnFirstItemOnly) {
+      return response.items?.[0]
+    }
+
+    return response
+  }
+
+  async getBy({
+    field,
+    value,
+    endpoint,
+    method = 'GET',
+    credentials,
+    body = {},
+    returnItemsOnly = false,
+    returnFirstItemOnly = false
+  }: GetBy): Promise<any> {
+    const endpointPath = endpoint ? '' : `/by/${field}/${value}`
+    const fetchOptions: any = {
+      method,
+      credentials
     }
 
     const response = await api.fetch<APIResponse<any>>(

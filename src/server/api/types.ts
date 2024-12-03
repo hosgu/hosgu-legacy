@@ -28,6 +28,7 @@ export interface ICRUDHandler {
     params: any
   ) => Promise<DataResponse<any>>
   getOne: (id: string, cache: boolean) => Promise<DataResponse<any>>
+  getBy: (field: string, value: string) => Promise<DataResponse<any>>
   create: (itemData: any) => Promise<DataResponse<any>>
   update: (id: string, itemData: any) => Promise<DataResponse<any>>
   delete: (id: string) => Promise<DataResponse<any>>
