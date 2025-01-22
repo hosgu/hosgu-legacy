@@ -110,4 +110,7 @@ export class StepFivePage extends BaseStepPage {
   public async getCheckOutPMAM() {
     return await this.selectCheckOutPMAM.inputValue()
   }
+  public async jumpToPageSix() {
+    await this.clickNext()
+  }
 }

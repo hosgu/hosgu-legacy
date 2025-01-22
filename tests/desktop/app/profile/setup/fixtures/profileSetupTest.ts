@@ -4,6 +4,7 @@ import { StepTwoPage } from './stepTwoFixtures'
 import { StepThreePage } from './stepThreeFixtures'
 import { StepFourPage } from './stepFourFixtures'
 import { StepFivePage } from './stepFiveFixtures'
+import { StepSixPage } from './stepSixFixtures'
 
 type ProfileSetupFixtures = {
   stepOnePage: StepOnePage
@@ -11,6 +12,7 @@ type ProfileSetupFixtures = {
   stepThreePage: StepThreePage
   stepFourPage: StepFourPage
   stepFivePage: StepFivePage
+  stepSixPage: StepSixPage
 }
 
 export const test = base.extend<ProfileSetupFixtures>({
@@ -43,6 +45,12 @@ export const test = base.extend<ProfileSetupFixtures>({
     await stepFivePage.goto()
 
     await use(stepFivePage)
+  },
+  stepSixPage: async ({ page }, use) => {
+    const stepSixPage = new StepSixPage(page)
+    await stepSixPage.goto()
+
+    await use(stepSixPage)
   }
 })
 
